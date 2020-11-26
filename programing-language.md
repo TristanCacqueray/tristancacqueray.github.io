@@ -9,6 +9,8 @@ Language paradigms includes:
 
 Language may feature a <type-system>.
 
+- <markup-language>
+
 ## Language list
 
 [[z:zettels?tag=pl]]
