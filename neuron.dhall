@@ -1,4 +1,4 @@
-{ siteTitle = "Tristan de Cacqueray"
+{ siteTitle = "Tristan's Zettelkasten"
 , author = Some "Tristan de Cacqueray"
 , siteBaseUrl = Some "https://tristancacqueray.github.io/"
 , theme = "brown"
