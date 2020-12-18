@@ -10,4 +10,4 @@ ATS (Applied Type System) is a programming language designed to unify programmin
 
 ATS compiler may produce [[c]] or [[javascript]] code.
 
-ATS implements a [[dependently-typed]] system.
+ATS implements a [[dependently-typed]] and [[linearly-typed]] system.
