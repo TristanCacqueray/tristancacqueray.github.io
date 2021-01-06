@@ -1,6 +1,7 @@
 # Mathemathics
 
 - <abstract-algebra>
+- <lambda-calculus>
 
 ## References
 
