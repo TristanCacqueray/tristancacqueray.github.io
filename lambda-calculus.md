@@ -3,6 +3,7 @@
 > This document is a literate haskell file.
 
 ```haskell
+{-# LANGUAGE LambdaCase #-}
 module MyLambdaCalculus where
 import Text.Parsec (char, eof, many1, runParser, satisfy, sepBy1, (<|>))
 
@@ -67,6 +68,41 @@ area = parse "λs.s (λradi.mul pi (square radi)) (λw.λh.mul h w)"
 example_circle = App circle (Var "10")
 ```
 
+## Alpha conversion
+
+Lambda term's variables may need to be renamed to avoid collision.
+Multiple strategies exist, see [bound](https://www.schoolofhaskell.com/user/edwardk/bound),
+and here is a naive implementation:
+
+```haskell
+-- | Convert conflicting variable name (based on code by Renzo Carbonara)
+sub :: Name -> Term -> Term -> Term
+sub name term = \case
+  Var varName -> if name == varName then term else Var varName
+  App t1 t2 -> App (convert t1) (convert t2)
+  Lam varName body
+    | -- varName shadows name
+      name == varName ->
+      Lam varName body
+    | -- varName conflicts
+      isFree varName term ->
+      let newName = freshName "x" term
+          newBody = sub varName (Var newName) body
+       in Lam newName (convert newBody)
+    | otherwise ->
+      Lam varName (convert body)
+  where
+    convert = sub name term
+    isFree n e = n `elem` freeVars e
+    freeVars = \case
+      Var n -> [n]
+      App f x -> freeVars f <> freeVars x
+      Lam n b -> filter (/= n) (freeVars b)
+    freshName s e
+      | isFree s e = freshName ('x' : s) e
+      | otherwise = s
+```
+
 ## Beta reduction
 
 Lambda term's variables can be replaced on application:
@@ -79,7 +115,7 @@ betaReduce = go []
     Just term -> term
     Nothing -> (Var name)
   go env (App t1 t2) = let t2' = go env t2 in case go env t1 of
-    Lam name body -> go ((name, t2'):env) body
+    Lam name body -> go env (sub name t2' body)
     term -> (App term t2')
   go env (Lam name body) = Lam name (go (filter (not . (==) name . fst) env) body)
 
