@@ -68,7 +68,44 @@ area = parse "λs.s (λradi.mul pi (square radi)) (λw.λh.mul h w)"
 example_circle = App circle (Var "10")
 ```
 
-## Alpha conversion
+## Evaluation strategy
+
+References:
+
+- [Programming Language Foundations](http://homepage.cs.uiowa.edu/%7Eslonnegr/plf/Book/Chapter5.pdf)
+- [Wikipedia](https://en.wikipedia.org/wiki/Evaluation_strategy)
+- [Write You a Haskell (Stephen Diehl)](http://dev.stephendiehl.com/fun/005_evaluation.html#call-by-need)
+
+### Applicative order
+
+The argument to a function is evaluated before the function is applied:
+
+- `(λx.λy.x y) ((λx.x) y) ((λx.x) x)`
+- `(λx.λy.x y) y x`
+- `y x`
+
+Can also be refered to as `call by value`.
+
+### Normal order
+
+The argument to a function are substituted into the body before the function evaluation:
+
+- `(λx.λy.x y) ((λx.x) y) ((λx.x) x)`
+- `((λx.x) y) ((λx.x) x)`
+- `y x`
+
+`call by name` means the argument is left un-touched, and it may be evaluated multiple times if it is used more than once in the function body.
+`call by need` means the argument is passed as a thunk, and it may evaluate once when used.
+
+### Differences
+
+- Applicative order is the most common, it can be refered to as `strict`. Though it prevents the implementation of custom control flow, e.g. `if` function needs a special case to by-pass then/else clause evaluation.
+  Diverging argument like omega can't be used.
+- Normal order does not need special case for control flow which can be implemented in the language. `call by value` can be refered to as `lazy`.
+
+## Normal order example:
+
+### Alpha conversion
 
 Lambda term's variables may need to be renamed to avoid collision.
 Multiple strategies exist, see [bound](https://www.schoolofhaskell.com/user/edwardk/bound),
@@ -103,21 +140,18 @@ sub name term = \case
       | otherwise = s
 ```
 
-## Beta reduction
+### Beta reduction
 
 Lambda term's variables can be replaced on application:
 
 ```haskell
 betaReduce :: Term -> Term
-betaReduce = go []
-  where
-  go env (Var name) = case lookup name env of
-    Just term -> term
-    Nothing -> (Var name)
-  go env (App t1 t2) = let t2' = go env t2 in case go env t1 of
-    Lam name body -> go env (sub name t2' body)
-    term -> (App term t2')
-  go env (Lam name body) = Lam name (go (filter (not . (==) name . fst) env) body)
+betaReduce = \case
+  App t1 t2 -> case betaReduce t1 of
+    Lam name body -> betaReduce (sub name t2 body)
+    _ -> App t1 t2
+  Lam name body -> Lam name (betaReduce body)
+  term -> term
 
 main = do
   putStrLn "True and !True are equivalent:"
@@ -130,7 +164,5 @@ main = do
   print $ betaReduce (App area (App (App rectangle (Var "5")) (Var "10")))
 ```
 
-
 > To evaluate the file:
-> nix-shell -p ghcid -p "haskellPackages.ghcWithPackages (p: [p.markdown-unlit p.parsec])"
-> $ ghcid --test=:main --command "ghci -pgmL markdown-unlit" lambda-calculus.lhs
+> nix-shell -p ghcid -p "haskellPackages.ghcWithPackages (p: [p.markdown-unlit p.parsec])" --command 'ghcid --test=:main --command "ghci -pgmL markdown-unlit" lambda-calculus.lhs'
