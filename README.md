@@ -14,14 +14,4 @@ Notes are linked by:
 
 Watch edits by running `neuron rib -w -S`.
 
-Publish by running:
-
-```
-neuron rib && \
-    git checkout pages && \
-    rsync -a .neuron/output/ $(pwd)/ && \
-    git add -A &&
-    git commit -a -m "Updates" && \
-    git push origin pages && \
-    git checkout master
-```
+Publish by running `./Shakefile.hs && (cd output; git push origin pages)`
