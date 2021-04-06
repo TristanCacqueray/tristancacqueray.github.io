@@ -1,6 +1,5 @@
 #!/bin/env nix-shell
-#! nix-shell -p pandoc -p "haskellPackages.ghcWithPackages (p: [p.shake] )"
-#! nix-shell -i runghc
+#! nix-shell -p pandoc -p "haskellPackages.ghcWithPackages (p: [p.shake] )" -i runghc
 
 -- |
 module Shakefile where

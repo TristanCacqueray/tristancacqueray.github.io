@@ -2,6 +2,7 @@
 
 - <abstract-algebra>
 - <lambda-calculus>
+- <category-theory>
 
 ## References
 
