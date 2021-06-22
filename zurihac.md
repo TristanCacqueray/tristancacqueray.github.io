@@ -30,6 +30,7 @@ Talks:
 Projects:
 
 - [disco](https://disco-lang.readthedocs.io/en/latest/): Worked on low hanging fruits, for example: [PR 272](https://github.com/disco-lang/disco/pull/272).
+- [fakedata](https://github.com/fakedata-haskell/fakedata): Fixed CI: [PR 34](https://github.com/fakedata-haskell/fakedata/pull/34).
 - [static-haskell-nix](https://github.com/nh2/static-haskell-nix): Helped nh2 build a musl based ghc 8.10, in particular:
   - disabled shpinx for ghc documentation to cutdown the requirements.
   - looked for a working boot ghc.
