@@ -2,6 +2,8 @@
 
 > This document is a literate haskell file.
 
+- <mockingbird>
+
 ```haskell
 {-# LANGUAGE LambdaCase #-}
 module MyLambdaCalculus where
