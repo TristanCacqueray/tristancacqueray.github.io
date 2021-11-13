@@ -1,6 +1,6 @@
 # Functor map
 
-This post explore the map function in [[purescript]].
+This post explores the map function in [[purescript]].
 Start a REPL by running these commands in a new directory:
 
 ```
@@ -46,7 +46,7 @@ Task
 So far so good, nothing special to see here.
 
 
-## `map mkTask`
+## Mapping mkTask
 
 Here is the definition of `map mkTask`:
 
@@ -86,7 +86,7 @@ Array Task
 
 > Thanks to the Functor abstraction, we are able to modify the value contained in different structure using a common map function.
 
-## map definition
+## Map definition
 
 map is defined as follow:
 
@@ -101,7 +101,9 @@ There are three parts (separated by `.` and `=>`):
 - `Functor f` is a constraint. That means the `f` type variable needs to be a Functor. For more details read [pursuit Functor](https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Functor#t:Functor).
 - `(a -> b) -> f a -> f b` is the function signature. That means this function expects two arguments, `a -> b` and `f a`, and it returns a `f b`.
 
-Here `f` is a type constructor, in the signature it is given a type. That means `f` expects a type argument to become a final type. For more details read [purescript-book/chapter3](https://book.purescript.org/chapter3.html#type-constructors-and-kinds). For example `Maybe` is a type constructor, you can't use it directly, it needs an extra type:
+Here `f` is a type constructor, in the signature it is given a type. That means `f` expects a type argument to become a final type. For more details read [purescript-book/chapter3](https://book.purescript.org/chapter3.html#type-constructors-and-kinds), or watch this [An introduction to Haskell's kinds](https://www.youtube.com/watch?v=JleVecHAad4) video by Richard A. Eisenberg.
+
+For example `Maybe` is a type constructor, you can't use it directly, it needs an extra type:
 
 ```haskell
 > :k Maybe
@@ -113,44 +115,12 @@ Type
 
 > You can check that Maybe is indeed a functor by looking up its instance list: [pursuit Maybe](https://pursuit.purescript.org/packages/purescript-maybe/5.0.0/docs/Data.Maybe#t:Maybe).
 
-Let's now see why this works.
+Now Let's see why this works.
 
-## flip map
+## Map type variables
 
-It might be useful to use the flipped version of map:
-
-```haskell
-> :t flip map
-forall f a b. Functor f => f a -> (a      -> b) -> f b
-```
-
-Nothing special here, we just changed the order of the argument.
-This let us check what is the map signature when providing the initial functor:
-
-```haskell
-> :t flip map (Just "test")
-forall b.                         (String -> b) -> Maybe b
-```
-
-This is a functions that expects a `String -> b` function, and it returns a `Maybe b`.
-
-> Notice how the `Maybe String` sets the type variable `f` to Maybe and `a` to String, leaving us with only one type variable `b`.
-
-And this works for any functor, for example with Array:
-
-```haskell
-> :t flip map ["test"]
-forall b.                         (String -> b) -> Array b
-```
-
-And if we provide `mkTask`, which is a `String -> Task`, that will set the `b` type variable to be a `Task`:
-
-```haskell
-> :t flip map ["test"] mkTask
-                                                   Array Task
-```
-
-We can use the same step by step process with the non flipped map:
+The map definition is polymorphic, that means it can work in many scenario depending on its arguments.
+We can observe how the type checker works by providing the argument one by one:
 
 ```haskell
 > :t map
@@ -163,9 +133,32 @@ forall f.     Functor f =>             f String -> f Task
                                                    Array Task
 ```
 
+Notice how when using `mkTask` the type variable `a` becomes a String, and the `b` becomes a Task. This is because these types are no longer variable after we use `mkTask`: the polymorphic argument `a -> b` becomes `String -> Task`, and the other variable name occurences are replaced accordingly (from `f a -> f b` to `f String -> f Task`)
+
+
+We can also change the order of the argument to provide the functor before the function using `flip`:
+
+```haskell
+> :t flip map
+forall f a b. Functor f => f a -> (a      -> b) -> f b
+
+> :t flip map []
+forall b.                         (a      -> b) -> Array b
+
+> :t flip map ["x"]
+forall b.                         (String -> b) -> Array b
+
+> :t flip map ["x"] mkTask
+                                                   Array Task
+```
+
+`["x"]` being a `Array String`, notice how when using it the type variable `f` becomes an Array, and the `a` becomes a String. This is because `["x"]` is used for the argument `f a` which then becomes `Array String`, and thus the other affected variable name occurences are replaced accordingly (from `(a -> b) -> f b` to `(String -> b) -> Array b`)
+
+> This process can be refered to as specialization, and it is helpful to understand function signature by removing type variables.
+
 ## Motivating example
 
-Finally, here is a final example to demonstrate map with `lookupEnv`.
+Finally, here is a last example to demonstrate map with `lookupEnv`.
 
 ```haskell
 > import Node.Process
@@ -243,7 +236,7 @@ For example we can use traverse with lookupEnv because lookupEnv is compatible w
 forall t. Traversable t => t String -> Effect (t (Maybe String))
 ```
 
-Notice how the lookupEnv definition sets the type variable `a` to String, `m` to Effect and `b` to (Maybe String), leaving us the last type variable `t`.
+Notice how the lookupEnv definition sets the type variable `a` to String, `m` to Effect and `b` to (Maybe String), leaving us with the last type variable `t`.
 
 This definition means that given a collection of string, `traverse lookupEnv` will perform each individual lookup and return the result wrapped in a single Effect:
 
