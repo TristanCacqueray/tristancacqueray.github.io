@@ -143,7 +143,7 @@ We can also change the order of the argument to provide the functor before the f
 forall f a b. Functor f => f a -> (a      -> b) -> f b
 
 > :t flip map []
-forall b.                         (a      -> b) -> Array b
+forall a b.                       (a      -> b) -> Array b
 
 > :t flip map ["x"]
 forall b.                         (String -> b) -> Array b
