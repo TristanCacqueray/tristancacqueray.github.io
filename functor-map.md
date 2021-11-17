@@ -57,16 +57,15 @@ Here is the definition of `map mkTask`:
 Functor f => f String -> f Task
 ```
 
-`map mkTask` is a function that takes a Functor holding a String, and it returns the same Functor holding a Task.
-In otherwords, `map mkTask` inject the `mkTask` function inside the Functor.
-In other otherwords, `map` embellished `mkTask` to work with Functors.
+`map mkTask` is a function that takes a structure (called functor) holding a String,
+and it returns a new structure holding a Task.
+In otherwords, `map mkTask` inject the `mkTask` function inside the functor.
+In other otherwords, `map` embellished `mkTask` to work with functors.
 
-Here are some example usages, using the Maybe Functor (don't forget to `import Data.Maybe`):
+Here are some example usages, using the [Maybe Functor](https://pursuit.purescript.org/packages/purescript-maybe/5.0.0/docs/Data.Maybe#t:Maybe)
+(don't forget to `import Data.Maybe`):
 
 ```haskell
-> :t map mkTask Nothing
-Maybe Task
-
 > map mkTask Nothing
 Nothing
 
@@ -77,9 +76,6 @@ Nothing
 Or with the Array Functor:
 
 ```haskell
-> :t map mkTask []
-Array Task
-
 > map mkTask ["worker1", "worker2"]
 [(Task worker1), (Task worker2)]
 ```
@@ -103,23 +99,11 @@ There are three parts (separated by `.` and `=>`):
 
 Here `f` is a type constructor, in the signature it is given a type. That means `f` expects a type argument to become a final type. For more details read [purescript-book/chapter3](https://book.purescript.org/chapter3.html#type-constructors-and-kinds), or watch this [An introduction to Haskell's kinds](https://www.youtube.com/watch?v=JleVecHAad4) video by Richard A. Eisenberg.
 
-For example `Maybe` is a type constructor, you can't use it directly, it needs an extra type:
-
-```haskell
-> :k Maybe
-Type -> Type
-
-> :k Maybe String
-Type
-```
-
-> You can check that Maybe is indeed a functor by looking up its instance list: [pursuit Maybe](https://pursuit.purescript.org/packages/purescript-maybe/5.0.0/docs/Data.Maybe#t:Maybe).
-
 Now Let's see why this works.
 
 ## Map type variables
 
-The map definition is polymorphic, that means it can work in many scenario depending on its arguments.
+The map definition is polymorphic, that means it can work in many scenarios depending on its arguments.
 We can observe how the type checker works by providing the argument one by one:
 
 ```haskell
@@ -133,7 +117,7 @@ forall f.     Functor f =>             f String -> f Task
                                                    Array Task
 ```
 
-Notice how when using `mkTask` the type variable `a` becomes a String, and the `b` becomes a Task. This is because these types are no longer variable after we use `mkTask`: the polymorphic argument `a -> b` becomes `String -> Task`, and the other variable name occurences are replaced accordingly (from `f a -> f b` to `f String -> f Task`)
+Notice how when using `mkTask` the type variable `a` becomes a String, and the `b` becomes a Task. This is because these types are no longer variable after we use `mkTask`: the polymorphic argument `a -> b` becomes `String -> Task`, and the other variable name occurences are replaced accordingly.
 
 
 We can also change the order of the argument to provide the functor before the function using `flip`:
@@ -152,7 +136,10 @@ forall b.                         (String -> b) -> Array b
                                                    Array Task
 ```
 
-`["x"]` being a `Array String`, notice how when using it the type variable `f` becomes an Array, and the `a` becomes a String. This is because `["x"]` is used for the argument `f a` which then becomes `Array String`, and thus the other affected variable name occurences are replaced accordingly (from `(a -> b) -> f b` to `(String -> b) -> Array b`)
+Notice how the type variable `f` becomes an Array, and the `a` becomes a String. This is because `["x"]` is a `Array String` when the function expect a `f a`, thus the other variables are replaced accordingly:
+
+* When `Array String` is used for an argument of type `f a`, then
+* `(a -> b) -> f b`, becomes: `(String -> b) -> Array b`.
 
 > This process can be refered to as specialization, and it is helpful to understand function signature by removing type variables.
 
