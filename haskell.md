@@ -6,6 +6,8 @@ tags:
   - functional/pure
 ---
 
+Haskell supports Type Level Programing, see: https://vitez.me/hts-language
+
 ## Notes on GHC
 
 Given a program `Foo.hs`:
