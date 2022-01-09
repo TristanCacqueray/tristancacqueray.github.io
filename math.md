@@ -1,5 +1,6 @@
 # Mathemathics
 
+- <boolean-algebra>
 - <linear-algebra>
 - <abstract-algebra>
 - <lambda-calculus>
