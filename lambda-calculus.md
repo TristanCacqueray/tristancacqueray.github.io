@@ -65,7 +65,7 @@ Sum types, see [The visitor pattern is essentially the same thing as Church enco
 ```haskell
 circle    = parse "λradi.λc.λr.c radi"
 rectangle = parse "λw.λh.λc.λr.r w h"
-area = parse "λs.s (λradi.mul pi (square radi)) (λw.λh.mul h w)"
+area = parse "λs.s (λradi.mul pi (sqrt radi)) (λw.λh.mul h w)"
 
 example_circle = App circle (Var "10")
 ```
