@@ -6,3 +6,4 @@
 - <software-development-forge>
 - <container>
 - <user-interface>
+- <daw>
