@@ -13,7 +13,7 @@
 
 - [Type Theory and Functional Programming by Simon Thompson](https://www.cs.kent.ac.uk/people/staff/sjt/TTFP/)
 
-Article: <functor-map>
+Article: <functor-map> <state-monad>
 
 ## Languages
 
