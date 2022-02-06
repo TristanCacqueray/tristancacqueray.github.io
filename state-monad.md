@@ -42,9 +42,7 @@ def increment(state):
 (value, my_counter) = increment(my_counter)
 ```
 
-Notice how such stateless functions return both a new state, and its output value.
-
-We might want to return a different value, for example:
+Notice how such stateless functions return both a new state, and its output value. We might want to return a different value, for example:
 
 ```python
 def show_counter(self):
@@ -85,7 +83,7 @@ And finally we can write the three increments test as:
 test_counter :: Counter String
 ```
 
-That we can evaluate like this:
+… that we can evaluate like this:
 
 ```haskell
 λ> :t runStateT
@@ -176,7 +174,7 @@ And we re-implemented the counter examples using the MonadState which takes care
 
 ## Motivating example
 
-Such abstractions are general purpose, and the `m` context can be used for other things.
+Such abstractions are general purpose, and Monad can be used for other things.
 In the previous post we saw the [[functor-map]] and how `traverse` can be used to penetrate nested structures.
 Well we can use `traverse` with `StateT`. Let's consider a new function to add a number to our counter:
 
