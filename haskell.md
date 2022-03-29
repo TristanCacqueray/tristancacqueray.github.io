@@ -6,8 +6,6 @@ tags:
   - functional/pure
 ---
 
-Haskell supports Type Level Programing, see: https://vitez.me/hts-language
-
 ## Notes on GHC
 
 Given a program `Foo.hs`:
@@ -42,6 +40,8 @@ $trModule = Module (TrNameS "main"#) (TrNameS "Foo"#)
 ## References
 
 - [Why kind-level foralls don't interact with ScopedTypeVariables](https://ryanglscott.github.io/2021/04/05/why-kind-level-foralls-dont-interact-with-scopedtypevariables/) - Great technical writing
+- Haskell supports Type Level Programing, see: https://vitez.me/hts-language
+- [Haskell's kind system - a primer](https://diogocastro.com/blog/2018/10/17/haskells-kind-system-a-primer/)
 
 ## Blog
 
