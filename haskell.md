@@ -43,6 +43,14 @@ $trModule = Module (TrNameS "main"#) (TrNameS "Foo"#)
 - Haskell supports Type Level Programing, see: https://vitez.me/hts-language
 - [Haskell's kind system - a primer](https://diogocastro.com/blog/2018/10/17/haskells-kind-system-a-primer/)
 
+## GHC References
+
+To understand the STG, read:
+
+- [Implementing lazy functional languages on stock hardware: the Spineless Tagless G-machine](https://www.microsoft.com/en-us/research/wp-content/uploads/1992/04/spineless-tagless-gmachine.pdf)
+- [Making a Fast Curry: Push/Enter vs. Eval/Apply for Higher-order Languages](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/eval-apply.pdf)
+- [STG generated code wiki](https://gitlab.haskell.org/ghc/ghc/-/wikis/commentary/compiler/generated-code)
+
 ## Blog
 
 I wrote two articles about the language:
