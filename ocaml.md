@@ -9,3 +9,7 @@ tags:
 [OCaml](https://ocaml.org/) is an industrial-strength programming language supporting functional, imperative and object-oriented styles based on [[ML]].
 
 The [Mirage OS](https://mirage.io/) is a programming framework for building type-safe, modular systems.
+
+# References
+
+- [Modular implicits](http://www.lpw25.net/papers/ml2014.pdf)
