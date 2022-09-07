@@ -42,6 +42,10 @@ $trModule = Module (TrNameS "main"#) (TrNameS "Foo"#)
 - [Why kind-level foralls don't interact with ScopedTypeVariables](https://ryanglscott.github.io/2021/04/05/why-kind-level-foralls-dont-interact-with-scopedtypevariables/) - Great technical writing
 - Haskell supports Type Level Programing, see: https://vitez.me/hts-language
 - [Haskell's kind system - a primer](https://diogocastro.com/blog/2018/10/17/haskells-kind-system-a-primer/)
+- [Lenses embody Products, Prisms embody Sums](https://blog.jle.im/entry/lenses-products-prisms-sums.html)
+
+- [OCaml for Haskellers](http://blog.ezyang.com/2010/10/ocaml-for-haskellers/)
+- [Haskell for OCaml programmers](https://dr-knz.net/haskell-for-ocaml-programmers.html)
 
 ## GHC References
 
