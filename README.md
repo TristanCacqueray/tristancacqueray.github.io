@@ -14,4 +14,4 @@ Notes are linked by:
 
 Watch edits by running `neuron rib -w -S`.
 
-Publish by running `./Shakefile.hs && (cd output; git push origin pages)`
+Publish by running `nix develop --command shake && (cd output; git push origin pages)`
