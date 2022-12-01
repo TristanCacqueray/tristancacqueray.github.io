@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Contributions – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='I actively maintain these projects:' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Contributions' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+  
+  <link href='tailwind.css?instanceId=fbcb198d-c3ef-4a36-bb6c-0c544bc786b4' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Contributions
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  <h2 id='author' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Author</h2>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='blog' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Blog</a>
+        </li>
+      
+        <li>
+          <a href='projects' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Projects</a>
+        </li>
+      
+    </ul>
+  <h2 id='maintainer' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Maintainer</h2>
+    <p class='mb-3'>
+      I actively maintain these projects:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='zettle/software-factory' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Software Factory Project</a>
+        </li>
+      
+        <li>
+          <a href='zettle/softwares/zuul' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Zuul</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/juhp/pkgtreediff' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pkgtreediff</a>
+        </li>
+      
+    </ul>
+  <h2 id='contributor' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Contributor</h2>
+    <p class='mb-3'>
+      I made contributions to:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://github.com/200ok-ch/organice' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>200ok-ch/organice</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/andrewcmyers/civs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>andrewcmyers/civs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ansible-collections/community.kubernetes' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansible-collections/community.kubernetes</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ansible-network/zuul-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansible-network/zuul-config</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ansible/ansible-modules-extras' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansible/ansible-modules-extras</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ansible/ansible' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansible/ansible</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ansible/community' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansible/community</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ansible/zuul-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansible/zuul-config</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ansible/zuul-jobs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansible/zuul-jobs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/astroidmail/astroid' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>astroidmail/astroid</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/atlas-engineer/nyxt' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>atlas-engineer/nyxt</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/awakesecurity/gRPC-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>awakesecurity/gRPC-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/awakesecurity/proto3-suite' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>awakesecurity/proto3-suite</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/awakesecurity/proto3-wire' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>awakesecurity/proto3-wire</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/barrucadu/irc-client' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>barrucadu/irc-client</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/byorgey/swarm' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>byorgey/swarm</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/cdepillabout/password' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>cdepillabout/password</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/CentOS/container-index' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>CentOS/container-index</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/cgwalters/xokdinst' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>cgwalters/xokdinst</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/change-metrics/changemetrics.io' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>change-metrics/changemetrics.io</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/change-metrics/demo-node-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>change-metrics/demo-node-config</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/change-metrics/dhall-monocle' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>change-metrics/dhall-monocle</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/change-metrics/monocle-ansible' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>change-metrics/monocle-ansible</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/change-metrics/monocle-web' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>change-metrics/monocle-web</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/change-metrics/monocle' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>change-metrics/monocle</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/chmouel/emacs-mpr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>chmouel/emacs-mpr</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ChrisPenner/json-to-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ChrisPenner/json-to-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/commercialhaskell/stackage' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>commercialhaskell/stackage</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/conal/concat' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>conal/concat</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/bubblewrap' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/bubblewrap</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/buildah' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/buildah</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/image' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/image</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/oci-spec-rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/oci-spec-rs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/podman.io' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/podman.io</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/podman' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/podman</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/skopeo' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/skopeo</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/toolbox' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/toolbox</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/containers/udica' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>containers/udica</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/cri-o/cri-o' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>cri-o/cri-o</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/cschwede/mirror2swift' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>cschwede/mirror2swift</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/dhall-lang/awesome-dhall' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dhall-lang/awesome-dhall</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/dhall-lang/dhall-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dhall-lang/dhall-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/dhall-lang/dhall-kubernetes' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dhall-lang/dhall-kubernetes</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/dhall-lang/dhall-lang' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dhall-lang/dhall-lang</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/disco-lang/disco' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>disco-lang/disco</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/dusty-phillips/rescript-dexie' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dusty-phillips/rescript-dexie</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/emacs-lsp/lsp-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>emacs-lsp/lsp-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ethercrow/opentelemetry-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ethercrow/opentelemetry-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/fakedata-haskell/fakedata' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>fakedata-haskell/fakedata</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/fedora-haskell/dhall' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>fedora-haskell/dhall</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/felko/neuron-mode' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>felko/neuron-mode</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/fpco/inline-c' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>fpco/inline-c</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/fpco/typed-process' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>fpco/typed-process</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/fpco/wai-middleware-auth' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>fpco/wai-middleware-auth</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/Gabriel439/dhall-dot' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Gabriel439/dhall-dot</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/Gabriel439/slides' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Gabriel439/slides</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ghc/ghc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ghc/ghc</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/gleam-lang/gleam' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>gleam-lang/gleam</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/glumpy/glumpy' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>glumpy/glumpy</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/haskell-game/dear-imgui.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>haskell-game/dear-imgui.hs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/haskell/lsp' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>haskell/lsp</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/hdgarrood/qq-literals' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>hdgarrood/qq-literals</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/hylang/hy-mode' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>hylang/hy-mode</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/hylang/hy' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>hylang/hy</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/iovisor/bcc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>iovisor/bcc</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/isovector/algebra-driven-design' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>isovector/algebra-driven-design</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/jd/daiquiri' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>jd/daiquiri</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/jgm/pandoc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>jgm/pandoc</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/jkachmar/easy-hls-nix' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>jkachmar/easy-hls-nix</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/jsocol/pystatsd' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>jsocol/pystatsd</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/juhp/cabal-rpm' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>juhp/cabal-rpm</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/juhp/fbrnch' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>juhp/fbrnch</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/juhp/fedora-dists' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>juhp/fedora-dists</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/juhp/koji-hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>juhp/koji-hs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/juhp/pkgtreediff' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>juhp/pkgtreediff</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/juhp/stack-all' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>juhp/stack-all</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/justinwoo/easy-dhall-nix' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>justinwoo/easy-dhall-nix</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/klangner/text-time' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>klangner/text-time</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/kowainik/stan' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>kowainik/stan</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/kowainik/summoner' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>kowainik/summoner</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/lassik/emacs-format-all-the-code' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>lassik/emacs-format-all-the-code</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/lassik/emacs-language-id' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>lassik/emacs-language-id</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/lehins/massiv' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>lehins/massiv</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/meeshkan/openapi-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>meeshkan/openapi-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/Mergifyio/git-pull-request' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Mergifyio/git-pull-request</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/morpheusgraphql/morpheus-graphql-cli' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>morpheusgraphql/morpheus-graphql-cli</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/nh2/hatrace' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>nh2/hatrace</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/nh2/static-haskell-nix' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>nh2/static-haskell-nix</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/NixOS/nix-mode' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>NixOS/nix-mode</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/NorfairKing/smos' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>NorfairKing/smos</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ocaml/odoc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ocaml/odoc</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ocharles/weeder' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ocharles/weeder</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/opencontainers/runc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>opencontainers/runc</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openshift/openshift-ansible' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openshift/openshift-ansible</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openshift/openshift-restclient-python' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openshift/openshift-restclient-python</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openstack/diskimage-builder' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openstack/diskimage-builder</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openstack/governance' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openstack/governance</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openstack/keystonemiddleware' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openstack/keystonemiddleware</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openstack/nova' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openstack/nova</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openstack/openstack-manuals' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openstack/openstack-manuals</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/openstack/openstack' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>openstack/openstack</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/operator-framework/operator-sdk' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>operator-framework/operator-sdk</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/ostreedev/ostree' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ostreedev/ostree</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/packit/packit-service-zuul' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>packit/packit-service-zuul</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/patternfly/patternfly-react' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>patternfly/patternfly-react</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/pdoc3/pdoc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pdoc3/pdoc</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/podenv/devenv' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>podenv/devenv</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/podenv/hub' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>podenv/hub</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/podenv/podenv' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>podenv/podenv</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/podenv/silverkube' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>podenv/silverkube</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/portnov/libssh2-hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>portnov/libssh2-hs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/purescript-gjs/purescript-gjs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>purescript-gjs/purescript-gjs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/purescript-gjs/purescript-gnome-shell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>purescript-gjs/purescript-gnome-shell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/purescript/documentation' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>purescript/documentation</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/pytest-dev/pytest-testinfra' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pytest-dev/pytest-testinfra</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/python-zk/kazoo' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>python-zk/kazoo</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/reanimate/reanimate' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>reanimate/reanimate</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/redhat-nfvpe/cnf-cert-ts-zuul-jobs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>redhat-nfvpe/cnf-cert-ts-zuul-jobs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/regadas/github-actions-dhall' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>regadas/github-actions-dhall</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/restyled-io/restylers' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>restyled-io/restylers</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/rhos-infra/devnest' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>rhos-infra/devnest</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/rougier/python-opengl' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>rougier/python-opengl</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/rrruko/grafana' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>rrruko/grafana</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/rust-lang/rust-mode' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>rust-lang/rust-mode</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/sbdchd/dhall-docker-compose' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>sbdchd/dhall-docker-compose</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/sdiehl/wiwinwlh' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>sdiehl/wiwinwlh</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/serokell/ghc.dev' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>serokell/ghc.dev</a>
+        </li>
+      
+        <li>
+          <a href='https://gitlab.com/sheaf/fir' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>sheaf/fir</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/sharkdp/purescript-quantities' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>sharkdp/purescript-quantities</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/bootstrap-your-zuul' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/bootstrap-your-zuul</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/caching-reverse-proxy' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/caching-reverse-proxy</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/cauth' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/cauth</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-ansible-collection-ansible-posix' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-ansible-collection-ansible-posix</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-ansible-collection-containers-podman' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-ansible-collection-containers-podman</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-ansible-collection-openstack-cloud' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-ansible-collection-openstack-cloud</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-ansible' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-ansible</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-containerfile' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-containerfile</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-nodepool' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-nodepool</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-npm-package' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-npm-package</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-openstacksdk' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-openstacksdk</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-prometheus' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-prometheus</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/dhall-zuul' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/dhall-zuul</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/DLRN' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/DLRN</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/gerrit-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/gerrit-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/gerritbot-matrix' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/gerritbot-matrix</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/grafdhall' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/grafdhall</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/linux-capabilities-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/linux-capabilities-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/managesf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/managesf</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/matrix-client-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/matrix-client-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/podman-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/podman-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/pynotedb' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/pynotedb</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/pypi-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/pypi-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/rdopkg' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/rdopkg</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/re-ansi' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/re-ansi</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/re-cli' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/re-cli</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/re-patternfly' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/re-patternfly</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/re-sf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/re-sf</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sf-ci' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sf-ci</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sf-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sf-config</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sf-docs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sf-docs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sf-infra' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sf-infra</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sf-ops' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sf-ops</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sf-ui' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sf-ui</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sfinfo-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sfinfo-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/sfinfo' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/sfinfo</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/shake-factory' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/shake-factory</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/www.softwarefactory-project' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/<a href='http://www.softwarefactory-project' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>www.softwarefactory-project</a></a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/zuul-haskell' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/zuul-haskell</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/zuul-results-gerrit-plugin' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>softwarefactory-project/zuul-results-gerrit-plugin</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/srid/neuron' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>srid/neuron</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/stackbuilders/dotenv-hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>stackbuilders/dotenv-hs</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/supercollider/portaudio' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>supercollider/portaudio</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/supercollider/sc3-plugins' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>supercollider/sc3-plugins</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/supercollider/supercollider' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>supercollider/supercollider</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/thoth-station/zuul-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>thoth-station/zuul-config</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/timblechmann/nova-simd' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>timblechmann/nova-simd</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/timblechmann/nova-tt' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>timblechmann/nova-tt</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/typeddjango/awesome-python-typing' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>typeddjango/awesome-python-typing</a>
+        </li>
+      
+        <li>
+          <a href='https://github.com/weeezes/dhall-grafana' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>weeezes/dhall-grafana</a>
+        </li>
+      
+    </ul>
+  <div xmlhtmlRaw><!---
+To update the above lists, run this query through https://docs.github.com/en/graphql/overview/explorer:
+
+```
+{
+  user(login: "TristanCacqueray") {
+    contributionsCollection(from: "2021-09-01T01:01:00", to:"2021-12-01T01:01:00") {
+      commitContributionsByRepository(maxRepositories:100) {
+        repository {
+          url
+        }
+      }
+    }
+  }
+}
+```
+
+Then copy the result and this lists in files, and run:
+
+> (cat publications.md; grep url list_[0-9]* | awk '{ print $3}' | sort -u | sed 's/"//g' | sed 's/\(.*\)/- [\1](\1)/' | sed -s 's/https...github.com.//') | sort -uf | grep -v TristanCacqueray
+-->
+</div>
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href=''>
+            Tristan de Cacqueray
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>I am passionate about <a href='zettle/free-software' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Free Software</a>, <a href='zettle/programing-languages' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Programing Languages</a>, <a href='zettle/computer-graphics' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Computer Graphics</a> and <a href='zettle/music' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Music</a>. Check out my <a href='blog' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Blog</a>, <a href='projects' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Projects</a> and <a href='contributions' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Contributions</a>.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/contributions.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.8.1.14'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>

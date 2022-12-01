@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Functor map – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post explores the map function in [[purescript]]. Start a REPL by running these commands in a new directory:' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Functor map' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+  
+  <link href='tailwind.css?instanceId=fbcb198d-c3ef-4a36-bb6c-0c544bc786b4' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Functor map
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      This post explores the map function in <a href='zettle/programing-languages/purescript' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Purescript</a>. Start a REPL by running these commands in a new directory:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>mkdir test-functor; cd test-functor
+spago init
+spago install maybe arrays node-process
+spago repl</code></pre></div><h2 id='context' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context</h2>
+    <p class='mb-3'>
+      Let’s consider this data type to represent a task:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; data Task = Task { name :: String, mem :: Int, cpu :: Int }</code></pre></div>
+    <p class='mb-3'>
+      And this function to create a new task:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; mkTask name = Task { name, mem: 0, cpu: 0 }
+&gt; :t mkTask
+String -&gt; Task</code></pre></div>
+    <p class='mb-3'>
+      (And copy paste this show instance to see the result in the REPL):
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>instance showTask :: Show Task where show (Task t) = "(Task " &lt;&gt; t.name &lt;&gt; ")"</code></pre></div>
+    <p class='mb-3'>
+      We can create a task:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; task = mkTask "worker"
+&gt; task
+(Task worker)
+
+&gt; :t task
+Task</code></pre></div>
+    <p class='mb-3'>
+      So far so good, nothing special to see here.
+    </p>
+  <h2 id='mapping-mktask' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mapping mkTask</h2>
+    <p class='mb-3'>
+      Here is the definition of <code class='py-0.5 px-0.5 bg-gray-100'>map mkTask</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t mkTask
+               String -&gt;   Task
+&gt; :t map mkTask
+Functor f =&gt; f String -&gt; f Task</code></pre></div>
+    <p class='mb-3'>
+      <code class='py-0.5 px-0.5 bg-gray-100'>map mkTask</code> is a function that takes a structure (called functor) holding a String, and it returns a new structure holding a Task. In otherwords, <code class='py-0.5 px-0.5 bg-gray-100'>map mkTask</code> inject the <code class='py-0.5 px-0.5 bg-gray-100'>mkTask</code> function inside the functor. In other otherwords, <code class='py-0.5 px-0.5 bg-gray-100'>map</code> embellished <code class='py-0.5 px-0.5 bg-gray-100'>mkTask</code> to work with functors.
+    </p>
+  
+    <p class='mb-3'>
+      Here are some example usages, using the <a href='https://pursuit.purescript.org/packages/purescript-maybe/5.0.0/docs/Data.Maybe#t:Maybe' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Maybe Functor</a> (don’t forget to <code class='py-0.5 px-0.5 bg-gray-100'>import Data.Maybe</code>):
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; map mkTask Nothing
+Nothing
+
+&gt; map mkTask (Just "worker")
+(Just (Task worker))</code></pre></div>
+    <p class='mb-3'>
+      Or with the Array Functor:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; map mkTask ["worker1", "worker2"]
+[(Task worker1), (Task worker2)]</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Thanks to the Functor abstraction, we are able to modify the value contained in different structure using a common map function.
+    </p>
+  
+    </blockquote>
+  <h2 id='map-definition' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Map definition</h2>
+    <p class='mb-3'>
+      map is defined as follow:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t map
+forall f a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b</code></pre></div>
+    <p class='mb-3'>
+      There are three parts (separated by <code class='py-0.5 px-0.5 bg-gray-100'>.</code> and <code class='py-0.5 px-0.5 bg-gray-100'>=&gt;</code>):
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>forall f a b</code> is the quantification. That means there will be three type variables used in the definition: <code class='py-0.5 px-0.5 bg-gray-100'>f</code>, <code class='py-0.5 px-0.5 bg-gray-100'>a</code>, and <code class='py-0.5 px-0.5 bg-gray-100'>b</code>. For more details read <a href='https://github.com/wasp-lang/haskell-handbook/blob/master/forall.md' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>wasp-lang/haskell-handbook/forall.md</a>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>Functor f</code> is a constraint. That means the <code class='py-0.5 px-0.5 bg-gray-100'>f</code> type variable needs to be a Functor. For more details read <a href='https://pursuit.purescript.org/packages/purescript-prelude/5.0.0/docs/Data.Functor#t:Functor' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pursuit Functor</a>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>(a -&gt; b) -&gt; f a -&gt; f b</code> is the function signature. That means this function expects two arguments, <code class='py-0.5 px-0.5 bg-gray-100'>a -&gt; b</code> and <code class='py-0.5 px-0.5 bg-gray-100'>f a</code>, and it returns a <code class='py-0.5 px-0.5 bg-gray-100'>f b</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Here <code class='py-0.5 px-0.5 bg-gray-100'>f</code> is a type constructor, in the signature it is given a type. That means <code class='py-0.5 px-0.5 bg-gray-100'>f</code> expects a type argument to become a final type. For more details read <a href='https://book.purescript.org/chapter3.html#type-constructors-and-kinds' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>purescript-book/chapter3</a>, or watch this <a href='https://www.youtube.com/watch?v=JleVecHAad4' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>An introduction to Haskell’s kinds</a> video by Richard A. Eisenberg.
+    </p>
+  
+    <p class='mb-3'>
+      Now Let’s see why this works.
+    </p>
+  <h2 id='map-type-variables' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Map type variables</h2>
+    <p class='mb-3'>
+      The map definition is polymorphic, that means it can work in many scenarios depending on its arguments. We can observe how the type checker works by providing the argument one by one:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t map
+forall f a b. Functor f =&gt; (a -&gt; b) -&gt; f a      -&gt; f b
+
+&gt; :t map mkTask
+forall f.     Functor f =&gt;             f String -&gt; f Task
+
+&gt; :t map mkTask []
+                                                   Array Task</code></pre></div>
+    <p class='mb-3'>
+      Notice how when using <code class='py-0.5 px-0.5 bg-gray-100'>mkTask</code> the type variable <code class='py-0.5 px-0.5 bg-gray-100'>a</code> becomes a String, and the <code class='py-0.5 px-0.5 bg-gray-100'>b</code> becomes a Task. This is because these types are no longer variable after we use <code class='py-0.5 px-0.5 bg-gray-100'>mkTask</code>: the polymorphic argument <code class='py-0.5 px-0.5 bg-gray-100'>a -&gt; b</code> becomes <code class='py-0.5 px-0.5 bg-gray-100'>String -&gt; Task</code>, and the other variable name occurences are replaced accordingly.
+    </p>
+  
+    <p class='mb-3'>
+      We can also change the order of the argument to provide the functor before the function using <code class='py-0.5 px-0.5 bg-gray-100'>flip</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t flip map
+forall f a b. Functor f =&gt; f a -&gt; (a      -&gt; b) -&gt; f b
+
+&gt; :t flip map []
+forall a b.                       (a      -&gt; b) -&gt; Array b
+
+&gt; :t flip map ["x"]
+forall b.                         (String -&gt; b) -&gt; Array b
+
+&gt; :t flip map ["x"] mkTask
+                                                   Array Task</code></pre></div>
+    <p class='mb-3'>
+      Notice how the type variable <code class='py-0.5 px-0.5 bg-gray-100'>f</code> becomes an Array, and the <code class='py-0.5 px-0.5 bg-gray-100'>a</code> becomes a String. This is because <code class='py-0.5 px-0.5 bg-gray-100'>["x"]</code> is a <code class='py-0.5 px-0.5 bg-gray-100'>Array String</code> when the function expect a <code class='py-0.5 px-0.5 bg-gray-100'>f a</code>, thus the other variables are replaced accordingly:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          When <code class='py-0.5 px-0.5 bg-gray-100'>Array String</code> is used for an argument of type <code class='py-0.5 px-0.5 bg-gray-100'>f a</code>, then
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>(a -&gt; b) -&gt; f b</code>, becomes: <code class='py-0.5 px-0.5 bg-gray-100'>(String -&gt; b) -&gt; Array b</code>.
+        </li>
+      
+    </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      This process can be refered to as specialization, and it is helpful to understand function signature by removing type variables.
+    </p>
+  
+    </blockquote>
+  <h2 id='motivating-example' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Motivating example</h2>
+    <p class='mb-3'>
+      Finally, here is a last example to demonstrate map with <code class='py-0.5 px-0.5 bg-gray-100'>lookupEnv</code>.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; import Node.Process
+&gt; :t lookupEnv
+String -&gt; Effect (Maybe String)</code></pre></div>
+    <p class='mb-3'>
+      <code class='py-0.5 px-0.5 bg-gray-100'>lookupEnv</code> expects a name, and it returns an <code class='py-0.5 px-0.5 bg-gray-100'>Effect</code> containing an optional value.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; lookupEnv "USER"
+(Just "tdecacqu")</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Note that the REPL automatically perform the <code class='py-0.5 px-0.5 bg-gray-100'>Effect</code>.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      We already saw how we can change the value of a Maybe using map, but <code class='py-0.5 px-0.5 bg-gray-100'>lookupEnv</code> returns an extra Effect layer. Let’s consider this double map usage:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t map (map mkTask)
+forall f g. Functor f =&gt; Functor g =&gt; f (g String) -&gt; f (g Task)</code></pre></div>
+    <p class='mb-3'>
+      We can use it to penetrate both the Effect and the Maybe functor to modify the final value in one shot while preserving the structure:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t map (map mkTask) (lookupEnv "USER")
+Effect (Maybe Task)
+
+&gt; map (map mkTask) (lookupEnv "USER")
+(Just (Task tdecacqu))</code></pre></div>
+    <p class='mb-3'>
+      Map is so powerful it has an operator version: <code class='py-0.5 px-0.5 bg-gray-100'>&lt;$&gt;</code> which let us rewrite this code as:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; map mkTask &lt;$&gt; lookupEnv "USER"</code></pre></div>
+    <p class='mb-3'>
+      Which means, given the <code class='py-0.5 px-0.5 bg-gray-100'>Effect (Maybe String)</code> returned by lookupEnv, we’ll inject <code class='py-0.5 px-0.5 bg-gray-100'>map mkTask</code> into the <code class='py-0.5 px-0.5 bg-gray-100'>Effect</code>, to convert the optional value into an optional Task.
+    </p>
+  
+    <p class='mb-3'>
+      And we can use this for any two functors combinaison, for example, a list of optional string:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; xs = [Nothing, Just "worker1", Just "worker2"] :: Array (Maybe String)
+&gt; map mkTask &lt;$&gt; xs
+[Nothing, (Just (Task worker1)), (Just (Task worker2))]</code></pre></div>
+    <p class='mb-3'>
+      And this concludes the exploration. Thanks for your time!
+    </p>
+  <h2 id='bonus-traverse' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Bonus: traverse</h2>
+    <p class='mb-3'>
+      Well while you are here, here is <code class='py-0.5 px-0.5 bg-gray-100'>traverse</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; import Data.Traversable
+&gt; :t traverse
+forall t m a b. Traversable t =&gt; Applicative m =&gt; (a -&gt; m b) -&gt; t a -&gt; m (t b)</code></pre></div>
+    <p class='mb-3'>
+      Nothing special here, we know how to read this. To recap, this definition means:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          There are 4 type variables: <code class='py-0.5 px-0.5 bg-gray-100'>t</code>, <code class='py-0.5 px-0.5 bg-gray-100'>m</code>, <code class='py-0.5 px-0.5 bg-gray-100'>a</code> and <code class='py-0.5 px-0.5 bg-gray-100'>b</code>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>t</code> is a Traversable, which is a foldable functor (and most Functor are Traversable), see this for more details: <a href='https://pursuit.purescript.org/packages/purescript-foldable-traversable/5.0.1/docs/Data.Traversable#t:Traversable' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pursuit Traversable</a>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>m</code> is an Applicative, and let’s not bother with what that means exactly, but just know that <code class='py-0.5 px-0.5 bg-gray-100'>Effect</code> is an applicative: see its instance list: <a href='https://pursuit.purescript.org/packages/purescript-effect/3.0.0/docs/Effect#t:Effect' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pursuit Effect</a>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Thus, given a function <code class='py-0.5 px-0.5 bg-gray-100'>a -&gt; m b</code>, and a traversable <code class='py-0.5 px-0.5 bg-gray-100'>t a</code>, traverse will produce a <code class='py-0.5 px-0.5 bg-gray-100'>m (t b)</code>.
+    </p>
+  
+    <p class='mb-3'>
+      For example we can use traverse with lookupEnv because lookupEnv is compatible with <code class='py-0.5 px-0.5 bg-gray-100'>a -&gt; m b</code>, it is <code class='py-0.5 px-0.5 bg-gray-100'>String -&gt; Effect (Maybe String)</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t traverse lookupEnv
+forall t. Traversable t =&gt; t String -&gt; Effect (t (Maybe String))</code></pre></div>
+    <p class='mb-3'>
+      Notice how the lookupEnv definition sets the type variable <code class='py-0.5 px-0.5 bg-gray-100'>a</code> to String, <code class='py-0.5 px-0.5 bg-gray-100'>m</code> to Effect and <code class='py-0.5 px-0.5 bg-gray-100'>b</code> to (Maybe String), leaving us with the last type variable <code class='py-0.5 px-0.5 bg-gray-100'>t</code>.
+    </p>
+  
+    <p class='mb-3'>
+      This definition means that given a collection of string, <code class='py-0.5 px-0.5 bg-gray-100'>traverse lookupEnv</code> will perform each individual lookup and return the result wrapped in a single Effect:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t traverse lookupEnv ["USER", "HOSTNAME"]
+Effect (Array (Maybe String))
+
+&gt; traverse lookupEnv ["USER", "HOSTNAME"]
+[(Just "tdecacqu"), (Just "localhost")]</code></pre></div>
+    <p class='mb-3'>
+      This result uses 3 Functors: Effect, Array and Maybe. And of course we can use maps to penetrate all the layers:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t map (map mkTask) &lt;$&gt; traverse lookupEnv ["USER", "HOSTNAME"]
+Effect (Array (Maybe Task))
+
+&gt; map (map mkTask) &lt;$&gt; traverse lookupEnv ["USER", "HOSTNAME", "OOPS"]
+[(Just (Task tdecacqu)), (Just (Task localhost)), Nothing]</code></pre></div>
+    <p class='mb-3'>
+      Or using function composition:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; traverse (map (map mkTask) &lt;&lt;&lt; lookupEnv) ["USER", "HOSTNAME"]
+[(Just (Task tdecacqu)), (Just (Task localhost))]</code></pre></div>
+    <p class='mb-3'>
+      Which is really convenient as we don’t have to unwrap anything. Using map we modify <code class='py-0.5 px-0.5 bg-gray-100'>lookupEnv</code> to convert a traversable structure of <code class='py-0.5 px-0.5 bg-gray-100'>String</code> into <code class='py-0.5 px-0.5 bg-gray-100'>Task</code>s by reading their value from the environment:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>&gt; :t traverse (map (map mkTask) &lt;&lt;&lt; lookupEnv)
+forall t. Traversable t =&gt; t String -&gt; Effect (t (Maybe Task))</code></pre></div>
+    <p class='mb-3'>
+      Cheers o/
+    </p>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='blog/state-monad'>
+            State monad
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>Such abstractions are general purpose, and Monad can be used for other things. In the previous post we saw the <a href='blog/functor-map' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Functor map</a> and how <code>traverse</code> can be used to penetrate nested structures. Well we can use <code>traverse</code> with <code>StateT</code>. Let’s consider a new function to add a number to our counter:</p></div>
+    </div>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>This post explores the <a href='https://hackage.haskell.org/package/mtl-2.2.2/docs/Control-Monad-State-Lazy.html' class='text-gray-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>state monad</a> in <a href='zettle/programing-languages/haskell' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Haskell</a>. Don’t forget to checkout the previous post about <a href='blog/functor-map' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Functor map</a>.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/functor-map.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.8.1.14'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
