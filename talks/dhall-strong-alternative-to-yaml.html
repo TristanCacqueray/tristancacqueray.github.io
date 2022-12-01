@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    dhall-strong-alternative-to-yaml – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='% Dhall: A Strong Alternative to YAML % Tristan de Cacqueray % Februrary 18, 2021' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='https://dhall-lang.org/img/dhall-large-logo.svg' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='dhall-strong-alternative-to-yaml' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+  
+  <link href='tailwind.css?instanceId=a41c8550-c22d-483b-84a2-98526c73c6eb' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='talks'>
+      talks
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    dhall-strong-alternative-to-yaml
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      % Dhall: A Strong Alternative to YAML % Tristan de Cacqueray % Februrary 18, 2021
+    </p>
+  <h1 id='overview' class='pb-2 mb-2 text-5xl font-bold text-center'>Overview</h1><div xmlhtmlRaw><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css">
+</div>
+    <p class='mb-3'>
+      If like me, you are tired of writting YAML files, this talk is for you.
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Why do we want an alternative?
+        </li>
+      
+        <li>
+          What is Dhall?
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Let bindings
+        </li>
+      
+        <li>
+          Imports
+        </li>
+      
+        <li>
+          Functions
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          How to use it?
+        </li>
+      
+        <li>
+          Food for thought
+        </li>
+      
+    </ul>
+  <h1 id='why-do-we-want-an-alternative' class='pb-2 mb-2 text-5xl font-bold text-center'>Why do we want an alternative?</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Strong language safety:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Truncated files must be invalid.
+        </li>
+      
+        <li>
+          No implicit convertion, <code class='py-0.5 px-0.5 bg-gray-100'>NO</code> != <code class='py-0.5 px-0.5 bg-gray-100'>false</code>.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          Better operators to manage repetition.
+        </li>
+      
+        <li>
+          Integrated string interpolation.
+        </li>
+      
+        <li>
+          Import file and URL.
+        </li>
+      
+    </ul>
+  <h1 id='dhall' class='pb-2 mb-2 text-5xl font-bold text-center'><img src='https://dhall-lang.org/img/dhall-large-logo.svg' alt='dhall' width='250px' /></h1>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      a programmable configuration language that you can think of as: JSON + functions + types + imports
+    </p>
+  
+    </blockquote>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Get the reference interpreter from the fedora packages:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='shell language-shell'>$ sudo dnf install -y dhall dhall-json</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Simple scalar types:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Text: <code class='py-0.5 px-0.5 bg-gray-100'>"Hello, world!"</code>
+        </li>
+      
+        <li>
+          Bool: <code class='py-0.5 px-0.5 bg-gray-100'>True</code>, <code class='py-0.5 px-0.5 bg-gray-100'>False</code>
+        </li>
+      
+        <li>
+          Natural: <code class='py-0.5 px-0.5 bg-gray-100'>0</code>, <code class='py-0.5 px-0.5 bg-gray-100'>1</code>, <code class='py-0.5 px-0.5 bg-gray-100'>2</code>, …
+        </li>
+      
+        <li>
+          Integer: …, <code class='py-0.5 px-0.5 bg-gray-100'>-2</code>, <code class='py-0.5 px-0.5 bg-gray-100'>-1</code>, <code class='py-0.5 px-0.5 bg-gray-100'>+0</code>, <code class='py-0.5 px-0.5 bg-gray-100'>+1</code>, <code class='py-0.5 px-0.5 bg-gray-100'>+2</code>, …
+        </li>
+      
+        <li>
+          Double: <code class='py-0.5 px-0.5 bg-gray-100'>3.14159265</code>, <code class='py-0.5 px-0.5 bg-gray-100'>6.0221409e+23</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Complex composite types:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Optional: <code class='py-0.5 px-0.5 bg-gray-100'>Some 1</code>, <code class='py-0.5 px-0.5 bg-gray-100'>None Natural</code>
+        </li>
+      
+        <li>
+          List: <code class='py-0.5 px-0.5 bg-gray-100'>[1, 2, 3]</code>
+        </li>
+      
+        <li>
+          Record: <code class='py-0.5 px-0.5 bg-gray-100'>{ x = 1.2, y = -2.5 }</code>
+        </li>
+      
+        <li>
+          Union: <code class='py-0.5 px-0.5 bg-gray-100'>&lt; A | C | G | T &gt;.A</code>
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Example configuration:
+    </p>
+  
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>{ job =
+  { name = "koji-build-x86_64"
+  , run = "playbooks/rpmbuild.yaml"
+  , vars = { arch = "x86_64", build = &lt; scratch | final &gt;.scratch }
+  }
+}</code></pre></div>
+    <p class='mb-3'>
+      … corresponds to this YAML:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ dhall-to-yaml --file ./job.dhall</code></pre></div><div class='py-0.5 mb-3 text-sm'><pre><code class='yaml language-yaml'>job:
+  name: koji-build-x86_64
+  run: playbooks/rpmbuild.yaml
+  vars:
+    arch: x86_64
+    build: scratch</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Benefits:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Doesn’t accept malformed input.
+        </li>
+      
+        <li>
+          Can’t produce malformed output.
+        </li>
+      
+        <li>
+          Simpler standard than YAML.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  <h1 id='let-bindings' class='pb-2 mb-2 text-5xl font-bold text-center'>Let bindings</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Decompose expressions into sub expressions:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>let name = value
+
+in expr</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Example usage:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>let job =
+      let arch = "x86_64"
+
+      let build = &lt; scratch | final &gt;.scratch
+
+      in  { name = "koji-build-${arch}"
+          , run = "playbooks/rpmbuild.yaml"
+          , vars = { arch, build }
+          }
+
+in  { job }</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Benefits:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Large configurations are easier to manage.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  <h1 id='imports' class='pb-2 mb-2 text-5xl font-bold text-center'>Imports</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Value can reference a path:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- ./koji-job.dhall file content:
+let arch = "x86_64"
+
+let build = &lt; scratch | final &gt;.scratch
+
+in  { name = "koji-build-${arch}"
+    , run = "playbooks/rpmbuild.yaml"
+    , vars = { arch, build }
+    }</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The previous example can be rewritten as:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>let job = ./koji-job.dhall
+
+in { job }</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Benefits:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Configurations can be split.
+        </li>
+      
+        <li>
+          Enables single source of truth.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  <h1 id='functions' class='pb-2 mb-2 text-5xl font-bold text-center'>Functions</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Function definition:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- ./koji-job.dhall
+\(build : &lt; scratch | final &gt;) -&gt;
+\(arch : Text) -&gt;
+  { name = "koji-build-${arch}"
+  , run = "playbooks/rpmbuild.yaml"
+  , vars = { arch, build }
+  }</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Can be evaluated:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ dhall-to-yaml &lt;&lt;&lt; './koji-job.dhall (&lt; scratch | final &gt;.final) "x86_64"'</code></pre></div>
+    <p class='mb-3'>
+      … corresponds to this YAML:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='yaml language-yaml'>name: koji-build-x86_64
+run: playbooks/rpmbuild.yaml
+vars:
+  arch: x86_64
+  build: final</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Benefits:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Don’t repeat yourself.
+        </li>
+      
+        <li>
+          Configuration re-use.
+        </li>
+      
+        <li>
+          Treat the configuration as your code.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  <h1 id='demo' class='pb-2 mb-2 text-5xl font-bold text-center'>Demo</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          URL can be imported too:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>https://softwarefactory-project.io/cgit/software-factory/sf-infra/plain/Infra/OpenShift/deployWithEnv.dhall
+  "service-name"
+  "quay.io/software-factory/service-name:v1"
+  8080
+  "service-name.prod.psi.redhat.com"
+  (toMap { option = "value", logLevel = "INFO" })</code></pre></div>
+    <p class='mb-3'>
+      … corresponds to this YAML:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ dhall-to-yaml --documents --file ./demo.dhall</code></pre></div><div class='py-0.5 mb-3 text-sm'><pre><code class='yaml language-yaml'>---
+apiVersion: v1
+kind: Route
+metadata:
+  name: service-name
+spec:
+  host: service-name.prod.psi.redhat.com
+  path: /
+  port:
+    targetPort: 8080
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: service-name-service
+    weight: 100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-name-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: service-name
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-name
+  template:
+    metadata:
+      labels:
+        app: service-name
+      name: service-name
+    spec:
+      containers:
+        - env:
+            - name: logLevel
+              value: INFO
+            - name: option
+              value: value
+          image: quay.io/software-factory/service-name:v1
+          name: service-name
+          ports:
+            - containerPort: 8080</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Benefits:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Dhall is general purpose.
+        </li>
+      
+        <li>
+          It doesn’t require Jinja or Go template tranformation.
+        </li>
+      
+        <li>
+          It can be used for other configurations besides kubernetes.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  <h1 id='usage' class='pb-2 mb-2 text-5xl font-bold text-center'>Usage</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Adopt Dhall in four steps:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          First generate YAML files from Dhall expressions.
+        </li>
+      
+        <li>
+          When satisfied, commit the Dhall files along with your changes.
+        </li>
+      
+        <li>
+          Add a CI job to ensure the YAML files do not drift.
+        </li>
+      
+        <li>
+          Remove the YAML and load Dhall directly.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Dhall can also be used for:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Text (Containerfile)
+        </li>
+      
+        <li>
+          Bash (script variables)
+        </li>
+      
+        <li>
+          XML
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+    </ul>
+  <h1 id='food-for-thought' class='pb-2 mb-2 text-5xl font-bold text-center'>Food for thought</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Import supports semantic integrity checks.
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Dhall code can be tested with inlined assertion.
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Dhall diff can compare the semantic of two expressions.
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Dhall is total and not Turing complete:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          configuration files should not permit arbitrary side effects.
+        </li>
+      
+        <li>
+          configuration files should not enable excessive indirection or obfuscation.
+        </li>
+      
+        <li>
+          configuration files should not crash or throw exceptions.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Mature community and ecosystem: <a href='https://github.com/dhall-lang/awesome-dhall' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>awesome-dhall</a>
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Checkout the <a href='https://docs.dhall-lang.org/tutorials/Language-Tour.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Language tour</a>
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Learn more at <a href='https://dhall-lang.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'><a href='https://dhall-lang.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://dhall-lang.org</a></a>
+    </p>
+  
+        </li>
+      
+    </ul>
+  <h1 id='questions' class='pb-2 mb-2 text-5xl font-bold text-center'>Questions?</h1>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Send them at <a href='mailto:tdecacqu@redhat.com' class='text-blue-600 mavenLinkBold hover:underline' data-linkicon='external'><a href='mailto:tdecacqu@redhat.com' class='text-blue-600 mavenLinkBold hover:underline' data-linkicon='external'>tdecacqu@redhat.com</a></a>
+        </li>
+      
+        <li>
+          Slides are available at <a href='https://tristancacqueray.github.io/talks/dhall-strong-alternative-to-yaml/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'><a href='https://tristancacqueray.github.io/talks/dhall-strong-alternative-to-yaml/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://tristancacqueray.github.io/talks/dhall-strong-alternative-to-yaml/</a></a>
+        </li>
+      
+    </ul>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/talks/dhall-strong-alternative-to-yaml.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.8.1.14'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
