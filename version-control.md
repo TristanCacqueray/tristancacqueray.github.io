@@ -1,5 +1,0 @@
-# Version Control
-
-## Implementations
-
-- <git>

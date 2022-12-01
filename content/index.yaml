@@ -1,0 +1,22 @@
+page:
+  siteTitle: Tristan's Zettelkasten
+  headHtml: |
+    <snippet var="js.highlightjs" />
+
+template:
+  name: /templates/layouts/note
+  layout:
+    base:
+      bodyClass: overflow-y-scroll bg-gray-400
+    note:
+      containerClass: container mx-auto max-w-screen-lg
+  theme: blue
+  iconUrl: static/favicon.jpeg
+  urlStrategy: pretty
+
+pandoc:
+  rewriteClass:
+    prose: max-w-prose mx-auto
+
+emanote:
+  folder-folgezettel: true
