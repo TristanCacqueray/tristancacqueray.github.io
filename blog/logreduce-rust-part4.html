@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Completing the first release of logreduce-rust – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post was initially published on the Software Factory blog: https://www.softwarefactory-project.io/completing-the-first-release-of-logreduce-rust.html' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Completing the first release of logreduce-rust' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+  
+  <link href='tailwind.css?instanceId=d44009b7-a90c-483a-ac17-189ce07957fb' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Completing the first release of logreduce-rust
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      This post was initially published on the Software Factory blog: <a href='https://www.softwarefactory-project.io/completing-the-first-release-of-logreduce-rust.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.softwarefactory-project.io/completing-the-first-release-of-logreduce-rust.html</a>
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      I am happy to announce that the <a href='https://github.com/logreduce/logreduce-rust' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>logreduce-rust</a> project now implements a minimum viable product. It can be used to compare two remote directories like this: <span class='title-ref'>logreduce diff build-log-url1 build-log-url2</span>. This article introduces the latest features.
+    </p>
+  
+    <p class='mb-3'>
+      In this post I will write about:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          My choices regarding user input processing.
+        </li>
+      
+        <li>
+          Data type models using static dispatch.
+        </li>
+      
+        <li>
+          Threadpool based concurrency.
+        </li>
+      
+        <li>
+          What my thoughts are on Rust in retrospect.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This article is part of a blog post series about the latest logreduce improvements using the Rust programing language. Please see the series' earlier articles:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Part1: <a href='blog/logreduce-rust-part1' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Improving logreduce with Rust</a>
+        </li>
+      
+        <li>
+          Part2: <a href='blog/logreduce-rust-part2' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Implementing logreduce nearest neighbors model in Rust</a>
+        </li>
+      
+        <li>
+          Part2: <a href='blog/logreduce-rust-part3' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Introducing the BytesLines iterator</a>
+        </li>
+      
+    </ul>
+  <h2 id='implementing-the-model-processor' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Implementing the model processor</h2>
+    <p class='mb-3'>
+      The model processor is the main part that was missing from the new code base. The goal is to provide a flexible API that combines the log line iterator, the tokenizer, and the nearest neighbors model. The API requirements are:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The processing needs to work in chunk to leverage efficient vectorized operations.
+        </li>
+      
+        <li>
+          The context lines surrounding an anomaly need to be collected so that the output can be analyzed offline, without access to the content.
+        </li>
+      
+        <li>
+          Duplicated lines should be removed.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Addressing these requirements involves a complex algorithm with a few edge cases, for example, to keep track of the lines preceeding an anomaly. Using the beloved Iterator interface I was able to implement a simple abstraction. The resulting API can be used by simply providing an Index and a Read value:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>pub struct ChunkProcessor&lt;'index, R: Read&gt; {
+    reader: logreduce_iterator::BytesLines&lt;R&gt;,
+    index: &'index ChunkIndex,
+    // The raw log line with their global position
+    buffer: Vec&lt;(logreduce_iterator::LogLine, usize)&gt;,
+    ...
+}
+
+impl&lt;'index, R: Read&gt; Iterator for ChunkProcessor&lt;'index, R&gt; {
+   type Item = Result&lt;AnomalyContext&gt;;
+}</code></pre></div>
+    <p class='mb-3'>
+      You can check the full implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/model/src/process.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>process.rs</a> module.
+    </p>
+  <h2 id='using-static-dispatch-for-the-data-model' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Using static dispatch for the data model</h2>
+    <p class='mb-3'>
+      With all the core modules in place, I needed to define a data model to implement the frontend logic. Logreduce can work with a variety of content, which can be accessed through different source types:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Local path.
+        </li>
+      
+        <li>
+          Remote url.
+        </li>
+      
+        <li>
+          Journald socket.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I initially created a ContentSource trait to define how to get the sources of a given Content:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>trait ContentSource {
+  fn get_sources(&self) -&gt; Vec&lt;Source&gt;;
+}
+
+impl ContentSource for File {
+ fn get_sources(&self) -&gt; Vec&lt;Source&gt; {
+   if self.path().ends_with('/') {
+      // read dir
+   } else {
+      // a single file
+   }
+ }
+}
+
+impl ContentSource for Build {
+ fn get_sources(&self) -&gt; Vec&lt;Source&gt; {
+   // list remote sources
+ }
+}</code></pre></div>
+    <p class='mb-3'>
+      However this adds a bit of complexity to the report implementation. For example, the state contains the list of baselines sources:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>struct Report {
+  baselines: Vec&lt;dyn ContentSource&gt;,
+  ...
+}</code></pre></div>
+    <p class='mb-3'>
+      … but this does not work because of this error:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='text language-text'>error[E0277]: the size for values of type `(dyn ContentSource + 'static)` cannot be known at compilation time
+   --&gt; model/src/model.rs:25:16
+    |
+25  |     baselines: Vec&lt;dyn ContentSource&gt;,
+    |                ^^^^^^^^^^^^^^^^^^^^^^ doesn't have a size known at compile-time
+    |
+    = help: the trait `Sized` is not implemented for `(dyn ContentSource + 'static)`
+note: required by a bound in `Vec`</code></pre></div>
+    <p class='mb-3'>
+      This makes sense because any type can implement ContentSource, and the compiler needs to know how much memory they need. Thus we can use a Box to fix that, which is how most languages solve this problem:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>struct Report {
+    baselines: Vec&lt;Box&lt;dyn ContentSource&gt;&gt;,
+}</code></pre></div>
+    <p class='mb-3'>
+      Alternatively, we can use a technique called static dispatch with an enum's pattern match:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>enum Content {
+  File(Path),
+  CI(BuildInfo),
+  ...
+}
+
+impl Content {
+  fn get_sources(&self) -&gt; Vec&lt;Source&gt; {
+    match self {
+      File(fp) =&gt; files::get_sources(fp),
+      CI(build) =&gt; ci::get_sources(build),
+      ...
+    }
+  }
+}
+
+struct Report {
+  baselines: Vec&lt;Content&gt;
+}</code></pre></div>
+    <p class='mb-3'>
+      The content data type is currently defined using static dispatch, which is simpler for the project. However this means that new types can't be added dynamically.
+    </p>
+  
+    <p class='mb-3'>
+      I documented the complete model in an <a href='https://adr.github.io/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Architectural Decision Record</a> you can find here: <a href='https://github.com/logreduce/logreduce-rust/blob/main/doc/adr/0001-architecture-cli.md' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>0001-architecture-cli.md</a>. You can check the implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/model/src/model.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>model.rs</a> module.
+    </p>
+  <h2 id='crawling-logs-in-parallel-using-a-threadpool' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Crawling logs in parallel using a threadpool</h2>
+    <p class='mb-3'>
+      Another interesting feature of logreduce is that it can seamlessly process remote directories. The goal is to be able to handle a build log url, served as <em>Index Of</em> pages, as if it was a local directory. Thus, I looked into collecting the log files concurrently so that the tree could be traversed quickly.
+    </p>
+  
+    <p class='mb-3'>
+      I initially created an AsyncIterator using the <a href='https://tokio.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>tokio.rs</a> library. To limit the amount of workers, I used the <a href='https://docs.rs/futures/latest/futures/stream/futures_unordered/struct.FuturesUnordered.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>FuturesUnordered</a> structure as explained in this <a href='https://users.rust-lang.org/t/batch-execution-of-futures-in-the-tokio-runtime-or-max-number-of-active-futures-at-a-time/47659/4' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>max number of active futures at a time</a> discussion. That seemed to work great, but implementing the <em>handle response</em> part was a bit complicated. Some footguns need to be avoided according to this <a href='https://github.com/rust-lang/futures-rs/issues/2387' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>issue</a>. To learn more about async Rust, check its working group <a href='https://rust-lang.github.io/wg-async/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>wg-async</a> page.
+    </p>
+  
+    <p class='mb-3'>
+      From my understanding, Tokio is great for long running tasks like building a server. But for short tasks, such as crawling an http directory, I find it easier to use a threadpool with <a href='https://doc.rust-lang.org/std/sync/mpsc/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>mpsc</a>, a Multi Producer, Single Consumer FIFO queue. Thus, here is the main function of the logreduce's httpdir library:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>fn process(
+    visitor: &Visitor,
+    client: &Client,
+    pool: &ThreadPool,
+    tx: &Sender&lt;Message&gt;,
+    url: Url,
+) {
+    if let Some(visitor) = visitor.visit(&url) {
+        // Increase reference counts.
+        let tx = tx.clone();
+        let sub_pool = pool.clone();
+        let client = client.clone();
+
+        // Submit the work.
+        pool.execute(move || match http_list(&client, url) {
+            // We decoded some urls.
+            Ok(urls) =&gt; {
+                for url in urls {
+                    if url.path().ends_with('/') {
+                        // Recursively call the handler on sub directory.
+                        Crawler::process(&visitor, &client, &sub_pool, &tx, url)
+                    } else {
+                        // Send file location to the mpsc channel.
+                        tx.send(Some(Ok(url))).unwrap()
+                    }
+                }
+                // Indicate we are done.
+                tx.send(None).unwrap()
+            }
+
+            // An error happened, propagates it.
+            Err(e) =&gt; tx.send(Some(Err(e))).unwrap(),
+        });
+    }
+}</code></pre></div>
+    <p class='mb-3'>
+      You can check the complete implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/httpdir/src/httpdir.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>httpdir.rs</a> module.
+    </p>
+  <h2 id='completing-my-first-project-in-rust' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Completing my first project in Rust</h2>
+    <p class='mb-3'>
+      Logreduce is the first project that I wrote using Rust. Here are my initial impressions of the language.
+    </p>
+  
+    <p class='mb-3'>
+      Pros:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Reliable: When working on the model processor, I went through multiple iterations, and the code worked after it compiled everytime.
+        </li>
+      
+        <li>
+          Network effect: The language attracts many talented developers. For example, the <a href='https://docs.rs/regex' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>regex</a> and <a href='https://hyper.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>hyper</a> crates look amazing.
+        </li>
+      
+        <li>
+          Stellar toolchain: Everything looks tightly integrated and snappy. I particularly enjoy the workspace feature to structure the code base in multiple libraries with their own dependencies.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Cons:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Lifetimes are notoriously difficult to understand and I avoided them as much as possible to keep the code simple.
+        </li>
+      
+        <li>
+          Macros are appealing but they can be rather cryptic and hard to debug.
+        </li>
+      
+        <li>
+          Sometimes the type inference does not work and it needs extra annotations. For example, to convert a list of result to a result list we can use the turbofish syntax: <em>collect::&lt;Result&lt;Vec&lt;_&gt;&gt;&gt;()</em>. In Haskell, this is implemented with the <em>traverse :: (a -&gt; f b) -&gt; t a -&gt; f (t b)</em> function, which I find less complicated.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I am mainly interested in Rust's expressive static types. They generally work the same as in Haskell and OCaml, or any other language featuring <a href='https://doc.rust-lang.org/book/ch06-00-enums.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Algebraic Data Types</a>. Such types let me fearlessly perform heart surgery on complex code. As explained in the <a href='https://www.youtube.com/watch?v=kZ1P8cHN3pY' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Why Functional Programming Doesn't Matter</a> talk, expressive static types give us the dexterity to extend our system in a fairly safe way. In particular, by making illegal states unrepresentable, we don't have to worry about many kinds of errors. The type system statically verifies a significant part of our program, enabling us to move fast by focusing on the most important part.
+    </p>
+  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      Coming from Haskell, the main challenge of using Rust is to be more careful about the values and their memory. And after going through the initial bumps, I must say it's getting a little easier and I now mostly understand what the compiler wants.
+    </p>
+  
+    <p class='mb-3'>
+      The Rust implementation of logreduce is now almost feature complete with the legacy Python code, and I'm looking forward adding the last remaining parts:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Discovery of baselines for CI build.
+        </li>
+      
+        <li>
+          Supporting systemd-journal sources.
+        </li>
+      
+        <li>
+          Handling tarball transparently.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I always welcome feedback, if you would like to contribute, please join the <a href='https://matrix.to/#/#logreduce:matrix.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>logreduce:matrix.org</a> chat room.
+    </p>
+  
+    <p class='mb-3'>
+      Thank you for reading!
+    </p>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/rust'>
+        <!-- DoNotFormat -->
+        #rust
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/logreduce'>
+        <!-- DoNotFormat -->
+        #logreduce
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/logreduce-rust-part4.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.8.1.14'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>

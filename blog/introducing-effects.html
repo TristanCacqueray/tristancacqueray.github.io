@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Introducing an effects system for Monocle – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post was initially published on https://www.softwarefactory-project.io/introducing-an-effects-system-for-monocle.html' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Introducing an effects system for Monocle' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+  
+  <link href='tailwind.css?instanceId=d44009b7-a90c-483a-ac17-189ce07957fb' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Introducing an effects system for Monocle
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      This post was initially published on <a href='https://www.softwarefactory-project.io/introducing-an-effects-system-for-monocle.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.softwarefactory-project.io/introducing-an-effects-system-for-monocle.html</a>
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      This blog post explains the reasons we integrated an <a href='https://en.wikipedia.org/wiki/Effect_system' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effect system</a> in <a href='https://changemetrics.io/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Monocle</a>. This post aims to be beginner friendly. We understand that some concepts sound intimidating and we hope that this post demystifies them a bit.
+    </p>
+  
+    <p class='mb-3'>
+      First, it describes the context and its main issue. Next, it defines key terms and concepts. Finally, it shows how we used the <a href='https://github.com/haskell-effectful/effectful#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effectful</a> library to improve Monocle composability.
+    </p>
+  <h2 id='context-and-problem-statement' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context and problem statement</h2>
+    <p class='mb-3'>
+      Monocle components are implemented using dedicated actions. The goal is to limit the available side-effects and to maintain a clear separation of concerns.
+    </p>
+  
+    <p class='mb-3'>
+      The current implementation is based on the ‘ReaderT over IO’ pattern and it is affected by a problem known as the ‘n² instances’. The issue is that adding new side-effects requires unnecessary modifications, which limit the composability and testability of the components.
+    </p>
+  <h2 id='what-is-a-side-effect' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What is a side-effect?</h2>
+    <p class='mb-3'>
+      A function has <a href='https://en.wikipedia.org/wiki/Side_effect_(computer_science)' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>side-effects</a> when it modifies a state outside of its local environment. Common examples of side-effects include:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Accessing the filesystem,
+        </li>
+      
+        <li>
+          Executing another program, or
+        </li>
+      
+        <li>
+          Connecting to a network service.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In other words, a function has side-effects if its output does not depend solely on its input. It’s valuable to identify side-effects because they require extra care when testing and optimizing.
+    </p>
+  
+    <p class='mb-3'>
+      The Haskell type system defines function with side-effects by wrapping the return value in the IO action. For example, the standard ‘readFile’ function is defined as <code class='py-0.5 px-0.5 bg-gray-100'>FilePath -&gt; IO String</code>: given a file path, ‘readFile’ returns an IO action that produces a string.
+    </p>
+  
+    <p class='mb-3'>
+      Previously, in Monocle, we used the ‘ReaderT over IO’ pattern.
+    </p>
+  <h2 id='what-is-a-reader' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What is a reader?</h2>
+    <p class='mb-3'>
+      A reader provides an environment to the functions. For example, instead of passing the environment using explicit parameters:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: Logger -&gt; Database -&gt; Param -&gt; IO Metric</code></pre></div>
+    <p class='mb-3'>
+      A reader can declare the available environment by wrapping the return value:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: Param -&gt; ReaderT (Logger, Database) IO Metric</code></pre></div>
+    <p class='mb-3'>
+      This function signature means: given a parameter, ‘computeMetric’ returns a reader action that procudes a metric using the <code class='py-0.5 px-0.5 bg-gray-100'>(Logger, Database)</code> environment. This lets us focus on the business logic without manually handling the environment. This is particularly convenient for intermediary functions which don’t have to pass the environment parameters around. In other words, the reader re-arranges the function’s parameters to move the environment out of the way.
+    </p>
+  
+    <p class='mb-3'>
+      A reader is analogous to this Python construct:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>class Api:
+    def __init__(self, logger, database):
+        self.logger = logger
+        self.database = database
+
+    def compute_metric(self, param) -&gt; Metric:
+        ...</code></pre></div>
+    <p class='mb-3'>
+      This ‘Api’ object attaches the environment to a general purpose <code class='py-0.5 px-0.5 bg-gray-100'>self</code> reference which is passed on to every object method. The <code class='py-0.5 px-0.5 bg-gray-100'>compute_metric</code> method can freely read and modify the <code class='py-0.5 px-0.5 bg-gray-100'>self</code> attributes. On the other hand, the reader action precisely describes the available environment for the <code class='py-0.5 px-0.5 bg-gray-100'>computeMetric</code> function.
+    </p>
+  
+    <p class='mb-3'>
+      The next sections present how Monocle used to be implemented and what is the benefit of using an effect system.
+    </p>
+  <h2 id='monocle-action-contexts' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Monocle action contexts</h2>
+    <p class='mb-3'>
+      The Monocle component actions were defined as:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>newtype AppAction a = AppAction (ReaderT AppEnv IO a)</code> to initialize the index and serve the API.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>newtype QueryActon a = QueryAction (ReaderT QueryEnv IO a)</code> to serve user metric.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>newtype CrawlerAction a = CrawlerAction (ReaderT CrawlerEnv IO a)</code> to collect changes data.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Instead of using the new types, the individual functions used mtl-style typeclass constraints to enable generic implementations. For example Monocle had:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class TimeContext m</code>, to enable reading the local time,
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class RetryContext m</code>, to catch network error and retry the action with exponential backoff,
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class LoggerContext m</code>, to log messages, and
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class DatabaseContext m</code>, to access the database.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Such typeclasses are different from Python’s class: a typeclass defines a set of methods that is shared across multiple types. This is analogous to the Rust <a href='https://doc.rust-lang.org/book/ch10-02-traits.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>trait system</a>. That means each action needed to provide its own instance, for example:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>instance DatabaseContext AppAction</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>instance DatabaseContext QueryAction</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Monocle also defined super constraints for the component code to avoid listing the individual constraint:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class (TimeContext m, LoggerContext m, DatabaseContext m) =&gt; AppContext m</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class (LoggerContext m, DatabaseContext m) =&gt; QueryContext m</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class (TimeContext m, RetryContext m) =&gt; CrawlerContext m</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      So that the <code class='py-0.5 px-0.5 bg-gray-100'>computeMetric</code> function was defined as:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: QueryContext m =&gt; Param -&gt; m Metric</code></pre></div>
+    <p class='mb-3'>
+      Similarly, the <code class='py-0.5 px-0.5 bg-gray-100'>getChanges</code> crawler function was defined as:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>getChanges :: CrawlerContext m =&gt; Repository -&gt; m [Changes]</code></pre></div>
+    <p class='mb-3'>
+      Pros:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Restricted side effects: the function can’t do arbitrary IO.
+        </li>
+      
+        <li>
+          The constraints can be implemented differently depending on the context.
+        </li>
+      
+        <li>
+          The types enforce the available effects. For example, accessing the database from a crawler context is a compile time error.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Cons:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Adding a new contraint requires adding new instances, the so called ‘n² instances’ problem.
+        </li>
+      
+        <li>
+          This abstraction has an overhead cost, though it was not noticable in Monocle performance.
+        </li>
+      
+    </ul>
+  <h2 id='effects-system' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Effects system</h2>
+    <p class='mb-3'>
+      To improve the Monocle code base, we replaced the mtl-style constraints with an effect system. Instead of using constraints for the execution context, denoted <code class='py-0.5 px-0.5 bg-gray-100'>m</code>, Monocle now uses a list of effect constraints, denoted <code class='py-0.5 px-0.5 bg-gray-100'>es</code>, along with the <code class='py-0.5 px-0.5 bg-gray-100'>Eff</code> action provided by the <a href='https://github.com/haskell-effectful/effectful#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effectful</a> library.
+    </p>
+  
+    <p class='mb-3'>
+      The main difference is that the effect’s environments are defined individually, and we no longer have to implement the <code class='py-0.5 px-0.5 bg-gray-100'>m</code> constraint for every context. Effectful effectively lets us easily compose a list of readers. To learn more about this technique, checkout the <a href='https://hackage.haskell.org/package/effectful-core-2.1.0.0/docs/Effectful-Dispatch-Static.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Effectful.Dispatch.Static</a> module documentation.
+    </p>
+  
+    <p class='mb-3'>
+      We replaced the super contexts with a type alias to list all the necessary effects in one place:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>type QueryEffects es = [LoggerEffect,DatabaseEffect] :&gt;&gt; es</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>type CrawlerEffects es = [TimeEffect,RetryEffect] :&gt;&gt; es</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      And the <code class='py-0.5 px-0.5 bg-gray-100'>computeMetric</code> and <code class='py-0.5 px-0.5 bg-gray-100'>getChanges</code> functions are now defined as:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: QueryEffects es =&gt; Param -&gt; Eff es Metric
+getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></pre></div>
+    <p class='mb-3'>
+      The initial refactor aimed for a drop-in replacement so that only the function’s signature changed from <code class='py-0.5 px-0.5 bg-gray-100'>m</code> to <code class='py-0.5 px-0.5 bg-gray-100'>Eff es</code>. If you are curious, you can check the <a href='https://github.com/change-metrics/monocle/pull/954' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PR 954</a> which introduced the new implementation.
+    </p>
+  
+    <p class='mb-3'>
+      Pros:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          This new implementation is arguably simpler: an effect is defined only once.
+        </li>
+      
+        <li>
+          Effectful enables seamless integration with the existing Haskell ecosystem.
+        </li>
+      
+        <li>
+          Eff is fast: the effect lookup is <code class='py-0.5 px-0.5 bg-gray-100'>O(1)</code> according to its <a href='https://hackage.haskell.org/package/effectful-core-2.1.0.0/docs/Effectful-Internal-Effect.html#t:Effect' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>documentation</a>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Cons:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The effectful library is relatively new and the ecosystem is still immature.
+        </li>
+      
+        <li>
+          The Eff implementation is more complicated than a simple Reader, for example the process known as <a href='https://github.com/fpco/unliftio#unlifting-in-2-minutes' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>unlifting</a> requires extra attentions when running concurrently.
+        </li>
+      
+    </ul>
+  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      We are satisfied with the transition and we are looking forward to contributing to the effectful ecosystem by sharing the Monocle implementations.
+    </p>
+  
+    <p class='mb-3'>
+      Please note that behind the ‘Action’ and ‘Context’ mentioned in this post, there is a fundamental structure called a <a href='https://en.wikipedia.org/wiki/Monad_(functional_programming)' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Monad</a>. If you are not familiar with the concept already, we recommend this <a href='https://www.youtube.com/watch?v=t1e8gqXLbsU' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>computerphile video</a> by Graham Hutton.
+    </p>
+  
+    <p class='mb-3'>
+      Thanks for reading!
+    </p>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/monocle'>
+        <!-- DoNotFormat -->
+        #monocle
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/introducing-effects.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.8.1.14'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
