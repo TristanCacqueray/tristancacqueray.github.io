@@ -8,6 +8,7 @@ tag:blog
 
 ## Previous
 
+- [Getting Started with Haskell on Fedora](https://fedoramagazine.org/getting-started-with-haskell-on-fedora/)
 - [Software Factory Resources in Reason](https://www.softwarefactory-project.io/software-factory-resources-in-reason.html)
 - [Python Dataclasses](https://www.softwarefactory-project.io/python-dataclasses.html)
 - [Haskell for python developers](https://www.softwarefactory-project.io/haskell-for-python-developers.html)
