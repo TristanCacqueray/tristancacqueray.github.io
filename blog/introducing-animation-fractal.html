@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Introducing Animation Fractal – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post introduces animation-fractal, an app to create live visuals. In two parts, I present:' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='../static/shadertoy-mandelbrot.png' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Introducing Animation Fractal' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  <link href='tailwind.css?instanceId=369a2dd9-34c7-48f2-9459-02572628bb68' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Introducing Animation Fractal
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      This post introduces <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a>, an app to create live visuals. In two parts, I present:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          How the project works, and,
+        </li>
+      
+        <li>
+          What the implementation looks like.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      But first, here is a video where I demonstration the app along with a modular synthesizer:
+    </p>
+  <div xmlhtmlRaw><iframe width="560" height="315" src="https://www.youtube.com/embed/LqAKjAut_ag" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div><h2 id='generative-art' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Generative Art</h2>
+    <p class='mb-3'>
+      The base principle of generative art is to create images using a computer system. I am mostly interested in the following two techniques, <a href='https://en.wikipedia.org/wiki/Iterated_function_system' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>IFS</a> and <a href='https://en.wikipedia.org/wiki/Ray_marching' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>SDF ray marching</a>:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          
+    <p class='mb-3'>
+      IFS stands for Iterated Function System, where we recursively evaluate a function and observe it’s behavior. For example, <span class='math inline'>\(z = z^2 + c\)</span> produces the mandelbrot set.
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Ray marching is a form of ray casting method where we create objects with a signed distance function (SDF).
+    </p>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      We implement a function to produce a color for each pixel. This kind of work is best performed on the graphic cards using a fragment shader.
+    </p>
+  <h2 id='fragment-shader' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fragment Shader</h2>
+    <p class='mb-3'>
+      The <a href='https://www.shadertoy.com' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>shadertoy</a> website lets you interact with fragment shaders directly in your web browser. Given a pixel coordinate named <code class='py-0.5 px-0.5 bg-gray-100'>fragCoord.xy</code>, the shader code outputs the pixel color named <code class='py-0.5 px-0.5 bg-gray-100'>fragColor</code> to render a fullscreen image.
+    </p>
+  
+    <p class='mb-3'>
+      The shadertoy environment provides additional variables, such as the window resolution <code class='py-0.5 px-0.5 bg-gray-100'>iResolution</code> and the elapsed time <code class='py-0.5 px-0.5 bg-gray-100'>iTime</code>. The shader code is defined with the <a href='https://en.wikipedia.org/wiki/OpenGL_Shading_Language' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>GLSL ES</a> language, here is an example:
+    </p>
+  <img class='inline mb-3' src='static/shadertoy-mandelbrot.png' alt='shadertoy-mandelbrot' style='width: inherit;' />
+    <p class='mb-3'>
+      The shader function <code class='py-0.5 px-0.5 bg-gray-100'>mainImage</code> is executed very quickly by the graphic card for each individual pixel. This execution is highly concurrent and it is suitable for realtime rendering.
+    </p>
+  
+    <p class='mb-3'>
+      Shadertoy is truely fascinating. Inspired by the possibilities, I wanted more:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Variables with controllers, and,
+        </li>
+      
+        <li>
+          Offscreen rendering, using scripted modulations.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Thus, I had to build my own thing, and the next sections describe how I went about it.
+    </p>
+  <h2 id='haskell-gamedev' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Haskell GameDev</h2>
+    <p class='mb-3'>
+      I decided to use the Haskell language to write <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a>. I chose Haskell because:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The expressive type system lets me define and modify every part of the system with the invaluable help of the compiler.
+        </li>
+      
+        <li>
+          The tooling provides a great developer experience: REPL with GHCi, editor integration with the <a href='https://haskell-language-server.readthedocs.io/en/latest/index.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>haskell-language-server</a> and <a href='https://github.com/ndmitchell/ghcid#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ghcid</a> for reloading the code. Static analysis tool such as <a href='https://github.com/ndmitchell/hlint#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>hlint</a>, <a href='https://github.com/ocharles/weeder#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>weeder</a> and <a href='https://github.com/jonascarpay/calligraphy#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>calligraphy</a> are also very useful.
+        </li>
+      
+        <li>
+          The Haskell community is constantly producing interesting work and I find it fascinating to see such progress in the development of the language.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I previously used Haskell for writting a web service application named <a href='https://change-metrics.io' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>monocle</a>, and I wanted to apply Haskell to a different task.
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      If you are interested in doing Haskell GameDev, checkout <a href='https://haskell-game.dev/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>haskell-game.dev</a>, and I recommend this blog post: <a href='http://jackkelly.name/blog/archives/2022/05/28/text-mode_games_as_first_haskell_projects/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Text-Mode Games as First Haskell Projects</a>.
+    </p>
+  
+    </blockquote>
+  <h2 id='vulkan' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Vulkan</h2>
+    <p class='mb-3'>
+      To execute shader code, you can use either OpenGL or Vulkan. I picked Vulkan because it is the new standard, and it enables using different shader languages thanks to the new intermediary representation named SPIR-V.
+    </p>
+  
+    <p class='mb-3'>
+      Vulkan is notoriously difficult to use, and writting a bare bone application is overly complicated. Thus I’m relying on the <a href='https://keid.haskell-game.dev/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Keid</a> engine to deal with most of the lower level details such as:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Context initialization.
+        </li>
+      
+        <li>
+          Swapchain creation and presentation.
+        </li>
+      
+        <li>
+          Ready-to-use render pass and pipelines.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Keid introduces a concept of stages to define scene resources, event handlers, and how to draw the final image. Even though that sounds simple, you need a good understanding of computer graphics to use the engine. To get more familiar with this system, I implemented the <a href='https://vkguide.dev/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>vkguide</a> using Keid in this project: <a href='https://gitlab.com/TristanCacqueray/keid-vkguide' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>keid-vkguide</a>.
+    </p>
+  
+    <p class='mb-3'>
+      Here is an overview of my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> stage:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='mermaid language-mermaid'>graph LR
+  subgraph "Offscreen Pass"
+    Variables --&gt; SP(Fractal Pipeline)
+    SP --&gt; TX(Texture)
+  end
+  subgraph "ForwardMSAA Pass"
+    TX --&gt; FP(Fullscreen Pipeline) --&gt; Swapchain
+    DearImGui --&gt; Swapchain
+  end</code></pre></div>
+    <p class='mb-3'>
+      That is a fairly simple setup where I didn’t bother with 3d models or lighting because everything is done by the shader code. The next section describes how the variables are provided to the render pipeline.
+    </p>
+  <h2 id='descriptor-set' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Descriptor Set</h2>
+    <p class='mb-3'>
+      The shader code is executed on a distinct processing unit called the GPU. After uploading the code, you have three options to use your application’s data:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Push contant.
+        </li>
+      
+        <li>
+          Vertex Attributes.
+        </li>
+      
+        <li>
+          Descriptor Set.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I don’t fully understand this part (any suggestion for improvement would be appreciated), and to keep things simple, I used a static descriptor set. This is a read-only data type that can be copied from the CPU to the GPU by providing a layout called <code class='py-0.5 px-0.5 bg-gray-100'>uniform</code>. Here is the CPU definition:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Scene = Scene
+    { screenRatio :: Float
+    , screenResolution :: UVec2
+    , origin :: Vec2
+    , zoom :: Float
+    , var1 :: Float
+    , var2 :: Float
+    }
+    deriving (Generic)
+
+instance GStorable Scene</code></pre></div>
+    <p class='mb-3'>
+      … which has to be mapped to this GPU definition:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='glsl language-glsl'>layout(set=0, binding=1, std140) uniform Globals {
+  float screenRatio;
+  ivec2  screenResolution;
+  vec2  origin;
+  float zoom;
+  float var1;
+  float var2;
+} scene;</code></pre></div>
+    <p class='mb-3'>
+      In a future version I will look into automatically deriving the GPU definition.
+    </p>
+  
+    <p class='mb-3'>
+      Next, I wanted to define custom scene variables that can be adjusted while the application is running.
+    </p>
+  <h2 id='gpu-buffer-lens' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>GPU Buffer Lens</h2>
+    <p class='mb-3'>
+      Thanks to the <a href='https://hackage.haskell.org/package/StateVar-1.2.2/docs/Data-StateVar.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>StateVar</a> and <a href='https://hackage.haskell.org/package/generic-lens' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>generic-lens</a> libraries, I created a couple helper modules:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/main/src/AnimationFractal/Variable.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AnimationFractal.Variable</a> to define generic variables and implement controllers.
+        </li>
+      
+        <li>
+          <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/main/src/AnimationFractal/Scene.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AnimationFractal.Scene</a> to map scene fields to generic variables.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      For example, a 2d vector is defined with this function:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>newVec2Var :: Text -&gt; Lens' Scene Vec2 -&gt; Worker.Var Scene -&gt; STM Variable
+newVec2Var name sceneLens sceneState = do
+    current &lt;- newTVar 0
+    mx &lt;- sceneOutVar (name &lt;&gt; ".x") sceneLens v2x sceneState current
+    my &lt;- sceneOutVar (name &lt;&gt; ".y") sceneLens v2y sceneState current
+    pure $ Variable name (ControllerVec2 (tvar2StateVar current) mx.current my.current) [mx, my]</code></pre></div>
+    <p class='mb-3'>
+      … which uses these lens composition helpers:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>sceneOutVar :: Text -&gt; Lens' Scene a -&gt; Lens' a Float -&gt; Worker.Var Scene -&gt; TVar a -&gt; STM OutVar
+sceneOutVar name sceneLens valueLens sceneState controllerState =
+    newOutVar name controllerVar sceneVar
+  where
+    controllerVar = tvarStateLens valueLens controllerState
+    sceneVar = makeSceneStateVar (sceneLens . valueLens) sceneState
+
+makeSceneStateVar :: Lens' Scene a -&gt; Worker.Var Scene -&gt; StateVar a
+makeSceneStateVar sceneLens sceneState = makeStateVar getv setv
+  where
+    getv = view sceneLens &lt;$&gt; Worker.readVar sceneState
+    setv v = Worker.pushInput sceneState $ sceneLens .~ v</code></pre></div>
+    <p class='mb-3'>
+      This system enables describing arbitrary scene values into generic variables. For example, a scene declares its variables like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>variables = [
+    newVec2Var "origin" #origin
+  , newFloatVar "zoom" #zoom
+  , newSciVar "pow" #var1
+]</code></pre></div>
+    <p class='mb-3'>
+      … which results in this representation:
+    </p>
+  <img class='inline mb-3' src='static/af-variables.png' alt='af-variables' style='width: inherit;' />
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Checkout the <a href='blog/float-controller' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Arbitrary precision float controller</a> post for more details.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      This implementation enables the scene variables to be defined through the static uniform descriptor set. When any value changes, the full scene data is updated and uploaded to the GPU to trigger a new render. This abstraction is useful to implement generic modulations.
+    </p>
+  <h2 id='modulation-input' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Modulation Input</h2>
+    <p class='mb-3'>
+      To make the visuals more interesting, I wanted to modulate the variables based on external events. As presented in the <a href='blog/varying-modulation' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Varying Modulation</a> post, I created a couple helper modules:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/main/src/AnimationFractal/Modulation.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AnimationFractal.Modulation</a> to define modulations and their targets.
+        </li>
+      
+        <li>
+          <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/main/src/AnimationFractal/Input.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AnimationFractal.Input</a> to define input sources.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The inputs, such as pulseaudio line-in, or PortMidi, are running in their own thread, and they trigger modulations asynchronously. Then, for each frame, the process works as follow:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Copy the current variable value from the controller, as defined by the user.
+        </li>
+      
+        <li>
+          Update the modulation and apply to each target.
+        </li>
+      
+        <li>
+          Push the final value to the scene data type.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      To make this interactive, I implemented an interface to configure the modulation at runtime: <img src='static/af-modulations-gui.png' alt='af-modulations-gui' />
+    </p>
+  
+    <p class='mb-3'>
+      This part is still under construction and I am looking for new algorithms to provides better modulation. For example, I would like to implement second order dynamics as presented in this video: <a href='https://www.youtube.com/watch?v=KPoeNZZ6H4s' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Giving Personality to Procedural Animations using Math</a>.
+    </p>
+  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      I faced quite a few grey-hair-inducing issues caused by Vulkan and Wayland while I was working on this project. I questioned my technical decision multiple times and I was tempted to start over using a more popular stack, such as <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebGL</a> or <a href='https://wgpu.rs/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>wgpu.rs</a>. Although it felt like I kept banging my head against the wall, eventually, I found the cause and fixed the symptoms. I’m glad I did because I gained invaluable knowledge of computer graphics I wouldn’t have learnt otherwise.
+    </p>
+  
+    <p class='mb-3'>
+      I was also worried about space leak or GC pause, but that has not been a problem so far. On the contrary, I skipped premature optimizations, and the application already runs at a steady 60 frame per seconds using less than 10% of the available CPU.
+    </p>
+  
+    <p class='mb-3'>
+      I am quite happy with the end result, and I’m looking forward continuing the development of <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a>.
+    </p>
+  
+    <p class='mb-3'>
+      Cheers!
+    </p>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/vulkan'>
+        <!-- DoNotFormat -->
+        #vulkan
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/fractal'>
+        <!-- DoNotFormat -->
+        #fractal
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/introducing-animation-fractal.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 0.8.1.14'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
