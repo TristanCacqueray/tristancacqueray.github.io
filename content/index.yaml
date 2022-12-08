@@ -2,6 +2,16 @@ page:
   siteTitle: Tristan's Zettelkasten
   headHtml: |
     <snippet var="js.highlightjs" />
+    <snippet var="js.mermaid" />
+    <script>
+    window.MathJax = {
+      startup: {
+        ready: () => {MathJax.startup.defaultReady();}
+      }
+    };
+    </script>
+    <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 template:
   name: /templates/layouts/note
