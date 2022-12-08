@@ -14,7 +14,7 @@ In two parts, I present:
 - How the project works, and,
 - What the implementation looks like.
 
-But first, here is a video  where I demonstration the app along with a modular synthesizer:
+But first, here is a video  where I demonstrate the app along with a modular synthesizer:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/LqAKjAut_ag" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
