@@ -80,7 +80,7 @@ Vulkan is notoriously difficult to use, and writting a bare bone application is 
 Thus I'm relying on the [Keid][keid] engine to deal with most of the lower level details such as:
 
 - Context initialization.
-- Swapchain creation and presentation.
+- Framebuffer creation and presentation.
 - Ready-to-use render pass and pipelines.
 
 Keid introduces a concept of stages to define scene resources, event handlers, and how to draw the final image.
@@ -95,9 +95,12 @@ graph LR
     Variables --> SP(Fractal Pipeline)
     SP --> TX(Texture)
   end
+  subgraph "Presentation"
+    FB(Framebuffer)
+  end
   subgraph "ForwardMSAA Pass"
-    TX --> FP(Fullscreen Pipeline) --> Swapchain
-    DearImGui --> Swapchain
+    TX --> FP(Fullscreen Pipeline) --> FB
+    DearImGui --> FB
   end
 ```
 
