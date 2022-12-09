@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=20d5b331-24de-44f2-871c-510ceeea4284' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=9ec50479-3d51-4fb2-baa3-7762803a3c56' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -413,7 +413,7 @@ window.MathJax = {
         </li>
       
         <li>
-          Swapchain creation and presentation.
+          Framebuffer creation and presentation.
         </li>
       
         <li>
@@ -434,9 +434,12 @@ window.MathJax = {
     Variables --&gt; SP(Fractal Pipeline)
     SP --&gt; TX(Texture)
   end
+  subgraph "Presentation"
+    FB(Framebuffer)
+  end
   subgraph "ForwardMSAA Pass"
-    TX --&gt; FP(Fullscreen Pipeline) --&gt; Swapchain
-    DearImGui --&gt; Swapchain
+    TX --&gt; FP(Fullscreen Pipeline) --&gt; FB
+    DearImGui --&gt; FB
   end</code></pre></div>
     <p class='mb-3'>
       That is a fairly simple setup where I didn’t bother with 3d models or lighting because everything is done by the shader code. The next section describes how the variables are provided to the render pipeline.
