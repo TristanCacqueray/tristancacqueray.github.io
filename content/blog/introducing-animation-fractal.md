@@ -107,19 +107,37 @@ graph LR
 That is a fairly simple setup where I didn't bother with 3d models or lighting because everything is done by the shader code.
 The next section describes how the variables are provided to the render pipeline.
 
+## Shader input
+
+The shader code is executed on a distinct processing unit called the GPU.
+After uploading the code, you have multiple options to use your application's data.
+
+From more static to dynamic:
+- Shader specialization constants. Those are compiled-in and thus fastest. They even turn switches and ifs into no-ops!
+- Descriptor sets. Stuff like uniform buffer data, textures and samplers. Shared across all the shader "invocations".
+- Instance and vertex attributes. Only for graphics pipelines.
+- Push constants. Tiny bits of data embedded right into command buffer. Reasonably fast, but *tiny* - only 128 bytes are guaranteed.
+
+The composite signature of shader input is called `layout` in Vulkan.
 
 ## Descriptor Set
 
-The shader code is executed on a distinct processing unit called the GPU.
-After uploading the code, you have three options to use your application's data:
+I don't fully understand this part (any suggestion for improvement would be appreciated), and to keep things simple, I used a static descriptor set containing a single structure declared as `uniform`.
 
-- Push contant.
-- Vertex Attributes.
-- Descriptor Set.
+Here's how it is defined in GLSL:
 
-I don't fully understand this part (any suggestion for improvement would be appreciated), and to keep things simple, I used a static descriptor set.
-This is a read-only data type that can be copied from the CPU to the GPU by providing a layout called `uniform`.
-Here is the CPU definition:
+```glsl
+layout(set=0, binding=1, std140) uniform Globals {
+  float screenRatio;
+  uvec2  screenResolution;
+  vec2  origin;
+  float zoom;
+  float var1;
+  float var2;
+} scene;
+```
+
+And here's its CPU counterpart:
 
 ```haskell
 data Scene = Scene
@@ -135,23 +153,13 @@ data Scene = Scene
 instance GStorable Scene
 ```
 
-… which has to be mapped to this GPU definition:
+`GStorable` is a [deriving-storable] helper class that removes some of the boilerplate and most of the time does the right thing.
 
-```glsl
-layout(set=0, binding=1, std140) uniform Globals {
-  float screenRatio;
-  ivec2  screenResolution;
-  vec2  origin;
-  float zoom;
-  float var1;
-  float var2;
-} scene;
-```
+[deriving-storable]: http://hackage.haskell.org/package/derive-storable
 
-In a future version I will look into automatically deriving the GPU definition.
+In a future version I will look into automatically deriving the one definition from another.
 
-Next, I wanted to define custom scene variables that can be adjusted
-while the application is running.
+Next, I wanted to define custom scene variables that can be adjusted while the application is running.
 
 ## GPU Buffer Lens
 
