@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=9ec50479-3d51-4fb2-baa3-7762803a3c56' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=73506dac-afe0-4314-8058-c9c9040a4e09' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -444,29 +444,56 @@ window.MathJax = {
     <p class='mb-3'>
       That is a fairly simple setup where I didn’t bother with 3d models or lighting because everything is done by the shader code. The next section describes how the variables are provided to the render pipeline.
     </p>
-  <h2 id='descriptor-set' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Descriptor Set</h2>
+  <h2 id='shader-input' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Shader input</h2>
     <p class='mb-3'>
-      The shader code is executed on a distinct processing unit called the GPU. After uploading the code, you have three options to use your application’s data:
+      The shader code is executed on a distinct processing unit called the GPU. After uploading the code, you have multiple options to use your application’s data.
+    </p>
+  
+    <p class='mb-3'>
+      From more static to dynamic:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          Push contant.
+          Shader specialization constants. Those are compiled-in and thus fastest. They even turn switches and ifs into no-ops!
         </li>
       
         <li>
-          Vertex Attributes.
+          Descriptor sets. Stuff like uniform buffer data, textures and samplers. Shared across all the shader “invocations”.
         </li>
       
         <li>
-          Descriptor Set.
+          Instance and vertex attributes. Only for graphics pipelines.
+        </li>
+      
+        <li>
+          Push constants. Tiny bits of data embedded right into command buffer. Reasonably fast, but <em>tiny</em> - only 128 bytes are guaranteed.
         </li>
       
     </ul>
   
     <p class='mb-3'>
-      I don’t fully understand this part (any suggestion for improvement would be appreciated), and to keep things simple, I used a static descriptor set. This is a read-only data type that can be copied from the CPU to the GPU by providing a layout called <code class='py-0.5 px-0.5 bg-gray-100'>uniform</code>. Here is the CPU definition:
+      The composite signature of shader input is called <code class='py-0.5 px-0.5 bg-gray-100'>layout</code> in Vulkan.
+    </p>
+  <h2 id='descriptor-set' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Descriptor Set</h2>
+    <p class='mb-3'>
+      I don’t fully understand this part (any suggestion for improvement would be appreciated), and to keep things simple, I used a static descriptor set containing a single structure declared as <code class='py-0.5 px-0.5 bg-gray-100'>uniform</code>.
+    </p>
+  
+    <p class='mb-3'>
+      Here’s how it is defined in GLSL:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='glsl language-glsl'>layout(set=0, binding=1, std140) uniform Globals {
+  float screenRatio;
+  uvec2  screenResolution;
+  vec2  origin;
+  float zoom;
+  float var1;
+  float var2;
+} scene;</code></pre></div>
+    <p class='mb-3'>
+      And here’s its CPU counterpart:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Scene = Scene
     { screenRatio :: Float
@@ -480,18 +507,11 @@ window.MathJax = {
 
 instance GStorable Scene</code></pre></div>
     <p class='mb-3'>
-      … which has to be mapped to this GPU definition:
+      <code class='py-0.5 px-0.5 bg-gray-100'>GStorable</code> is a <a href='http://hackage.haskell.org/package/derive-storable' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>deriving-storable</a> helper class that removes some of the boilerplate and most of the time does the right thing.
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='glsl language-glsl'>layout(set=0, binding=1, std140) uniform Globals {
-  float screenRatio;
-  ivec2  screenResolution;
-  vec2  origin;
-  float zoom;
-  float var1;
-  float var2;
-} scene;</code></pre></div>
+  
     <p class='mb-3'>
-      In a future version I will look into automatically deriving the GPU definition.
+      In a future version I will look into automatically deriving the one definition from another.
     </p>
   
     <p class='mb-3'>
