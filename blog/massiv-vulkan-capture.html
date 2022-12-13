@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Tristan de Cacqueray – Tristan's Zettelkasten
+    Capturing Vulkan Framebuffer with Massiv – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='Welcome to my homepage. I am a software engineer working for Red Hat on OpenStack cloud [[continuous-integration]] and the [[software-factory]].' />
+      <meta property='og:description' content='This post shows how to efficiently capture and save a Vulkan framebuffer to an image file.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='../static/af-screenshot-demo.jpg' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Tristan de Cacqueray' />
+      <meta property='og:title' content='Capturing Vulkan Framebuffer with Massiv' />
     
     
       <base href='/' />
@@ -231,6 +231,36 @@ window.MathJax = {
   <ul class='root'>
     <li>
       
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
     </li>
   </ul>
 </nav>
@@ -249,23 +279,123 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Tristan de Cacqueray
+    Capturing Vulkan Framebuffer with Massiv
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
-  <div xmlhtmlRaw><img src="static/favicon.jpeg" class="float-left rounded-xl w-48 h-48 mr-2" />
-</div>
+  
     <p class='mb-3'>
-      Welcome to my homepage. I am a software engineer working for Red Hat on OpenStack cloud <a href='zettle/continuous-integration' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Continuous Integration</a> and the <a href='zettle/software-factory' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Software Factory Project</a>.
+      This post shows how to efficiently capture and save a Vulkan framebuffer to an image file.
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/af-screenshot-demo.jpg' alt='af-screenshot-demo' style='width: inherit;' /></div><h2 id='context' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context</h2>
+    <p class='mb-3'>
+      In my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project, the rendering loop runs at 60 frame per seconds. Thus, we have 16.6 millisecond to create a single 1600x1200 frame.
     </p>
   
     <p class='mb-3'>
-      I am passionate about <a href='zettle/free-software' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Free Software</a>, <a href='zettle/programing-languages' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Programing Languages</a>, <a href='zettle/computer-graphics' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Computer Graphics</a> and <a href='zettle/music' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Music</a>. Check out my <a href='blog' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Blog</a>, <a href='projects' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Projects</a> and <a href='contributions' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Contributions</a>.
+      The goal is to implement a record feature so that the display can be exported at the highest quality, without relying on an external capture tool.
+    </p>
+  <h2 id='copy-memory-from-gpu-to-cpu' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Copy memory from GPU to CPU</h2>
+    <p class='mb-3'>
+      As demonstrated in this <a href='https://github.com/SaschaWillems/Vulkan/blob/ed406e61a69a9fb5616e087c99291eb27ba2b9a9/examples/screenshot/screenshot.cpp#L239' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>screenshot.cpp</a> example, we need to create an image buffer that can be accessed from the CPU using <code class='py-0.5 px-0.5 bg-gray-100'>VMA.MEMORY_USAGE_GPU_TO_CPU</code> usage flag. Here is the image representation data type:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data ScreenshotImage = ScreenshotImage
+    { info :: VMA.AllocationInfo
+    , image :: Vk.Image
+    , layout :: Vk.SubresourceLayout
+    , dim :: (Word32, Word32)
+    }</code></pre></div>
+    <p class='mb-3'>
+      Then we can transfer the framebuffer data from the GPU to the CPU with these commands:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Set the image to <code class='py-0.5 px-0.5 bg-gray-100'>IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL</code>.
+        </li>
+      
+        <li>
+          Set the framebuffer to <code class='py-0.5 px-0.5 bg-gray-100'>IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL</code>.
+        </li>
+      
+        <li>
+          Call <code class='py-0.5 px-0.5 bg-gray-100'>cmdCopyImage</code>.
+        </li>
+      
+        <li>
+          Reset the framebuffer to <code class='py-0.5 px-0.5 bg-gray-100'>IMAGE_LAYOUT_GENERAL</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This step takes about 1 millisecond.
+    </p>
+  <h2 id='decode-the-memory-into-a-massiv-array' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Decode the memory into a Massiv array</h2>
+    <p class='mb-3'>
+      After the copy we have a memory region that contains the pixels data. Though, the layout is defined by the GPU requirements and we need to take into account any extra paddings as well as the row pitch. Moreover, we need to copy the raw data as fast as possible so that the memory can be re-used to capture the next frame.
     </p>
   
     <p class='mb-3'>
-      Feel free to reach me by <a href='mailto:tristan.cacqueray@gmail.com' class='text-blue-600 mavenLinkBold hover:underline' data-linkicon='external'>mail</a> or <a href='https://matrix.to/#/@tristanc_:matrix.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>matrix</a>.
+      The Haskell base library provides a few capabilities to deal with such task through the <code class='py-0.5 px-0.5 bg-gray-100'>Foreign</code> modules. In this case, we need the following two functions:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Advances the given address by the given offset in bytes.
+Foreign.Ptr.plusPtr :: Ptr a -&gt; Int -&gt; Ptr b
+
+-- | Read a value from the given memory location.
+Foreign.Storable.peek :: Ptr a -&gt; IO a</code></pre></div>
+    <p class='mb-3'>
+      Thanks to the <a href='https://hackage.haskell.org/package/massiv-1.0.2.0/docs/Data-Massiv-Array-Mutable.html#v:generateArrayS' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>generateArrayS</a> function, we can copy the data by re-arranging each pixel into the correct layout using this implementation:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type MassivPixel = Pixel (Alpha RGB) Word8
+type MassivImage = Array S Ix2 MassivPixel
+
+readImageMassiv :: ScreenshotImage -&gt; IO MassivImage
+readImageMassiv si =
+    generateArrayS
+        (Sz $ fromIntegral (snd si.dim) :. fromIntegral (fst si.dim))
+        getPixel
+  where
+    getPixel :: Ix2 -&gt; IO MassivPixel
+    getPixel (y :. x) = liftIO $! peek (pixelAddr x y)
+
+    pixelAddr :: Int -&gt; Int -&gt; Ptr MassivPixel
+    pixelAddr x y =
+        plusPtr
+            (VMA.mappedData si.info)
+            ( fromIntegral si.layout.offset
+                + (y * fromIntegral si.layout.rowPitch)
+                + (x * sizeOf (0 :: Word32))
+            )</code></pre></div>
+    <p class='mb-3'>
+      I’m not sure why the <code class='py-0.5 px-0.5 bg-gray-100'>Sz</code> parameter appears to be inversed, e.g. (height :. width), but that gives the correct result, otherwise the image would be rotated by 90 degrees.
+    </p>
+  
+    <p class='mb-3'>
+      This step takes about 8 milliseconds.
+    </p>
+  <h2 id='encoding-the-final-image-file' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Encoding the final image file</h2>
+    <p class='mb-3'>
+      The <a href='https://hackage.haskell.org/package/massiv-io-1.0.0.1/docs/Data-Massiv-Array-IO.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>massiv-io</a> library provides encoder for most image formats, based on the standard <a href='https://hackage.haskell.org/package/JuicyPixels' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>JuicyPixels</a> implementations. The format which requires the less computation seems to be BMP, and here is the function to save the image to disk:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>writeImageMassiv :: FilePath -&gt; MassivImage -&gt; IO ()
+writeImageMassiv = MIO.writeArray MIO.BMP MIO.def</code></pre></div>
+    <p class='mb-3'>
+      This step takes about 7 milliseconds. Though, that can be done in a dedicated thread outside of the rendering loop.
+    </p>
+  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      Thanks to the Haskell <code class='py-0.5 px-0.5 bg-gray-100'>Foreign</code> capabilities we saw how to interpret raw data. Then using the <a href='https://hackage.haskell.org/package/massiv-1.0.2.0/docs/Data-Massiv-Array.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>massiv</a> library we implemented an image decoder. In 8 milliseconds we copy the framebuffer to a cpu memory region and we decode the data into a massiv array. This array can then be encoded to an image format in a final step.
+    </p>
+  
+    <p class='mb-3'>
+      Note that I also tried the <a href='https://hackage.haskell.org/package/JuicyPixels-3.3.8/docs/Codec-Picture.html#v:withImage' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Codec.Picture.withImage</a> function provided by <a href='https://hackage.haskell.org/package/JuicyPixels' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>JuicyPixels</a> library, but the performance was a couple order of magnitude slower than the massiv <a href='https://hackage.haskell.org/package/massiv-1.0.2.0/docs/Data-Massiv-Array-Mutable.html#v:generateArrayS' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>generateArrayS</a>. Please let me know if there is a faster way to do this task.
+    </p>
+  
+    <p class='mb-3'>
+      Finally, here is the commit that introduced the screenshot record feature <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/commit/fb4522c124e97722b93ea90e010dc65fa2701097' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal fb4522c1</a>.
     </p>
   
 
@@ -278,9 +408,36 @@ window.MathJax = {
               
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/vulkan'>
+        <!-- DoNotFormat -->
+        #vulkan
+        <!-- DoNotFormat -->
+      </a>
+    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/index.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/massiv-vulkan-capture.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
