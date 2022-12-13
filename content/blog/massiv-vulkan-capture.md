@@ -16,7 +16,7 @@ This post shows how to efficiently capture and save a Vulkan framebuffer to an i
 
 ## Context
 
-In my [animation-fractal][af] project, the rendering loop runs at 60 frame per seconds.
+In my [animation-fractal][af] project, the rendering loop runs at 60 frames per second.
 Thus, we have 16.6 millisecond to create a single 1600x1200 frame.
 
 The goal is to implement a record feature so that the display can be exported
@@ -123,7 +123,7 @@ Then using the [massiv][massiv] library we implemented an image decoder.
 In 8 milliseconds we copy the framebuffer to a cpu memory region and we decode the data into a massiv array.
 This array can then be encoded to an image format in a final step.
 
-Note that I also tried the [Codec.Picture.withImage][withImage] function provided by [JuicyPixels][JuicyPixels]
+Note that I also tried the [Codec.Picture.withImage][withImage] function provided by the [JuicyPixels][JuicyPixels]
 library, but the performance was a couple order of magnitude slower than the massiv [generateArrayS][generateArrayS].
 Please let me know if there is a faster way to do this task.
 
