@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    clean – Tristan's Zettelkasten
+    Synchronizing Sound PCM with Image FPS – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='There is a functional language capable of auto-generating input forms: Clean https://clean.cs.ru.nl/Clean with the iTask library on top.' />
+      <meta property='og:description' content='This post presents a couple of techniques I used to synchronize audio content with the output of my animation-fractal project:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='clean' />
+      <meta property='og:title' content='Synchronizing Sound PCM with Image FPS' />
     
     
       <base href='/' />
@@ -236,19 +236,8 @@ window.MathJax = {
             <li>
 
   <div class='text-gray-900 forest-link'>
-    <a href='zettle/programing-languages'>
-      Programing Languages
-    </a>
-  </div>
-
-  
-    <ul>
-      
-        <li>
-
-  <div class='text-gray-900 forest-link'>
-    <a href='zettle'>
-      Zettle
+    <a href='blog'>
+      Blog
     </a>
   </div>
 
@@ -263,10 +252,6 @@ window.MathJax = {
     </a>
   </div>
 
-  
-</li>
-      
-    </ul>
   
 </li>
       
@@ -294,19 +279,136 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    clean
+    Synchronizing Sound PCM with Image FPS
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
-    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
-      
     <p class='mb-3'>
-      There is a functional language capable of auto-generating input forms: Clean <a href='https://clean.cs.ru.nl/Clean' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://clean.cs.ru.nl/Clean</a> with the iTask library on top.
+      This post presents a couple of techniques I used to synchronize audio content with the output of my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project:
     </p>
   
-    </blockquote>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          How to load audio data into Pulse-Code Modulation (PCM).
+        </li>
+      
+        <li>
+          An audio player to play the samples along the video’s Frames Per Second (FPS).
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The goal is to ensure that the video is related to the audio, as demonstrated in this new video:
+    </p>
+  <div class='flex items-center justify-center'><div xmlhtmlRaw><iframe width="888" height="500" src="https://www.youtube.com/embed/qzMpC2MtKQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div></div>
+    <hr class='mb-3' />
+  <h2 id='normalize-the-audio-data' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Normalize the audio data</h2>
+    <p class='mb-3'>
+      First, we need to decode the audio data into a raw format suitable for real-time playback. The main requirement is to pick a fixed sample rate so that the data can be divided into per frame chunk. In this case, the video runs at 60 frames per second, so we can use 44100 sampling frequency, resulting in this audio chunk size: <span class='math inline'>\(44100/60 = 735\)</span> samples.
+    </p>
+  
+    <p class='mb-3'>
+      Using the <a href='https://hackage.haskell.org/package/typed-process-0.2.10.1/docs/System-Process-Typed.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>typed-process</a> library to run ffmpeg, we decode a given file with this function:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type Samples = VectorS.Vector Float
+
+decodeFile :: FilePath -&gt; IO Samples
+decodeFile fname = do
+    let args = ["-i", fname]    -- input
+            &lt;&gt; ["-ac", "1"]     -- convert to mono
+            &lt;&gt; ["-ar", "44100"] -- sample at 44100 (fit for 60 fps)
+            &lt;&gt; ["-f", "f32le"]  -- use float
+            &lt;&gt; ["-"]            -- output
+    pcmBuf &lt;- readProcessStdout_ $ proc "ffmpeg" args
+    let (wordPtr, wordSZ) = toForeignPtr0 (from pcmBuf)
+        pcmPtr = castForeignPtr wordPtr :: ForeignPtr Float
+        pcmSZ = wordSZ `div` sizeOf (0 :: Float)
+        samples = VectorS.unsafeFromForeignPtr0 pcmPtr pcmSZ
+    pure samples</code></pre></div>
+    <p class='mb-3'>
+      This function relies on <a href='https://hackage.haskell.org/package/bytestring-0.11.3.1/docs/Data-ByteString-Internal.html#v:toForeignPtr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>toForeignPtr0</a> from the <a href='https://hackage.haskell.org/package/bytestring' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>bytestring</a> library to access the underlying memory, which is then converted to a <code class='py-0.5 px-0.5 bg-gray-100'>Vector</code> using <a href='https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Storable.html#v:unsafeFromForeignPtr0' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>unsafeFromForeignPtr0</a>.
+    </p>
+  <h2 id='playback-through-pipewire' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Playback through pipewire</h2>
+    <p class='mb-3'>
+      Using the <a href='https://hackage.haskell.org/package/pulse-simple' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pulse-simple</a> library, we send the samples to the speaker with this function:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Sound.Pulse.Simple qualified as PS
+
+playSample :: Samples -&gt; PS.Simple -&gt; IO ()
+playSample samples client = PS.simpleWriteRaw client bs
+  where
+    (floatPtr, floatSZ) = VectorS.unsafeToForeignPtr0 samples
+    wordPtr = castForeignPtr floatPtr
+    wordSZ = floatSZ * 4
+    bs = fromForeignPtr0 wordPtr wordSZ</code></pre></div>
+    <p class='mb-3'>
+      This function does the opposite operation from <em>decodeFile</em> to convert the data back into a <code class='py-0.5 px-0.5 bg-gray-100'>ByteString</code>.
+    </p>
+  
+    <p class='mb-3'>
+      The nice thing with <a href='https://hackage.haskell.org/package/pulse-simple' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pulse-simple</a> is that it is a synchronous API: the <em>simpleWriteRaw</em> call blocks until the samples are completely consumed. It’s also amazing to see that the library has been published 10 years ago (2012), and it still compiles today!
+    </p>
+  <h2 id='audio-player-thread' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Audio player thread</h2>
+    <p class='mb-3'>
+      We use a dedicated thread to handle the synchronous audio connection with a channel to receive the samples to be played:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>clientThread :: TChan (Maybe Samples) -&gt; IO ()
+clientThread chan = do
+    -- the pulse client reference.
+    mClientV &lt;- newTVarIO Nothing
+    let startClient = do
+            readTVarIO mClientV &gt;&gt;= \case
+                -- the client is already started
+                Just client -&gt; pure client
+                Nothing -&gt; do
+                    client &lt;- newClient
+                    atomically $ writeTVar mClientV (Just client)
+                    pure client
+
+        stopClient = do
+            readTVarIO mClientV &gt;&gt;= \case
+                Nothing -&gt; pure ()
+                Just client -&gt; do
+                    PS.simpleDrain client
+                    PS.simpleFree client
+                    atomically $ writeTVar mClientV Nothing
+
+        run = forever do
+            atomically (readTChan chan) &gt;&gt;= \case
+                Nothing -&gt; stopClient
+                Just samples -&gt; playSample samples =&lt;&lt; startClient
+
+    run `finally` stopClient
+  where
+    name = "animation-fractal"
+    newClient = PS.simpleNew Nothing name PS.Play Nothing "pulse-pipe" spec Nothing Nothing
+    spec = PS.SampleSpec (PS.F32 PS.LittleEndian) 44100 1</code></pre></div><h2 id='synchronize-audio-with-the-video' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Synchronize audio with the video</h2>
+    <p class='mb-3'>
+      Finally, we submit the audio samples by calling this function in the video render loop:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>playAudioFrame :: Frame -&gt; Samples -&gt; TChan (Maybe Samples) -&gt; IO ()
+playAudioFrame (Frame position) samples chan =
+    when (even position) do
+        let frameSize = 44100 `div` 30
+            startingPos = fromIntegral position `div` 2
+            chunk = VectorS.slice (startingPos * frameSize) frameSize samples
+        atomically $ writeTChan chan (Just chunk)</code></pre></div>
+    <p class='mb-3'>
+      It turns out that playing 60 audio chunks per second is a bit too fast and that may cause some audible clips. Thus this function only submits 30 chunks per second instead.
+    </p>
+  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      Similarly to the previous post <a href='blog/massiv-vulkan-capture' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Capturing Vulkan Framebuffer with Massiv</a>, we used the Haskell <code class='py-0.5 px-0.5 bg-gray-100'>Foreign</code> capabilities to efficiently manipulate raw data. While this initial implementation does not prevent under/over-run, it already performs quite well: we can jump to arbitrary location and the audio is played in sync with the video.
+    </p>
+  
+    <p class='mb-3'>
+      Haskell is truely one of a kind: it offers efficient low-level interfaces that are available from a high level of abstraction.
+    </p>
   
 
   <!-- What goes in this file will appear below the note body-->
@@ -321,33 +423,24 @@ window.MathJax = {
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
         Perhaps Emanote should inject tagMetas with urls.
       -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/pl'>
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
         <!-- DoNotFormat -->
-        #pl
-        <!-- DoNotFormat -->
-      </a>
-    
-      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
-        Perhaps Emanote should inject tagMetas with urls.
-      -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/hm'>
-        <!-- DoNotFormat -->
-        #hm
+        #haskell
         <!-- DoNotFormat -->
       </a>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
         Perhaps Emanote should inject tagMetas with urls.
       -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/functional/pure'>
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
         <!-- DoNotFormat -->
-        #functional/pure
+        #blog
         <!-- DoNotFormat -->
       </a>
     
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/zettle/programing-languages/clean.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/pulse-simple-pcm.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
