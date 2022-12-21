@@ -12,7 +12,7 @@
   </title>
   
     
-      <meta property='og:description' content='This post presents a couple of techniques I used to synchronize audio content with the output of my animation-fractal project:' />
+      <meta property='og:description' content='This post introduces a couple of techniques I used to synchronize audio contents with the output of my animation-fractal project. In two parts, I present:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content />
       <meta property='og:type' content='website' />
@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=2b656b93-fb21-4edf-9bcc-e2f6ad6f5040' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f5eca83e-e199-4880-9b01-9bb308b28566' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -286,7 +286,7 @@ window.MathJax = {
   <!-- What goes in this file will appear on top of note body-->
   
     <p class='mb-3'>
-      This post presents a couple of techniques I used to synchronize audio content with the output of my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project:
+      This post introduces a couple of techniques I used to synchronize audio contents with the output of my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project. In two parts, I present:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
@@ -296,20 +296,20 @@ window.MathJax = {
         </li>
       
         <li>
-          An audio player to play the samples along the video’s Frames Per Second (FPS).
+          An audio player to play the audio along the video’s Frames Per Second (FPS).
         </li>
       
     </ul>
   
     <p class='mb-3'>
-      The goal is to ensure that the video is related to the audio, as demonstrated in this new video:
+      The goal of this synchronization is to ensure that the video is related to the audio, as demonstrated in this new demo:
     </p>
-  <div class='flex items-center justify-center'><div xmlhtmlRaw><iframe width="888" height="500" src="https://www.youtube.com/embed/qzMpC2MtKQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div class='flex items-center justify-center'><div xmlhtmlRaw><iframe width="888" height="500" src="https://www.youtube.com/embed/ouoys1PABwA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div></div>
     <hr class='mb-3' />
   <h2 id='normalize-the-audio-data' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Normalize the audio data</h2>
     <p class='mb-3'>
-      First, we need to decode the audio data into a raw format suitable for real-time playback. The main requirement is to pick a fixed sample rate so that the data can be divided into per frame chunk. In this case, the video runs at 60 frames per second, so we can use 44100 sampling frequency, resulting in this audio chunk size: <span class='math inline'>\(44100/60 = 735\)</span> samples.
+      First, we need to decode the audio data into a raw format suitable for real-time playback. The main requirement is to pick a fixed sample rate so that the data can be divided into per frame chunk. In this case the video runs at 60 frames per second, so we can use the 44100 sampling frequency. The resulting audio chunk size is: <span class='math inline'>\(44100/60 = 735\)</span> samples.
     </p>
   
     <p class='mb-3'>
@@ -331,7 +331,7 @@ decodeFile fname = do
         samples = VectorS.unsafeFromForeignPtr0 pcmPtr pcmSZ
     pure samples</code></pre></div>
     <p class='mb-3'>
-      This function relies on <a href='https://hackage.haskell.org/package/bytestring-0.11.3.1/docs/Data-ByteString-Internal.html#v:toForeignPtr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>toForeignPtr0</a> from the <a href='https://hackage.haskell.org/package/bytestring' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>bytestring</a> library to access the underlying memory, which is then converted to a <code class='py-0.5 px-0.5 bg-gray-100'>Vector</code> using <a href='https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Storable.html#v:unsafeFromForeignPtr0' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>unsafeFromForeignPtr0</a>.
+      This function relies on <a href='https://hackage.haskell.org/package/bytestring-0.11.3.1/docs/Data-ByteString-Internal.html#v:toForeignPtr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>toForeignPtr0</a> from the <a href='https://hackage.haskell.org/package/bytestring' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>bytestring</a> library to access the underlying memory. Then we convert it into a <code class='py-0.5 px-0.5 bg-gray-100'>Vector</code> using <a href='https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Storable.html#v:unsafeFromForeignPtr0' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>unsafeFromForeignPtr0</a>.
     </p>
   <h2 id='playback-through-pipewire' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Playback through pipewire</h2>
     <p class='mb-3'>
@@ -351,7 +351,7 @@ playSample samples client = PS.simpleWriteRaw client bs
     </p>
   
     <p class='mb-3'>
-      The nice thing with <a href='https://hackage.haskell.org/package/pulse-simple' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pulse-simple</a> is that it is a synchronous API: the <em>simpleWriteRaw</em> call blocks until the samples are completely consumed. It’s also amazing to see that the library has been published 10 years ago (2012), and it still compiles today!
+      <a href='https://hackage.haskell.org/package/pulse-simple' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pulse-simple</a> is a synchronous API: the <em>simpleWriteRaw</em> call blocks until the samples are completely consumed. It’s also amazing to see that the library has been published 10 years ago (2012), and it still compiles today!
     </p>
   <h2 id='audio-player-thread' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Audio player thread</h2>
     <p class='mb-3'>
@@ -387,7 +387,7 @@ clientThread chan = do
   where
     name = "animation-fractal"
     newClient = PS.simpleNew Nothing name PS.Play Nothing "pulse-pipe" spec Nothing Nothing
-    spec = PS.SampleSpec (PS.F32 PS.LittleEndian) 44100 1</code></pre></div><h2 id='synchronize-audio-with-the-video' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Synchronize audio with the video</h2>
+    spec = PS.SampleSpec (PS.F32 PS.LittleEndian) 44100 1</code></pre></div><h2 id='synchronize-the-audio-with-the-video' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Synchronize the audio with the video</h2>
     <p class='mb-3'>
       Finally, we submit the audio samples by calling this function in the video render loop:
     </p>
@@ -399,7 +399,7 @@ playAudioFrame (Frame position) samples chan =
             chunk = VectorS.slice (startingPos * frameSize) frameSize samples
         atomically $ writeTChan chan (Just chunk)</code></pre></div>
     <p class='mb-3'>
-      It turns out that playing 60 audio chunks per second is a bit too fast and that may cause some audible clips. Thus this function only submits 30 chunks per second instead.
+      Playing 60 audio chunks per second may be too fast, resulting in some audible clips. Thus this function only submits 30 chunks per second instead.
     </p>
   <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
