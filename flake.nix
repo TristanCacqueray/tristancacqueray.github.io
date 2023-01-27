@@ -1,20 +1,21 @@
 {
-  nixConfig.extra-substituters = "https://cache.garnix.io";
+  nixConfig.extra-substituters = "https://cache.srid.ca";
   nixConfig.extra-trusted-public-keys =
-    "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=";
+    "cache.srid.ca:8sQkbPrOIoXktIwI0OucQBXod2e9fDjjoEZWn8OXbdo=";
 
   inputs = {
     emanote.url =
-      "github:EmaApps/emanote/24ca8d95ac2aec8a02a128382081ac076451d018";
+      "github:srid/emanote/0977bc1dd34d6ebf0eea045b121ed86dce5e2e88";
     nixpkgs.follows = "emanote/nixpkgs";
-    flake-parts.follows = "emanote/flake-parts";
+    flake-parts.url =
+      "github:hercules-ci/flake-parts/98bec08c58a9547d705f2f5e300ac8eef6665e52";
     nixpkgs2.url =
       "github:NixOS/nixpkgs/3665c429d349fbda46b0651e554cca8434452748";
   };
 
   outputs = inputs@{ self, flake-parts, nixpkgs, nixpkgs2, ... }:
     let
-      parts = flake-parts.lib.mkFlake { inherit self; } {
+      parts = flake-parts.lib.mkFlake { inherit inputs; } {
         systems = nixpkgs.lib.systems.flakeExposed;
         imports = [ inputs.emanote.flakeModule ];
         perSystem = { self', pkgs, system, ... }: {
