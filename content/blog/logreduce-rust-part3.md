@@ -137,6 +137,7 @@ the *readline()* helper before splitting sub line on litteral *\"\\n\"*.
 Here are their performance characteristics using
 *python3-3.10.2-1.fc35.x86_64* and *rustc-1.52.1*:
 
+```
 +--------------+--------+---------+---------+---------------+--------+
 | Im           | Max    | Allocs  | Frees   | Bytes         | Run    |
 | plementation | RSS    |         |         | allocated     | time   |
@@ -147,6 +148,7 @@ Here are their performance characteristics using
 | readline.rs  | > 2260 | >       | >       | > 285,799,923 | 0.15   |
 |              | > KB   | 692,114 | 692,112 |               | sec    |
 +--------------+--------+---------+---------+---------------+--------+
+```
 
 -   Both implementations work in constant memory. Using a bigger file
     does not increase the Max RSS value.
@@ -337,6 +339,7 @@ Here is a sequence diagram for this implementation:
 
 Here are the final results:
 
+```
 +--------------+--------+---------+---------+---------------+--------+
 | Im           | Max    | Allocs  | Frees   | Bytes         | Run    |
 | plementation | RSS    |         |         | allocated     | time   |
@@ -350,6 +353,7 @@ Here are the final results:
 | b            | > 2068 | > 24    | > 22    | > 265,577     | 0.12   |
 | yteslines.rs | > KB   |         |         |               | sec    |
 +--------------+--------+---------+---------+---------------+--------+
+```
 
 As you can see, this iterator avoids unnecessary memory copy, and even
 though it does more work to satisfy the borrow checker, it is still
