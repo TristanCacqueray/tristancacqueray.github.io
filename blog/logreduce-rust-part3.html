@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=594ae262-e600-4afc-a8a8-b87581a8be09' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=1f1c9415-eb25-4349-a0d4-5e79673f5ef9' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -460,11 +460,16 @@ fn get_line(&mut self) -&gt; (String, usize) {
     <p class='mb-3'>
       Here are their performance characteristics using <em>python3-3.10.2-1.fc35.x86_64</em> and <em>rustc-1.52.1</em>:
     </p>
-  
-    <p class='mb-3'>
-      +–––––––+––––+———+———+—————+––––+ | Im | Max | Allocs | Frees | Bytes | Run | | plementation | RSS | | | allocated | time | +<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span></span></span></span>+</span></span></span>=<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span>=<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span></span></span>=<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span></span></span></span>+ | readline.py | &gt; 7420 | 1, | 1, | &gt; 475,434,838 | 0.33 | | | &gt; KB | 814,409 | 810,434 | | sec | +–––––––+––––+———+———+—————+––––+ | readline.rs | &gt; 2260 | &gt; | &gt; | &gt; 285,799,923 | 0.15 | | | &gt; KB | 692,114 | 692,112 | | sec | +–––––––+––––+———+———+—————+––––+
-    </p>
-  
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>+--------------+--------+---------+---------+---------------+--------+
+| Im           | Max    | Allocs  | Frees   | Bytes         | Run    |
+| plementation | RSS    |         |         | allocated     | time   |
++==============+========+=========+=========+===============+========+
+| readline.py  | &gt; 7420 | 1,      | 1,      | &gt; 475,434,838 | 0.33   |
+|              | &gt; KB   | 814,409 | 810,434 |               | sec    |
++--------------+--------+---------+---------+---------------+--------+
+| readline.rs  | &gt; 2260 | &gt;       | &gt;       | &gt; 285,799,923 | 0.15   |
+|              | &gt; KB   | 692,114 | 692,112 |               | sec    |
++--------------+--------+---------+---------+---------------+--------+</code></pre></div>
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -642,11 +647,19 @@ fn get_slice(&mut self) -&gt; Option&lt;Result&lt;(Bytes, usize)&gt;&gt; {
     <p class='mb-3'>
       Here are the final results:
     </p>
-  
-    <p class='mb-3'>
-      +–––––––+––––+———+———+—————+––––+ | Im | Max | Allocs | Frees | Bytes | Run | | plementation | RSS | | | allocated | time | +<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span></span></span></span>+</span></span></span>=<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span>=<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span></span></span>=<span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'><span class='bg-yellow-200 px-2 py-0.5 rounded-xl'>+</span></span></span></span>+ | readline.py | &gt; 7420 | 1, | 1, | &gt; 475,434,838 | 0.33 | | | &gt; KB | 814,409 | 810,434 | | sec | +–––––––+––––+———+———+—————+––––+ | readline.rs | &gt; 2260 | &gt; | &gt; | &gt; 285,799,923 | 0.15 | | | &gt; KB | 692,114 | 692,112 | | sec | +–––––––+––––+———+———+—————+––––+ | b | &gt; 2068 | &gt; 24 | &gt; 22 | &gt; 265,577 | 0.12 | | yteslines.rs | &gt; KB | | | | sec | +–––––––+––––+———+———+—————+––––+
-    </p>
-  
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>+--------------+--------+---------+---------+---------------+--------+
+| Im           | Max    | Allocs  | Frees   | Bytes         | Run    |
+| plementation | RSS    |         |         | allocated     | time   |
++==============+========+=========+=========+===============+========+
+| readline.py  | &gt; 7420 | 1,      | 1,      | &gt; 475,434,838 | 0.33   |
+|              | &gt; KB   | 814,409 | 810,434 |               | sec    |
++--------------+--------+---------+---------+---------------+--------+
+| readline.rs  | &gt; 2260 | &gt;       | &gt;       | &gt; 285,799,923 | 0.15   |
+|              | &gt; KB   | 692,114 | 692,112 |               | sec    |
++--------------+--------+---------+---------+---------------+--------+
+| b            | &gt; 2068 | &gt; 24    | &gt; 22    | &gt; 265,577     | 0.12   |
+| yteslines.rs | &gt; KB   |         |         |               | sec    |
++--------------+--------+---------+---------+---------------+--------+</code></pre></div>
     <p class='mb-3'>
       As you can see, this iterator avoids unnecessary memory copy, and even though it does more work to satisfy the borrow checker, it is still faster.
     </p>
