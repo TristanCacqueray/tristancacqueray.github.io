@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=f040a636-3bc4-4027-98f1-b1e07306e238' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=2a99ea7c-200a-4428-9c3a-866b1131c664' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -304,10 +304,6 @@ window.MathJax = {
         </li>
       
     </ul>
-  
-    <p class='mb-3'>
-      This is the demo’s architecture diagram where the code presented in this post implements the pink components:
-    </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='mermaid language-mermaid'>graph LR
   subgraph Broadcast Station
     MIC[MC] --&gt;|PCM| ADC
@@ -319,11 +315,16 @@ window.MathJax = {
     SRV --&gt;|WebSocket| U2(JS MediaSource):::impl --&gt;|PCM| O2(Web Player)
     SRV --&gt;|WebSocket| U3(JS MediaSource):::impl --&gt;|PCM| O3(Web Player)
   end
-  classDef impl fill:#f9f,stroke:#333,stroke-width:2px</code></pre></div>
+  classDef impl fill:#f9f,stroke:#333,stroke-width:2px</code></pre></div><div class='grid justify-items-center text-sm'>
+    <p class='mb-3'>
+      The demo’s architecture diagram where the code presented implements the pink components.
+    </p>
+  </div><div xmlhtmlRaw><br />
+</div>
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
     <p class='mb-3'>
-      This document is a literate haskell file.
+      This document is a literate haskell file. You can the demo with: nix develop .<span class='font-bold bg-gray-100 py-0.5 px-2 rounded-lg emanote:inline-tag:gstreamer' title='Tag' data-tag='gstreamer'><a href='-/tags/gstreamer' title='Tag' class='text-blue-600 mavenLinkBold hover:underline'>#gstreamer</a></span> –command ghcid –command “ghci -XGHC2021 -pgmL markdown-unlit -optL haskell -optL javascript” –test=:main broadcasting-webm.lhs
     </p>
   
     </blockquote>
@@ -335,7 +336,7 @@ window.MathJax = {
     </p>
   
     <p class='mb-3'>
-      After experiencing the pain of working with native libraries for my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project, libraries such as SDL or Vulkan, I wanted to give the <a href='https://developer.mozilla.org/en-US/docs/Web/API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web API</a> a try for implementing multi-media applications. Modern web browser implements a sizable set of features for such applications, and it looks like a great platform to work with.
+      After struggling with native libraries for my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project, libraries such as SDL and Vulkan, I wanted to try the <a href='https://developer.mozilla.org/en-US/docs/Web/API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web API</a> to implement multi-media applications. Modern web browsers implement a sizable set of features for such applications, and it looked like a great platform to work with.
     </p>
   <h3 id='overview' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Overview</h3>
     <p class='mb-3'>
@@ -345,11 +346,11 @@ window.MathJax = {
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          Avoid service oriented architecture (<a href='https://en.wikipedia.org/wiki/Service-oriented_architecture' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>SOA</a>) and rely as much as possible on hypermedia. Learn more about this strategy in the <a href='https://htmx.org/essays/hateoas/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>HATEOAS — An Alternative Explanation</a>.
+          Learn hypermedia through <a href='https://htmx.org/essays/hateoas/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>HATEOAS — An Alternative Explanation</a>.
         </li>
       
         <li>
-          Use a single uniform HTTP API to handle all the requests.
+          Use a single HTTP API to handle all the requests.
         </li>
       
     </ul>
@@ -401,7 +402,7 @@ window.MathJax = {
         </li>
       
         <li>
-          RTSP: Real Time Streaming Protocol.
+          RTSP: the Real Time Streaming Protocol.
         </li>
       
         <li>
@@ -409,7 +410,7 @@ window.MathJax = {
         </li>
       
         <li>
-          Media Source Extensions (MSE): which allows JavaScript to generate media streams for playback.
+          Media Source Extensions (MSE): a JavaScript functionality to generate media streams for playback.
         </li>
       
     </ul>
@@ -433,21 +434,25 @@ window.MathJax = {
         </li>
       
         <li>
-          <a href='https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Media Source API</a>: previously known as MSE, this API leverage the existing <code class='py-0.5 px-0.5 bg-gray-100'>&lt;audio&gt;</code> and <code class='py-0.5 px-0.5 bg-gray-100'>&lt;video&gt;</code> media element.
+          <a href='https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Media Source API</a>: previously known as MSE, this API leverages the existing <code class='py-0.5 px-0.5 bg-gray-100'>&lt;audio&gt;</code> and <code class='py-0.5 px-0.5 bg-gray-100'>&lt;video&gt;</code> media element.
         </li>
       
     </ul>
   
     <p class='mb-3'>
-      I initially used the first option with the <a href='https://github.com/samirkumardas/pcm-player/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pcm-player</a> library. This worked out of the box without any issues. However this technique has a major drawback: it uses a lot of bandwidth. Considering a stereo stream sampled at 44.1 kHZ, serving five clients requires: <span class='math inline'>\(5 * 2 * 44100 / 1024^2 = 0.42 MiB/sec\)</span>.
+      I initially used the first option with the <a href='https://github.com/samirkumardas/pcm-player/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pcm-player</a> library. This worked out of the box without any issues. However this technique has a major drawback: it uses a lot of bandwidth. For a stereo stream sampled at 44.1 kHZ, serving five clients requires: <span class='math inline'>\(5 * 2 * 44100 / 1024^2 = 0.42 MiB/sec\)</span>.
     </p>
   
     <p class='mb-3'>
-      To reduce the footprint, the audio data must be compressed using a codec like <a href='https://xiph.org/vorbis/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>vorbis</a>, or <a href='https://opus-codec.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>opus</a>. Such codecs are designed to be contained inside a container format such as <a href='https://xiph.org/ogg/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ogg</a> or <a href='https://www.webmproject.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebM</a>. While it is possible to a use a custom decoder before the pcm-player, it is quite a bit of work for the Web Audio API. At that point, it may be easier to use the native Media Source API, which already expects such encoded data.
+      To reduce the footprint, the audio data must be compressed using a codec like <a href='https://xiph.org/vorbis/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>vorbis</a>, or <a href='https://opus-codec.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>opus</a>. Such codecs are designed to be contained inside a container format such as <a href='https://xiph.org/ogg/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ogg</a> or <a href='https://www.webmproject.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebM</a>. While it is possible to a use a custom decoder before the pcm-player, it is quite a bit of work for the Web Audio API. At that point, it may be easier to use the native Media Source API, which already expects a container format.
+    </p>
+  
+    <p class='mb-3'>
+      I decided to use a container format for the MSE to reduce the footprint.
     </p>
   <h3 id='container-formats-supported-by-mse' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Container formats supported by MSE</h3>
     <p class='mb-3'>
-      In an early experiment, I used the <a href='https://xiph.org/ogg/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ogg</a> container because it is a simpler format that can be produced by the browser MediaRecorder. It looked promising because the resulting buffers are valid frames starting with the correct <code class='py-0.5 px-0.5 bg-gray-100'>OggS</code> header. Unfortunately, I learned the hard way that MSE can’t playback this format.
+      In an early experiment, I used the <a href='https://xiph.org/ogg/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ogg</a> container because it is a simpler format that the browser MediaRecorder can produce natively. It looked promising because the resulting buffers were valid frames starting with the correct <code class='py-0.5 px-0.5 bg-gray-100'>OggS</code> header. Unfortunately, I learned the hard way that MSE can’t playback this format.
     </p>
   
     <p class='mb-3'>
@@ -467,7 +472,7 @@ window.MathJax = {
         webm[audio/webm\nvideo/webm]
     end</code></pre></div>
     <p class='mb-3'>
-      I decided to use WebM because it is the most recent and, as the name suggests, it is optimized for the web.
+      I decided to use WebM because it is the most recent format and, as the name suggests, it is optimized for the web.
     </p>
   <h3 id='webm-format' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>WebM format</h3>
     <p class='mb-3'>
@@ -481,17 +486,17 @@ window.MathJax = {
     </p>
   
     <p class='mb-3'>
-      The main challenge is to properly align the data when serving a new client. The <a href='https://w3c.github.io/mse-byte-stream-format-webm/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebM Byte Stream Format</a> describes the layout expected by MSE:
+      The main challenge is to properly align the data when serving a new client. The <a href='https://w3c.github.io/mse-byte-stream-format-webm/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebM Byte Stream Format</a> describes the following layout expected by MSE clients:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          Initialization segments must be provided before the first media segment. They contains the EBML header, and the beginning of the first segment.
+          Initialization segments contains the EBML header, and the beginning of the first segment.
         </li>
       
         <li>
-          A media segment must start with a cluster element. Such segment contains the codec data such as the <a href='https://opus-codec.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>opus</a> frames.
+          A media segment must start with a cluster element. It contains the codec data such as the <a href='https://opus-codec.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>opus</a> frames.
         </li>
       
     </ul>
@@ -514,7 +519,7 @@ window.MathJax = {
 -- QuasiQuote is required for multi-line string with [s| ... |]
 {-# LANGUAGE QuasiQuotes #-}</code></pre></div>
     <p class='mb-3'>
-      Here are the build dependencies:
+      I am using the following build dependencies from <a href='https://hackage.haskell.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Hackage</a>:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- rio, text and bytestring, to extend the default Prelude
 import RIO
@@ -591,7 +596,11 @@ audioClient srv client = sendHeader &gt;&gt; sendStream
         (buf, _) &lt;- recv srv
         sendBuffer buf
 
-    sendBuffer = WS.sendBinaryData client</code></pre></div><h3 id='servant-api' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Servant API</h3>
+    sendBuffer = WS.sendBinaryData client</code></pre></div>
+    <p class='mb-3'>
+      The <code class='py-0.5 px-0.5 bg-gray-100'>audioStreamer</code> and <code class='py-0.5 px-0.5 bg-gray-100'>audioClient</code> functions are the core of this demo.
+    </p>
+  <h3 id='servant-api' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Servant API</h3>
     <p class='mb-3'>
       The API data defines three routes:
     </p>
@@ -618,7 +627,7 @@ audioClient srv client = sendHeader &gt;&gt; sendStream
     }
     deriving (Generic)</code></pre></div>
     <p class='mb-3'>
-      Here is the server implementation:
+      Here is the complete API implementation:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>app :: BroadcastServer -&gt; Wai.Application
 app srv = Servant.serveWithContext (Proxy @(NamedRoutes API)) EmptyContext API
@@ -649,21 +658,21 @@ main = do
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>jsClient :: Text
 jsClient = [s|</code></pre></div></div>
     <p class='mb-3'>
-      The welcome page contains the following script to handle the stream connection and feed the media source buffer. This is a minimal, standalone implementation embedded in the server code.
+      The welcome page contains the following script to handle the stream connection and to feed the media source buffer. This is a minimal, standalone implementation embedded in the server code.
     </p>
   
     <p class='mb-3'>
-      Here is the transport implementation:
+      Here is the transport implementation with a simple buffering logic:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>// Create the websocket:
 const connect = () =&gt; {
   const skt = new WebSocket("ws://" + window.location.host + "/ws")
   skt.binaryType = "arraybuffer"
+  skt.onmessage = event =&gt; feedMSE(new Uint8Array(event.data))
   skt.onopen = log("ws open")
-  skt.onmessage = event =&gt; playBuffer(new Uint8Array(event.data))
+  skt.onerror = log("ws error")
   skt.onclose = reconnect("ws closed")
-  skt.onerror = reconnect("ws error")
-  log("Connecting")(skt)
+  log("Connecting")(skt.url)
 }
 const reconnect = msg =&gt; ev =&gt; {
   log(msg)(ev)
@@ -672,23 +681,20 @@ const reconnect = msg =&gt; ev =&gt; {
 
 // Implement the buffering logic:
 const buffer = { chunks: [], dst: null }
-const playBuffer = arr =&gt; {
+const feedMSE = arr =&gt; {
+  buffer.chunks.push(arr)
   if (buffer.dst && !buffer.dst.updating) {
-    flushChunks()
-    buffer.dst.appendBuffer(arr)
-  } else {
-    buffer.chunks.push(arr)
+    appendChunks()
   }
 }
-const flushChunks = () =&gt; {
+const appendChunks = () =&gt; {
   if (buffer.chunks.length &gt; 0) {
-    log("Flusing chunks")(buffer.chunks.length)
     buffer.dst.appendBuffer(concatBuffers(buffer.chunks))
     buffer.chunks = []
   }
 }</code></pre></div>
     <p class='mb-3'>
-      Here is the MSE implementation:
+      Here is how to create the audio player and setup MSE:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>// Create the audio element:
 const listen = () =&gt; {
@@ -703,14 +709,14 @@ const listen = () =&gt; {
     // Create the source buffer.
     buffer.dst = mediaSource.addSourceBuffer("audio/webm; codecs=opus")
     buffer.dst.mode = "sequence"
-    log("Media source created")(buffer.dst)
     buffer.dst.onerror = log("source buffer error")
+    log("Media source created")(buffer.dst)
 
-    // If the buffer ends, flush the cached chunks.
-    buffer.dst.onupdateend = () =&gt; flushChunks()
+    // If the buffer ends, flush any cached chunks.
+    buffer.dst.onupdateend = appendChunks
 
     // Try to start playing the audio.
-    audio.play().then(() =&gt; {}, askAutoPlay(audio))
+    audio.play().then(log("autoplay"), askAutoPlay(audio))
   }
 
   // Attach the media source to the audio.
@@ -721,14 +727,19 @@ const listen = () =&gt; {
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>// Log message to the body.
 const log = msg =&gt; obj =&gt; {
-  console.log(msg, obj)
   const item = document.createElement('li')
-  item.appendChild(document.createTextNode(msg + ": " + JSON.stringify(obj)))
+  const txt = msg + ": " + obj.constructor.name + " " + JSON.stringify(obj)
+  item.appendChild(document.createTextNode(txt))
   document.getElementById("log").prepend(item)
+  console.log(msg, obj)
 }
 
 // Merge a list of array.
 const concatBuffers = xs =&gt; {
+  if (xs.length == 1) {
+    return xs[0]
+  }
+  log("Merging", xs.length)
   const size = xs.reduce((acc, x) =&gt; acc + x.length, 0)
   const res = new Uint8Array(size)
   let pos = 0
@@ -747,7 +758,7 @@ const askAutoPlay = audio =&gt; () =&gt; {
     - Unmark the Audoplay 'Use Default' checkbox
     - Select the 'Allow Audio' toggle
   `)
-  document.onclick = () =&gt; { audio.play(); }
+  document.onclick = () =&gt; audio.play()
 }
 
 listen()</code></pre></div><div class='hidden'>
@@ -764,15 +775,7 @@ jsScript = cleanup jsClient
     <p class='mb-3'>
       Once the service is running, you can use the <code class='py-0.5 px-0.5 bg-gray-100'>qpwgraph</code> tool to configure the I/O, for example using such graph:
     </p>
-  <img class='inline mb-3' src='static/qpwgraph-gstreamer.png' alt='qpwgraph-gstreamer' style='width: inherit;' />
-    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
-      
-    <p class='mb-3'>
-      Run the application with: nix develop .<span class='font-bold bg-gray-100 py-0.5 px-2 rounded-lg emanote:inline-tag:gstreamer' title='Tag' data-tag='gstreamer'><a href='-/tags/gstreamer' title='Tag' class='text-blue-600 mavenLinkBold hover:underline'>#gstreamer</a></span> –command ghcid –command “ghci -XGHC2021 -pgmL markdown-unlit -optL haskell -optL javascript” –test=:main broadcasting-webm.lhs
-    </p>
-  
-    </blockquote>
-  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <img class='inline mb-3' src='static/qpwgraph-gstreamer.png' alt='qpwgraph-gstreamer' style='width: inherit;' /><h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
       It wasn’t obvious that this implementation would work in practice. I had to study the EBML format and use trial and errors as a means of understanding MSE. In the end, I am happy with the results, Haskell once again proved its efficiency: the service runs steadily and its overhead is barely noticeable.
     </p>

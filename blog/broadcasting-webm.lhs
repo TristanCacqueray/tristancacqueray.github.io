@@ -14,8 +14,6 @@ In three parts, I present:
 - The characteristics of a WebM stream.
 - A client/server demo implementation.
 
-This is the demo's architecture diagram where the code presented in this post implements the pink components:
-
 ```mermaid
 graph LR
   subgraph Broadcast Station
@@ -31,7 +29,14 @@ graph LR
   classDef impl fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-> This document is a literate haskell file.
+:::{.grid .justify-items-center .text-sm}
+The demo's architecture diagram where the code presented implements the pink components.
+:::
+
+<br />
+
+> This document is a literate haskell file. You can the demo with:
+> nix develop .#gstreamer --command ghcid --command "ghci -XGHC2021 -pgmL markdown-unlit -optL haskell -optL javascript" --test=:main broadcasting-webm.lhs
 
 ---
 
@@ -39,17 +44,17 @@ graph LR
 
 This section introduces the context and the key features of this demo.
 
-After experiencing the pain of working with native libraries for my [animation-fractal][af] project, libraries such as SDL or Vulkan,
-I wanted to give the [Web API][web-api] a try for implementing multi-media applications.
-Modern web browser implements a sizable set of features for such applications, and it looks like a great platform to work with.
+After struggling with native libraries for my [animation-fractal][af] project, libraries such as SDL and Vulkan,
+I wanted to try the [Web API][web-api] to implement multi-media applications.
+Modern web browsers implement a sizable set of features for such applications, and it looked like a great platform to work with.
 
 
 ### Overview
 
 I set myself the following goals:
 
-- Avoid service oriented architecture ([SOA]) and rely as much as possible on hypermedia. Learn more about this strategy in the [HATEOAS — An Alternative Explanation][hateoas].
-- Use a single uniform HTTP API to handle all the requests.
+- Learn hypermedia through [HATEOAS — An Alternative Explanation][hateoas].
+- Use a single HTTP API to handle all the requests.
 
 Therefore, the key features of this demo are:
 
@@ -72,9 +77,9 @@ Concretely, this demo can be used for:
 You can find alternative solutions presented on this [MDN page][mdn-stream], most notably:
 
 - WebRTC: the main standard which relies on the SCTP protocol.
-- RTSP: Real Time Streaming Protocol.
+- RTSP: the Real Time Streaming Protocol.
 - DASH.js, HLS and IceCast: custom media formats that can be served over HTTP.
-- Media Source Extensions (MSE): which allows JavaScript to generate media streams for playback.
+- Media Source Extensions (MSE): a JavaScript functionality to generate media streams for playback.
 
 I decided to use MSE because it looked like the most straight forward API to use with WebSockets.
 The next section describes the rationals for using the WebM format.
@@ -89,23 +94,24 @@ Before diving into the characteristics of a WebM stream, let's see why using suc
 There are two options to play audio from JavaScript:
 
 - [Web Audio API][web-audio-api]: a powerful API for controlling audio. It enables creating custom audio processing graph, for example to synthesize sound or play raw data.
-- [Media Source API][media-source-api]: previously known as MSE, this API leverage the existing `<audio>` and `<video>` media element.
+- [Media Source API][media-source-api]: previously known as MSE, this API leverages the existing `<audio>` and `<video>` media element.
 
 I initially used the first option with the [pcm-player] library.
 This worked out of the box without any issues.
 However this technique has a major drawback: it uses a lot of bandwidth.
-Considering a stereo stream sampled at 44.1 kHZ, serving five clients requires: $5 * 2 * 44100 / 1024^2 = 0.42 MiB/sec$.
+For a stereo stream sampled at 44.1 kHZ, serving five clients requires: $5 * 2 * 44100 / 1024^2 = 0.42 MiB/sec$.
 
 To reduce the footprint, the audio data must be compressed using a codec like [vorbis], or [opus].
 Such codecs are designed to be contained inside a container format such as [ogg] or [WebM].
 While it is possible to a use a custom decoder before the pcm-player, it is quite a bit of work for the Web Audio API.
-At that point, it may be easier to use the native Media Source API, which already expects such encoded data.
+At that point, it may be easier to use the native Media Source API, which already expects a container format.
 
+I decided to use a container format for the MSE to reduce the footprint.
 
 ### Container formats supported by MSE
 
-In an early experiment, I used the [ogg] container because it is a simpler format that can be produced by the browser MediaRecorder.
-It looked promising because the resulting buffers are valid frames starting with the correct `OggS` header.
+In an early experiment, I used the [ogg] container because it is a simpler format that the browser MediaRecorder can produce natively.
+It looked promising because the resulting buffers were valid frames starting with the correct `OggS` header.
 Unfortunately, I learned the hard way that MSE can't playback this format.
 
 According to the [Byte Stream Format Registry][mse-byte-stream-format-registry], MSE supports:
@@ -126,7 +132,7 @@ flowchart TB
     end
 ```
 
-I decided to use WebM because it is the most recent and, as the name suggests, it is optimized for the web.
+I decided to use WebM because it is the most recent format and, as the name suggests, it is optimized for the web.
 
 ### WebM format
 
@@ -144,10 +150,10 @@ In the case of a WebM stream, some elements' size are unknown, and a look-ahead 
 Thanks to the [binary] library, this was relatively easy to implement.
 
 The main challenge is to properly align the data when serving a new client.
-The [WebM Byte Stream Format][byte-stream-format-webm] describes the layout expected by MSE:
+The [WebM Byte Stream Format][byte-stream-format-webm] describes the following layout expected by MSE clients:
 
-- Initialization segments must be provided before the first media segment. They contains the EBML header, and the beginning of the first segment.
-- A media segment must start with a cluster element. Such segment contains the codec data such as the [opus] frames.
+- Initialization segments contains the EBML header, and the beginning of the first segment.
+- A media segment must start with a cluster element. It contains the codec data such as the [opus] frames.
 
 Therefore, a new client must be provided with the stream initialization segments along with the beginning of the most recent media segment.
 And this is precisely the goal of the [StreamReader] of my [ebml] library.
@@ -171,7 +177,7 @@ The program is written for GHC2021, here are the necessary extra extensions:
 {-# LANGUAGE QuasiQuotes #-}
 ```
 
-Here are the build dependencies:
+I am using the following build dependencies from [Hackage]:
 
 ```haskell
 -- rio, text and bytestring, to extend the default Prelude
@@ -266,6 +272,8 @@ audioClient srv client = sendHeader >> sendStream
     sendBuffer = WS.sendBinaryData client
 ```
 
+The `audioStreamer` and `audioClient` functions are the core of this demo.
+
 ### Servant API
 
 The API data defines three routes:
@@ -283,7 +291,7 @@ data API mode = API
     deriving (Generic)
 ```
 
-Here is the server implementation:
+Here is the complete API implementation:
 
 ```haskell
 app :: BroadcastServer -> Wai.Application
@@ -326,21 +334,21 @@ jsClient = [s|
 :::
 
 The welcome page contains the following script to handle the stream connection and
-feed the media source buffer. This is a minimal, standalone implementation embedded in the
+to feed the media source buffer. This is a minimal, standalone implementation embedded in the
 server code.
 
-Here is the transport implementation:
+Here is the transport implementation with a simple buffering logic:
 
 ```javascript
 // Create the websocket:
 const connect = () => {
   const skt = new WebSocket("ws://" + window.location.host + "/ws")
   skt.binaryType = "arraybuffer"
+  skt.onmessage = event => feedMSE(new Uint8Array(event.data))
   skt.onopen = log("ws open")
-  skt.onmessage = event => playBuffer(new Uint8Array(event.data))
+  skt.onerror = log("ws error")
   skt.onclose = reconnect("ws closed")
-  skt.onerror = reconnect("ws error")
-  log("Connecting")(skt)
+  log("Connecting")(skt.url)
 }
 const reconnect = msg => ev => {
   log(msg)(ev)
@@ -349,24 +357,21 @@ const reconnect = msg => ev => {
 
 // Implement the buffering logic:
 const buffer = { chunks: [], dst: null }
-const playBuffer = arr => {
+const feedMSE = arr => {
+  buffer.chunks.push(arr)
   if (buffer.dst && !buffer.dst.updating) {
-    flushChunks()
-    buffer.dst.appendBuffer(arr)
-  } else {
-    buffer.chunks.push(arr)
+    appendChunks()
   }
 }
-const flushChunks = () => {
+const appendChunks = () => {
   if (buffer.chunks.length > 0) {
-    log("Flusing chunks")(buffer.chunks.length)
     buffer.dst.appendBuffer(concatBuffers(buffer.chunks))
     buffer.chunks = []
   }
 }
 ```
 
-Here is the MSE implementation:
+Here is how to create the audio player and setup MSE:
 
 ```javascript
 // Create the audio element:
@@ -382,14 +387,14 @@ const listen = () => {
     // Create the source buffer.
     buffer.dst = mediaSource.addSourceBuffer("audio/webm; codecs=opus")
     buffer.dst.mode = "sequence"
-    log("Media source created")(buffer.dst)
     buffer.dst.onerror = log("source buffer error")
+    log("Media source created")(buffer.dst)
 
-    // If the buffer ends, flush the cached chunks.
-    buffer.dst.onupdateend = () => flushChunks()
+    // If the buffer ends, flush any cached chunks.
+    buffer.dst.onupdateend = appendChunks
 
     // Try to start playing the audio.
-    audio.play().then(() => {}, askAutoPlay(audio))
+    audio.play().then(log("autoplay"), askAutoPlay(audio))
   }
 
   // Attach the media source to the audio.
@@ -402,14 +407,19 @@ And here are some helper functions:
 ```javascript
 // Log message to the body.
 const log = msg => obj => {
-  console.log(msg, obj)
   const item = document.createElement('li')
-  item.appendChild(document.createTextNode(msg + ": " + JSON.stringify(obj)))
+  const txt = msg + ": " + obj.constructor.name + " " + JSON.stringify(obj)
+  item.appendChild(document.createTextNode(txt))
   document.getElementById("log").prepend(item)
+  console.log(msg, obj)
 }
 
 // Merge a list of array.
 const concatBuffers = xs => {
+  if (xs.length == 1) {
+    return xs[0]
+  }
+  log("Merging", xs.length)
   const size = xs.reduce((acc, x) => acc + x.length, 0)
   const res = new Uint8Array(size)
   let pos = 0
@@ -428,7 +438,7 @@ const askAutoPlay = audio => () => {
     - Unmark the Audoplay 'Use Default' checkbox
     - Select the 'Allow Audio' toggle
   `)
-  document.onclick = () => { audio.play(); }
+  document.onclick = () => audio.play()
 }
 
 listen()
@@ -452,9 +462,6 @@ Once the service is running, you can use the `qpwgraph` tool to configure the I/
 for example using such graph:
 
 ![qpwgraph-gstreamer](../static/qpwgraph-gstreamer.png)
-
-> Run the application with:
-> nix develop .#gstreamer --command ghcid --command "ghci -XGHC2021 -pgmL markdown-unlit -optL haskell -optL javascript" --test=:main broadcasting-webm.lhs
 
 ## Conclusion
 
@@ -492,3 +499,4 @@ Cheers!
 [binary]: https://hackage.haskell.org/package/binary
 [byte-stream-format-webm]: https://w3c.github.io/mse-byte-stream-format-webm/
 [StreamReader]: https://hackage.haskell.org/package/ebml-0.1.0.0/docs/Codec-EBML.html#g:3
+[Hackage]: https://hackage.haskell.org/
