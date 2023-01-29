@@ -1,8 +1,4 @@
 {
-  nixConfig.extra-substituters = "https://cache.srid.ca";
-  nixConfig.extra-trusted-public-keys =
-    "cache.srid.ca:8sQkbPrOIoXktIwI0OucQBXod2e9fDjjoEZWn8OXbdo=";
-
   inputs = {
     emanote.url =
       "github:srid/emanote/0977bc1dd34d6ebf0eea045b121ed86dce5e2e88";
