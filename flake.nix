@@ -31,8 +31,8 @@
       ebml = pkgs.fetchFromGitHub {
         owner = "TristanCacqueray";
         repo = "haskell-ebml";
-        rev = "aba7eb804330f2e42009aa7abb68a8a7da704ee5";
-        sha256 = "sha256-l2GxjT4WTX6P+OhctMP9qGWZkP5hBZ+Ba21TVa/4ps8=";
+        rev = "aff25512b52e48e92d77cd59019a0291a8b43bf4";
+        sha256 = "sha256-U2Mo83gr7dLm+rRKOLzS9LZUaZ90ECO6Zjbv6maflyc=";
       };
       ghc = pkgs.haskellPackages.ghcWithPackages (p: [
         p.markdown-unlit

@@ -35,7 +35,7 @@ The demo's architecture diagram where the code presented implements the pink com
 
 <br />
 
-> This document is a literate haskell file. You can the demo with:
+> This document is a literate haskell file. You can run the demo with:
 > nix develop .#gstreamer --command ghcid --command "ghci -XGHC2021 -pgmL markdown-unlit -optL haskell -optL javascript" --test=:main broadcasting-webm.lhs
 
 ---
