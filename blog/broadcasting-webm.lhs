@@ -12,7 +12,7 @@ In three parts, I present:
 
 - The key features of this use-case.
 - The characteristics of a WebM stream.
-- A client/server demo implementation.
+- A client/server demo implementation as shown in the diagram below.
 
 ```mermaid
 graph LR
@@ -29,7 +29,7 @@ graph LR
   classDef impl fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-:::{.grid .justify-items-center .text-sm}
+:::{.text-sm}
 The demo's architecture diagram where the code presented implements the pink components.
 :::
 
@@ -42,16 +42,16 @@ The demo's architecture diagram where the code presented implements the pink com
 
 ## Key Features
 
-This section introduces the context and the key features of this demo.
+This section introduces the demo's context and key features.
 
-After struggling with native libraries for my [animation-fractal][af] project, libraries such as SDL and Vulkan,
+After struggling with native libraries, such as SDL and Vulkan, for my [animation-fractal][af] project,
 I wanted to try the [Web API][web-api] to implement multi-media applications.
 Modern web browsers implement a sizable set of features for such applications, and it looked like a great platform to work with.
 
 
 ### Overview
 
-I set myself the following goals:
+I set the following goals for myself:
 
 - Learn hypermedia through [HATEOAS — An Alternative Explanation][hateoas].
 - Use a single HTTP API to handle all the requests.
@@ -61,8 +61,8 @@ Therefore, the key features of this demo are:
 - The server controls the state and the clients act like dumb terminals.
 - The application is self-contained and it can be served using a standard HTTP ingress.
 
-As a first step, I am using WebSocket connections to handle dynamic interactions.
-While this approach has acceptable performance, I am also looking forward using the
+As a first step, I used WebSocket connections to handle dynamic interactions.
+While this approach has acceptable performance, I am also looking forward to using the
 [WebTransport] API, a new API to replace WebSocket with HTTP/3 transport.
 I believe this is going to be a great match for such embedded system.
 
@@ -98,7 +98,7 @@ There are two options to play audio from JavaScript:
 
 I initially used the first option with the [pcm-player] library.
 This worked out of the box without any issues.
-However this technique has a major drawback: it uses a lot of bandwidth.
+However this technique has a major drawback: it consumes a lot of bandwidth.
 For a stereo stream sampled at 44.1 kHZ, serving five clients requires: $5 * 2 * 44100 / 1024^2 = 0.42 MiB/sec$.
 
 To reduce the footprint, the audio data must be compressed using a codec like [vorbis], or [opus].
@@ -161,12 +161,12 @@ The next section presents how that works in practice.
 
 ## Demo
 
-This section introduces a standalone application that broadcasts a local audio stream to web clients through a WebSocket.
+This section introduces a standalone application that broadcasts a local audio stream to web clients through WebSockets.
 
 
 ### Extension and packages
 
-The program is written for GHC2021, here are the necessary extra extensions:
+I wrote this program for GHC2021, here are the necessary extra extensions:
 
 ```haskell
 -- small syntactic change
@@ -177,7 +177,7 @@ The program is written for GHC2021, here are the necessary extra extensions:
 {-# LANGUAGE QuasiQuotes #-}
 ```
 
-I am using the following build dependencies from [Hackage]:
+I used the following build dependencies from [Hackage]:
 
 ```haskell
 -- rio, text and bytestring, to extend the default Prelude

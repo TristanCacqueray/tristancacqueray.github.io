@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=dc0d473c-b26a-4db0-8300-58f1e099908c' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=108b4bd3-2d96-4bfc-b803-ea04b91f89da' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -300,7 +300,7 @@ window.MathJax = {
         </li>
       
         <li>
-          A client/server demo implementation.
+          A client/server demo implementation as shown in the diagram below.
         </li>
       
     </ul>
@@ -315,7 +315,7 @@ window.MathJax = {
     SRV --&gt;|WebSocket| U2(JS MediaSource):::impl --&gt;|PCM| O2(Web Player)
     SRV --&gt;|WebSocket| U3(JS MediaSource):::impl --&gt;|PCM| O3(Web Player)
   end
-  classDef impl fill:#f9f,stroke:#333,stroke-width:2px</code></pre></div><div class='grid justify-items-center text-sm'>
+  classDef impl fill:#f9f,stroke:#333,stroke-width:2px</code></pre></div><div class='text-sm'>
     <p class='mb-3'>
       The demo’s architecture diagram where the code presented implements the pink components.
     </p>
@@ -332,15 +332,15 @@ window.MathJax = {
     <hr class='mb-3' />
   <h2 id='key-features' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Key Features</h2>
     <p class='mb-3'>
-      This section introduces the context and the key features of this demo.
+      This section introduces the demo’s context and key features.
     </p>
   
     <p class='mb-3'>
-      After struggling with native libraries for my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project, libraries such as SDL and Vulkan, I wanted to try the <a href='https://developer.mozilla.org/en-US/docs/Web/API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web API</a> to implement multi-media applications. Modern web browsers implement a sizable set of features for such applications, and it looked like a great platform to work with.
+      After struggling with native libraries, such as SDL and Vulkan, for my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project, I wanted to try the <a href='https://developer.mozilla.org/en-US/docs/Web/API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web API</a> to implement multi-media applications. Modern web browsers implement a sizable set of features for such applications, and it looked like a great platform to work with.
     </p>
   <h3 id='overview' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Overview</h3>
     <p class='mb-3'>
-      I set myself the following goals:
+      I set the following goals for myself:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
@@ -372,7 +372,7 @@ window.MathJax = {
     </ul>
   
     <p class='mb-3'>
-      As a first step, I am using WebSocket connections to handle dynamic interactions. While this approach has acceptable performance, I am also looking forward using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebTransport_API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebTransport</a> API, a new API to replace WebSocket with HTTP/3 transport. I believe this is going to be a great match for such embedded system.
+      As a first step, I used WebSocket connections to handle dynamic interactions. While this approach has acceptable performance, I am also looking forward to using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebTransport_API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebTransport</a> API, a new API to replace WebSocket with HTTP/3 transport. I believe this is going to be a great match for such embedded system.
     </p>
   <h3 id='use-cases' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Use-Cases</h3>
     <p class='mb-3'>
@@ -440,7 +440,7 @@ window.MathJax = {
     </ul>
   
     <p class='mb-3'>
-      I initially used the first option with the <a href='https://github.com/samirkumardas/pcm-player/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pcm-player</a> library. This worked out of the box without any issues. However this technique has a major drawback: it uses a lot of bandwidth. For a stereo stream sampled at 44.1 kHZ, serving five clients requires: <span class='math inline'>\(5 * 2 * 44100 / 1024^2 = 0.42 MiB/sec\)</span>.
+      I initially used the first option with the <a href='https://github.com/samirkumardas/pcm-player/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pcm-player</a> library. This worked out of the box without any issues. However this technique has a major drawback: it consumes a lot of bandwidth. For a stereo stream sampled at 44.1 kHZ, serving five clients requires: <span class='math inline'>\(5 * 2 * 44100 / 1024^2 = 0.42 MiB/sec\)</span>.
     </p>
   
     <p class='mb-3'>
@@ -506,11 +506,11 @@ window.MathJax = {
     </p>
   <h2 id='demo' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Demo</h2>
     <p class='mb-3'>
-      This section introduces a standalone application that broadcasts a local audio stream to web clients through a WebSocket.
+      This section introduces a standalone application that broadcasts a local audio stream to web clients through WebSockets.
     </p>
   <h3 id='extension-and-packages' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Extension and packages</h3>
     <p class='mb-3'>
-      The program is written for GHC2021, here are the necessary extra extensions:
+      I wrote this program for GHC2021, here are the necessary extra extensions:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- small syntactic change
 {-# LANGUAGE BlockArguments, OverloadedStrings, OverloadedRecordDot #-}
@@ -519,7 +519,7 @@ window.MathJax = {
 -- QuasiQuote is required for multi-line string with [s| ... |]
 {-# LANGUAGE QuasiQuotes #-}</code></pre></div>
     <p class='mb-3'>
-      I am using the following build dependencies from <a href='https://hackage.haskell.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Hackage</a>:
+      I used the following build dependencies from <a href='https://hackage.haskell.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Hackage</a>:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- rio, text and bytestring, to extend the default Prelude
 import RIO
