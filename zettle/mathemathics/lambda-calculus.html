@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=108b4bd3-2d96-4bfc-b803-ea04b91f89da' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=ac5d0cfc-b3f2-46a0-9ba0-4d74269f20d6' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -248,7 +248,7 @@ window.MathJax = {
 
   <div class='text-gray-900 forest-link'>
     <a href='zettle'>
-      Zettle
+      Zettelkasten
     </a>
   </div>
 
@@ -506,14 +506,118 @@ main = do
     </p>
   
     </blockquote>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <a href='zettle/mockingbird' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Mockingbird</a>
-        </li>
-      
-    </ul>
+  <h2 id='hello-world' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>hello world</h2>
+    <p class='mb-3'>
+      Here is a demo in javascript:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>// "hello world" using pure lambda
+
+// * Church numeral
+// We encode number using the church numeral representation:
+let zero  = f =&gt; x =&gt; x
+let one   = f =&gt; x =&gt; f(x)
+let two   = f =&gt; x =&gt; f(f(x))
+let three = f =&gt; x =&gt; f(f(f(x)))
+
+// Basic algebra:
+let incr = x =&gt; f =&gt; s =&gt; f(x(f)(s))
+let add = x =&gt; y =&gt; x(incr)(y)
+let mul = x =&gt; y =&gt; f =&gt; x(y(f))
+let exp = x =&gt; y =&gt; y(x)
+
+// Numbers definition:
+let four = incr(three)
+let five = add(two)(three)
+let seven = incr(mul(three)(two))
+let eight = exp(two)(three)
+let nine = exp(three)(two)
+let eleven = incr(incr(nine))
+let hundred = mul(exp(two)(two))(exp(five)(two))
+
+// ASCII letters:
+let H = mul(nine)(eight)
+let e = incr(hundred)
+let l = mul(four)(exp(three)(three))
+let o = mul(three)(incr(mul(four)(nine)))
+let spc = exp(two)(five)
+let M = mul(seven)(eleven)
+let C = incr(mul(two)(mul(three)(eleven)))
+
+// * Sum type encoding (see: https://www.haskellforall.com/2021/01/the-visitor-pattern-is-essentially-same.html)
+// A list is defined as either Nil, or Cons(a, List)
+let nil = c =&gt; n =&gt; n
+let cons = a =&gt; l =&gt; c =&gt; n =&gt; c(a)(l)
+
+// * Text buffer
+let mem = cons(H)(cons(e)(cons(l)(cons(l)(cons(o)(cons(spc)(cons(M)(cons(C)(cons(H)(nil)))))))))
+
+// * Y-combinator
+let Y = f =&gt; (x =&gt; f(z =&gt; x(x)(z))) (x =&gt; f(z =&gt; x(x)(z)))
+// Let bindings are not recursive, thus we use a combinator to enable self reference
+let map_rec = map =&gt; f =&gt; l =&gt; l(x =&gt; xs =&gt; cons(f(x))(map(f)(xs)))(nil)
+let map = Y(map_rec)
+
+// The entry point:
+let main = decode_list =&gt; decode_value =&gt; decode_list(map(decode_value)(mem))
+// The main function is defined in pure lambda calculus, using only:
+// - `x`: Variable
+// - `λx.x`: Abstraction
+// - `x x`: Application
+// In particular, the function doesn't uses any number or operator.
+//
+// Helpers to decode our lambda program:
+let decode_list = acc =&gt; l =&gt; l(x =&gt; xs =&gt; decode_list(acc.concat([x]))(xs))(acc)
+let decode_number = n =&gt; n(x =&gt; x + 1)(0)
+console.log(String.fromCharCode(...main(decode_list([]))(decode_number)))</code></pre></div>
+    <p class='mb-3'>
+      And using this script:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'># Make the final demo by applying let transformation
+lines = open("lambda.js").readlines()
+lets = [(e.split()[1], e.strip().split(" = ")[1]) for e in filter(lambda s: s.startswith("let "), lines)]
+
+def desugar(xs):
+    (k, v) = xs[0]
+    if k == "main":
+        return v
+    return "(" + k + " =&gt; " + desugar(xs[1:]) + ")(" + v + ")"
+
+
+print("let main = " + desugar(lets))
+body = False
+for line in lines:
+    if body and line != "\n":
+        print(line, end="")
+    if line.startswith("let main"):
+        body = True</code></pre></div>
+    <p class='mb-3'>
+      We can craft this demo:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>let main = (zero =&gt; (one =&gt; (two =&gt; (three =&gt; (incr =&gt; (add =&gt; (mul =&gt; (exp =&gt; (four =&gt; (five =&gt; (seven =&gt;
+           (eight =&gt; (nine =&gt; (eleven =&gt; (hundred =&gt; (H =&gt; (e =&gt; (l =&gt; (o =&gt; (spc =&gt; (M =&gt; (C =&gt; (nil =&gt;
+           (cons =&gt; (mem =&gt; (Y =&gt; (map_rec =&gt; (map =&gt; decode_list =&gt; decode_value =&gt; decode_list(map(decode_value)(mem)))
+           (Y(map_rec)))(map =&gt; f =&gt; l =&gt; l(x =&gt; xs =&gt; cons(f(x))(map(f)(xs)))(nil)))
+           (f =&gt; (x =&gt; f(z =&gt; x(x)(z))) (x =&gt; f(z =&gt; x(x)(z)))))
+           (cons(H)(cons(e)(cons(l)(cons(l)(cons(o)(cons(spc)(cons(M)(cons(C)(cons(H)(nil)))))))))))
+           (a =&gt; l =&gt; c =&gt; n =&gt; c(a)(l)))(c =&gt; n =&gt; n))(incr(mul(two)(mul(three)(eleven)))))(mul(seven)(eleven)))
+           (exp(two)(five)))(mul(three)(incr(mul(four)(nine)))))(mul(four)(exp(three)(three))))(incr(hundred)))
+           (mul(nine)(eight)))(mul(exp(two)(two))(exp(five)(two))))(incr(incr(nine))))(exp(three)(two)))
+           (exp(two)(three)))(incr(mul(three)(two))))(add(two)(three)))(incr(three)))(x =&gt; y =&gt; y(x)))
+           (x =&gt; y =&gt; f =&gt; x(y(f))))(x =&gt; y =&gt; x(incr)(y)))(x =&gt; f =&gt; s =&gt; f(x(f)(s))))(f =&gt; x =&gt; f(f(f(x)))))
+           (f =&gt; x =&gt; f(f(x))))(f =&gt; x =&gt; f(x)))(f =&gt; x =&gt; x)
+// The main function is defined in pure lambda calculus, using only:
+// - `x`: Variable
+// - `λx.x`: Abstraction
+// - `x x`: Application
+// In particular, the function doesn't uses any number or operator.
+//
+// Helpers to decode our lambda program:
+let decode_list = acc =&gt; l =&gt; l(x =&gt; xs =&gt; decode_list(acc.concat([x]))(xs))(acc)
+let decode_number = n =&gt; n(x =&gt; x + 1)(0)
+console.log(String.fromCharCode(...main(decode_list([]))(decode_number)))</code></pre></div>
+    <p class='mb-3'>
+      See the <a href='zettle/mockingbird' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkBranch'>mockingbird book</a>
+    </p>
   
 
   <!-- What goes in this file will appear below the note body-->

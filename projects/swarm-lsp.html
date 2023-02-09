@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Neuron Zettelkasten – Tristan's Zettelkasten
+    Swarm LSP – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='The method I am using for my website <index> Feel free to propose changes by clicking the edit button at the top of any page.' />
+      <meta property='og:description' content='A Language Server implementation for the swarm game' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Neuron Zettelkasten' />
+      <meta property='og:title' content='Swarm LSP' />
     
     
       <base href='/' />
@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=108b4bd3-2d96-4bfc-b803-ea04b91f89da' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=ac5d0cfc-b3f2-46a0-9ba0-4d74269f20d6' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -236,8 +236,8 @@ window.MathJax = {
             <li>
 
   <div class='text-gray-900 forest-link'>
-    <a href='zettle'>
-      Zettle
+    <a href='projects'>
+      Projects
     </a>
   </div>
 
@@ -279,38 +279,18 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Neuron Zettelkasten
+    Swarm LSP
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
     <p class='mb-3'>
-      The method I am using for my website <span xmlhtmlRaw><index></span> Feel free to propose changes by clicking the <code class='py-0.5 px-0.5 bg-gray-100'>edit</code> button at the top of any page.
-    </p>
-  <h2 id='linking' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Linking</h2>
-    <p class='mb-3'>
-      Notes are linked by:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          direct link with <code class='py-0.5 px-0.5 bg-gray-100'>[[zettel]]</code>.
-        </li>
-      
-        <li>
-          branch with <code class='py-0.5 px-0.5 bg-gray-100'>&lt;zettel&gt;</code> or <code class='py-0.5 px-0.5 bg-gray-100'>[[[zettel]]]</code>, the other note becomes a branch of the current one.
-        </li>
-      
-    </ul>
-  <h2 id='update' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Update</h2>
-    <p class='mb-3'>
-      Watch edits by running <code class='py-0.5 px-0.5 bg-gray-100'>neuron rib -w -S</code>.
+      A Language Server implementation for the swarm game
     </p>
   
     <p class='mb-3'>
-      Publish by running <code class='py-0.5 px-0.5 bg-gray-100'>nix develop --command shake && (cd output; git push origin pages)</code>
+      Source: <a href='https://github.com/swarm-game/swarm/pull/108' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/swarm-game/swarm/pull/108</a>
     </p>
   
 
@@ -319,13 +299,53 @@ window.MathJax = {
               <div class='flex flex-col lg:flex-row lg:space-x-2'>
                 
                 
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='projects'>
+            Projects
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p><a href='projects/swarm-lsp' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Swarm LSP</a></p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
               </div>
               
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/games'>
+        <!-- DoNotFormat -->
+        #games
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/zettle/README.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/projects/swarm-lsp.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
