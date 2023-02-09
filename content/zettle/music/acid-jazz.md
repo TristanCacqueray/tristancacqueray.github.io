@@ -14,7 +14,6 @@ At D♭ Major, B♭ Minor:
 
 ## HallMarks
 
-- Solidaze feat Sarah Michaelson - Fools
 - Night Trains - And Now We Have Rhythm
 - DJ Spooky - Galactic Funk
 - A-Zel - JAzz Jupiter (Da Scat mix)
