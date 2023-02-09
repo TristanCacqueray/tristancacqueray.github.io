@@ -195,6 +195,16 @@ A Language Server implementation for the swarm game
 
 :::{.pcard}
 :::{.ptitle}
+[[changemetrics]]
+:::
+:::{.pdate}
+2021-06-12
+:::
+The [changemetrics.io](https://changemetrics.io) hakyll website.
+:::
+
+:::{.pcard}
+:::{.ptitle}
 [[matrix-client]]
 :::
 :::{.pdate}
@@ -275,6 +285,26 @@ Haskell bindings for [ImGuiFileDialog](https://github.com/aiekick/ImGuiFileDialo
 
 :::{.pcard}
 :::{.ptitle}
+[[grafdhall]]
+:::
+:::{.pdate}
+2021-03-10
+:::
+A tool to publish Grafana dashboards defined with Dhall.
+:::
+
+:::{.pcard}
+:::{.ptitle}
+[[linux-capabilities-haskell]]
+:::
+:::{.pdate}
+2021-02-26
+:::
+Linux capabilities Haskell data type.
+:::
+
+:::{.pcard}
+:::{.ptitle}
 [[pipes-pulse-simple]]
 :::
 :::{.pdate}
@@ -341,6 +371,26 @@ This project adapts the [gnugo](https://www.gnu.org/software/gnugo/) AI to run i
 2020-10-26
 :::
 Provide the best in class developer experience for [[programing-languages]] enthusiast.
+:::
+
+:::{.pcard}
+:::{.ptitle}
+[[zuul-haskell]]
+:::
+:::{.pdate}
+2020-07-17
+:::
+A client library for [[zuul|zuul]].
+:::
+
+:::{.pcard}
+:::{.ptitle}
+[[gerrit-haskell]]
+:::
+:::{.pdate}
+2020-07-15
+:::
+A client library for [[gerrit|gerrit]].
 :::
 
 :::{.pcard}
