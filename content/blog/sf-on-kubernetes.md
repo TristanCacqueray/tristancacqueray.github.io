@@ -1,7 +1,7 @@
 ---
 title: Running Software Factory on OpenShift
 date: 2022-06-08
-tags: [blog, kubernetes]
+tags: [blog, zuul, kubernetes]
 ---
 
 > This post was initially published on the Software Factory blog: https://www.softwarefactory-project.io/running-software-factory-on-openshift.html

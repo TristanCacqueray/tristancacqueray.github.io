@@ -1,9 +1,11 @@
 ---
 title: Zuul Results Gerrit Plugin
-tags:
-  - project
+date: 2020-11-24
+tags: [zuul]
 ---
 
-[zuul-results-gerrit-plugin](https://github.com/softwarefactory-project/zuul-results-gerrit-plugin) renders the Zuul result comment in Gerrit UI.
+A plugin to render Zuul result comments in Gerrit UI.
 
 The plugin is implemented with [[reason]] using the [JavaScript API](https://gerrit-review.googlesource.com/Documentation/js-api.html).
+
+Source: https://github.com/softwarefactory-project/zuul-results-gerrit-plugin

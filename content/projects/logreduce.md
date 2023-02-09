@@ -1,10 +1,13 @@
 ---
 title: logreduce
+date: 2017-06-26
 tags:
-  - project
+  - machine-learning
 ---
 
-[logreduce](https://pypi.org/project/logreduce/) extract anomaly from log files using [scikit-learn](https://scikit-learn.org/), written in [[python]].
+This project extracts anomaly from log files using [scikit-learn](https://scikit-learn.org/).
+
+Source: https://github.com/logreduce/
 
 ## References
 

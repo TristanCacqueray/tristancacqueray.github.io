@@ -41,6 +41,7 @@
         p.lucid
         p.servant-lucid
         p.websockets
+        p.yaml
         (pkgs.haskellPackages.callCabal2nix "ebml" ebml { })
       ]);
       apps = {

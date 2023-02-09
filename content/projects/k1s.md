@@ -1,12 +1,15 @@
 ---
 title: k1s
+date: 2019-06-14
 tags:
   - project
 ---
 
-[k1s](https://pagure.io/software-factory/k1s) is a minimal [[kubernetes]] service to start pod for [[zuul]].
+This project is a minimal [[kubernetes]] service to start pod for [[zuul]].
 
 The project features:
 
 - A minimal pod api implemented in [[python]] with cherrypy.
 - A [[spdy]] implementation for the exec and port-forward endpoint.
+
+Source: https://pagure.io/software-factory/k1s

@@ -1,9 +1,12 @@
 ---
 title: devenv
+date: 2020-10-26
 tags:
   - project
 ---
 
-[devenv](https://github.com/podenv/devenv) is a [[podenv]] subproject. The goal is to provide the best in class developer experience for [[programing-languages]] enthusiast.
+Provide the best in class developer experience for [[programing-languages]] enthusiast.
 
 It integrates an [[emacs]] distribution.
+
+Source: https://github.com/podenv/devenv

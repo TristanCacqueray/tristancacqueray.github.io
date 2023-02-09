@@ -1,9 +1,13 @@
 ---
 title: Baduk Trainer
+date: 2020-07-06
 tags:
-  - project
+  - purescript
+  - game
 ---
 
-[Baduk Trainer](https://github.com/TristanCacqueray/baduk-trainer) is a web application to learn the game of baduk.
+A web application to learn the game of baduk.
 
 It is written with [[purescript]] and halogen. It integrate a gnugo built for [[wasm]].
+
+Source: https://github.com/TristanCacqueray/baduk-trainer
