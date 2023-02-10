@@ -1,8 +1,12 @@
-% Dhall: A Strong Alternative to YAML
-% Tristan de Cacqueray
-% Februrary 18, 2021
+---
+title: "Dhall: A Strong Alternative to YAML"
+date: 2021-02-18
+tags: [dhall, video]
+---
 
-# Overview
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Y_3XG3m7Tcw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Overview
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css">
 
@@ -16,7 +20,7 @@ If like me, you are tired of writting YAML files, this talk is for you.
 - How to use it?
 - Food for thought
 
-# Why do we want an alternative?
+## Why do we want an alternative?
 
 - Strong language safety:
   - Truncated files must be invalid.
@@ -25,7 +29,7 @@ If like me, you are tired of writting YAML files, this talk is for you.
 - Integrated string interpolation.
 - Import file and URL.
 
-# ![dhall](https://dhall-lang.org/img/dhall-large-logo.svg){ width=250px }
+## ![dhall](https://dhall-lang.org/img/dhall-large-logo.svg){ width=250px }
 
 > a programmable configuration language that you can think of as: JSON + functions + types + imports
 
@@ -81,7 +85,7 @@ job:
   - Can't produce malformed output.
   - Simpler standard than YAML.
 
-# Let bindings
+## Let bindings
 
 - Decompose expressions into sub expressions:
 
@@ -110,7 +114,7 @@ in  { job }
 - Benefits:
   - Large configurations are easier to manage.
 
-# Imports
+## Imports
 
 - Value can reference a path:
 
@@ -138,7 +142,7 @@ in { job }
   - Configurations can be split.
   - Enables single source of truth.
 
-# Functions
+## Functions
 
 - Function definition:
 
@@ -173,7 +177,7 @@ vars:
   - Configuration re-use.
   - Treat the configuration as your code.
 
-# Demo
+## Demo
 
 - URL can be imported too:
 
@@ -254,7 +258,7 @@ spec:
   - It doesn't require Jinja or Go template tranformation.
   - It can be used for other configurations besides kubernetes.
 
-# Usage
+## Usage
 
 - Adopt Dhall in four steps:
 
@@ -268,7 +272,7 @@ spec:
   - Bash (script variables)
   - XML
 
-# Food for thought
+## Food for thought
 
 - Import supports semantic integrity checks.
 
@@ -288,7 +292,7 @@ spec:
 
 - Learn more at [https://dhall-lang.org](https://dhall-lang.org)
 
-# Questions?
+## Questions?
 
 - Send them at [tdecacqu@redhat.com](mailto:tdecacqu@redhat.com)
 - Slides are available at [https://tristancacqueray.github.io/talks/dhall-strong-alternative-to-yaml/](https://tristancacqueray.github.io/talks/dhall-strong-alternative-to-yaml/)
