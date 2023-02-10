@@ -1,7 +1,7 @@
 ---
 title: Zuul Pyramid
 date: 2019-09-24
-tags: [zuul]
+tags: [zuul, video]
 ---
 
 A 3D rendering of the [[zuul]] logo.

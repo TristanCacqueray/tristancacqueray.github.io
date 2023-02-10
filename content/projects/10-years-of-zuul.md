@@ -1,10 +1,10 @@
 ---
 title: 10 Years of Zuul
 date: 2022-01-10
-tags: [zuul]
+tags: [zuul, video]
 ---
 
-A visualization of the development history made with [gource](https://gource.io/).
+A visualization of the [[zuul|zuul]] development history made with [gource](https://gource.io/).
 
 I composed and produced the music, and made a [[nix]] expression to render the video:
 

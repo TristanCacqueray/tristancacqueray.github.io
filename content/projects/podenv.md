@@ -1,8 +1,7 @@
 ---
 title: podenv
 date: 2019-07-27
-tags:
-  - project
+tags: [haskell, cli]
 ---
 
 This project provides a declarative interface to manage containers' environment.

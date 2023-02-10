@@ -1,8 +1,7 @@
 ---
 title: k1s
 date: 2019-06-14
-tags:
-  - project
+tags: [web-service]
 ---
 
 This project is a minimal [[kubernetes]] service to start pod for [[zuul]].

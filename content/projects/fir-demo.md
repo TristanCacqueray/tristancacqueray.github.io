@@ -1,10 +1,7 @@
 ---
 title: FIR Demo
 date: 2021-10-17
-tags:
-  - haskell
-  - vulkan
-  - game
+tags: [haskell, vulkan, video, fractal]
 ---
 
 A couple of videos to demonstrate the [fir](https://gitlab.com/sheaf/fir) library.

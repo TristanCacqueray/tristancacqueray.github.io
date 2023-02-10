@@ -1,7 +1,7 @@
 ---
 title: zuul-haskell
 date: 2020-07-17
-tags: [zuul, haskell]
+tags: [zuul, haskell, library]
 ---
 
 A client library for [[zuul|zuul]].

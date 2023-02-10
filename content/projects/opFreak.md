@@ -1,8 +1,7 @@
 ---
 title: opFreak
 date: 2022-02-01
-tags:
-  - music
+tags: [music]
 ---
 
 An album I produced with hardware synthesizer.

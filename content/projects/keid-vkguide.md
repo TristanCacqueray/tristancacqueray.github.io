@@ -1,9 +1,7 @@
 ---
 title: keid-vkguide
 date: 2022-11-12
-tags:
-  - haskell
-  - game
+tags: [haskell, design]
 ---
 
 This project implements the [vkguide](https://vkguide.dev) using the Haskell engine [keid](https://keid.haskell-game.dev/).

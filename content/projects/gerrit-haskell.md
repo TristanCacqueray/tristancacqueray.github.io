@@ -1,7 +1,7 @@
 ---
 title: gerrit-haskell
 date: 2020-07-15
-tags: [haskell]
+tags: [haskell, library]
 ---
 
 A client library for [[gerrit|gerrit]].

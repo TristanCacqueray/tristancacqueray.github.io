@@ -1,8 +1,7 @@
 ---
 title: re-ansi
 date: 2020-11-17
-tags:
-  - project
+tags: [rescript, library]
 ---
 
 This library parses Ansi code and render HTML element.

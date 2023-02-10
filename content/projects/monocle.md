@@ -1,7 +1,7 @@
 ---
 title: Monocle
 date: 2020-05-15
-tags: [haskell, monocle]
+tags: [haskell, monocle, contributor]
 ---
 
 I made significant contribution to the change-metrics/monocle project.

@@ -4,6 +4,7 @@ date: 2023-01-23
 tags:
   - haskell
   - parser
+  - library
 ---
 
 Pure decoder for the Extensible Binary Meta Language (EBML) format.

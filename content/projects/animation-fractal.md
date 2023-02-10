@@ -1,12 +1,10 @@
 ---
 title: Animation Fractal
 date: 2022-11-19
-tags:
-  - haskell
-  - game
+tags: [haskell, fractal]
 ---
 
-Animation Fractal is an application to produce visualisation and explore fractal.
+A graphic application to produce visualisation and explore fractal.
 
 ---
 

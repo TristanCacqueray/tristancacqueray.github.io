@@ -1,7 +1,7 @@
 ---
 title: purescript-gjs
 date: 2021-04-05
-tags: [purescript]
+tags: [purescript, library]
 ---
 
 A library to use the GJS with [[purescript|purescript]].

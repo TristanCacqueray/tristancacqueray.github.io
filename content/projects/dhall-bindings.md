@@ -1,7 +1,7 @@
 ---
 title: dhall-bindings
 date: 2020-01-06
-tags: [dhall]
+tags: [dhall, library]
 ---
 
 I wrote multiple dhall bindings for Ansible, OpenShift, and more.

@@ -1,7 +1,7 @@
 ---
 title: sicp-study
 date: 2019-01-03
-tags: [lisp]
+tags: [lisp, library]
 ---
 
 A peer reviewing project for the Structure and Interpretation of Computer Programs (SICP) assigments.

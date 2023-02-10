@@ -1,7 +1,7 @@
 ---
 title: cgroup-monitor
-date: 2019-01-03
-tags: [purescript]
+date: 2021-05-23
+tags: [purescript, extension]
 ---
 
 A gnome extension to monitor resources through cgroups.

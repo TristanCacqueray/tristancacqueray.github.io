@@ -1,7 +1,7 @@
 ---
 title: rokolisp
 date: 2021-01-16
-tags: [haskell, lisp]
+tags: [haskell, lisp, cli]
 ---
 
 A small programing language based on the lambda calculus.

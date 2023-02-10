@@ -1,8 +1,7 @@
 ---
 title: restfuzz
 date: 2015-06-05
-tags:
-  - project
+tags: [cli]
 ---
 
 An API tester. It can decode response to extract identifier to call further endpoints.

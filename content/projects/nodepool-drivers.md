@@ -1,6 +1,7 @@
 ---
 title: Nodepool drivers
 date: 2017-05-28
+tags: []
 ---
 
 This contribution added additional resources provider such as Amazon EC2 or OpenShift for [[zuul]].

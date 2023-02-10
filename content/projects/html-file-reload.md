@@ -1,7 +1,7 @@
 ---
 title: html-file-reload
 date: 2022-05-05
-tags: [rust]
+tags: [rust, cli]
 ---
 
 Watch an html file and hot reload with SSE.

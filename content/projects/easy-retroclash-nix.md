@@ -1,7 +1,7 @@
 ---
 title: easy-retroclash-nix
 date: 2021-11-28
-tags: [haskell]
+tags: [haskell, nix]
 ---
 
 Derivations for the [retroclash](https://unsafePerform.IO/retroclash/) toolchain.

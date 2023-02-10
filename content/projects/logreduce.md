@@ -1,8 +1,7 @@
 ---
 title: logreduce
 date: 2017-06-26
-tags:
-  - machine-learning
+tags: [machine-learning, python, rust, cli]
 ---
 
 This project extracts anomaly from log files using [scikit-learn](https://scikit-learn.org/).

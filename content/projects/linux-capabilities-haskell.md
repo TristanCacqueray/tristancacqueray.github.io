@@ -1,7 +1,7 @@
 ---
 title: linux-capabilities-haskell
 date: 2021-02-26
-tags: [haskell]
+tags: [haskell, library]
 ---
 
 Linux capabilities Haskell data type.

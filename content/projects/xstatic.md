@@ -1,7 +1,7 @@
 ---
 title: haskell-xstatic
 date: 2022-08-27
-tags: [haskell]
+tags: [haskell, packaging, library]
 ---
 
 XStatic family of packages for haskell.

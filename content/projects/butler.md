@@ -1,9 +1,7 @@
 ---
 title: ButlerOS
 date: 2022-08-26
-tags:
-  - haskell
-  - web
+tags: [haskell, web-service]
 ---
 
 This library provides a virtual operating system to run Haskell programs.

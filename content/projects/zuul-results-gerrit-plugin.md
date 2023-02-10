@@ -1,7 +1,7 @@
 ---
 title: Zuul Results Gerrit Plugin
 date: 2020-11-24
-tags: [zuul]
+tags: [zuul, plugin]
 ---
 
 A plugin to render Zuul result comments in Gerrit UI.
