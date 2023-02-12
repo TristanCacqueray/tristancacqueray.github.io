@@ -3,7 +3,7 @@
 ## Author
 
 - [[blog]]
-- [[projects]]
+- [[project]]
 
 ## Maintainer
 

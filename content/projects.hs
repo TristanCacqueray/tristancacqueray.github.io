@@ -43,7 +43,7 @@ Here are some of the projects I have worked on, as an author or contributor.
 |]
 
 data Project = Project
-    { title :: FilePath
+    { fp :: FilePath
     , meta :: ProjectMeta
     , intro :: Text
     }
@@ -51,6 +51,7 @@ data Project = Project
 data ProjectMeta = ProjectMeta
     { date :: Text
     , tags :: [Text]
+    , title :: Text
     }
     deriving (Generic, FromJSON)
 
@@ -95,9 +96,9 @@ renderProject :: Project -> Html ()
 renderProject p =
     with div_ [class_ "rounded border-2 border-blue-100 p-1"] do
         with div_ [class_ "text-lg"] do
-            let t = Text.pack (takeBaseName $ title p)
-            with a_ [class_ "text-blue-600 mavenLinkBold hover:underline", href_ ("projects/" <> t)] do
-                toHtml t
+            let t = Text.pack (takeBaseName $ fp p)
+            with a_ [class_ "text-blue-600 mavenLinkBold hover:underline", href_ ("project/" <> t)] do
+                toHtml (if (Text.length p.meta.title < Text.length t) then p.meta.title else t)
 
             case getIcon p of
                 Just ico -> with span_ [class_ "float-right"] ico
@@ -137,6 +138,6 @@ formatIntro = flip mappend "." . mconcat . takeWhile (/= ".")
 
 main :: IO ()
 main = do
-    projFiles <- map (mappend "projects/") <$> listDirectory "projects"
+    projFiles <- map (mappend "project/") <$> listDirectory "project"
     projs <- traverse parseProject projFiles
     renderToFile "templates/components/projects.tpl" (renderProjects (reverse $ sortOn (date . meta) projs))
