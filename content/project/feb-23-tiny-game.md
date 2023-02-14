@@ -78,3 +78,32 @@ m t n (ix,iy,(x,y,z))=let a=x*cos(t)-z*sin t;c=x*sin(t)+z*cos t;d=scene(a,y,c)in
 
 A 3d render demo using a ray-marcher.
 :::
+
+---
+
+:::{.flex .flex-col .items-center .justify-center .place-content-center}
+:::{.w-full .text-center}
+[default-10-80/tsp](https://github.com/haskell-game/tiny-games-hs/tree/main/default/tsp)
+:::
+![tsp](../static/tsp.gif)
+
+```haskell
+import System.IO; import Control.Concurrent; import Data.ByteString(elemIndices,
+ hGetNonBlocking,hPut); import Data.ByteString.Char8(pack); q=hPut stdout . pack
+main=hSetBuffering stdin NoBuffering>>hSetEcho stdin False>>go i; o=True; m=max;
+i=(-30,0,0,0,' ');s v|v>=0=">"|o="<";c t|t<0=show (t`div`10)|o="";l=2900;d="--,"
+p 0(_,p,v,_,_)="VEL "++show v++" | ALT "++show p;p 1_=d++[' '|_<-[0..69]]++"~|~"
+p 2(t,p,v,_,f)=[' '|_<-[0..floor(p/40)]]++f:s v++c t;z t v|v>(-50)=print t|o=q""
+r s=q$"\ESCc=<< TSP >>=   | "++(unlines$map(flip p s)[0..2]);y=flip elemIndices;
+go s=r s>>threadDelay 100000>>(hGetNonBlocking stdin 42>>=e s);e(t,p,v,h,_)i=let
+ j=(/=[]).y i;f=j 102;r=j 114;g|f='*'|r='['|o=' ';n|f=5|r=(-5)|o=0;q=m 0(p+v-1);
+ c|t<0=0|o=1;in if (q==0&&h>l) then z t v else go(t+1, c*q, c*(v+n-1), m h p, g)
+```
+
+```
+You are a rocket pilot flying for the Tiny Space Agency (TSA).
+Your goal is to deliver curry to the Tiny Space Station (TSS).
+There is no time to loose, you need to go as fast as possible.
+The world record, by Simon Kerman Jones, is under 9.9 seconds.
+```
+:::
