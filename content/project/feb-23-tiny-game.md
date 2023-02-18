@@ -6,7 +6,9 @@ tags:
   - game
 ---
 
-I contributed 3 games to the 2023 February [Haskell Tiny Game Jam](https://github.com/haskell-game/tiny-games-hs).
+I contributed 6 games to the 2023 February [Haskell Tiny Game Jam](https://github.com/haskell-game/tiny-games-hs).
+
+I also investigated how to run the game online with: https://github.com/TristanCacqueray/tiny-game-haskell-wasm and https://github.com/TristanCacqueray/tiny-game-server/
 
 :::{.flex .flex-col .items-center .justify-center .place-content-center}
 :::{.w-full .text-center}
@@ -61,7 +63,7 @@ I like this one because it manages to show self-similarity.
 :::{.w-full .text-center}
 [hackage-10-80/lazy-march](https://github.com/haskell-game/tiny-games-hs/tree/main/hackage/lazy-march)
 :::
-![tiny-brot](../static/lazy-march.gif)
+![lazy-march](../static/lazy-march.gif)
 
 ```haskell
 #!/usr/bin/env -S stack script --resolver lts-20 --package ansi-terminal-game
@@ -106,4 +108,51 @@ Your goal is to deliver curry to the Tiny Space Station (TSS).
 There is no time to loose, you need to go as fast as possible.
 The world record, by Simon Kerman Jones, is under 9.9 seconds.
 ```
+:::
+
+---
+
+:::{.flex .flex-col .items-center .justify-center .place-content-center}
+:::{.w-full .text-center}
+[base-10-80/flower-seeds](https://github.com/haskell-game/tiny-games-hs/tree/main/base/flower-seeds)
+:::
+![flower-seeds](../static/flower-seeds.png)
+
+```haskell
+import System.IO;import Control.Concurrent;import System.Environment;o=True
+r w=putStrLn("\^[cflower-seeds "++show w)>>traverse p(map c(g w));a[]=go i
+a(b:_)=go(read b);c(a,d)=(z$60+d*cos a,z$0.5*(50+d*sin a));z=round;j=(-1)
+i=(29.6,3,400);g(a,d,n)=take n$iterate(\(b,e)->(b+pi*a/90,e+d/30))(0,0)
+p (x,y)=threadDelay 1000>>putStrLn("\^[["++show y++";"++show x++"f❤")
+main = hSetBuffering stdin NoBuffering >> (getArgs >>= a); e(a,d,n)i=let
+ b|i=='j'=j|i=='l'=1|o=0;e|i=='k'=j|i=='i'=1|o=0;m|i=='c'=(-1)|i=='v'=1|o=0
+ in go (a+b/20,max 0.1(d+e/10),max 1(n+m*17));go w=r w >> (getChar >>= e w)
+```
+
+Use this game to draw a flower for your Valentine.
+:::
+
+---
+
+:::{.flex .flex-col .items-center .justify-center .place-content-center}
+:::{.w-full .text-center}
+[default-10-80/lambda-ray](https://github.com/haskell-game/tiny-games-hs/tree/main/default/lambda-ray)
+:::
+![lambda-ray](../static/lambda-ray.gif)
+
+```haskell
+import Control.Concurrent; import System.Posix.Internals;w=100;q=0.4;n=min;c=cos
+p=[(x/w*2-1,(y/20*2-1)*0.2)| y<-[0..20], x<-[0..w+1]];t=max 0;o=True;a=abs;s=sin
+main=go 0;r t (x,y,z)=(x*c t - y*s t, x*s t + y*c t, z);v=sqrt;u _(1.02,_)= '\n'
+u t(x,y)=m t 0(10*x,10*y,-5);b h w(x,y,z)=v(t(a x-w)**2+t(a y-h)**2+t(a z-q)**2)
+go n=puts("\ESCc"++(map (u(n/6))p))>>threadDelay 100000>>go(n+1);h p@(x,y,z)=let
+ a=b 5q;l=(x+3,y,z);i|y>=0=a(r(-1)l)|o=9;j|y<0=a(r 1l)|o=9;k=a(r 1p)
+ c|y>0=a(r(-1)p)|o=9;m=b 5 2(r 1(x-6,y,z));g s=b 6 0.2 (r(pi/2)(x-1,y+s*q,z))
+ e=max m(n(g 1)(g(-1))) in n(n i j)(n e(n k c));m _ 20 _=' ';m t n(x,y,z)=let
+ a=x*c(t)-z*s t;b=x*s t+z*c t;nz=h(a,y,b+q)-h(a,y,b-q);ny=h(a,y+q,b)-h(a,y-q,b)
+ d=h(a,y,b);g|nz<0='o'|ny<0='>'|o='.';r|d<0.01=g|o=m t(n+1)(x,y,z+d);q=0.001in r
+```
+
+This demo renders a rotating Haskell logo in 3D.
+
 :::
