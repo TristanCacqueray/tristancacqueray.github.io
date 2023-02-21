@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=f04d37a8-bbcc-4f97-bacd-368aec58de84' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=c6caacbb-c44c-4152-a8d7-c6be01ab87c8' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -387,13 +387,13 @@ main = hSetBuffering stdin NoBuffering &gt;&gt; (getArgs &gt;&gt;= a); e(a,d,n)i
     <hr class='mb-3' />
   <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
     <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/default/lambda-ray' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>default-10-80/lambda-ray</a>
+      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/base/lambda-ray' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>base-10-80/lambda-ray</a>
     </p>
   </div><img class='inline mb-3' src='static/lambda-ray.gif' alt='lambda-ray' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Control.Concurrent; import System.Posix.Internals;w=100;q=0.4;n=min;c=cos
 p=[(x/w*2-1,(y/20*2-1)*0.2)| y&lt;-[0..20], x&lt;-[0..w+1]];t=max 0;o=True;a=abs;s=sin
 main=go 0;r t (x,y,z)=(x*c t - y*s t, x*s t + y*c t, z);v=sqrt;u _(1.02,_)= '\n'
 u t(x,y)=m t 0(10*x,10*y,-5);b h w(x,y,z)=v(t(a x-w)**2+t(a y-h)**2+t(a z-q)**2)
-go n=puts("\ESCc"++(map (u(n/6))p))&gt;&gt;threadDelay 100000&gt;&gt;go(n+1);h p@(x,y,z)=let
+go n=puts("\^[c\n"++map(u(n/6.3))p)&gt;&gt;threadDelay 100000&gt;&gt;go(n+1);h p@(x,y,z)=let
  a=b 5q;l=(x+3,y,z);i|y&gt;=0=a(r(-1)l)|o=9;j|y&lt;0=a(r 1l)|o=9;k=a(r 1p)
  c|y&gt;0=a(r(-1)p)|o=9;m=b 5 2(r 1(x-6,y,z));g s=b 6 0.2 (r(pi/2)(x-1,y+s*q,z))
  e=max m(n(g 1)(g(-1))) in n(n i j)(n e(n k c));m _ 20 _=' ';m t n(x,y,z)=let
