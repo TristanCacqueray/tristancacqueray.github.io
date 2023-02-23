@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=38ed8c35-6bbb-4e0d-b2c4-4419723e6de0' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=a8ac3357-ff4c-462a-9358-8532a3beec5c' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -319,7 +319,7 @@ window.MathJax = {
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- engine1.hs
 gameLoop :: String -&gt; String
 gameLoop (char:'\n':rest) = "Input is: " &lt;&gt; show char &lt;&gt; "!\n" &lt;&gt; gameLoop rest
-gameLoop = "Done"
+gameLoop _ = "Done"
 
 main = interact gameLoop</code></pre></div>
     <p class='mb-3'>
@@ -402,7 +402,7 @@ main = gameLoop 0</code></pre></div><div class='flex justify-center items-center
         1
       </a>
     </sup>
-   way to achieve a smooth animation.
+   way in base to achieve a smooth animation.
     </p>
   <h2 id='default' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Default</h2>
     <p class='mb-3'>
