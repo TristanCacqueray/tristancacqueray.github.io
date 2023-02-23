@@ -89,7 +89,7 @@ gameLoop = getChar >>= eval >> gameLoop
 main = hSetBuffering stdin NoBuffering >> gameLoop
 ```
 
-I used this setup for [flower-seeds] so that user can simply press some keys to change the flower.
+I used this setup for [flower-seeds] so that the user can simply press some keys to change the flower.
 
 :::{.center .mb-2}
 ![flower-seeds](../static/flower-seeds.png)
@@ -110,7 +110,7 @@ render :: Int -> String
 render t = "Frame: " <> show t
 
 gameLoop :: Int -> IO ()
-gameLoop t = puts (render t) >> threadDelay 100_000 >> go (t + 1)
+gameLoop t = puts (render t) >> threadDelay 100_000 >> gameLoop (t + 1)
 
 main = gameLoop 0
 ```
