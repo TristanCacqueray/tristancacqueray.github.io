@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=6bd318ee-7a29-4e29-b8d2-2d6c6ed1e49c' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=7cc695a2-cfb0-44e4-9817-ff6a099d89f7' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -392,7 +392,7 @@ render :: Int -&gt; String
 render t = "Frame: " &lt;&gt; show t
 
 gameLoop :: Int -&gt; IO ()
-gameLoop t = puts (render t) &gt;&gt; threadDelay 100_000 &gt;&gt; go (t + 1)
+gameLoop t = puts (render t) &gt;&gt; threadDelay 100_000 &gt;&gt; gameLoop (t + 1)
 
 main = gameLoop 0</code></pre></div><div class='flex justify-center items-center mx-auto mb-2'><img class='inline mb-3' src='static/lambda-ray.gif' alt='lambda-ray' style='width: inherit;' /></div>
     <p class='mb-3'>
