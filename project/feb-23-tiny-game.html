@@ -12,7 +12,7 @@
   </title>
   
     
-      <meta property='og:description' content='I contributed 6 games to the 2023 February Haskell Tiny Game Jam.' />
+      <meta property='og:description' content='I contributed 7 games to the 2023 February Haskell Tiny Game Jam.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content='../static/pure-doors.png' />
       <meta property='og:type' content='website' />
@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=1d71d7c2-a4b2-40a4-acad-e9949174e60e' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=24883f17-bce8-472a-91cb-9fd1a1fd26ae' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -286,7 +286,7 @@ window.MathJax = {
   <!-- What goes in this file will appear on top of note body-->
   
     <p class='mb-3'>
-      I contributed 6 games to the 2023 February <a href='https://github.com/haskell-game/tiny-games-hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell Tiny Game Jam</a>.
+      I contributed 7 games to the 2023 February <a href='https://github.com/haskell-game/tiny-games-hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell Tiny Game Jam</a>.
     </p>
   
     <p class='mb-3'>
@@ -401,6 +401,29 @@ go n=puts("\^[c\n"++map(u(n/6.3))p)&gt;&gt;threadDelay 100000&gt;&gt;go(n+1);h p
  d=h(a,y,b);g|nz&lt;0='o'|ny&lt;0='&gt;'|o='.';r|d&lt;0.01=g|o=m t(n+1)(x,y,z+d);q=0.001in r</code></pre></div>
     <p class='mb-3'>
       This demo renders a rotating Haskell logo in 3D.
+    </p>
+  </div>
+    <hr class='mb-3' />
+  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
+    <p class='mb-3'>
+      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/prelude/quine' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>prelude-10-80/quine</a>
+    </p>
+  </div><img class='inline mb-3' src='static/quine.png' alt='quine' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>#!/usr/bin/env runghc
+q=t 34;e=t 92;n=t 10;d='-';t=toEnum;z="-- ^10 ";b('#':'!':y)=q:'#':'!':b y
+b[]=q:c;b(x:y)|x==n=e:'n':e:n:e:b y|x==q=e:q:b y|o=x:b y;l="SPDX: CC0-1.0"
+s=n:z++[d|_&lt;-[0..66]]++" 80&gt; --"++n:"{- prelude-10-80/quine (tristanC)"
+o=True;c=n:s++n:l++n:"-}";main=putStrLn(s++b s)where s="#!/usr/bin/env runghc\n\
+\q=t 34;e=t 92;n=t 10;d='-';t=toEnum;z=\"-- ^10 \";b('#':'!':y)=q:'#':'!':b y\n\
+\b[]=q:c;b(x:y)|x==n=e:'n':e:n:e:b y|x==q=e:q:b y|o=x:b y;l=\"SPDX: CC0-1.0\"\n\
+\s=n:z++[d|_&lt;-[0..66]]++\" 80&gt; --\"++n:\"{- prelude-10-80/quine (tristanC)\"\n\
+\o=True;c=n:s++n:l++n:\"-}\";main=putStrLn(s++b s)where s="
+
+-- ^10 ------------------------------------------------------------------- 80&gt; --
+{- prelude-10-80/quine (tristanC)
+SPDX: CC0-1.0
+-}</code></pre></div>
+    <p class='mb-3'>
+      A self replicating demo
     </p>
   </div>
 
