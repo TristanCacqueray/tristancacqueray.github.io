@@ -6,7 +6,7 @@ tags:
   - game
 ---
 
-I contributed 6 games to the 2023 February [Haskell Tiny Game Jam](https://github.com/haskell-game/tiny-games-hs).
+I contributed 7 games to the 2023 February [Haskell Tiny Game Jam](https://github.com/haskell-game/tiny-games-hs).
 
 I also investigated how to run the game online with: https://github.com/TristanCacqueray/tiny-game-haskell-wasm and https://github.com/TristanCacqueray/tiny-game-server/
 
@@ -154,5 +154,34 @@ go n=puts("\^[c\n"++map(u(n/6.3))p)>>threadDelay 100000>>go(n+1);h p@(x,y,z)=let
 ```
 
 This demo renders a rotating Haskell logo in 3D.
+
+:::
+
+---
+
+:::{.flex .flex-col .items-center .justify-center .place-content-center}
+:::{.w-full .text-center}
+[prelude-10-80/quine](https://github.com/haskell-game/tiny-games-hs/tree/main/prelude/quine)
+:::
+![quine](../static/quine.png)
+
+```haskell
+#!/usr/bin/env runghc
+q=t 34;e=t 92;n=t 10;d='-';t=toEnum;z="-- ^10 ";b('#':'!':y)=q:'#':'!':b y
+b[]=q:c;b(x:y)|x==n=e:'n':e:n:e:b y|x==q=e:q:b y|o=x:b y;l="SPDX: CC0-1.0"
+s=n:z++[d|_<-[0..66]]++" 80> --"++n:"{- prelude-10-80/quine (tristanC)"
+o=True;c=n:s++n:l++n:"-}";main=putStrLn(s++b s)where s="#!/usr/bin/env runghc\n\
+\q=t 34;e=t 92;n=t 10;d='-';t=toEnum;z=\"-- ^10 \";b('#':'!':y)=q:'#':'!':b y\n\
+\b[]=q:c;b(x:y)|x==n=e:'n':e:n:e:b y|x==q=e:q:b y|o=x:b y;l=\"SPDX: CC0-1.0\"\n\
+\s=n:z++[d|_<-[0..66]]++\" 80> --\"++n:\"{- prelude-10-80/quine (tristanC)\"\n\
+\o=True;c=n:s++n:l++n:\"-}\";main=putStrLn(s++b s)where s="
+
+-- ^10 ------------------------------------------------------------------- 80> --
+{- prelude-10-80/quine (tristanC)
+SPDX: CC0-1.0
+-}
+```
+
+A self replicating demo
 
 :::
