@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    State monad – Tristan's Zettelkasten
+    Forwarding ssh-agent through WebSockets – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='This post explores the state monad in [[haskell]]. Don’t forget to checkout the previous post about [[functor-map]].' />
+      <meta property='og:description' content='This post introduces how to forward an ssh-agent through WebSockets using Electron. In three parts, I present:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='State monad' />
+      <meta property='og:title' content='Forwarding ssh-agent through WebSockets' />
     
     
       <base href='/' />
@@ -279,187 +279,302 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    State monad
+    Forwarding ssh-agent through WebSockets
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
     <p class='mb-3'>
-      This post explores the <a href='https://hackage.haskell.org/package/mtl-2.2.2/docs/Control-Monad-State-Lazy.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>state monad</a> in <a href='zettle/programing-languages/haskell' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Haskell</a>. Don’t forget to checkout the previous post about <a href='blog/functor-map' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Functor map</a>.
+      This post introduces how to forward an ssh-agent through WebSockets using <a href='https://electronjs.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Electron</a>. In three parts, I present:
     </p>
-  <h2 id='context' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context</h2>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          A reverse proxy to listen for ssh-agent clients such as git.
+        </li>
+      
+        <li>
+          A Web Application Interface (WAI) to forward ssh-agent requests through WebSockets.
+        </li>
+      
+        <li>
+          An Electron app to bridge a local ssh-agent.
+        </li>
+      
+    </ul>
+  
     <p class='mb-3'>
-      Let’s consider this counter implementation in <a href='zettle/programing-languages/elixir' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Elixir</a>:
+      This post is a literate haskell file that implements the following architecture:
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='elixir language-elixir'>defmodule MyApp.Counter do
-  use GenServer
-  def handle_call({:increment, n}, _from, state) do
-    state = state + n
-    {:reply, state, state}
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='mermaid language-mermaid'>flowchart LR
+  RA(ssh) ---&gt;|Unix| RP
+  subgraph Electron
+    EB(Browser)  ---&gt;|Bridge| ER
+    ER(Renderer) ---&gt;|Message| EM(Main)
   end
-end</code></pre></div>
-    <p class='mb-3'>
-      This module doesn’t own a state, instead it returns a new state on each invocation. The genserver provides an implementation to pass the state like this:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='elixir language-elixir'>defp receive_loop(state) do
-  new_state =
-    receive do
-      msg -&gt; handle_call(msg, state)
-    end
-  receive_loop(new_state)
-end</code></pre></div>
-    <p class='mb-3'>
-      This model, where the function takes its state as an input, and returns a new state can also be implemented in Python like this:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>def increment(state):
-    state = state + 1
-    return (state, state)
 
-(value, my_counter) = increment(0)
-(value, my_counter) = increment(my_counter)
-(value, my_counter) = increment(my_counter)</code></pre></div>
-    <p class='mb-3'>
-      Notice how such stateless functions return both a new state, and its output value. We might want to return a different value, for example:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>def show_counter(self):
-    return ("Counter is at %d" % self, self)
+  subgraph Haskell
+    RP(ReverseProxy)  ---&gt; W
+    W(WAI) ---&gt;|WebSocket| EB
+  end
 
-print(show_counter(my_counter))
-# Shows ("Counter is at 3", 3)</code></pre></div>
+  EM ---&gt;|Unix| SA(ssh-agent)</code></pre></div>
+    <p class='mb-3'>
+      The following libraries are used for the backend:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>{-# LANGUAGE BlockArguments, OverloadedStrings, QuasiQuotes #-}
+
+-- rio, a standard library to extend the default Prelude
+import RIO
+import RIO.Directory (removeFile)
+
+-- network for the unix domain socket service
+import Network.Socket (Socket, socket, bind, listen, accept, close, defaultProtocol)
+import Network.Socket (SockAddr(SockAddrUnix), Family(AF_UNIX), SocketType(Stream))
+import Network.Socket.ByteString (recv, sendAll)
+
+-- wai, warp and websocket for the http service
+import Network.WebSockets qualified as WS
+import Network.Wai.Handler.WebSockets qualified as WaiWS
+import Network.Wai qualified as Wai
+import Network.Wai.Handler.Warp qualified as Warp
+import Network.HTTP.Types.Status (status200, status404)
+
+-- string-qq to embed the multi-line JavaScript client
+import Data.String.QQ (s)</code></pre></div><div class='hidden'>
+    <p class='mb-3'>
+      Imports to cleanup the <code class='py-0.5 px-0.5 bg-gray-100'>markdown-unlit</code> metadatas.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.Text.Lazy qualified as Text
+import Data.Text.Lazy.Encoding qualified as Text</code></pre></div>
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
     <p class='mb-3'>
-      By eliminating the ability to mutate a state outside of scope, functional programs are often easier to follow and contain fewer bugs.
+      This document is a literate haskell file. You can run the demo with: nix develop .<span class='font-bold bg-gray-100 py-0.5 px-2 rounded-lg emanote:inline-tag:gstreamer' title='Tag' data-tag='gstreamer'><a href='-/tags/gstreamer' title='Tag' class='text-blue-600 mavenLinkBold hover:underline'>#gstreamer</a></span> –command ghcid –command “ghci -XGHC2021 -pgmL markdown-unlit -optL haskell -optL html” –test=:main forwarding-ssh-agent-through-electron.lhs
     </p>
   
     </blockquote>
+  </div><h2 id='unix-domain-socket-server' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Unix Domain Socket Server</h2>
+    <p class='mb-3'>
+      In this section, I implement a local server to listen for ssh-agent requests. The service waits for an ssh-agent client to connect to the unix domain socket before serving it with the websocket client.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>reverseProxy :: WS.Connection -&gt; IO Void
+reverseProxy wsConn = unixService "/tmp/remote-agent.socket" \agentClient -&gt; do
+  putStrLn "Forwarding request..."
+
+  -- Tell the remote client that a new request is starting.
+  let wsSend = WS.sendBinaryData wsConn
+  wsSend mempty
+
+  -- Forward the local client messages to the remote endpoint.
+  let reader = do
+        buf &lt;- recv agentClient 4096
+        wsSend buf
+        unless (buf == mempty) reader
+
+  -- Forward the remote messages to the local client.
+  let writer = forever do
+        buf &lt;- WS.receiveData wsConn
+        sendAll agentClient buf
+
+  -- Run both the reader and writer action concurrently.
+  void $ race reader writer
+  putStrLn "Completed request"</code></pre></div>
+    <p class='mb-3'>
+      Here is an helper to bootstrap the service:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>unixService :: FilePath -&gt; (Socket -&gt; IO ()) -&gt; IO Void
+unixService fp cb =
+    bracket (socket AF_UNIX Stream defaultProtocol) close \socket -&gt;
+    bracket_ (bind socket (SockAddrUnix fp)) (removeFile fp) do
+        listen socket 5
+        forever do
+            (client, _) &lt;- accept socket
+            cb client</code></pre></div>
+    <p class='mb-3'>
+      The next section shows how to serve the reverse proxy over http.
+    </p>
+  <h2 id='websocket-proxy' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>WebSocket proxy</h2>
+    <p class='mb-3'>
+      In this section, I implement an http service to expose the reverse proxy. The WAI application is composed of the websocket server app and a minimal http service to provide the web-page.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | The service is protected by an MVar to ensure a single agent is connected.
+reverseProxyServer :: MVar () -&gt; WS.ServerApp
+reverseProxyServer lock pendingConnection = withMVar lock \_ -&gt; do
+    wsConn &lt;- WS.acceptRequest pendingConnection
+    putStrLn "New provider..."
+    void $ WS.withPingThread wsConn 30 (pure ()) (reverseProxy wsConn)
+
+waiApp :: Wai.Application
+waiApp req resp = resp $ case Wai.rawPathInfo req of
+    "/" -&gt; Wai.responseLBS status200 [] indexHtml
+    _ -&gt; Wai.responseLBS status404 [] mempty
+
+main :: IO ()
+main = do
+    lock &lt;- newMVar ()
+    Warp.run 22022 (mkApp (reverseProxyServer lock) waiApp)
+  where
+    mkApp = WaiWS.websocketsOr WS.defaultConnectionOptions
+
+indexHtml :: LByteString
+indexHtml = [s|</code></pre></div>
+    <p class='mb-3'>
+      Here is the web-page to initialize the remote client:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='html language-html'>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;SshAgent Reverse Proxy&lt;/title&gt;
+    &lt;script&gt;
+// Create the WebSocket.
+const webSocket = new WebSocket('ws://' + window.location.host)
+
+// Make the socket works with binary data.
+webSocket.binaryType = 'arraybuffer';
+webSocket.onopen = () =&gt; console.log("Connected!")
+
+// Handle message from the server.
+let connected = false
+webSocket.onmessage = event =&gt; {
+  const buf = new Uint8Array(event.data)
+  if (buf.length == 0) {
+    if (!connected) {
+      console.log("Initializing the connection")
+      sshAgentAPI.connect((data) =&gt; webSocket.send(data))
+    }
+    connected = !connected
+  } else {
+    console.log("Sending message")
+    sshAgentAPI.send(buf)
+  }
+}
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;Welcome!&lt;/body&gt;
+&lt;/html&gt;</code></pre></div><div class='hidden'>
+    <p class='mb-3'>
+      A small helper to remove <code class='py-0.5 px-0.5 bg-gray-100'>markdown-unlit</code> metadata:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>|] & cleanup
+
+cleanup :: LText -&gt; LByteString
+cleanup = Text.encodeUtf8 . Text.unlines . filter removeMarkdownMarker . Text.lines
+  where
+    removeMarkdownMarker = not . Text.isPrefixOf "#line "</code></pre></div></div>
+    <p class='mb-3'>
+      The next section shows how to implement the <code class='py-0.5 px-0.5 bg-gray-100'>sshAgentAPI</code> for the <code class='py-0.5 px-0.5 bg-gray-100'>connect</code> and <code class='py-0.5 px-0.5 bg-gray-100'>send</code> function.
+    </p>
+  <h2 id='electron-bridge' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Electron Bridge</h2>
+    <p class='mb-3'>
+      The <a href='https://electronjs.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Electron</a> client implements context isolation to sandbox the web page. We need to preload some code to expose the host APIs and enable the web page to access the ssh-agent.
+    </p>
   
     <p class='mb-3'>
-      Let’s dive into the State Monad, and how it can be used for this pattern.
-    </p>
-  <h2 id='statet' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>StateT</h2>
-    <p class='mb-3'>
-      Start a REPL by running <code class='py-0.5 px-0.5 bg-gray-100'>ghci</code> (if missing, run <code class='py-0.5 px-0.5 bg-gray-100'>sudo dnf install ghc ghc-mtl-devel</code>).
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; import Control.Monad.State
-λ&gt; :t StateT
-StateT :: (s -&gt; m (a, s)) -&gt; StateT s m a</code></pre></div>
-    <p class='mb-3'>
-      The <code class='py-0.5 px-0.5 bg-gray-100'>StateT</code> has 3 type variables, <code class='py-0.5 px-0.5 bg-gray-100'>s</code> is the type of the state, <code class='py-0.5 px-0.5 bg-gray-100'>m</code> is the execution context, and <code class='py-0.5 px-0.5 bg-gray-100'>a</code> is the return type. Thus we can define the increment and show_counter like this:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; type Counter a = StateT Int IO a
-λ&gt; increment    = modify (+1) &gt;&gt; get                         :: Counter Int
-λ&gt; show_counter = mappend "Counter is at " . show &lt;$&gt; get    :: Counter String</code></pre></div>
-    <p class='mb-3'>
-      And finally we can write the three increments test as:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; test_counter = increment &gt;&gt; increment &gt;&gt; increment &gt;&gt; show_counter
-λ&gt; :t test_counter
-test_counter :: Counter String</code></pre></div>
-    <p class='mb-3'>
-      … that we can evaluate like this:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; :t runStateT
-runStateT :: Counter a -&gt; s -&gt; m (a, s)
-λ&gt; runStateT test_counter 0
-# Shows ("Counter is at 3",3)</code></pre></div><h2 id='statet-step-by-step' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>StateT step by step</h2>
-    <p class='mb-3'>
-      So how does that works? Let’s have a closer look step by step.
+      I don’t fully understand this part, but this workflow works:
     </p>
   
-    <p class='mb-3'>
-      We first defined a <code class='py-0.5 px-0.5 bg-gray-100'>Counter a</code> type alias for <code class='py-0.5 px-0.5 bg-gray-100'>StateT Int IO a</code>. This type alias indicates that Counter is a computation happening in a <code class='py-0.5 px-0.5 bg-gray-100'>StateT</code> context, with a state of type <code class='py-0.5 px-0.5 bg-gray-100'>Int</code> (the counter), running in a <code class='py-0.5 px-0.5 bg-gray-100'>IO</code> context. In other words, to obtain the <code class='py-0.5 px-0.5 bg-gray-100'>a</code> of a <code class='py-0.5 px-0.5 bg-gray-100'>Counter a</code>, we need to use the <code class='py-0.5 px-0.5 bg-gray-100'>runStateT</code> to perform the computation.
-    </p>
-  
-    <p class='mb-3'>
-      The benefit is that the <code class='py-0.5 px-0.5 bg-gray-100'>increment</code> and <code class='py-0.5 px-0.5 bg-gray-100'>show_counter</code> implementation does not have to deal with the state explicitly, the <code class='py-0.5 px-0.5 bg-gray-100'>StateT</code> context provides a few helpers:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; :t modify
-modify :: MonadState s m =&gt; (s -&gt; s) -&gt; m ()
-λ&gt; :t get
-get :: MonadState s m =&gt; m s</code></pre></div>
-    <p class='mb-3'>
-      And this is possible because <code class='py-0.5 px-0.5 bg-gray-100'>StateT</code> has an instance of the <code class='py-0.5 px-0.5 bg-gray-100'>MonadState</code>. This post is not going to try to explain what a Monad is, but here is its definition:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>class Applicative m =&gt; Monad m where
-  (&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b
-  (&gt;&gt;) :: m a -&gt; m b -&gt; m b
-  pure :: a -&gt; m a</code></pre></div>
-    <p class='mb-3'>
-      Or in other words, a Monad is an Applicative context, which provides the <code class='py-0.5 px-0.5 bg-gray-100'>&gt;&gt;=</code> operator, also known as <code class='py-0.5 px-0.5 bg-gray-100'>bind</code> (or <code class='py-0.5 px-0.5 bg-gray-100'>flat_map</code> or <code class='py-0.5 px-0.5 bg-gray-100'>then</code>).
-    </p>
-  
-    <p class='mb-3'>
-      Let’s break down the <code class='py-0.5 px-0.5 bg-gray-100'>increment</code> definition.
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; :t modify (+1)
-modify (+1)        :: (MonadState Int m) =&gt; m ()
-λ&gt; :t modify (+1) &gt;&gt; get
-modify (+1) &gt;&gt; get :: (MonadState Int m) =&gt; m Int</code></pre></div>
-    <p class='mb-3'>
-      This sequencing pattern is so powerful, it has its own syntax, called the <code class='py-0.5 px-0.5 bg-gray-100'>do notation</code>. Here is the <code class='py-0.5 px-0.5 bg-gray-100'>increment</code> function defined using the do notation.
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>increment :: Counter Int
-increment = do
-  modify (+1) -- increment the counter
-  get         -- return the current state</code></pre></div>
-    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
       
+        <li>
+          Perform the I/O in the main process and forward the data using a <code class='py-0.5 px-0.5 bg-gray-100'>MessageChannel</code>.
+        </li>
+      
+        <li>
+          Create the channel in the renderer process and share the port with the main process.
+        </li>
+      
+        <li>
+          Use <code class='py-0.5 px-0.5 bg-gray-100'>contextBridge.exposeInMainWorld</code> to create a new API for the browser.
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='mermaid language-mermaid'>flowchart LR
+    EB(Browser)  ---&gt;|Bridge| ER
+    ER(Renderer) ---&gt;|Message| EM(Main)
+    EM ---&gt;|Unix| SA(ssh-agent)</code></pre></div>
     <p class='mb-3'>
-      To enter multiline definition in the REPL, first enter <code class='py-0.5 px-0.5 bg-gray-100'>:{</code>, then paste the code, and finish with <code class='py-0.5 px-0.5 bg-gray-100'>:}</code>.
+      It does not seem possible to directly share the local network API with the browser context. Only certain types of objects can be passed through IPC channels, see <a href='https://www.electronjs.org/docs/latest/tutorial/ipc#object-serialization' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Object serialization</a>. Moreover <code class='py-0.5 px-0.5 bg-gray-100'>MessageChannel</code> ports don’t seem to work between the main and browser context. Therefore, it is necessary to implement an intermediary API, as demonstrated below:
     </p>
-  
-    </blockquote>
-  
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>// forward-ssh-agent.js
+
+const { app, ipcMain, BrowserWindow } = require('electron')
+const path = require('path')
+const net = require("net")
+
+// Connect to the ssh-agent socket
+const connectSshAgent = (port) =&gt;  {
+  console.log("Connecting to ssh-agent...")
+  const client = net.createConnection(process.env.SSH_AUTH_SOCK)
+    .on('data', data =&gt; {
+        console.log("Server:", data)
+        port.postMessage(data)
+    })
+  port.on('message', ev =&gt; {
+    console.log("Client:", ev.data)
+    client.write(ev.data)
+  })
+  port.start()
+}
+
+// Start the electron app.
+app.whenReady().then(() =&gt; {
+  const win = new BrowserWindow({
+    webPreferrences: {
+        sandbox: true,
+    },
+    webPreferences: {
+      preload: path.join(__dirname, 'ssh-agent.js'),
+    }
+  });
+
+  // Hook main side of the ssh-agent preload.
+  ipcMain.on('connectSshAgent', (event) =&gt;  { connectSshAgent(event.ports[0]); })
+
+  // Comment to hide dev tools on start.
+  win.webContents.openDevTools()
+
+  // Load the url given on the command line.
+  win.setMenu(null);
+  win.loadURL(process.argv[process.argv.length - 1])
+})</code></pre></div>
     <p class='mb-3'>
-      Similarly, the <code class='py-0.5 px-0.5 bg-gray-100'>show_counter</code> can be defined as:
+      Here is the pre-load script which implements the <code class='py-0.5 px-0.5 bg-gray-100'>sshAgentAPI</code>.
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>show_counter :: Counter String
-show_counter = do
-  value &lt;- get
-  pure $ "Counter is at " &lt;&gt; show value</code></pre></div>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>// ssh-agent.js
+
+const { contextBridge, ipcRenderer } = require("electron");
+let port;
+contextBridge.exposeInMainWorld("sshAgentAPI", {
+  // Send data to the ssh-agent
+  send: (data) =&gt; {
+    console.log("Sending data to main", data)
+    port.postMessage(data)
+  },
+  // Initialize a new ssh-agent request.
+  connect: (onData) =&gt; {
+    // Create communication channel between main and render.
+    const channel = new MessageChannel()
+    ipcRenderer.postMessage("connectSshAgent", null, [channel.port1])
+
+    // Receive data from the ssh-agent.
+    channel.port2.onmessage = (ev) =&gt; {
+      console.log("Sending data back to browser", ev)
+      onData(ev.data)
+    }
+
+    // Register the other end of the channel.
+    port = channel.port2
+  }
+})</code></pre></div>
     <p class='mb-3'>
-      And finally, the <code class='py-0.5 px-0.5 bg-gray-100'>test_counter</code>:
+      Finally, the client can be started with this command: <code class='py-0.5 px-0.5 bg-gray-100'>electron forward-ssh-agent.js http://localhost:22022/</code>.
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>test_counter :: Counter String
-test_counter = do
-  increment
-  increment
-  increment
-  show_counter</code></pre></div>
+  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
-      This test_counter definition is similar to the previous version we saw. It relies on the <code class='py-0.5 px-0.5 bg-gray-100'>StateT</code> context to thread the state value in and out of each context.
-    </p>
-  <h2 id='recap' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Recap</h2>
-    <p class='mb-3'>
-      First, we saw how to implement an immutable counter in Python using the same design as Elixir GenServer. This can be done using a function that takes the current state <code class='py-0.5 px-0.5 bg-gray-100'>s</code> and return a new state along with the output value <code class='py-0.5 px-0.5 bg-gray-100'>a</code>.
-    </p>
-  
-    <p class='mb-3'>
-      Then, we observed that this is actually the definition of the haskell’s <code class='py-0.5 px-0.5 bg-gray-100'>StateT</code>: <code class='py-0.5 px-0.5 bg-gray-100'>s -&gt; m (a, s)</code> (a function that takes a <code class='py-0.5 px-0.5 bg-gray-100'>s</code>, and return a <code class='py-0.5 px-0.5 bg-gray-100'>(a, s)</code> inside a context <code class='py-0.5 px-0.5 bg-gray-100'>m</code>).
-    </p>
-  
-    <p class='mb-3'>
-      And we re-implemented the counter examples using the MonadState which takes care of passing the state around to simplify the implementation down to the essential parts.
-    </p>
-  <h2 id='motivating-example' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Motivating example</h2>
-    <p class='mb-3'>
-      Such abstractions are general purpose, and Monad can be used for other things. In the previous post we saw the <a href='blog/functor-map' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Functor map</a> and how <code class='py-0.5 px-0.5 bg-gray-100'>traverse</code> can be used to penetrate nested structures. Well we can use <code class='py-0.5 px-0.5 bg-gray-100'>traverse</code> with <code class='py-0.5 px-0.5 bg-gray-100'>StateT</code>. Let’s consider a new function to add a number to our counter:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; add = modify . (+) :: Int -&gt; Counter ()</code></pre></div>
-    <p class='mb-3'>
-      … which can be used like this
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; flip execStateT 0 $ add 5
-5</code></pre></div>
-    <p class='mb-3'>
-      Then we can use traverse to apply the add function to a list of numbers:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>λ&gt; flip execStateT 0 $ traverse add [5, 11, 11, 15]
-42</code></pre></div>
-    <p class='mb-3'>
-      Cheers o/
+      Once again, it wasn’t obvious that this implementation would work. I had to use trial and error as a means of understanding the context sandbox. In the end, I am happy to have learnt more about Electron, it looks like a good platform to run web apps without the clutter of a traditional web browser.
     </p>
   
 
@@ -490,9 +605,18 @@ test_counter = do
         <!-- DoNotFormat -->
       </a>
     
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/gstreamer'>
+        <!-- DoNotFormat -->
+        #gstreamer
+        <!-- DoNotFormat -->
+      </a>
+    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/state-monad.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/forwarding-ssh-agent-through-websockets.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>

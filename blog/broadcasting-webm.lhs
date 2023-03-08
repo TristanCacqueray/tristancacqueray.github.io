@@ -466,7 +466,7 @@ for example using such graph:
 ## Conclusion
 
 It wasn't obvious that this implementation would work in practice.
-I had to study the EBML format and use trial and errors as a means of understanding MSE.
+I had to study the EBML format and use trial and error as a means of understanding MSE.
 In the end, I am happy with the results, Haskell once again proved its efficiency:
 the service runs steadily and its overhead is barely noticeable.
 
