@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="145.127mm"
+   height="41.626076mm"
+   viewBox="0 0 145.127 41.626076"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="butler-intro.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="2.587745"
+     inkscape:cx="258.71947"
+     inkscape:cy="66.467138"
+     inkscape:window-width="3440"
+     inkscape:window-height="1371"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid9"
+       dotted="false"
+       originx="-21.724743"
+       originy="-27.509703" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-21.724741,-27.509706)">
+    <rect
+       style="display:inline;fill:#70a0af;fill-opacity:1;stroke-width:0.122243"
+       id="rect1061-3"
+       width="145.12654"
+       height="10.73797"
+       x="21.724741"
+       y="42.953758"
+       inkscape:label="os" />
+    <g
+       id="g12653"
+       transform="translate(-0.5291667)">
+      <g
+         id="g8982"
+         transform="translate(6.3500003,-0.65568504)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-2"
+           width="20.270796"
+           height="6.2631998"
+           x="35.453312"
+           y="45.846828" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="37.657806"
+           y="52.164558"
+           id="text1119-06"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="37.657806"
+             y="52.164558"
+             id="tspan1121-8">Sched</tspan></text>
+      </g>
+      <g
+         id="g8962"
+         transform="translate(-5.2916669,-0.73419532)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-3-6"
+           width="20.270796"
+           height="6.2631998"
+           x="144.54382"
+           y="45.925339" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="142.62831"
+           y="52.245991"
+           id="text1119-0-6"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="142.62831"
+             y="52.245991"
+             id="tspan1121-7-4">Frame</tspan></text>
+      </g>
+      <g
+         id="g8967"
+         transform="translate(13.977126,-0.65568504)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-54-0"
+           width="20.270796"
+           height="6.2631998"
+           x="100.91282"
+           y="45.846828" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="99.419998"
+           y="52.164558"
+           id="text1119-7-4"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="99.419998"
+             y="52.164558"
+             id="tspan1121-4-8">Client</tspan></text>
+      </g>
+      <g
+         id="g8977"
+         transform="translate(8.8238217,-0.65568504)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-5-72"
+           width="20.270796"
+           height="6.2631998"
+           x="57.341702"
+           y="45.846828" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="56.08527"
+           y="52.164558"
+           id="text1119-6-7"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="56.08527"
+             y="52.164558"
+             id="tspan1121-9-2">Display</tspan></text>
+      </g>
+      <g
+         id="g8972"
+         transform="translate(10.7866,-0.65568504)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-5-7-5"
+           width="20.270796"
+           height="6.2631998"
+           x="79.741135"
+           y="45.846828" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="77.782501"
+           y="52.164558"
+           id="text1119-6-4-9"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="77.782501"
+             y="52.164558"
+             id="tspan1121-9-5-4">Session</tspan></text>
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff9955;fill-opacity:1;stroke:#823500;stroke-width:0.151;stroke-dasharray:none;stroke-opacity:1"
+       x="23.477577"
+       y="49.711277"
+       id="text4507-9"
+       inkscape:label="Title"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#f4e8c1;fill-opacity:1;stroke:#331e38;stroke-width:0.151;stroke-dasharray:none;stroke-opacity:1"
+         x="23.477577"
+         y="49.711277"
+         id="tspan5105">MAIN</tspan></text>
+    <rect
+       style="display:inline;fill:#a0c1b9;fill-opacity:1;stroke-width:0.122243"
+       id="rect1061-3-7"
+       width="145.12654"
+       height="10.73797"
+       x="21.724741"
+       y="58.397812"
+       inkscape:label="os" />
+    <g
+       id="g12631"
+       transform="translate(0.26458342)">
+      <g
+         id="g9707"
+         transform="translate(9.7562023)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-2-7"
+           width="20.270796"
+           height="6.2631998"
+           x="38.948723"
+           y="60.635197" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="39.698517"
+           y="67.503357"
+           id="text1119-06-3"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="39.698517"
+             y="67.503357"
+             id="tspan1121-8-6">Window</tspan></text>
+      </g>
+      <g
+         id="g9702"
+         transform="translate(12.084551)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-5-72-3"
+           width="20.270796"
+           height="6.2631998"
+           x="63.97308"
+           y="60.635197" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="63.824883"
+           y="67.503357"
+           id="text1119-6-7-9"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="63.824883"
+             y="67.503357"
+             id="tspan1121-9-2-0">Cursor</tspan></text>
+      </g>
+      <g
+         id="g9697"
+         transform="translate(16.081434)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-5-7-5-8"
+           width="20.270796"
+           height="6.2631998"
+           x="87.328903"
+           y="60.635197" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="87.671852"
+           y="67.503357"
+           id="text1119-6-4-9-5"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="87.671852"
+             y="67.503357"
+             id="tspan1121-9-5-4-0">Sound</tspan></text>
+      </g>
+      <g
+         id="g12296"
+         transform="translate(43.43414)">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.0599493"
+           id="rect115-5-7-5-8-0"
+           width="20.270796"
+           height="6.2631998"
+           x="87.328903"
+           y="60.635197" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.851;stroke-dasharray:none"
+           x="87.663383"
+           y="67.503357"
+           id="text1119-6-4-9-5-4"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.851;stroke-dasharray:none"
+             x="87.663383"
+             y="67.503357"
+             id="tspan1121-9-5-4-0-4">Agent</tspan></text>
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff9955;fill-opacity:1;stroke:#823500;stroke-width:0.151;stroke-dasharray:none;stroke-opacity:1"
+       x="25.903276"
+       y="65.155327"
+       id="text4507-9-9"
+       inkscape:label="Title"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#f4e8c1;fill-opacity:1;stroke:#331e38;stroke-width:0.151;stroke-dasharray:none;stroke-opacity:1"
+         x="25.903276"
+         y="65.155327"
+         id="tspan5105-6">APP</tspan></text>
+    <rect
+       style="stroke-dasharray:none;stroke-width:0.151;fill-opacity:1;fill:#706993;display:inline"
+       id="rect1061"
+       width="145.12654"
+       height="10.73797"
+       x="21.724741"
+       y="27.509706"
+       inkscape:label="core" />
+    <g
+       id="g9774"
+       transform="translate(-0.00433318)">
+      <g
+         id="g2001"
+         transform="translate(15.443302,-3.1267342)"
+         style="stroke-width:0.151;stroke-dasharray:none">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           id="rect115"
+           width="20.270796"
+           height="6.2631998"
+           x="20.01001"
+           y="32.873825" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           x="20.154272"
+           y="38.708694"
+           id="text1119"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.151;stroke-dasharray:none"
+             x="20.154272"
+             y="38.708694"
+             id="tspan1121">Process</tspan></text>
+      </g>
+      <g
+         id="g4414"
+         transform="translate(102.72264,-3.1267337)"
+         style="stroke-width:0.151;stroke-dasharray:none">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           id="rect115-3"
+           width="20.270796"
+           height="6.2631998"
+           x="20.01001"
+           y="32.873825" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           x="20.055117"
+           y="38.708694"
+           id="text1119-0"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.151;stroke-dasharray:none"
+             x="20.055117"
+             y="38.708694"
+             id="tspan1121-7">Network</tspan></text>
+      </g>
+      <g
+         id="g4364"
+         transform="translate(80.902806,-3.1267337)"
+         style="stroke-width:0.151;stroke-dasharray:none">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           id="rect115-54"
+           width="20.270796"
+           height="6.2631998"
+           x="20.01001"
+           y="32.873825" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           x="23.833366"
+           y="38.708694"
+           id="text1119-7"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.151;stroke-dasharray:none"
+             x="23.833366"
+             y="38.708694"
+             id="tspan1121-4">File</tspan></text>
+      </g>
+      <g
+         id="g4264-8"
+         transform="translate(124.54248,-3.1267342)"
+         style="stroke-width:0.151;stroke-dasharray:none">
+        <g
+           id="g8890"
+           style="stroke-width:0.151;stroke-dasharray:none"
+           transform="translate(-87.279343)">
+          <rect
+             style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+             id="rect115-5"
+             width="20.270796"
+             height="6.2631998"
+             x="20.01001"
+             y="32.873825" />
+          <text
+             xml:space="preserve"
+             style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+             x="23.898983"
+             y="38.708694"
+             id="text1119-6"
+             transform="scale(1.0372204,0.96411524)"><tspan
+               sodipodi:role="line"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.151;stroke-dasharray:none"
+               x="23.898983"
+               y="38.708694"
+               id="tspan1121-9">Pipe</tspan></text>
+        </g>
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           id="rect115-5-6"
+           width="20.270796"
+           height="6.2631998"
+           x="20.01001"
+           y="32.873825" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           x="21.293367"
+           y="38.708694"
+           id="text1119-6-8"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.151;stroke-dasharray:none"
+             x="21.293367"
+             y="38.708694"
+             id="tspan1121-9-8">Logger</tspan></text>
+      </g>
+      <g
+         id="g4314"
+         transform="translate(59.082973,-3.1267337)"
+         style="stroke-width:0.151;stroke-dasharray:none">
+        <rect
+           style="fill:#f4e8c1;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           id="rect115-5-7"
+           width="20.270796"
+           height="6.2631998"
+           x="20.01001"
+           y="32.873825" />
+        <text
+           xml:space="preserve"
+           style="font-size:0.921309px;fill:#000000;fill-opacity:1;stroke-width:0.151;stroke-dasharray:none"
+           x="22.6311"
+           y="38.708694"
+           id="text1119-6-4"
+           transform="scale(1.0372204,0.96411524)"><tspan
+             sodipodi:role="line"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;stroke-width:0.151;stroke-dasharray:none"
+             x="22.6311"
+             y="38.708694"
+             id="tspan1121-9-5">Clock</tspan></text>
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Normal';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#deaa87;fill-opacity:1;stroke:#823500;stroke-width:0.151;stroke-dasharray:none;stroke-opacity:1"
+       x="23.477577"
+       y="34.267223"
+       id="text4507"
+       inkscape:label="Title"><tspan
+         sodipodi:role="line"
+         id="tspan4505"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#f4e8c1;fill-opacity:1;stroke:#331e38;stroke-width:0.151;stroke-dasharray:none;stroke-opacity:1"
+         x="23.477577"
+         y="34.267223">CORE</tspan></text>
+  </g>
+</svg>
