@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Electronic Music – Tristan's Zettelkasten
+    cabal-multi-repl-flake – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='References: A Mostly Thorough Guide to Learning Electronic Music Production' />
+      <meta property='og:description' content='A Nix Flake to build cabal-install with the multi-repl PR.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Electronic Music' />
+      <meta property='og:title' content='cabal-multi-repl-flake' />
     
     
       <base href='/' />
@@ -236,19 +236,8 @@ window.MathJax = {
             <li>
 
   <div class='text-gray-900 forest-link'>
-    <a href='zettle/music'>
-      Music
-    </a>
-  </div>
-
-  
-    <ul>
-      
-        <li>
-
-  <div class='text-gray-900 forest-link'>
-    <a href='zettle'>
-      Zettelkasten
+    <a href='project'>
+      Projects
     </a>
   </div>
 
@@ -263,10 +252,6 @@ window.MathJax = {
     </a>
   </div>
 
-  
-</li>
-      
-    </ul>
   
 </li>
       
@@ -294,55 +279,19 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Electronic Music
+    cabal-multi-repl-flake
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
     <p class='mb-3'>
-      References: <a href='https://www.youtube.com/watch?v=Zk2xso7HZIs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>A Mostly Thorough Guide to Learning Electronic Music Production</a>
-    </p>
-  <h2 id='genre' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Genre</h2>
-    <p class='mb-3'>
-      References:
+      A Nix Flake to build cabal-install with the multi-repl PR.
     </p>
   
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <a href='https://music.ishkur.com/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Ishkur’s Guide to Electronic Music</a>
-        </li>
-      
-        <li>
-          <a href='https://www.whosampled.com/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Exploring the DNA of music</a>
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>Last Night a DJ Saved My Life</code>, book by Bill Brewster and Frank Broughton
-        </li>
-      
-        <li>
-          <a href='https://songdata.io' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Find a song BPM and key</a>
-        </li>
-      
-    </ul>
-  <h2 id='synthesis' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Synthesis</h2>
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <a href='https://www.syntorial.com/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>The Ultimate Synthesizer Tutorial</a>
-        </li>
-      
-    </ul>
-  <h2 id='mixing' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mixing</h2>
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <a href='https://www.youtube.com/channel/UCQnz5mUTDkGwKvIQ9uyqiXw' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Dan Worrall</a>
-        </li>
-      
-    </ul>
+    <p class='mb-3'>
+      Source: <a href='https://github.com/haskell/cabal/pull/8726#issuecomment-1472868209' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/haskell/cabal/pull/8726#issuecomment-1472868209</a>
+    </p>
   
 
   <!-- What goes in this file will appear below the note body-->
@@ -354,9 +303,27 @@ window.MathJax = {
               
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/nix'>
+        <!-- DoNotFormat -->
+        #nix
+        <!-- DoNotFormat -->
+      </a>
+    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/zettle/music/electronic-music.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/project/cabal-multi-repl.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
