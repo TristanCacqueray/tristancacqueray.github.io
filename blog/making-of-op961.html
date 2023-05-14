@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Making Of OP-961 – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post presents how I composed and produced the OP-961 animation fractal. In two parts, I present:' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='../static/op1.png' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Making Of OP-961' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  <link href='tailwind.css?instanceId=7e8d44c2-06ad-44db-8208-4acc49af5f4d' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Making Of OP-961
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      This post presents how I composed and produced the OP-961 animation fractal. In two parts, I present:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          How I made the music.
+        </li>
+      
+        <li>
+          How-to animate the fractal.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      But first, here is the final compo:
+    </p>
+  <div class='flex items-center justify-center'><div xmlhtmlRaw><iframe width="888" height="500" src="https://www.youtube.com/embed/kVU5FsyzA1I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div></div>
+    <hr class='mb-3' />
+  <h2 id='beat-making' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Beat Making</h2>
+    <p class='mb-3'>
+      I made the music using the OP-1 synthesizer. I used to have a bedroom studio filled with electronic music gear. In 2014, I switched to virtual instruments such as Reason and VCV. Nowadays, I value the portability and ease of use of this little wonder:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/op1.png' alt='op-1' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      In particular, I really like:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Its ergonomics and how everything fits together.
+        </li>
+      
+        <li>
+          The four track tape.
+        </li>
+      
+        <li>
+          The finger sequencer for dephasing simple patterns:
+        </li>
+      
+    </ul>
+  <div class='flex items-center justify-center gap-1'><img class='inline mb-3' src='static/op1-finger-sequencer.png' alt='finger-sequencer' style='width: inherit;' /><img class='inline mb-3' src='static/op1-drummer.png' alt='finger-drummer' style='width: inherit;' /></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          And of course, the COW and phone effects:
+        </li>
+      
+    </ul>
+  <div class='flex items-center justify-center gap-1'><img class='inline mb-3' src='static/op1-cow.png' alt='cow' style='width: inherit;' /><img class='inline mb-3' src='static/op1-phone.png' alt='phone' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Even though the device is quite expensive, considering the amount of time I spent tinkering with it, I find it worthy.
+    </p>
+  <h2 id='sound-mastering' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sound Mastering</h2>
+    <p class='mb-3'>
+      For this production, I used one track for the drums, one for the bass, and the other two for synths like rhodes or plucks. After filling the OP-1 tracks with all sort of loops, I used <a href='https://reaper.fm' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Reaper</a> to cleanup the bad parts and to arrange the stems into a more coherent composition.
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/reaper.png' alt='reaper' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      I find this software particularly good:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          It comes with common plugin such as: EQ, Reverb, Compressor and Limiter.
+        </li>
+      
+        <li>
+          It is lightweight and heavy duty.
+        </li>
+      
+        <li>
+          It works on Linux. I even made a Nix Flake for it named <a href='https://github.com/podenv/modularix' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>modularix</a>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Though, I know very little sound mastering and I still find it hard to make my music sound good on different speakers.
+    </p>
+  
+    <p class='mb-3'>
+      The next sections focuses on video production.
+    </p>
+  <h2 id='fractal-shader' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fractal Shader</h2>
+    <p class='mb-3'>
+      I imported the <a href='https://www.shadertoy.com/view/Mtf3Rr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Underwater Fractal Creature created by Kali</a> in my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project. That way I could explore the fractal to find the good parameters modulations.
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/af-ufc.png' alt='af-ufc' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Checkout the source code at <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/main/src/Demo/UnderwaterFractalCreature.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Demo.UnderwaterFractalCreature</a>.
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Learn more about animation-fractal in this previous post: <a href='blog/introducing-animation-fractal' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Introducing Animation Fractal</a>
+    </p>
+  
+    </blockquote>
+  <h2 id='animation-fractal' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Animation Fractal</h2>
+    <p class='mb-3'>
+      For this production, I only had the audio stems from the tape recorder. Previously, for <a href='blog/pulse-simple-pcm' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>summerbulb</a> ,I used midi events, but this time I had to implement something else. So I exported the individual tracks and computed the peak RMS using this implementation:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.Vector.Storable qualified as SV
+
+type Samples = SV.Vector Float
+
+soundRMS :: Samples -&gt; Float
+soundRMS arr = sqrt (tot / fromIntegral (SV.length arr))
+  where
+    tot = SV.foldr (\v acc -&gt; acc + v * v) 0 arr
+
+type SamplesRMS = SV.Vector Float
+
+analyzeFile :: FilePath -&gt; IO SamplesRMS
+analyzeFile fileName = do
+  samples &lt;- decodeFile fileName
+  pure $ SV.generate (sampleFrameCount samples - 1) \position -&gt; do
+      let frameSize = 44100 `div` 30
+      let frameSamples = SV.slice ((position `div` 2) * frameSize) (frameSize) samples
+      soundRMS frameSamples</code></pre></div>
+    <p class='mb-3'>
+      Then I wrote a script to generate all the fractal parameters:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Load and prepare the scene:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>main :: IO ()
+main = do
+    mainSamples &lt;- analyzeFile "data/op961.mp3"
+    meloSamples &lt;- analyzeFile "data/op961-melo.mp3"
+    drumSamples &lt;- analyzeFile "data/op961-drums.mp3"
+    bassSamples &lt;- analyzeFile "data/op961-bass.mp3"
+
+    scene &lt;- Demo.UnderwaterFractalCreature.sceneInfo
+    mods &lt;- traverse newSceneModulation $ sceneMods scene
+    let getModulation name = fromMaybe (error $ "unknown var: " &lt;&gt; from name) $ lookupModulation name mods
+        seedX = getModulation "Julia.x"
+        seedY = getModulation "Julia.y"
+        seedZ = getModulation "Julia.z"
+        yaw = getModulation "yaw"</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Parameters modulation per frame:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>    let mkFrame :: Frame -&gt; MSec -&gt; IO (Map Text Float)
+        mkFrame frame elapsed = do
+            when (frame == 0) do
+                let introLength = 694_000 / 60
+                linMod yaw introLength (pi / 2 - 0.065)
+
+            let melo = 10 * fromMaybe 0 (meloSamples SV.!? from frame)
+            let drum = 10 * fromMaybe 0 (drumSamples SV.!? from frame)
+            let bass = 10 * fromMaybe 0 (bassSamples SV.!? from frame)
+
+            if
+                    | frame &lt; 694 -&gt; do
+                        when (melo &gt; 0.1) do
+                            incrMod seedX 100 (-1 * melo / 8)
+                            incrMod seedY 100 (-1 * melo / 5)
+                    | frame &lt; 2776 -&gt; do
+                        when (frame == 694) do linMod zoom (2000_000 / 60) 3.2
+                        when (melo &gt; 0.1) do
+                            -- incrMod seedY 100 (melo / 100)
+                            incrMod amp 100 (melo / 18)
+                        incrMod koff 200 (-1 * bass / 60)
+                        when (drum &gt; 1) do
+                            incrMod seedX 300 (drum / 25.5)
+                            incrMod seedZ 500 (drum / 35)
+</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Export values for the renderer:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>
+            -- update modulation and read outvar value
+            frameValues &lt;- forM mods $ \modulation -&gt; do
+                v &lt;- atomically $ readModulation elapsed modulation
+                pure (modulation.name, v)
+            pure $ Map.fromList frameValues
+
+        genFrame :: Int -&gt; IO (Map Text Float)
+        genFrame x = mkFrame (from x) elapsed
+          where
+            elapsed
+                | x == 0 = 0
+                | otherwise = frameLength
+
+    (frames :: Vector (Map Text Float)) &lt;- generateM (from maxFrame) genFrame
+    encodeFile scriptFile frames
+  where
+    scriptFile = "data/Op961.json"</code></pre></div>
+    <p class='mb-3'>
+      Checkout the full source code at <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/main/src/Demo/Op961.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Demo.Op961</a>. This script produces a json file with all the values. The animation-fractal demo renderer automatically reloads the values when they are updated to get instant feedback.
+    </p>
+  
+    <p class='mb-3'>
+      For the next demo, I would like to improve this script by:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Doing frequency analysis of the audio stem to extract better modulations.
+        </li>
+      
+        <li>
+          Implementing a scene context to enable simpler interpolation between the sequences.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      That’s it for today, Cheers!
+    </p>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/vulkan'>
+        <!-- DoNotFormat -->
+        #vulkan
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/fractal'>
+        <!-- DoNotFormat -->
+        #fractal
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/making-of-op961.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
