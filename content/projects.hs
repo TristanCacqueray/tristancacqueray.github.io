@@ -68,6 +68,7 @@ getIcon p
     | "fractal" `elem` p.meta.tags = Just "🥦"
     | "design" `elem` p.meta.tags = Just "🎨"
     | "video" `elem` p.meta.tags = Just "🎥"
+    | "library" `elem` p.meta.tags = Just "📖"
     | "music" `elem` p.meta.tags = Just "🎵"
     | "extension" `elem` p.meta.tags || "plugin" `elem` p.meta.tags = Just "⚙"
     | "cli" `elem` p.meta.tags = Just cliSvg
@@ -75,7 +76,6 @@ getIcon p
     | "nix" `elem` p.meta.tags || "packaging" `elem` p.meta.tags = Just "📦"
     | "contributor" `elem` p.meta.tags = Just "🧑"
     | "game" `elem` p.meta.tags = Just "🎮"
-    | "library" `elem` p.meta.tags = Just "📖"
     | otherwise = Nothing
 
 viewBox_ = makeAttribute "viewBox"
