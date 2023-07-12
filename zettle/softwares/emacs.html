@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -307,7 +342,7 @@ window.MathJax = {
     <p class='mb-3'>
       My configuration is mostly provided by <a href='project/devenv' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>devenv</a> and customized in my <a href='https://github.com/TristanCacqueray/dot-files/blob/master/emacs.el' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dot-files/emacs.el</a>.
     </p>
-  <h2 id='meta-x' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Meta-X</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-g</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>abort current command, press multiple time</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>M-x</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>execute command</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-h f</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>check function doc</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-h v</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>check variable doc</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-h m</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>check mode doc</td></tr></tbody></table><h2 id='navigation' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Navigation</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>fullscreen frame</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 2</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>split frame horizontally</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 3</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>split frame vertically</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>close current frame</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x o</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>move between frame</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x b</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>switch buffer</td></tr></tbody></table><h2 id='commands' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Commands</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ibuffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>edit list of buffers</td></tr></tbody></table><h2 id='haskell' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Haskell</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c C-l</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>load a file in ghci</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c C-t</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>show type at point</td></tr></tbody></table><h2 id='purescript' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Purescript</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>psci</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>start ide server process</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c tab</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>add import</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c M-s</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>insert suggestions</td></tr></tbody></table><h2 id='magit' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Magit</h2>
+  <h2 id='meta-x' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Meta-X</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-g</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>abort current command, press multiple time</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>M-x</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>execute command</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-h f</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>check function doc</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-h v</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>check variable doc</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-h m</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>check mode doc</td></tr></tbody></table><h2 id='navigation' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Navigation</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 1</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>fullscreen frame</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 2</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>split frame horizontally</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 3</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>split frame vertically</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x 0</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>close current frame</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x o</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>move between frame</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-x b</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>switch buffer</td></tr></tbody></table><h2 id='commands' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Commands</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>ibuffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>edit list of buffers</td></tr></tbody></table><h2 id='haskell' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Haskell</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c C-l</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>load a file in ghci</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c C-t</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>show type at point</td></tr></tbody></table><h2 id='purescript' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Purescript</h2><table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>key</strong></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><strong>info</strong></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>psci</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>start ide server process</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c tab</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>add import</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>C-c M-s</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>insert suggestions</td></tr></tbody></table><h2 id='magit' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Magit</h2>
     <p class='mb-3'>
       A <a href='zettle/softwares/git' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>git</a> Porcelain inside Emacs.
     </p>
@@ -432,7 +467,7 @@ window.MathJax = {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

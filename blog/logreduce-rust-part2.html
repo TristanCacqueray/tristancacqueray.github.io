@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -316,7 +351,7 @@ window.MathJax = {
         </li>
       
     </ul>
-  <h2 id='problem-statement' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Problem statement</h2>
+  <h2 id='problem-statement' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Problem statement</h2>
     <p class='mb-3'>
       Given two log files: a baseline and a target, the goal is to extract useful information from the target by finding the log lines that don't occur in the baseline. For example, here is a simple solution implementation:
     </p>
@@ -340,7 +375,7 @@ window.MathJax = {
     <p class='mb-3'>
       The next sections introduce a technique to improve the performance by converting the log lines into numerical vectors.
     </p>
-  <h2 id='the-hashing-trick' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>The Hashing Trick</h2>
+  <h2 id='the-hashing-trick' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>The Hashing Trick</h2>
     <p class='mb-3'>
       Instead of working with the raw text, the log lines can be converted into numerical vectors using <a href='https://en.wikipedia.org/wiki/Feature_hashing' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>the hashing trick</a>. The <a href='https://scikit-learn.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>scikit-learn</a> library provides such technique with the HashingVectorizer object:
     </p>
@@ -363,7 +398,7 @@ type SparseVec = CsVecBase&lt;Vec&lt;usize&gt;, Vec&lt;f64&gt;, f64&gt;;
 const SIZE: usize = 260000;
 
 /// Word based hashing vectorizer
-pub fn vectorize(line: &str) -&gt; SparseVec {
+pub fn vectorize(line: &amp;str) -&gt; SparseVec {
     let (keys, values) = line
         .split(' ')
         .map(|word| {
@@ -372,7 +407,7 @@ pub fn vectorize(line: &str) -&gt; SparseVec {
             let sign = if hash &gt;= 2147483648 { 1.0 } else { -1.0 };
             ((hash as usize) % SIZE, sign)
         })
-        .sorted_by(|a, b| Ord::cmp(&a.0, &b.0))
+        .sorted_by(|a, b| Ord::cmp(&amp;a.0, &amp;b.0))
         .dedup_by(|a, b| a.0 == b.0)
         .unzip();
     CsVec::new(SIZE, keys, values)
@@ -388,11 +423,11 @@ pub fn vectorize(line: &str) -&gt; SparseVec {
     <p class='mb-3'>
       The next section introduces how to compare such numerical vectors.
     </p>
-  <h2 id='cosine-similarity' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Cosine Similarity</h2>
+  <h2 id='cosine-similarity' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Cosine Similarity</h2>
     <p class='mb-3'>
       In data analysis, the <a href='https://en.wikipedia.org/wiki/Cosine_similarity' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>cosine similarity</a> is a measure of similarity between two sequences of numbers. By applying the text book formula, the following function returns a number between 0 and 1, where 1 means the vectors are similar, and 0 means they are different.
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>pub fn cosine_similarity(a: &SparseVec, b: &SparseVec) -&gt; f64 {
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>pub fn cosine_similarity(a: &amp;SparseVec, b: &amp;SparseVec) -&gt; f64 {
     a.dot(b) / (a.l2_norm() * b.l2_norm())
 }</code></pre></div>
     <p class='mb-3'>
@@ -402,7 +437,7 @@ pub fn vectorize(line: &str) -&gt; SparseVec {
     <p class='mb-3'>
       The next section introduces how to compute the cosine similarity between two lists of vectors using matrices.
     </p>
-  <h2 id='pairwise-distance' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Pairwise Distance</h2>
+  <h2 id='pairwise-distance' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Pairwise Distance</h2>
     <p class='mb-3'>
       The usual nearest neighbors algorithms do not work with sparse vectors. Even though the goal is to find the nearest neighbors, the <a href='https://scikit-learn.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>scikit-learn</a> model uses a bruteforce algorithm when working with sparse data:
     </p>
@@ -428,7 +463,7 @@ pub fn create_mat(vectors: &[SparseVec]) -&gt; FeaturesMatrix {
 }
 
 /// Compute the smallest cosine distance between two normalized matrix. The rhs must be transposed.
-pub fn search(baselines: &FeaturesMatrix, targets: &FeaturesMatrix) -&gt; Vec&lt;f64&gt; {
+pub fn search(baselines: &amp;FeaturesMatrix, targets: &amp;FeaturesMatrix) -&gt; Vec&lt;f64&gt; {
     let mut result = vec![1.0; targets.cols()];
     let distances_mat = baselines * targets;
     distances_mat
@@ -443,7 +478,7 @@ pub fn search(baselines: &FeaturesMatrix, targets: &FeaturesMatrix) -&gt; Vec&lt
     <p class='mb-3'>
       The <a href='https://github.com/logreduce/logreduce-rust/blob/main/python/benches/bench-index.py' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>benchmark</a> shows that this new implementation performs almost four times faster, even with the overhead of converting Python and Rust types. More importantly, running the full toolchain confirmed it produces the exact same results, the math worked, and that was a big relief!
     </p>
-  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
       Thanks to the <a href='https://docs.rs/sprs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>sprs</a> library, I was able to implement all the <a href='https://scikit-learn.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>scikit-learn</a> features used in logreduce. I wanted to use a higher level library such as <a href='https://rust-ml.github.io/linfa/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>linfa</a>, but as suggested in this <a href='https://github.com/rust-ml/linfa/issues/200' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>issue</a>, the implementation is so simple that it can easily be done from scratch.
     </p>
@@ -581,7 +616,7 @@ pub fn search(baselines: &FeaturesMatrix, targets: &FeaturesMatrix) -&gt; Vec&lt
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

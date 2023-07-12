@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -292,7 +327,7 @@ window.MathJax = {
     <p class='mb-3'>
       In this post I present how we worked on the problems. I include many code samples for the curious reader but feel free to skip over them or checkout the <a href='https://github.com/TristanCacqueray/icfpc2023' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>repo</a> The event was divided in two parts: a lightning division for the first 24 hours, and a full division for the remaining 48 hours.
     </p>
-  <h2 id='lightning-division' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lightning division</h2>
+  <h2 id='lightning-division' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lightning division</h2>
     <p class='mb-3'>
       At the <a href='blog/zurihac2023' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>ZuriHac</a> we briefly talked about attending the contest, and a few days before we created a matrix chat room to get ready. We were on opposite timezone so we synced our work only twice per day.
     </p>
@@ -755,7 +790,7 @@ submit pid solution = do
     <p class='mb-3'>
       At the end of day 1 the light division was over.
     </p>
-  <h2 id='the-full-specification' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>The full specification</h2>
+  <h2 id='the-full-specification' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>The full specification</h2>
     <p class='mb-3'>
       After 24 hour, the organizers released a new specification with the following changes:
     </p>
@@ -1078,7 +1113,7 @@ tryImprove problemDesc sd mutation = do
     <p class='mb-3'>
       The driver was making steady progress and at some point we reached position 68 on the scoreboard but the other teams were also busy updating their solutions. Unfortunately, our solver was not improving the solutions fast enough and we started to fall off the scoreboard. Moreover, the organizers judiciously disabled the scoreboard in the last two hours. Our final position at that time was 91 with a total happiness score of 39.442 billions.
     </p>
-  <h2 id='lessons-learned' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lessons learned</h2>
+  <h2 id='lessons-learned' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lessons learned</h2>
     <p class='mb-3'>
       I think the main issue was that we didn’t re-evaluate the initial strategy, and we didn’t leverage the gloss visualization to better understand how to solve the problems. We simply stuck with the initial implementation and worked around it. Looking at it with a fresh mind, I can see how inefficient that was. For example, instead of picking a new random volume at each iteration, we should have tried to increase or decrease the value, and kept what worked the best.
     </p>
@@ -1110,7 +1145,7 @@ tryImprove problemDesc sd mutation = do
         </li>
       
     </ul>
-  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
       I like working under time pressure, because you have to be pragmatic, and I think Haskell was a great fit for the competition. We were able to easily discuss and change the source code thanks to the powerful type annotations.
     </p>
@@ -1194,7 +1229,7 @@ tryImprove problemDesc sd mutation = do
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

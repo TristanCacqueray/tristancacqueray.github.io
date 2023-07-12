@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -300,7 +335,7 @@ window.MathJax = {
         </li>
       
     </ul>
-  <img class='inline mb-3' src='static/butler-demo.png' alt='butler-demo' style='width: inherit;' /><h2 id='hobby-project' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Hobby Project</h2>
+  <img class='inline mb-3' src='static/butler-demo.png' alt='butler-demo' style='width: inherit;' /><h2 id='hobby-project' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Hobby Project</h2>
     <p class='mb-3'>
       Before I begin, let me set the expectations. Butler is a hobby project inspired by the <a href='https://serenityos.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>SerenityOS</a> project. I am working on it on my free time as a challenge and learning experience. Moreover I am considering alternative runtimes and protocols. Therefore the implementation is subject to change.
     </p>
@@ -308,7 +343,7 @@ window.MathJax = {
     <p class='mb-3'>
       That being said, the project reached a point where it is now enjoyable, and I’m happy to share its current state with you.
     </p>
-  <h2 id='modular-operating-system' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Modular Operating System</h2>
+  <h2 id='modular-operating-system' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Modular Operating System</h2>
     <p class='mb-3'>
       Butler’s goal is to implement a virtual operating system with a strong focus on concurrency. Butler is not a computer hardware operating system. Instead, Butler is an application environment that runs on top of an existing system.
     </p>
@@ -392,7 +427,7 @@ window.MathJax = {
     <p class='mb-3'>
       I find it valuable to model these APIs after regular operating system constructs. They are available through a single top level <a href='https://butleros.github.io/haddock/Butler.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Butler</a> module. The next section introduces the application environment.
     </p>
-  <h2 id='application-actor' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Application Actor</h2>
+  <h2 id='application-actor' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Application Actor</h2>
     <p class='mb-3'>
       Butler applications are implemented as standalone processes that operate a <a href='https://butleros.github.io/haddock/Butler.html#t:AppEvent' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AppEvent</a> pipe. Checkout the <a href='https://butleros.github.io/haddock/Butler.html#t:App' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>App</a> definition. Applications start with a <a href='https://butleros.github.io/haddock/Butler.html#t:AppContext' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AppContext</a> provided by the display.
     </p>
@@ -432,7 +467,7 @@ window.MathJax = {
     <p class='mb-3'>
       The key design is that clients are dumb terminals and the state is controlled server side. A good example is the text editor app named <a href='https://github.com/ButlerOS/haskell-butler/blob/main/src/Butler/App/Noter.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Noter</a>. This app leverages the whole application environment to implement an etherpad like text editor.
     </p>
-  <h2 id='haskell-runtime-system' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Haskell RunTime System</h2>
+  <h2 id='haskell-runtime-system' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Haskell RunTime System</h2>
     <p class='mb-3'>
       In this section I explain the choice of using <a href='https://haskell.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell</a>. Beyond the language’s common features, here are two reasons for using Haskell:
     </p>
@@ -468,7 +503,7 @@ window.MathJax = {
     <p class='mb-3'>
       That being said, Haskell works great for Butler. So far I have only used its most basic features, and the project source is only 5k lines of code according to <a href='https://github.com/vmchale/polyglot' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>polyglot</a>.
     </p>
-  <h2 id='html5-graphical-user-interface' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>HTML5 Graphical User Interface</h2>
+  <h2 id='html5-graphical-user-interface' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>HTML5 Graphical User Interface</h2>
     <p class='mb-3'>
       In this section I explain the choice of using HTML5 for the GUI. I choose HTML5 because it is an ubiquitous standard and the <a href='https://developer.mozilla.org/en-US/docs/Web/API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web API</a> offers a fully featured application environment. Thanks to the hypermedia paradigm enabled by <a href='https://htmx.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>htmx</a>, it is a great fit for Butler.
     </p>
@@ -476,7 +511,7 @@ window.MathJax = {
     <p class='mb-3'>
       Though it would be interesting to investigate <a href='https://github.com/patrick-steele-idem/morphdom' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>morphdom</a> and rich client alternatives, such as <a href='https://www.w3.org/TR/webgpu/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web GPU</a> or <a href='https://flutter.dev/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Flutter</a>.
     </p>
-  <h2 id='application-demos' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Application Demos</h2>
+  <h2 id='application-demos' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Application Demos</h2>
     <p class='mb-3'>
       Here is a list of demos I am using to validate the core implementation:
     </p>
@@ -516,7 +551,7 @@ window.MathJax = {
     <p class='mb-3'>
       I am mostly focusing on the desktop use-case, but I also helped my colleague fboucher use Butler to create a game named <a href='https://github.com/web-apps-lab/HazardHunter' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>HazardHunter</a>.
     </p>
-  <h2 id='road-map' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Road-map</h2>
+  <h2 id='road-map' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Road-map</h2>
     <p class='mb-3'>
       A terminal and VNC client are already provided to access non Butler applications, and perhaps it is possible to re-implemented these legacy system as Butler native applications. For example, I am looking forward adding:
     </p>
@@ -576,7 +611,7 @@ window.MathJax = {
     <p class='mb-3'>
       Finally, it would be interesting to investigate if and how an app registry could be implemented. For example as a list of packages that could be dynamically loaded/unloaded into a running instance.
     </p>
-  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
       The actor framework looks like a great solution for web applications, and I am quite happy with the Butler’s implementation. Moreover, I am excited about the community discussion for moving <a href='https://discourse.haskell.org/t/towards-an-actor-framework-for-haskell/5929' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Towards an actor framework for Haskell</a>. My implementation is rather limited, and I would be happy to use a common library similar to the <a href='https://github.com/erlang/otp' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>erlang/otp</a>.
     </p>
@@ -695,7 +730,7 @@ window.MathJax = {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

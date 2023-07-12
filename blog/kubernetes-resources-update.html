@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -296,7 +331,7 @@ window.MathJax = {
     <p class='mb-3'>
       This article demonstrates different strategies to update kubernetes resources.
     </p>
-  <h2 id='context-and-problem-statement' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context and Problem Statement</h2>
+  <h2 id='context-and-problem-statement' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context and Problem Statement</h2>
     <p class='mb-3'>
       Our goal is to update resource without overwritting changes made outside of our control. For example, we would like to upgrade a container image version or a deployment replicas count.
     </p>
@@ -304,7 +339,7 @@ window.MathJax = {
     <p class='mb-3'>
       In the context of a kubernetes operator, there are two forms of resource update: <em>replace</em> and <em>patch</em>. To demonstrate how the update process works, we'll use the API directly by starting a proxy:
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>kubectl proxy --port=8080</code></pre></div><h2 id='resource-version' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Resource Version</h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>kubectl proxy --port=8080</code></pre></div><h2 id='resource-version' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Resource Version</h2>
     <p class='mb-3'>
       Each resource is assigned a version number in its metadata. In this example, we create a deployment named <em>demo-deployment</em> in the namespace <em>tristanc</em>:
     </p>
@@ -337,7 +372,7 @@ EOF</code></pre></div>
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>curl -XVERB -H "Content-Type: TYPE" http://localhost:8080/apis/apps/v1/namespaces/tristanc/deployments/demo-deployment --data-binary @- &lt;&lt;EOF
   BODY
-EOF</code></pre></div><h2 id='json-patch' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>JSON Patch</h2>
+EOF</code></pre></div><h2 id='json-patch' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>JSON Patch</h2>
     <p class='mb-3'>
       A <a href='https://tools.ietf.org/html/rfc6902' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>JSON Patch RFC 6902</a> is defined by a <strong>op</strong> operation, <strong>path</strong> destination and a <strong>value</strong>.
     </p>
@@ -377,7 +412,7 @@ EOF</code></pre></div><h2 id='json-patch' class='inline-block mt-6 mb-4 text-4xl
     "path": "/spec/template/spec/containers/0/image",
     "value": "registry.fedoraproject.org/fedora:37"
   }
-]</code></pre></div><h2 id='json-merge-patch' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>JSON Merge Patch</h2>
+]</code></pre></div><h2 id='json-merge-patch' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>JSON Merge Patch</h2>
     <p class='mb-3'>
       A <a href='https://tools.ietf.org/html/rfc7386' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>JSON Merge Patch RFC 7396</a> is more similar to a diff. List elements can't be manipulated and the full list needs to be provided.
     </p>
@@ -403,7 +438,7 @@ EOF</code></pre></div><h2 id='json-patch' class='inline-block mt-6 mb-4 text-4xl
   "spec": {
     "replicas": 2
   }
-}</code></pre></div><h2 id='strategic-merge-patch' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Strategic Merge Patch</h2>
+}</code></pre></div><h2 id='strategic-merge-patch' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Strategic Merge Patch</h2>
     <p class='mb-3'>
       A strategic patch is similar to a JSON Merge Patch, but with custom behaviors defined in the OpenAPI. For example, the pod template spec enables adding containers to the list.
     </p>
@@ -420,7 +455,7 @@ EOF</code></pre></div><h2 id='json-patch' class='inline-block mt-6 mb-4 text-4xl
       }
     }
   }
-}</code></pre></div><h2 id='server-side-apply' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Server Side Apply</h2>
+}</code></pre></div><h2 id='server-side-apply' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Server Side Apply</h2>
     <p class='mb-3'>
       Since Kubernetes v1.22, a new option is available when using:
     </p>
@@ -428,7 +463,7 @@ EOF</code></pre></div><h2 id='json-patch' class='inline-block mt-6 mb-4 text-4xl
     <p class='mb-3'>
       This feature leverage a new "field management" mechanism, and it seems useful when multiple clients are updating a single resource. This feature is fairly new, and it is not yet fully supported by the controller-runtime client.
     </p>
-  <h2 id='replace' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Replace</h2>
+  <h2 id='replace' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Replace</h2>
     <p class='mb-3'>
       The other solution is to replace the resource:
     </p>
@@ -442,7 +477,7 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
     <p class='mb-3'>
       Notice that changing the resource results in a new <em>resourceVersion</em>, and trying to repeat the last request will fails because the version no longer match.
     </p>
-  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
       Kubernetes provides multiple update strategies to manage resources:
     </p>
@@ -538,7 +573,7 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

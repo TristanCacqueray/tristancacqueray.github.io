@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -300,7 +335,7 @@ window.MathJax = {
     <p class='mb-3'>
       First, it describes the context and its main issue. Next, it defines key terms and concepts. Finally, it shows how we used the <a href='https://github.com/haskell-effectful/effectful#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effectful</a> library to improve Monocle composability.
     </p>
-  <h2 id='context-and-problem-statement' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context and problem statement</h2>
+  <h2 id='context-and-problem-statement' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context and problem statement</h2>
     <p class='mb-3'>
       Monocle components are implemented using dedicated actions. The goal is to limit the available side-effects and to maintain a clear separation of concerns.
     </p>
@@ -308,7 +343,7 @@ window.MathJax = {
     <p class='mb-3'>
       The current implementation is based on the ‘ReaderT over IO’ pattern and it is affected by a problem known as the ‘n² instances’. The issue is that adding new side-effects requires unnecessary modifications, which limit the composability and testability of the components.
     </p>
-  <h2 id='what-is-a-side-effect' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What is a side-effect?</h2>
+  <h2 id='what-is-a-side-effect' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What is a side-effect?</h2>
     <p class='mb-3'>
       A function has <a href='https://en.wikipedia.org/wiki/Side_effect_(computer_science)' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>side-effects</a> when it modifies a state outside of its local environment. Common examples of side-effects include:
     </p>
@@ -340,7 +375,7 @@ window.MathJax = {
     <p class='mb-3'>
       Previously, in Monocle, we used the ‘ReaderT over IO’ pattern.
     </p>
-  <h2 id='what-is-a-reader' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What is a reader?</h2>
+  <h2 id='what-is-a-reader' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>What is a reader?</h2>
     <p class='mb-3'>
       A reader provides an environment to the functions. For example, instead of passing the environment using explicit parameters:
     </p>
@@ -370,7 +405,7 @@ window.MathJax = {
     <p class='mb-3'>
       The next sections present how Monocle used to be implemented and what is the benefit of using an effect system.
     </p>
-  <h2 id='monocle-action-contexts' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Monocle action contexts</h2>
+  <h2 id='monocle-action-contexts' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Monocle action contexts</h2>
     <p class='mb-3'>
       The Monocle component actions were defined as:
     </p>
@@ -494,7 +529,7 @@ window.MathJax = {
         </li>
       
     </ul>
-  <h2 id='effects-system' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Effects system</h2>
+  <h2 id='effects-system' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Effects system</h2>
     <p class='mb-3'>
       To improve the Monocle code base, we replaced the mtl-style constraints with an effect system. Instead of using constraints for the execution context, denoted <code class='py-0.5 px-0.5 bg-gray-100'>m</code>, Monocle now uses a list of effect constraints, denoted <code class='py-0.5 px-0.5 bg-gray-100'>es</code>, along with the <code class='py-0.5 px-0.5 bg-gray-100'>Eff</code> action provided by the <a href='https://github.com/haskell-effectful/effectful#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effectful</a> library.
     </p>
@@ -563,7 +598,7 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
         </li>
       
     </ul>
-  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
       We are satisfied with the transition and we are looking forward to contributing to the effectful ecosystem by sharing the Monocle implementations.
     </p>
@@ -656,7 +691,7 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

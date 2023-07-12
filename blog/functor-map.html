@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -291,7 +326,7 @@ window.MathJax = {
   <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>mkdir test-functor; cd test-functor
 spago init
 spago install maybe arrays node-process
-spago repl</code></pre></div><h2 id='context' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context</h2>
+spago repl</code></pre></div><h2 id='context' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context</h2>
     <p class='mb-3'>
       Let’s consider this data type to represent a task:
     </p>
@@ -318,7 +353,7 @@ Task</code></pre></div>
     <p class='mb-3'>
       So far so good, nothing special to see here.
     </p>
-  <h2 id='mapping-mktask' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mapping mkTask</h2>
+  <h2 id='mapping-mktask' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mapping mkTask</h2>
     <p class='mb-3'>
       Here is the definition of <code class='py-0.5 px-0.5 bg-gray-100'>map mkTask</code>:
     </p>
@@ -350,7 +385,7 @@ Nothing
     </p>
   
     </blockquote>
-  <h2 id='map-definition' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Map definition</h2>
+  <h2 id='map-definition' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Map definition</h2>
     <p class='mb-3'>
       map is defined as follow:
     </p>
@@ -383,7 +418,7 @@ forall f a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b</code></pre></div>
     <p class='mb-3'>
       Now Let’s see why this works.
     </p>
-  <h2 id='map-type-variables' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Map type variables</h2>
+  <h2 id='map-type-variables' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Map type variables</h2>
     <p class='mb-3'>
       The map definition is polymorphic, that means it can work in many scenarios depending on its arguments. We can observe how the type checker works by providing the argument one by one:
     </p>
@@ -436,7 +471,7 @@ forall b.                         (String -&gt; b) -&gt; Array b
     </p>
   
     </blockquote>
-  <h2 id='motivating-example' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Motivating example</h2>
+  <h2 id='motivating-example' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Motivating example</h2>
     <p class='mb-3'>
       Finally, here is a last example to demonstrate map with <code class='py-0.5 px-0.5 bg-gray-100'>lookupEnv</code>.
     </p>
@@ -486,7 +521,7 @@ Effect (Maybe Task)
     <p class='mb-3'>
       And this concludes the exploration. Thanks for your time!
     </p>
-  <h2 id='bonus-traverse' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Bonus: traverse</h2>
+  <h2 id='bonus-traverse' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Bonus: traverse</h2>
     <p class='mb-3'>
       Well while you are here, here is <code class='py-0.5 px-0.5 bg-gray-100'>traverse</code>:
     </p>
@@ -653,7 +688,7 @@ forall t. Traversable t =&gt; t String -&gt; Effect (t (Maybe Task))</code></pre
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

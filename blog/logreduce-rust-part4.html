@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=83659298-0557-48d6-aaf9-3efff8553c32' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -165,11 +165,13 @@ window.MathJax = {
 <script src='_emanote-static/stork/stork.js'></script>
 
   
-    <script data-emanote-base-url='/'>
+    <script id='emanote-stork' data-emanote-base-url='/'>
       window.emanote = {};
       window.emanote.stork = {
         searchShown: false,
+        indexIsStale: false,
         toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
           document.getElementById('stork-search-container').classList.toggle('hidden');
           window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
           if (window.emanote.stork.searchShown) {
@@ -182,14 +184,25 @@ window.MathJax = {
           window.emanote.stork.searchShown = false;
         },
 
-        init: function () {
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
           const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
-          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
-          const indexUrl = baseUrl + '-/stork.st';
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
           if (document.readyState !== 'complete') {
             window.addEventListener('load', function () {
-              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
-              stork.register(indexName, indexUrl);
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
             });
 
             document.addEventListener('keydown', event => {
@@ -202,10 +215,32 @@ window.MathJax = {
               }
             });
           } else {
-            // Override existing on Ema's hot-reload
-            stork.register(indexName, indexUrl, { forceOverwrite: true });
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
           }
         }
+
       };
 
       window.emanote.stork.init();
@@ -340,7 +375,7 @@ window.MathJax = {
         </li>
       
     </ul>
-  <h2 id='implementing-the-model-processor' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Implementing the model processor</h2>
+  <h2 id='implementing-the-model-processor' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Implementing the model processor</h2>
     <p class='mb-3'>
       The model processor is the main part that was missing from the new code base. The goal is to provide a flexible API that combines the log line iterator, the tokenizer, and the nearest neighbors model. The API requirements are:
     </p>
@@ -378,7 +413,7 @@ impl&lt;'index, R: Read&gt; Iterator for ChunkProcessor&lt;'index, R&gt; {
     <p class='mb-3'>
       You can check the full implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/model/src/process.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>process.rs</a> module.
     </p>
-  <h2 id='using-static-dispatch-for-the-data-model' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Using static dispatch for the data model</h2>
+  <h2 id='using-static-dispatch-for-the-data-model' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Using static dispatch for the data model</h2>
     <p class='mb-3'>
       With all the core modules in place, I needed to define a data model to implement the frontend logic. Logreduce can work with a variety of content, which can be accessed through different source types:
     </p>
@@ -403,11 +438,11 @@ impl&lt;'index, R: Read&gt; Iterator for ChunkProcessor&lt;'index, R&gt; {
       I initially created a ContentSource trait to define how to get the sources of a given Content:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>trait ContentSource {
-  fn get_sources(&self) -&gt; Vec&lt;Source&gt;;
+  fn get_sources(&amp;self) -&gt; Vec&lt;Source&gt;;
 }
 
 impl ContentSource for File {
- fn get_sources(&self) -&gt; Vec&lt;Source&gt; {
+ fn get_sources(&amp;self) -&gt; Vec&lt;Source&gt; {
    if self.path().ends_with('/') {
       // read dir
    } else {
@@ -417,7 +452,7 @@ impl ContentSource for File {
 }
 
 impl ContentSource for Build {
- fn get_sources(&self) -&gt; Vec&lt;Source&gt; {
+ fn get_sources(&amp;self) -&gt; Vec&lt;Source&gt; {
    // list remote sources
  }
 }</code></pre></div>
@@ -455,7 +490,7 @@ note: required by a bound in `Vec`</code></pre></div>
 }
 
 impl Content {
-  fn get_sources(&self) -&gt; Vec&lt;Source&gt; {
+  fn get_sources(&amp;self) -&gt; Vec&lt;Source&gt; {
     match self {
       File(fp) =&gt; files::get_sources(fp),
       CI(build) =&gt; ci::get_sources(build),
@@ -474,7 +509,7 @@ struct Report {
     <p class='mb-3'>
       I documented the complete model in an <a href='https://adr.github.io/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Architectural Decision Record</a> you can find here: <a href='https://github.com/logreduce/logreduce-rust/blob/main/doc/adr/0001-architecture-cli.md' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>0001-architecture-cli.md</a>. You can check the implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/model/src/model.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>model.rs</a> module.
     </p>
-  <h2 id='crawling-logs-in-parallel-using-a-threadpool' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Crawling logs in parallel using a threadpool</h2>
+  <h2 id='crawling-logs-in-parallel-using-a-threadpool' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Crawling logs in parallel using a threadpool</h2>
     <p class='mb-3'>
       Another interesting feature of logreduce is that it can seamlessly process remote directories. The goal is to be able to handle a build log url, served as <em>Index Of</em> pages, as if it was a local directory. Thus, I looked into collecting the log files concurrently so that the tree could be traversed quickly.
     </p>
@@ -487,26 +522,26 @@ struct Report {
       From my understanding, Tokio is great for long running tasks like building a server. But for short tasks, such as crawling an http directory, I find it easier to use a threadpool with <a href='https://doc.rust-lang.org/std/sync/mpsc/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>mpsc</a>, a Multi Producer, Single Consumer FIFO queue. Thus, here is the main function of the logreduce's httpdir library:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>fn process(
-    visitor: &Visitor,
-    client: &Client,
-    pool: &ThreadPool,
-    tx: &Sender&lt;Message&gt;,
+    visitor: &amp;Visitor,
+    client: &amp;Client,
+    pool: &amp;ThreadPool,
+    tx: &amp;Sender&lt;Message&gt;,
     url: Url,
 ) {
-    if let Some(visitor) = visitor.visit(&url) {
+    if let Some(visitor) = visitor.visit(&amp;url) {
         // Increase reference counts.
         let tx = tx.clone();
         let sub_pool = pool.clone();
         let client = client.clone();
 
         // Submit the work.
-        pool.execute(move || match http_list(&client, url) {
+        pool.execute(move || match http_list(&amp;client, url) {
             // We decoded some urls.
             Ok(urls) =&gt; {
                 for url in urls {
                     if url.path().ends_with('/') {
                         // Recursively call the handler on sub directory.
-                        Crawler::process(&visitor, &client, &sub_pool, &tx, url)
+                        Crawler::process(&amp;visitor, &amp;client, &amp;sub_pool, &amp;tx, url)
                     } else {
                         // Send file location to the mpsc channel.
                         tx.send(Some(Ok(url))).unwrap()
@@ -524,7 +559,7 @@ struct Report {
     <p class='mb-3'>
       You can check the complete implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/httpdir/src/httpdir.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>httpdir.rs</a> module.
     </p>
-  <h2 id='completing-my-first-project-in-rust' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Completing my first project in Rust</h2>
+  <h2 id='completing-my-first-project-in-rust' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Completing my first project in Rust</h2>
     <p class='mb-3'>
       Logreduce is the first project that I wrote using Rust. Here are my initial impressions of the language.
     </p>
@@ -572,7 +607,7 @@ struct Report {
     <p class='mb-3'>
       I am mainly interested in Rust's expressive static types. They generally work the same as in Haskell and OCaml, or any other language featuring <a href='https://doc.rust-lang.org/book/ch06-00-enums.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Algebraic Data Types</a>. Such types let me fearlessly perform heart surgery on complex code. As explained in the <a href='https://www.youtube.com/watch?v=kZ1P8cHN3pY' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Why Functional Programming Doesn't Matter</a> talk, expressive static types give us the dexterity to extend our system in a fairly safe way. In particular, by making illegal states unrepresentable, we don't have to worry about many kinds of errors. The type system statically verifies a significant part of our program, enabling us to move fast by focusing on the most important part.
     </p>
-  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
     <p class='mb-3'>
       Coming from Haskell, the main challenge of using Rust is to be more careful about the values and their memory. And after going through the initial bumps, I must say it's getting a little easier and I now mostly understand what the compiler wants.
     </p>
@@ -685,7 +720,7 @@ struct Report {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.3.11'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
