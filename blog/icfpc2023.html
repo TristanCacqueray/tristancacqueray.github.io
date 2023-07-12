@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    ICFP Contest 2023 - JKRT report – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='The International Conference on Functional Programming (ICFP) Programming Contest is an annual programming contest. The event lasted for 3 days, and out of curiosity, we created a team with my dear colleague Jens Petersen.' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='../static/icfpc2023-logo.jpg' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='ICFP Contest 2023 - JKRT report' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  <link href='tailwind.css?instanceId=3b258c68-9fa2-49d4-8e2c-e554586be24d' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        toggleSearch: function () {
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        init: function () {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const baseUrl = document.currentScript.getAttribute('data-emanote-base-url') || '/';
+          const indexUrl = baseUrl + '-/stork.st';
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(baseUrl + '_emanote-static/stork/stork.wasm');
+              stork.register(indexName, indexUrl);
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // Override existing on Ema's hot-reload
+            stork.register(indexName, indexUrl, { forceOverwrite: true });
+          }
+        }
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    ICFP Contest 2023 - JKRT report
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      The International Conference on Functional Programming (<a href='https://icfp23.sigplan.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ICFP</a>) Programming Contest is an annual programming contest. The event lasted for 3 days, and out of curiosity, we created a team with my dear colleague Jens Petersen.
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-logo.jpg' alt='icfpc2023-logo' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      In this post I present how we worked on the problems. I include many code samples for the curious reader but feel free to skip over them or checkout the <a href='https://github.com/TristanCacqueray/icfpc2023' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>repo</a> The event was divided in two parts: a lightning division for the first 24 hours, and a full division for the remaining 48 hours.
+    </p>
+  <h2 id='lightning-division' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lightning division</h2>
+    <p class='mb-3'>
+      At the <a href='blog/zurihac2023' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>ZuriHac</a> we briefly talked about attending the contest, and a few days before we created a matrix chat room to get ready. We were on opposite timezone so we synced our work only twice per day.
+    </p>
+  <h3 id='haskell-project-scaffold' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Haskell project scaffold</h3>
+    <p class='mb-3'>
+      This was the first time I ever participated in such a competition, and we didn’t have a project template or toolbox. However we knew we wanted to use Haskell. Thus we setup a git repository with a standard cabal file adjusted with the following settings:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Set the default-language to GHC2021: <a href='https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0372-ghc-extensions.rst#motivation' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Learn more about this</a>.
+        </li>
+      
+        <li>
+          Enable the following extensions:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <em>BlockArguments</em>, <em>ImportQualifiedPost</em>, <em>LambdaCase</em>, <em>MultiWayIf</em>: useful small syntax change.
+        </li>
+      
+        <li>
+          <em>OverloadedRecordDot</em>: enables using the <code class='py-0.5 px-0.5 bg-gray-100'>record.field</code> syntax.
+        </li>
+      
+        <li>
+          <em>DerivingStrategies</em>: for better instances definition, e.g. <code class='py-0.5 px-0.5 bg-gray-100'>deriving newtype</code>.
+        </li>
+      
+        <li>
+          <em>PartialTypeSignatures</em> along with <em>-Wno-partial-type-signatures</em>: enables omitting type signature, e.g. <code class='py-0.5 px-0.5 bg-gray-100'>_ -&gt; IO (Maybe _)</code>.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          Add the following extra build-depends in anticipation with <em>-Wno-unused-packages</em>:
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <em>MonadRandom</em>, <em>aeson</em>, <em>bytestring</em>, <em>directory</em>, <em>rio</em>, <em>time</em>, <em>vector</em>: base enhancement
+        </li>
+      
+        <li>
+          <em>gloss</em>: GUI
+        </li>
+      
+        <li>
+          <em>http-conduit</em>, <em>retry</em>: network.
+        </li>
+      
+    </ul>
+  
+        </li>
+      
+        <li>
+          Create a bunch of empty module: <code class='py-0.5 px-0.5 bg-gray-100'>Parser</code>, <code class='py-0.5 px-0.5 bg-gray-100'>Syntax</code>, <code class='py-0.5 px-0.5 bg-gray-100'>Eval</code>, <code class='py-0.5 px-0.5 bg-gray-100'>GUI</code> and <code class='py-0.5 px-0.5 bg-gray-100'>Solve</code>.
+        </li>
+      
+        <li>
+          Setup the CI.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This enabled us to prepare the tool-chain before the event started so that we had a running <code class='py-0.5 px-0.5 bg-gray-100'>ghcid --test Solve.main</code> process ready to interpret our code.
+    </p>
+  <h3 id='the-first-specification' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>The first specification</h3>
+    <p class='mb-3'>
+      The contest started on Friday with a specification.pdf that described the following challenge: place musicians on a stage to provide the best possible sound for the attendees.
+    </p>
+  
+    <p class='mb-3'>
+      Here was the example problem input:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='json language-json'>{
+  "room_width": 2000.0,
+  "room_height": 5000.0,
+  "stage_width": 1000.0,
+  "stage_height": 200.0,
+  "stage_bottom_left": [500.0, 0.0],
+  "musicians": [0, 1, 0],
+  "attendees": [
+    {"x":  100.0, "y":  500.0, "tastes": [1000.0, -1000.0]},
+    {"x":  200.0, "y": 1000.0, "tastes": [200.0, 200.0]},
+    {"x": 1100.0, "y":  800.0, "tastes": [800.0, 1500.0]}
+  ]
+}</code></pre></div>
+    <p class='mb-3'>
+      And here was the example solution output:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='json language-json'>{
+  "placements": [
+    {"x": 590.0, "y": 10.0},
+    {"x": 1100.0, "y": 100.0},
+    {"x": 1100.0, "y": 150.0}
+  ]
+}</code></pre></div>
+    <p class='mb-3'>
+      Along with some placements rules (e.g. musician must not overlap), we were given a scoring function to evaluate a solution:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-score1.png' alt='icfpc2023-score1' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Moreover musicians can block each other when they are on the path of an attendee.
+    </p>
+  
+    <p class='mb-3'>
+      Finally we had a few problems to solve.
+    </p>
+  
+    <p class='mb-3'>
+      After reading this specification, I got excited because it looked like we would be able to solve some problems. It was not the kind of problems where only a few solutions work. For example, simply filling the stage randomly was a valid solution.
+    </p>
+  <h3 id='decoding-json' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Decoding JSON</h3>
+    <p class='mb-3'>
+      I started with the easy part. Using the excellent <a href='http://json-to-haskell.chrispenner.ca/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>json-to-haskell</a> website I generated the specification’s data types with their <em>FromJSON</em> and <em>ToJSON</em> instances. Then I tweaked the types to use a more efficient list representation with unboxed vectors:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.Vector.Unboxed qualified as UV
+
+data Problem = Problem
+    { problemStageHeight :: Int
+    , problemStageWidth :: Int
+    , problemMusicians :: UV.Vector Int
+    , problemRoomHeight :: Int
+    , problemRoomWidth :: Int
+    , problemAttendees :: [Attendee]
+    , problemStageBottomLeft :: (Int, Int)
+    }
+
+data Solution = Solution
+    { solutionPlacements :: UV.Vector (Int, Int)
+    }</code></pre></div>
+    <p class='mb-3'>
+      Using a vector let us read a value in <code class='py-0.5 px-0.5 bg-gray-100'>O(1)</code> with <code class='py-0.5 px-0.5 bg-gray-100'>UV.!</code> instead of <code class='py-0.5 px-0.5 bg-gray-100'>O(n)</code> with <code class='py-0.5 px-0.5 bg-gray-100'>Prelude.!!</code>.
+    </p>
+  <h3 id='gloss-visualization' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Gloss visualization</h3>
+    <p class='mb-3'>
+      Next I wanted to see what the problems looked like. So I used the <a href='https://hackage.haskell.org/package/gloss' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>gloss</a> library to draw a visualization:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>drawProblem :: Problem -&gt; Solution -&gt; Picture
+drawProblem problem solution = Pictures (room : stage : attendees)
+  where
+    room :: Picture
+    room =
+        Color red $
+            rectangleWire
+                (int2Float problem.problemRoomWidth)
+                (int2Float problem.problemRoomHeight)
+
+    toAbs :: Float -&gt; Float -&gt; Picture -&gt; Picture
+    toAbs x y = Translate (topX + x) (topY - y)
+      where
+        topX, topY :: Float
+        topX = -1 * fromIntegral problem.problemRoomWidth / 2
+        topY = fromIntegral problem.problemRoomHeight / 2
+
+    stage :: Picture
+    stage =
+        toAbs
+            (stageWidth / 2 + int2Float stageX)
+            (stageHeight / 2 + int2Float stageY)
+            $ Color orange
+            $ Polygon
+            $ rectanglePath stageWidth stageHeight
+      where
+        stageWidth = int2Float problem.problemStageWidth
+        stageHeight = int2Float problem.problemStageHeight
+        (stageX, stageY) = problem.problemStageBottomLeft
+
+    attendees :: [Picture]
+    attendees = map drawAttendee problem.problemAttendees
+
+    drawAttendee :: Attendee -&gt; Picture
+    drawAttendee attendee =
+        toAbs
+            (fromIntegral attendee.attendeeX)
+            (fromIntegral attendee.attendeeY)
+            (Circle 3)</code></pre></div>
+    <p class='mb-3'>
+      And finally the display code:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>doRender :: Problem -&gt; Solution -&gt; IO ()
+doRender problem solution = Gloss.display disp bg picture
+  where
+    disp = InWindow "ICFP Contest 2023" (winX, winY) (10, 10)
+    bg = greyN 0.6
+    picture = windowScale problem $ drawProblem problem solution
+
+windowScale :: Problem -&gt; Picture -&gt; Picture
+windowScale problem = Scale pscale pscale
+  where
+    pscale = fromIntegral scale * 0.98
+    scale
+        | problem.problemRoomHeight &gt; problem.problemRoomWidth =
+            winY `div` problem.problemRoomHeight
+        | otherwise =
+            winX `div` problem.problemRoomWidth</code></pre></div>
+    <p class='mb-3'>
+      Gloss places the pictures’ origin at the center, so they needed to be translated and scaled with their absolute coordinates. Once this is done, the gloss display implementation is great because it comes with navigation out of the box: you can move and zoom with the mouse.
+    </p>
+  
+    <p class='mb-3'>
+      Here is what the first and tenth problems looked like:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-pb01.png' alt='icfpc2023-pb01' style='width: inherit;' /></div><div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-pb10.png' alt='icfpc2023-pb10' style='width: inherit;' /></div><h3 id='implementing-the-happiness-score' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Implementing the happiness score</h3>
+    <p class='mb-3'>
+      Next we needed a way to evaluate a solution. So we translated the specification into source code. I had some trouble reading the math notations, for example the half bracket meant that the happiness had to be rounded up.
+    </p>
+  
+    <p class='mb-3'>
+      Later, Jens optimized this implementation by switching the coordinate representation from Float to Int. Here is the code we used for the lightning division:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>score :: Problem -&gt; Solution -&gt; Int
+score problem solution =
+    sum $ map (attendeeHappiness problem.problemMusicians solution) problem.problemAttendees
+
+attendeeHappiness :: UV.Vector Int -&gt; Solution -&gt; Attendee -&gt; Int
+attendeeHappiness instruments solution attendee =
+    UV.sum $ UV.imap musicianImpact solution.solutionPlacements
+  where
+    musicianImpact :: Int -&gt; (Int, Int) -&gt; Int
+    musicianImpact musician placement
+      | isBlocked = 0
+      | otherwise =
+        let (d,m) = (1_000_000 * taste) `divMod` distance
+        in d + if m &gt; 0 then 1 else 0
+     where
+       -- the musician's instrument
+       instrument = instruments ! musician
+
+       -- the attendee taste for this instrument
+       taste = attendee.attendeeTastes ! instrument
+
+       -- the distance between the attendee and the musician
+       distance = calcDistance attendee placement
+
+       -- is the musician blocked by another musician?
+       isBlocked = UV.any checkBlocked solution.solutionPlacements
+       checkBlocked :: (Int, Int) -&gt; Bool
+       checkBlocked otherPlacement = otherDistance &lt; distance && isCrossed
+          where
+            otherDistance = calcDistance attendee otherPlacement
+            isCrossed = lineCrossCircle attendee placement otherDistance 5 otherPlacement
+
+calcDistance :: Attendee -&gt; (Int, Int) -&gt; Int
+calcDistance attendee (px, py) = (attendee.attendeeX - px) ^ 2 + (attendee.attendeeY - py) ^ 2
+
+-- | Check if the line between two points is blocked by a third point of a given radius (exclusive).
+-- See: https://mathworld.wolfram.com/Circle-LineIntersection.html
+lineCrossCircle :: Attendee -&gt; (Int, Int) -&gt; Int -&gt; Int -&gt; (Int, Int) -&gt; Bool
+lineCrossCircle attendee (mx, my) distance radius (px, py) = discriment &gt; 0
+  where
+    (x1, y1) = (attendee.attendeeX - px, attendee.attendeeY - py)
+    (x2, y2) = (mx - px, my - py)
+    d = x1 * y2 - x2 * y1
+    discriment = radius ^ 2 * distance - d ^ 2</code></pre></div>
+    <p class='mb-3'>
+      Thanks to the matworld.wolfram.com website, I found a suitable circle-line intersection function.
+    </p>
+  <h3 id='musician-placements' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Musician placements</h3>
+    <p class='mb-3'>
+      I wanted to try a generative strategy, and to do that I needed to determine valid placements for the musicians. So I wrote a function to transforms the stage into a grid:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Arranging the musicians in a grid, this function returns all the available placements.
+allGridPlacement :: (Int, Int) -&gt; UV.Vector (Int, Int)
+allGridPlacement (width, height) = UV.fromList $ go radius radius []
+  where
+    -- go takes the current (x, y) position, and the list of accumulated position
+    go :: Int -&gt; Int -&gt; [(Int, Int)] -&gt; [(Int, Int)]
+    go x y !acc
+        | -- there is room to fit another musician on this line, keep the y pos
+          x + nextMusician &lt; width = go (x + diameter) y newAcc
+        | -- there is room to start another line, reset the x pos
+          y + nextMusician &lt; height = go radius (y + diameter) newAcc
+        | -- this is the end
+          otherwise = newAcc
+      where
+        -- store the current pos in the accumulator
+        newAcc = (x, y) : acc
+
+-- | Placement dimension: ( -r- o -r- )
+radius, diameter :: Int
+radius = 10
+diameter = radius * 2
+
+{- | nextMusician is the distance from the current position + a whole new musician
+ e.g:     o -r- )( -r- o -r-)|
+-}
+nextMusician :: Int
+nextMusician = radius + diameter</code></pre></div>
+    <p class='mb-3'>
+      Here is what the placements looked like:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-grid-placements.png' alt='icfpc2023-grid-placements' style='width: inherit;' /></div><h3 id='random-mutation' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Random mutation</h3>
+    <p class='mb-3'>
+      I proposed the following strategy:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-decimal list-inside'>
+      
+        <li>
+          generate a bunch of random placements.
+        </li>
+      
+        <li>
+          perform some small mutations.
+        </li>
+      
+        <li>
+          keep the best placements and repeat the step 2.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Here is the implementation context:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Control.Monad.Random.Strict
+
+type RandGen a = RandT StdGen IO a
+
+-- | Helper to run the MonadRandom.
+runRandGen :: RandGen a -&gt; IO a
+-- runRandGen action = evalRandT action (mkStdGen 42)
+runRandGen action = do
+    stdg &lt;- initStdGen
+    evalRandT action stdg</code></pre></div>
+    <p class='mb-3'>
+      Note that the following implementation is incomplete, it should have tracked the different branches instead of only keeping the best solutions. This resulted in the solutions to quickly converging to a local maxima. Nevertheless, here is the procedural implementation we used for the lightning division:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>geneticSolve :: String -&gt; Problem -&gt; RandGen (Int, Solution)
+geneticSolve name problem = do
+    initialSeeds &lt;- replicateM seedCount (randomSolution problem placements)
+    ((finalScore, finalSolution) : _) &lt;- go genCount initialSeeds
+    solution &lt;- toSolution problem finalSolution
+    pure (finalScore, solution)
+  where
+    genCount = 3
+    seedCount = 5
+    breedCount = 10
+    dim = (problem.problemStageWidth, problem.problemStageHeight)
+    placements = toAbsPlacement problem &lt;$&gt; allGridPlacement dim
+    total = UV.length placements
+    musicianCount = UV.length problem.problemMusicians
+
+    go :: Int -&gt; [(Int, GenSolution)] -&gt; RandGen [(Int, GenSolution)]
+    go 0 !seeds = pure seeds
+    go count !seeds = do
+        -- Generate a new population
+        population &lt;- concat &lt;$&gt; traverse breedNewSolutions seeds
+
+        -- Order by score
+        let populationOrdered = sortOn (\(score, _) -&gt; negate score) population
+        let best = case populationOrdered of
+                (score, _) : _ -&gt; score
+                _ -&gt; minBound
+        liftIO do
+            now &lt;- getCurrentTime
+            sayString $ printf "%s %s: gen %2d - %10d" (take 25 $ iso8601Show now) name count best
+
+        -- Repeat the process, keeping only the best seed.
+        go (count - 1) (take seedCount populationOrdered)
+      where
+        breedNewSolutions :: (Int, GenSolution) -&gt; RandGen [(Int, GenSolution)]
+        breedNewSolutions x@(_, s) = do
+            newSolutions &lt;- replicateM breedCount (makeNewSeed s)
+            -- Keep the original seed
+            pure (x : newSolutions)
+
+        makeNewSeed :: GenSolution -&gt; RandGen (Int, GenSolution)
+        makeNewSeed (GenSolution seedPlacements) = do
+            newSolution &lt;- GenSolution &lt;$&gt; MV.clone seedPlacements
+            doMutate newSolution
+            score &lt;- liftIO (scoreSolution problem newSolution)
+            pure (score, newSolution)
+
+        doMutate :: GenSolution -&gt; RandGen ()
+        doMutate (GenSolution iov) = do
+            mutationCount &lt;- getRandomR (genCount, MV.length iov `div` 5)
+            replicateM_ mutationCount do
+                -- Pick a random musician
+                musician &lt;- getRandomR (0, musicianCount - 1)
+                -- Pick a random new position
+                swapPos &lt;- getRandomR (0, total - 1)
+                -- Mutate
+                MV.swap iov musician swapPos
+
+-- | All the positions are stored, that way the mutations happen in-place.
+-- in 'toSolution' we keep only the one for the active musicians.
+newtype GenSolution = GenSolution (MV.IOVector (Int, Int))
+
+-- | Create a random solution.
+randomSolution :: Problem -&gt; UV.Vector (Int, Int) -&gt; RandGen (Int, GenSolution)
+randomSolution problem placements = do
+    iov &lt;- V.thaw placements
+    -- Randomize the placements with the 'vector-shuffle' library
+    liftRandT \stdg -&gt; do
+        newstdg &lt;- stToIO $  VectorShuffling.Mutable.shuffle iov stdg
+        pure ((), newstdg)
+    let gs = GenSolution iov
+    score &lt;- liftIO (scoreSolution problem gs)
+    pure (score, gs)
+
+-- | Create the 'Solution' data from a 'GenSolution'.
+toSolution :: Problem -&gt; GenSolution -&gt; IO Solution
+toSolution problem (GenSolution iov) = do
+    xs &lt;- UV.convert &lt;$&gt; V.freeze iov
+    pure $ Solution $ UV.take (UV.length problem.problemMusicians) xs
+
+-- | Compute the score of a 'GenSolution'.
+scoreSolution :: Problem -&gt; GenSolution -&gt; IO Int
+scoreSolution problem gs = do
+    solution &lt;- toSolution problem gs
+    pure $ scoreHappiness problem solution</code></pre></div>
+    <p class='mb-3'>
+      This technique worked and it found acceptable solutions. The first day was almost over and we were missing some tooling to run the code efficiently.
+    </p>
+  <h3 id='submitting-the-results' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Submitting the results</h3>
+    <p class='mb-3'>
+      Jens added a command line interface so that we could run variations without rebuilding the project. We also worked on some network code to automate the submissions. We were running out of time, and the organizers released more problems to be solved. At that time, we had 55 problems to crack. To do that, we created a <code class='py-0.5 px-0.5 bg-gray-100'>solve problem</code> and <code class='py-0.5 px-0.5 bg-gray-100'>submit problem</code> commands. Then we stored all the problems and their solutions in git.
+    </p>
+  
+    <p class='mb-3'>
+      For example, here was our submit function:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>newtype SubmitID = SubmitID Text
+    deriving newtype (FromJSON)
+    deriving (Show)
+
+submit :: ProblemID -&gt; Solution -&gt; IO (Maybe SubmitID)
+submit pid solution = do
+    let obj = object ["problem_id" .= pid, "contents" .= decodeUtf8 (BSL.toStrict $ encode solution)]
+    token &lt;- getEnv "ICFP_TOKEN"
+    manager &lt;- newTlsManager
+    initialRequest &lt;- parseRequest "https://api.icfpcontest.com/submission"
+    let request =
+            initialRequest
+                { method = "POST"
+                , requestBody = RequestBodyLBS $ encode obj
+                , requestHeaders =
+                    [ ("Content-Type", "application/json")
+                    , ("Authorization", "Bearer " &lt;&gt; encodeUtf8 (pack token))
+                    ]
+                }
+    response &lt;- httpLbs request manager
+    if statusCode (responseStatus response) == 201
+        then pure $ decode (responseBody response)
+        else do
+            putStrLn $ "The status code was: " ++ show (statusCode $ responseStatus response)
+            print $ responseBody response
+            return Nothing</code></pre></div>
+    <p class='mb-3'>
+      As expected we had a bunch of bugs. Some solutions appeared unsolvable, some got a huge negative score. Sometime the grid algorithm put musicians off the stage. Moreover the scoreboard was moving fast.
+    </p>
+  
+    <p class='mb-3'>
+      At the end of day 1 the light division was over.
+    </p>
+  <h2 id='the-full-specification' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>The full specification</h2>
+    <p class='mb-3'>
+      After 24 hour, the organizers released a new specification with the following changes:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The room now had pillars that can block the sound.
+        </li>
+      
+        <li>
+          The musician had an extra closeness factor that affected the attendee’s happiness:
+        </li>
+      
+    </ul>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-score2.png' alt='icfpc2023-score2' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      New problems were also released, for a grand total of 90 to be solved.
+    </p>
+  
+    <p class='mb-3'>
+      These extensions looked reasonable and we decided to give it a shot using the exact same strategy.
+    </p>
+  <h3 id='overall-code-improvements' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Overall code improvements</h3>
+    <p class='mb-3'>
+      It was time to level-up our initial code. We added:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          exception handling.
+        </li>
+      
+        <li>
+          automatic saving.
+        </li>
+      
+        <li>
+          solution reloading.
+        </li>
+      
+        <li>
+          command line parameters.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I introduced a couple of new data types:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data ProblemDescription = ProblemDescription
+    { name :: ProblemID
+    , problem :: Problem
+    , -- a dense pillars representation using (x, y, radius)
+      pillars :: UV.Vector (Int, Int, Int)
+    }
+
+data SolutionDescription = SolutionDescription
+    { score :: Int
+    , musicianCount :: Int
+    , genPlacements :: MV.IOVector (Float, Float)
+    , genVolumes :: MV.IOVector Float
+    }</code></pre></div>
+    <p class='mb-3'>
+      Haskell made such code refactoring really easy.
+    </p>
+  <h3 id='updating-the-scoring-function' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Updating the scoring function</h3>
+    <p class='mb-3'>
+      To take into account the room’s pillars, we updated the <code class='py-0.5 px-0.5 bg-gray-100'>attendeeHappiness</code> implementation with:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>        -- is the musician blocked
+        isBlocked = isBlockedPillar || isBlockedMusician
+
+        -- … by a pillar (Extension 1)?
+        isBlockedPillar = UV.any checkBlockedPillar problemDesc.pillars
+        checkBlockedPillar :: (Int, Int, Int) -&gt; Bool
+        checkBlockedPillar (px, py, radius) = isCrossed
+          where
+            otherPlacement = (px, py)
+            otherDistance = calcDistance attendee otherPlacement
+            isCrossed = lineCrossCircle attendee placement otherDistance radius otherPlacement
+
+        -- … by another musician?
+        isBlockedMusician = UV.any checkBlocked solution.solutionPlacements</code></pre></div>
+    <p class='mb-3'>
+      To handle the closeness factor, we pre-computed the list of factor:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>    -- Extension 2: pre-compute all the factor in advance
+    calcClosenessFactor musician
+        | problemDesc.name &gt; 0 && problemDesc.name &lt; 56 = 1 -- extension is disabled for the first problems
+        | otherwise = 1 + UV.sum (UV.generate musicianCount calcMusicianDistance)
+      where
+        instrument = problemDesc.problem.problemMusicians UV.! musician
+        musicianPos = solution.solutionPlacements UV.! musician
+        calcMusicianDistance otherMusician
+            | otherMusician == musician || instrument /= otherInstrument = 0
+            | otherwise =
+                let d = calcDistance2 musicianPos (solution.solutionPlacements UV.! otherMusician)
+                 in 1 / d
+          where
+            otherInstrument = problemDesc.problem.problemMusicians UV.! otherMusician</code></pre></div>
+    <p class='mb-3'>
+      And we applied the formula as explained in the specification.
+    </p>
+  <h3 id='better-musicians-placement' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Better musician’s placement</h3>
+    <p class='mb-3'>
+      Looking at the <a href='https://en.wikipedia.org/wiki/Circle_packing' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>circle packing Wikipedia’s page</a>, I updated our placements generator to better pack the musicians. This unblocked most of the problems except the number 38. This one had a very tight stage and I think we needed a Float precision to accommodate all the musicians.
+    </p>
+  
+    <p class='mb-3'>
+      Here is the final placements technique we used:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Packing the musicians in a grid, this function returns all the available placements.
+allPackedPlacement :: (Int, Int) -&gt; UV.Vector (Int, Int)
+allPackedPlacement (width, height) = UV.fromList $ go 0 radius radius []
+  where
+    go
+        | -- do the offset per line
+          width &gt; height = goLine
+        | -- do the offset per column
+          otherwise = goCol
+
+    goLine :: Int -&gt; Int -&gt; Int -&gt; [(Int, Int)] -&gt; [(Int, Int)]
+    goLine line x y !acc
+        | -- there is room to fit another musician on this line
+          x + nextMusician &lt; width  = goLine line (x + diameter) y newAcc
+        | -- there is room to start another line
+          y + nextMusician &lt; height = goLine (line + 1) newX (y + newOffset) newAcc
+        | -- this is the end
+          otherwise = newAcc
+      where
+        newAcc = (x, y) : acc
+        -- we alternate the start position every two lines
+        newX | even line = diameter
+             | otherwise = radius
+
+    goCol :: Int -&gt; Int -&gt; Int -&gt; [(Int, Int)] -&gt; [(Int, Int)]
+    goCol col x y !acc
+        | -- there is room to fit another musician on this column
+          y + nextMusician &lt; height = goCol col x (y + diameter) newAcc
+        | -- there is room to start another column
+          x + nextMusician &lt; width  = goCol (col + 1) (x + newOffset) newY newAcc
+        | -- this is the end
+          otherwise = newAcc
+      where
+        newAcc = (x, y) : acc
+        -- we alternate the start position every two columns
+        newY | even col = diameter
+             | otherwise = radius
+
+    -- best offset using int
+    newOffset = 19</code></pre></div>
+    <p class='mb-3'>
+      Even though there are some gaps, this implementation may produce better results. Here is how it looked:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-packed-placements.png' alt='icfpc2023-packed-placements' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      On some stages, the previous strategy was better, so we used this helper to pick the best one:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>maximumPlacements :: Problem -&gt; UV.Vector (Int, Int)
+maximumPlacements problem = UV.map toAbsPlacement best
+  where
+    best | UV.length packed &gt; UV.length grid = packed
+         | otherwise = grid
+    packed = allPackedPlacement dim
+    grid = allGridPlacement dim
+    dim = (problem.problemStageWidth, problem.problemStageHeight)
+
+    toAbsPlacement :: (Int, Int) -&gt; (Int, Int)
+    toAbsPlacement (x, y) = (sx + x, sy + y)
+      where
+        (sx, sy) = problem.problemStageBottomLeft</code></pre></div><h3 id='musician-volumes' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Musician volumes</h3>
+    <p class='mb-3'>
+      Halfway through the full division, the organizers released a third extension, and it turned out to be quite important. Musicians now had a volume attribute, and it affected the attendee happiness:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-score3.png' alt='icfpc2023-score3' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Using the same random strategy, we added volume permutations. After the solution reached a big score, we added command line arguments to control the amount of mutations used to improve the solutions. We alternated between placement and volume mutations using these commands:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>cabal run progcon -- solve --placement 0 --volume 1 $PB_NUM</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>cabal run progcon -- solve --placement 1 --volume 0 $PB_NUM</code>
+        </li>
+      
+    </ul>
+  <h3 id='driver-mode' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Driver mode</h3>
+    <p class='mb-3'>
+      Instead of trying to solve the problem one by one, I implemented a driver mode to run the code autonomously:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>mainDriver :: Int -&gt; IO ()
+mainDriver maxTime = do
+  let dryRun = False
+  putStrLn $ printf "Starting driver with max %d seconds"  maxTime
+
+  -- start from the smallest score
+  solutions &lt;- _sortProblemByScore
+
+  -- start from the oldest solution
+  -- solutions &lt;- _sortProblemByDate
+
+  now &lt;- getCurrentTime
+  let solutionsOrdered =
+        -- Focus on the first few problems
+        take 12 $
+        -- Start from the biggest/recent one
+        reverse solutions
+        -- Start from the smallest/oldest
+        -- solution
+
+  forM_ solutionsOrdered \(pid, time) -&gt; do
+    let
+      ageSec :: Integer
+      ageSec = truncate (nominalDiffTimeToSeconds $ diffUTCTime now time) `div` 60
+    solution &lt;- loadSolutionPath (solutionPath pid)
+    putStrLn $ printf "Trying to improve problem-%02s (%4s minutes old): %13s"
+      (show pid)
+      (show ageSec)
+      (showScore solution.score)
+    problem &lt;- loadProblem pid
+    start_time &lt;- getCurrentTime
+    unless dryRun do
+      improved &lt;- runRandGen $ mainImprove maxTime problem start_time start_time solution 0
+      when improved do
+        void $ forkIO $ submitOne pid
+
+-- | This function call 'tryImprove' repeatedly. It returns True on success.
+mainImprove :: Int -&gt; ProblemDescription -&gt; UTCTime -&gt; UTCTime -&gt; SolutionDescription -&gt; Int -&gt; RandGen Bool
+mainImprove maxTime problemDesc initial_time start_time solutionDesc idx = do
+  -- maybe get a new solution
+  mSolution &lt;- tryImprove problemDesc solutionDesc (toEnum (idx `mod` 3))
+
+  (newTime, newSolution) &lt;- case mSolution of
+    Nothing -&gt; pure (start_time, solutionDesc) -- no improvement
+    Just sd -&gt; liftIO do
+      saveSolutionPath sd (solutionPath problemDesc.name)
+      now &lt;- getCurrentTime
+      sayString $ printf "%s #%02s new highscore:%14s (+%10s)"
+          (formatLogTime now)
+          (show problemDesc.name)
+          (showScore solutionDesc.score)
+          (showScore $ sd.score - solutionDesc.score)
+      pure (now, sd)
+
+  -- check how long we ran sinch the last improvement
+  end_time &lt;- liftIO getCurrentTime
+  let elapsed = nominalDiffTimeToSeconds (diffUTCTime end_time start_time)
+      hasImproved = initial_time /= start_time -- start_time is increased by improvements
+  if elapsed &lt; fromIntegral maxTime
+    then mainImprove maxTime problemDesc initial_time newTime newSolution (idx + 1)
+    else pure hasImproved</code></pre></div>
+    <p class='mb-3'>
+      And here is the simpler <code class='py-0.5 px-0.5 bg-gray-100'>tryImprove</code> implementation:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Mutation = Placement | Volume | Both
+    deriving (Enum, Bounded, Show)
+
+-- | This function simply try to improve a given solution by applying a single mutation
+tryImprove :: ProblemDescription -&gt; SolutionDescription -&gt; Mutation -&gt; RandGen (Maybe SolutionDescription)
+tryImprove problemDesc sd mutation = do
+    newSolution &lt;- case mutation of
+        Placement -&gt; do
+            genPlacements &lt;- newPlacements
+            pure $ sd{genPlacements}
+        Volume -&gt; do
+            genVolumes &lt;- newVolumes
+            pure $ sd{genVolumes}
+        Both -&gt; do
+            genPlacements &lt;- newPlacements
+            genVolumes &lt;- newVolumes
+            pure $ sd{genPlacements, genVolumes}
+
+    score &lt;- scoreSolution problemDesc newSolution.genPlacements newSolution.genVolumes
+    pure $
+        if score &gt; sd.score
+            then Just (newSolution{score})
+            else Nothing
+  where
+    musicianCount = UV.length problemDesc.problem.problemMusicians
+    newPlacements = do
+        -- Copy the previous placements and do one swap
+        iov &lt;- MV.clone sd.genPlacements.iov
+        musician &lt;- getRandomR (0, musicianCount - 1)
+        swapPos &lt;- getRandomR (0, MV.length iov - 1)
+        MV.swap iov musician swapPos
+        pure $ GenPlacements iov
+    newVolumes = do
+        -- Copy the previous volumes and do one change
+        iov &lt;- MV.clone sd.genVolumes
+        musician &lt;- getRandomR (0, musicianCount - 1)
+        volume &lt;- getRandomR (0, 10)
+        -- TODO: to a relative increase of the current volume?
+        MV.write iov musician volume
+        pure iov</code></pre></div>
+    <p class='mb-3'>
+      To make the code runs in parallel, I used the <a href='https://hackage.haskell.org/package/scheduler' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>scheduler</a> library:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='diff language-diff'>  mainDriver :: Int -&gt; IO ()
+- mainDriver maxTime = do
++ mainDriver maxTime = withScheduler_ Par \scheduler -&gt; do
+    let dryRun = False
+
+-   forM_ solutions \(pid, time) -&gt; do
++   forM_ solutions \(pid, time) -&gt; scheduleWork_ scheduler do
+      let ageSec :: Integer</code></pre></div>
+    <p class='mb-3'>
+      … resulting in such load average:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='static/icfpc2023-cpu.png' alt='icfpc2023-cpu' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      We also updated the submit code to automatically git push the new solutions. That way we could let the code run in the background.
+    </p>
+  <h3 id='last-hours' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Last hours</h3>
+    <p class='mb-3'>
+      The driver was making steady progress and at some point we reached position 68 on the scoreboard but the other teams were also busy updating their solutions. Unfortunately, our solver was not improving the solutions fast enough and we started to fall off the scoreboard. Moreover, the organizers judiciously disabled the scoreboard in the last two hours. Our final position at that time was 91 with a total happiness score of 39.442 billions.
+    </p>
+  <h2 id='lessons-learned' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lessons learned</h2>
+    <p class='mb-3'>
+      I think the main issue was that we didn’t re-evaluate the initial strategy, and we didn’t leverage the gloss visualization to better understand how to solve the problems. We simply stuck with the initial implementation and worked around it. Looking at it with a fresh mind, I can see how inefficient that was. For example, instead of picking a new random volume at each iteration, we should have tried to increase or decrease the value, and kept what worked the best.
+    </p>
+  
+    <p class='mb-3'>
+      Moreover, before running the driver for the last run, I made a last minute change to better utilize the cores. Unfortunately, that small change made the new highscore to be discarded, resulting in many cpu cycles to be wasted.
+    </p>
+  
+    <p class='mb-3'>
+      If I had to do this again, here is what I would do:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Setup an infra: we could have used a VPN to share compute cores (though we only had two i5 laptops and one desktop ryzen), and to setup a database to keep track of the solutions.
+        </li>
+      
+        <li>
+          Invest in tooling: having a fast feedback loop and power-tools like the driver made a big difference.
+        </li>
+      
+        <li>
+          Make a bigger team: that way we could have assigned the problems and tried different strategies.
+        </li>
+      
+        <li>
+          Have fun: computers can be frustrating, but don’t let that drain your motivation. For example, I got weird bugs trying to display the solutions in real-time with gloss, and I lost of a bunch of time in vain trying to make that work. Jens also struggled with network errors from the API. Eventually we kept working on it and we achieved some success.
+        </li>
+      
+    </ul>
+  <h2 id='conclusion' class='inline-block mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      I like working under time pressure, because you have to be pragmatic, and I think Haskell was a great fit for the competition. We were able to easily discuss and change the source code thanks to the powerful type annotations.
+    </p>
+  
+    <p class='mb-3'>
+      Even though our results were not spectacular, I really enjoyed participating in the icfpc-2023. It was a lot of fun collaborating with Jens, and this weekend was quite memorable. Big thanks to my wife for understanding, to the organizers and all the participants for the great competition!
+    </p>
+  
+    <p class='mb-3'>
+      If you would like to join our team next time, please let me know :)
+    </p>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/icfpc2023.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.0.1.7'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
