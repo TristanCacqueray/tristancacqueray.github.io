@@ -1,3 +1,10 @@
+---
+slug: blog
+generate_feed: true
+feed_url: https://tristancacqueray.github.io
+feed_name: Tristan's Zettelkasten
+---
+
 # Blog
 
 My blog articles:
