@@ -47,7 +47,7 @@ window.MathJax = {
 <script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
 
   
-  <link href='tailwind.css?instanceId=0b1a26cb-11f5-4cec-9c86-fb1a7455328f' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=5b052703-ae69-45e3-8f7f-993de3eaaf1b' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -842,7 +842,10 @@ submit pid solution = do
     <p class='mb-3'>
       I introduced a couple of new data types:
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data ProblemDescription = ProblemDescription
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>newtype ProblemID = ProblemID Int
+    deriving newtype (Show, Eq, Ord, Enum, Num, ToJSON)
+
+data ProblemDescription = ProblemDescription
     { name :: ProblemID
     , problem :: Problem
     , -- a dense pillars representation using (x, y, radius)
