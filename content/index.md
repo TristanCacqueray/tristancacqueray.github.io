@@ -1,5 +1,7 @@
 ---
 title: Tristan de Cacqueray
+site:
+  url: https://tristancacqueray.github.io
 ---
 
 <img src="static/favicon.jpeg" class="float-left rounded-xl w-48 h-48 mr-2" />
