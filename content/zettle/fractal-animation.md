@@ -10,4 +10,4 @@ Programs that render and animate [[fractal]] object:
 - [pyrender](https://github.com/TristanCacqueray/pyrender) using pygame
 - [demo-code](https://github.com/TristanCacqueray/demo-code) using glumpy
 - [hygame](https://github.com/TristanCacqueray/hygame) using hylang
-- [hs-game](https://github.com/TristanCacqueray/hs-game) using functions
+- [[animation-fractal]] using haskell
