@@ -1,8 +1,8 @@
 ---
-slug: blog
-generate_feed: true
-feed_url: https://tristancacqueray.github.io
-feed_name: Tristan's Zettelkasten
+feed:
+  enable: true
+  title: Tristan's blog
+  siteUrl: https://tristancacqueray.github.io
 ---
 
 # Blog
