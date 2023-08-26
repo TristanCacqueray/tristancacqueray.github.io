@@ -87,7 +87,7 @@ A good example is the text editor app named [Noter][app-noter].
 This app leverages the whole application environment to implement an etherpad like text editor.
 
 
-## Haskell RunTime System
+## <a id="rts">Haskell RunTime System</a>
 
 In this section I explain the choice of using [Haskell][haskell].
 Beyond the language's common features, here are two reasons for using Haskell:
