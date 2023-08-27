@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Beautiful Haskell – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='Some days there are streams of negative posts about Haskell, with which I disagree. There are many reasons why I enjoy using Haskell, many of which I have already mentioned in previous posts. See for example the Haskell RunTime System or Why Haxl?. In this post, I present:' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='https://user-images.githubusercontent.com/154392/259258034-48874d11-673c-49b0-950c-7e16829aa0b9.jpg' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Beautiful Haskell' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  
+  <link href='tailwind.css?instanceId=5efc6baf-9aa4-4e57-84a0-7609046dbc71' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script id='emanote-stork' data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        indexIsStale: false,
+        toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
+          }
+        }
+
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Beautiful Haskell
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      Some days there are streams of negative posts about Haskell, with which I disagree. There are many reasons why I enjoy using Haskell, many of which I have already mentioned in previous posts. See for example the <a href='blog/introducing-butler#rts' class='text-blue-600 mavenLinkBold hover:underline'>Haskell RunTime System</a> or <a href='https://github.com/TristanCacqueray/Haxible#why-haxl' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Why Haxl?</a>. In this post, I present:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The Haskell 2021 Syntax.
+        </li>
+      
+        <li>
+          The Haskell Core language.
+        </li>
+      
+    </ul>
+  <h2 id='beautiful-functional-programming' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Beautiful Functional Programming</h2>
+    <p class='mb-3'>
+      In a discourse post by the same title, Simon Peyton Jones introduced the following <a href='https://discourse.haskell.org/t/beautiful-functional-programming/7411' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>challenge</a>:
+    </p>
+  <h3 id='the-nested-map-reduce-traversal-challenge' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>The nested-map-reduce-traversal challenge</h3>
+    <p class='mb-3'>
+      This challenge is about transforming a list of lessons nested inside a list of sections by adding their positions according to the following rules:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The lessons’ position increases globally,
+        </li>
+      
+        <li>
+          Until a section resets the counter (indicated by a True value below).
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      In other words, the goal is to transform such list:
+    </p>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-0.5 bg-gray-100'>[(False, ["a", "b"]), (False, ["c", "d"]), (True, ["e"])]</code>
+    </p>
+  
+    <p class='mb-3'>
+      into:
+    </p>
+  
+    <p class='mb-3'>
+      <code class='py-0.5 px-0.5 bg-gray-100'>[[(1, "a"), (2, "b")], [(3, "c"), (4, "d")], [(1, "e")]]</code>
+    <sup class='px-0.5'>
+      <a class='text-blue-600 hover:underline' href='blog/beautiful-haskell#fn1'>
+        1
+      </a>
+    </sup>
+  
+    </p>
+  
+    <p class='mb-3'>
+      Therefor, the challenge is to keep track of the nested counter while traversing the main list.
+    </p>
+  <h3 id='my-solution' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>My solution</h3>
+    <p class='mb-3'>
+      In this section I introduce the Haskell syntax I used in my solution to the challenge:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>module Solution where
+
+data Section = Section String Bool [String]
+
+data NumberedSection = NumberedSection Int String [(Int, String)]
+    deriving (Show, Eq)
+
+numberSection :: [Section] -&gt; [NumberedSection]
+numberSection = go (1, 1)
+  where
+    go _ [] = []
+    go (sectionPos, lessonPos) (Section title reset lessons : rest) =
+        numberedSection : go nextPos rest
+      where
+        numberedSection = NumberedSection sectionPos title numberedLessons
+        numberedLessons = zip [lessonStart..] lessons
+        lessonStart = if reset then 1 else lessonPos
+        nextPos = (sectionPos + 1, lessonStart + length numberedLessons)</code></pre></div>
+    <p class='mb-3'>
+      Here are the key concepts required to read this code:
+    </p>
+  
+    <p class='mb-3'>
+      The first line introduces a <code class='py-0.5 px-0.5 bg-gray-100'>module</code> which is composed of a list of declarations.
+    </p>
+  
+    <p class='mb-3'>
+      The first two declarations introduce new types through <code class='py-0.5 px-0.5 bg-gray-100'>data</code> declarations, with witch we can use the <code class='py-0.5 px-0.5 bg-gray-100'>deriving</code> syntax to generate implementations for formatting (<em>Show</em>) and comparing (<em>Eq</em>).
+    </p>
+  
+    <p class='mb-3'>
+      The last declaration is the function <em>numberSection</em> that implements the challenge’s solution. The Haskell syntax for declaring a function is: <code class='py-0.5 px-0.5 bg-gray-100'>name argument = value</code>. Declarations can have optional type annotations using the <code class='py-0.5 px-0.5 bg-gray-100'>name :: Type</code> syntax. Declarations can be nested using the <code class='py-0.5 px-0.5 bg-gray-100'>where</code> syntax. Duplicate declarations can be used to pattern match the arguments. In the above example, <em>go</em> is defined twice, once for the base case of an empty list, and once to unpack the first section.
+    </p>
+  
+    <p class='mb-3'>
+      The Haskell syntax for list can be confusing: they are created and matched using the <code class='py-0.5 px-0.5 bg-gray-100'>:</code> operator, or using the standard <code class='py-0.5 px-0.5 bg-gray-100'>[elems..]</code> syntax. Finally, the syntax to call a function is <code class='py-0.5 px-0.5 bg-gray-100'>f x y z</code> (instead of <code class='py-0.5 px-0.5 bg-gray-100'>f(x, y, z)</code>).
+    </p>
+  
+    <p class='mb-3'>
+      I find the Haskell Syntax really easy to read and write, and I think it is as simple as it can get. Of course, Haskell has a lot more to offer. In the next section I introduce the full syntax I typically use.
+    </p>
+  <h3 id='haskell-2021-syntax' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Haskell 2021 Syntax</h3>
+    <p class='mb-3'>
+      The Haskell 2021 Syntax is defined by the <a href='https://www.haskell.org/onlinereport/haskell2010/haskell.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>haskell 2010 report</a> along with a bunch of language extensions that are enabled by default through <a href='https://downloads.haskell.org/ghc/9.6.2/docs/users_guide/exts/control.html#extension-GHC2021' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>GHC2021</a>.
+    </p>
+  
+    <p class='mb-3'>
+      When writing Haskell programs, I typically use the following constructs:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>import</code> to load declarations from another module.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>\arg -&gt; value</code> to introduce anonymous function (e.g. lambda).
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>case</code> expressions to pattern match with <code class='py-0.5 px-0.5 bg-gray-100'>|</code> for pattern guards.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>let</code> bindings, which are similar to <code class='py-0.5 px-0.5 bg-gray-100'>where</code>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>do</code> notation to sequence multiple actions and <code class='py-0.5 px-0.5 bg-gray-100'>&lt;-</code> to bind values.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>data</code> records and enums.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>class</code> and <code class='py-0.5 px-0.5 bg-gray-100'>instance</code> for type classes, which are similar to Rust’s traits.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>=&gt;</code> fat arrow to add type constrains annotation.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>newtype</code> to wrap existing types.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>type</code> and <code class='py-0.5 px-0.5 bg-gray-100'>pattern</code> synonyms.
+        </li>
+      
+        <li>
+          operators like <code class='py-0.5 px-0.5 bg-gray-100'>&gt;&gt;=</code>, which are just functions used in infix notation.
+        </li>
+      
+        <li>
+          type application with <code class='py-0.5 px-0.5 bg-gray-100'>@</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      None of these constructs are particularly difficult to understand and they complement each other very well. It’s worth noting that Haskell features language extensions that provide alternative syntax. For example, I often use the following extensions to make my code looks a bit nicer: <code class='py-0.5 px-0.5 bg-gray-100'>{-# LANGUAGE OverloadedStrings, BlockArguments, LambdaCase, MultiWayIf, PartialTypeSignatures #-}</code>.
+    </p>
+  
+    <p class='mb-3'>
+      The syntax may appear complicated on the surface, but it is in fact built out very simple and practical concepts. That being said, Haskell also provides advanced features such as <code class='py-0.5 px-0.5 bg-gray-100'>TemplateHaskell</code>, <code class='py-0.5 px-0.5 bg-gray-100'>GATDs</code>, <code class='py-0.5 px-0.5 bg-gray-100'>TypeFamilies</code> or <code class='py-0.5 px-0.5 bg-gray-100'>LinearType</code>, however I have not had a chance to use them.
+    </p>
+  
+    <p class='mb-3'>
+      Overall, I think Haskell’s syntax can be explained in fewer words than most other languages’. In the next section I draw a comparison with Python.
+    </p>
+  <h3 id='comparison-with-python' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Comparison with Python</h3>
+    <p class='mb-3'>
+      Python’s built-in syntax contains many elements, for example it has:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          control flow: <code class='py-0.5 px-0.5 bg-gray-100'>while</code>, <code class='py-0.5 px-0.5 bg-gray-100'>for</code>, <code class='py-0.5 px-0.5 bg-gray-100'>continue</code>, <code class='py-0.5 px-0.5 bg-gray-100'>break</code>, <code class='py-0.5 px-0.5 bg-gray-100'>else</code>, <code class='py-0.5 px-0.5 bg-gray-100'>pass</code>, <code class='py-0.5 px-0.5 bg-gray-100'>yield</code>, <code class='py-0.5 px-0.5 bg-gray-100'>async</code>, <code class='py-0.5 px-0.5 bg-gray-100'>await</code>, <code class='py-0.5 px-0.5 bg-gray-100'>return</code>.
+        </li>
+      
+        <li>
+          exceptions: <code class='py-0.5 px-0.5 bg-gray-100'>try</code>, <code class='py-0.5 px-0.5 bg-gray-100'>except</code>, <code class='py-0.5 px-0.5 bg-gray-100'>raise</code>, <code class='py-0.5 px-0.5 bg-gray-100'>assert</code>.
+        </li>
+      
+        <li>
+          data structure: <code class='py-0.5 px-0.5 bg-gray-100'>None</code>, <code class='py-0.5 px-0.5 bg-gray-100'>dict</code>, <code class='py-0.5 px-0.5 bg-gray-100'>set</code> and their operators <code class='py-0.5 px-0.5 bg-gray-100'>and</code>, <code class='py-0.5 px-0.5 bg-gray-100'>or</code>, <code class='py-0.5 px-0.5 bg-gray-100'>in</code>, <code class='py-0.5 px-0.5 bg-gray-100'>is</code>, <code class='py-0.5 px-0.5 bg-gray-100'>del</code>, <code class='py-0.5 px-0.5 bg-gray-100'>getattr</code>, <code class='py-0.5 px-0.5 bg-gray-100'>setattr</code>.
+        </li>
+      
+        <li>
+          objects: <code class='py-0.5 px-0.5 bg-gray-100'>class</code> inheritance with custom attributes like <code class='py-0.5 px-0.5 bg-gray-100'>__new__</code>, <code class='py-0.5 px-0.5 bg-gray-100'>__init__</code>, <code class='py-0.5 px-0.5 bg-gray-100'>__slots__</code>, <code class='py-0.5 px-0.5 bg-gray-100'>__dict__</code>, <code class='py-0.5 px-0.5 bg-gray-100'>__eq__</code>, …
+        </li>
+      
+        <li>
+          function and object <code class='py-0.5 px-0.5 bg-gray-100'>@decorator</code>.
+        </li>
+      
+        <li>
+          scoping keywords with <code class='py-0.5 px-0.5 bg-gray-100'>global</code>, <code class='py-0.5 px-0.5 bg-gray-100'>nonlocal</code>, <code class='py-0.5 px-0.5 bg-gray-100'>with</code>, <code class='py-0.5 px-0.5 bg-gray-100'>as</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      These constructs can be quite subtle, for example, nonlocal is not global.
+    </p>
+  
+    <p class='mb-3'>
+      In total, Python has 35 keywords (see <a href='https://docs.python.org/3/reference/lexical_analysis.html#keywords' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Lexical analysis - Keywords</a>), while Haskell only has 23 (see <a href='https://www.haskell.org/onlinereport/haskell2010/haskellch2.html#x7-180002.4' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Lexical Structure - Identifiers and Operators</a>), including 5 keywords I have never used yet (default, foreign, infix, infixl, infixr). For a fair comparison, we should takes into account the <a href='https://hackage.haskell.org/package/ghc-9.6.1/docs/GHC-Builtin-PrimOps.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>GHC.Builtin.PrimOps</a> which are exposed with regular function from the <a href='https://hackage.haskell.org/package/base' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>base</a> library. These are necessary for concurrency and runtime exception handling. But strictly speaking about the syntax keywords, Haskell is simpler than Python.
+    </p>
+  
+    <p class='mb-3'>
+      In the next section, I present the Haskell Core Language, which I think is the key reason why the Haskell syntax is so simple.
+    </p>
+  <h2 id='haskell-core-language' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Haskell Core Language</h2>
+    <p class='mb-3'>
+      The Haskell Core Language is an intermediate representation that is used before machine code generation. Without further ado, here is the <a href='https://hackage.haskell.org/package/ghc-9.6.1/docs/GHC-Core.html#t:Expr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>GHC.Core.Expr</a> data type
+    <sup class='px-0.5'>
+      <a class='text-blue-600 hover:underline' href='blog/beautiful-haskell#fn2'>
+        2
+      </a>
+    </sup>
+  :
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Expr b
+  = Var   Id
+  | Lit   Literal
+  | App   (Expr b) (Arg b)
+  | Lam   b (Expr b)
+  | Let   (Bind b) (Expr b)
+  | Case  (Expr b) b Type [Alt b]
+  | Cast  (Expr b) CoercionR
+  | Tick  CoreTickish (Expr b)
+  | Type  Type
+  | Coercion Coercion
+  deriving Data</code></pre></div>
+    <p class='mb-3'>
+      It is possible to convert any Haskell expression into this core representation. For example, the go definition from above:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>go [] = []
+go (x:rest) = ...</code></pre></div>
+    <p class='mb-3'>
+      … can be rewritten as:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>go = \arg -&gt; case arg of
+  [] -&gt; []
+  (x:rest) -&gt; ...</code></pre></div>
+    <p class='mb-3'>
+      … which can be represented using the <code class='py-0.5 px-0.5 bg-gray-100'>Lam</code> and <code class='py-0.5 px-0.5 bg-gray-100'>Case</code> core constructors.
+    </p>
+  
+    <p class='mb-3'>
+      It’s truly incredible that every Haskell program fits into such a simple shape. As a matter of fact, I studied this representation as part of my work for the Haskell Security Response Team (HSRT) where I investigated how to search for vulnerable function calls. I implemented this simple <a href='https://github.com/TristanCacqueray/cabal-audit/blob/00915f087a5fdfe91a80ad81fa74c0c502498adc/cabal-audit-core/src/CabalAudit/Core.hs#L70-L108' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>getDependenciesFromCore</a> 40-line function to collect the dependencies between declarations.
+    </p>
+  
+    <p class='mb-3'>
+      Then I built a program named <a href='https://github.com/TristanCacqueray/cabal-audit#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>cabal-audit</a> to traverse the entire call graph of a given Haskell module to produce such visualizations:
+    </p>
+  
+    <p class='mb-3'>
+      <img src='https://user-images.githubusercontent.com/154392/259258034-48874d11-673c-49b0-950c-7e16829aa0b9.jpg' alt='cabal-audit-graph' />
+    </p>
+  
+    <p class='mb-3'>
+      The Haskell Core language is based on a fundamental concept known as Lambda Calculus, which is an universal model of computation that can be used to simulate any Turing machine. This model is so powerful that it has been added to most, if not, all programming languages, and by using Haskell, you get to use this power from the ground up.
+    </p>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      I am routing for a better language than Haskell. For example, I hope that Verse will deliver on its promise of a distributed transactional memory on top of an epic game engine, that sounds fantastic to me. But until then, Haskell remains my go-to language because it strikes a nice balance between usability, ranging from type level web DSL to hardware description language, and a magnificent syntax and core foundation.
+    </p>
+  
+    <p class='mb-3'>
+      Of course there are many reasons to avoid Haskell, to name a few:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The learning curve appears to be never ending,
+        </li>
+      
+        <li>
+          Runtime exceptions are difficult to debug,
+        </li>
+      
+        <li>
+          There are competing solutions for common problems without an established winner. For example, you can use <em>cabal</em> or <em>stack</em>, <em>tasty</em> or <em>hspec</em>, <em>quickcheck</em> or <em>hedgehog</em>, <em>streaming</em> or <em>conduit</em>, <em>attoparsec</em> or <em>megaparsec</em>, <em>beam</em> or <em>opaleye</em>, <em>aeson</em> or <em>hermes-json</em>, <em>fourmolu</em> or <em>ormolu</em>, <em>blaze</em> or <em>lucid</em>, <em>mtl</em> or <em>effectful</em>, <em>lens</em> or <em>optics</em>, <em>rio</em> or <em>relude</em>, … This can be paralyzing.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      There are also numerous rough edges and paper cuts you have to deal with when using Haskell, but I don’t think these nearly outweigh the pleasure of using the language.
+    </p>
+  
+    <div title='Footnotes' class='pt-2 mt-8 space-y-1 text-gray-500 transform scale-x-90 border-t-2'>
+      <header class='font-semibold'>Footnotes</header>
+      
+        <div id='fn1'>
+          <header class='italic'>
+            1.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            The lesson “e” is at position 1 because the parent section reset the counter.
+          </div>
+        </div>
+      
+        <div id='fn2'>
+          <header class='italic'>
+            2.
+          </header>
+          <div class='inline-block mb-2 ml-4'>
+            I believe only 7 of the GHC.Core.Expr constructors are really necessary, tick and coercions where only added later to improve the performance.
+          </div>
+        </div>
+      
+    </div>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/beautiful-haskell.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
