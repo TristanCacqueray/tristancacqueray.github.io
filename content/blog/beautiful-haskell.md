@@ -214,7 +214,7 @@ and by using Haskell, you get to use this power from the ground up.
 
 ## Conclusion
 
-I am routing for a better language than Haskell.
+I am rooting for a better language than Haskell.
 For example, I hope that Verse will deliver on its promise of
 a distributed transactional memory on top of an epic game engine, that sounds fantastic to me.
 But until then, Haskell remains my go-to language because it strikes a nice balance between usability, ranging from type level web DSL to hardware description language,
