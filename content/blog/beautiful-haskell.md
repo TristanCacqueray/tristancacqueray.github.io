@@ -158,7 +158,7 @@ The Haskell Core Language is an intermediate representation that is used before 
 Without further ado, here is the [GHC.Core.Expr][core-src] data type[^3]:
 
 [core-src]: https://hackage.haskell.org/package/ghc-9.6.1/docs/GHC-Core.html#t:Expr
-[^3]: I believe only 7 of the GHC.Core.Expr constructors are really necessary, tick and coercions where only added later to improve the performance.
+[^3]: I believe only 7 of the GHC.Core.Expr constructors are really necessary, tick and coercions were only added later to improve the performance.
 
 ```haskell
 data Expr b
