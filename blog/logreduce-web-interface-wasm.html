@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    easy-retroclash-nix – Tristan's Zettelkasten
+    Logreduce WASM based web interface – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='Derivations for the retroclash toolchain.' />
+      <meta property='og:description' content='This post was initially published on the Software Factory blog: https://www.softwarefactory-project.io/logreduce-wasm-based-web-interface.html' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='../static/logreduce-wasm-size.png' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='easy-retroclash-nix' />
+      <meta property='og:title' content='Logreduce WASM based web interface' />
     
     
       <base href='/' />
@@ -272,8 +272,8 @@ window.MathJax = {
             <li>
 
   <div class='text-gray-900 forest-link'>
-    <a href='project'>
-      Projects
+    <a href='blog'>
+      Blog
     </a>
   </div>
 
@@ -315,18 +315,181 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    easy-retroclash-nix
+    Logreduce WASM based web interface
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
     <p class='mb-3'>
-      Derivations for the <a href='https://unsafePerform.IO/retroclash/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>retroclash</a> toolchain.
+      This post was initially published on the Software Factory blog: <a href='https://www.softwarefactory-project.io/logreduce-wasm-based-web-interface.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.softwarefactory-project.io/logreduce-wasm-based-web-interface.html</a>
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      This post introduces a new Web Assembly (WASM) based web interface to visualize <a href='https://github.com/logreduce/logreduce#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>logreduce</a>’s reports.
     </p>
   
     <p class='mb-3'>
-      Source: <a href='https://github.com/TristanCacqueray/easy-retroclash-nix' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/easy-retroclash-nix</a>
+      In three parts, I present:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The logreduce report format.
+        </li>
+      
+        <li>
+          WASM and Web APIs.
+        </li>
+      
+        <li>
+          HTML macro examples.
+        </li>
+      
+    </ul>
+  <h2 id='context-and-problem-statement' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context and problem statement</h2>
+    <p class='mb-3'>
+      Logreduce produces a <a href='https://github.com/logreduce/logreduce/blob/main/crates/report/src/report.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>report</a> containing the anomalies context along with metadata such as read errors and unknown files. By default the report is printed to the standard output, but it can also be saved as an HTML file.
+    </p>
+  
+    <p class='mb-3'>
+      The HTML export is significantly larger than the report itself. Indeed, each log line needs to be wrapped inside an HTML element, while the report can be tightly packed using the <a href='https://github.com/bincode-org/bincode#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>bincode</a> serialization format. Moreover the HTML export is static and it can’t be re-imported, for example to search for known anomalies.
+    </p>
+  
+    <p class='mb-3'>
+      In the next sections, I present a more efficient implementation using WASM.
+    </p>
+  <h2 id='web-assembly-wasm' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Web Assembly (WASM)</h2>
+    <p class='mb-3'>
+      WASM is a portable binary instruction format that can be executed by web clients like javascript. Since Rust has extensive support for this compilation target, I decided to implement the logreduce report interface with WASM. The main benefits are:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Leverage Rust type system.
+        </li>
+      
+        <li>
+          Re-use the existing logreduce’s source code.
+        </li>
+      
+    </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Checkout the <a href='https://rustwasm.github.io/docs/book/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>rustwasm book</a> to learn more.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      In the next sections I present how to create a web application.
+    </p>
+  <h2 id='web-apis' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Web APIs</h2>
+    <p class='mb-3'>
+      WASM programs don’t have direct access to the Web APIs. For Rust, the <a href='https://docs.rs/web-sys' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>web-sys</a> library provides the necessary bindings to manipulate the DOM. Here is how the hello world demo looks like:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>#[wasm_bindgen(start)]
+pub fn run() -&gt; Result&lt;(), JsValue&gt; {
+    let window = web_sys::window().expect("no global `window` exists");
+    let document = window.document().expect("should have a document on window");
+    let body = document.body().expect("document should have a body");
+
+    let val = document.create_element("p")?;
+    val.set_text_content(Some("Hello from Rust!"));
+
+    body.append_child(&amp;val)?;
+
+    Ok(())
+}</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Checkout the <a href='https://rustwasm.github.io/wasm-bindgen/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>wasm-bindgen documentation</a> to learn more.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      Similar to React and Angular, there are libraries built on top of web-sys to implement higher level APIs.
+    </p>
+  
+    <p class='mb-3'>
+      In the next section I present the libraries I used.
+    </p>
+  <h2 id='functional-reactive-programming-frp' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Functional Reactive Programming (FRP)</h2>
+    <p class='mb-3'>
+      In an earlier implementation, I used <a href='https://yew.rs/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>yew</a> which provides a React style API. Here is how the report was being fetched:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>#[function_component(App)]
+fn app() -&gt; Html {
+    let report: UseStateHandle&lt;Option&lt;Result&lt;Report, String&gt;&gt;&gt; = use_state(|| None);
+    {
+        let report = report.clone();
+        use_effect_with_deps(
+            move |_| {
+                let report = report.clone();
+                wasm_bindgen_futures::spawn_local(async move {
+                    let result = get_report("report.bin").await;
+                    report.set(Some(result));
+                });
+                || ()
+            },
+            (),
+        );
+    }
+
+    match report.deref() {
+        Some(Ok(report)) =&gt; render_report(report),
+        Some(Err(err)) =&gt; html!(&lt;div&gt;{err}&lt;/div&gt;),
+        None =&gt; html!(&lt;div&gt;{"loading..."}&lt;/div&gt;),
+    };
+}</code></pre></div>
+    <p class='mb-3'>
+      Unfortunately such <code class='py-0.5 px-0.5 bg-gray-100'>use</code> hooks only work inside components and they require a bit of boilerplate to pass properties. Instead I switched to a lower level library named <a href='https://github.com/Pauan/rust-dominator#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dominator</a> which provides FRP APIs I find easier to work with.
+    </p>
+  
+    <p class='mb-3'>
+      Here is the equivalent code where the hooks are replaced with a signal:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='rust language-rust'>struct App {
+    report: Mutable&lt;Option&lt;Result&lt;Report, String&gt;&gt;&gt;,
+}
+
+pub fn main() {
+    console_error_panic_hook::set_once();
+    let app = Arc::new(App {report: Mutable::new(None)});
+    spawn_local(clone!(app =&gt; async move {
+        let result = get_report("report.bin").await;
+        app.report.replace(Some(result));
+    }));
+    dominator::append_dom(&amp;dominator::body(), render_app(&amp;app));
+}
+
+fn render_app(state: &amp;Arc&lt;App&gt;) -&gt; Dom {
+    html!("div", {.child_signal(state.report.signal_ref(|data| Some(match data {
+        Some(Ok(report)) =&gt; render_report(report),
+        Some(Err(err)) =&gt; html!("div", {.children(&amp;mut [text("Error: "), text(err)])}),
+        None =&gt; html!("div", {.text("loading...")}),
+    })))})
+}</code></pre></div>
+    <p class='mb-3'>
+      Even though the <em>html!</em> macro is less pretty, it is much more flexible as it lets you build reactive elements without relying on a virtual DOM and clunky properties.
+    </p>
+  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      Thanks to the Rust WASM target, logreduce can now produce efficient reports with this <a href='https://github.com/logreduce/logreduce/pull/25' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PR<span class='font-bold bg-gray-100 py-0.5 px-2 rounded-lg emanote:inline-tag:25' title='Tag' data-tag='25'><a href='-/tags/25' title='Tag' class='text-blue-600 mavenLinkBold hover:underline'>#25</a></span></a>. For a typical CI build, the report size is reduced from a 881 KiB report.html, down to a 148 KiB report.bin. The WASM program that decodes the binary report is 525 KiB, which combined with the binary report, is still smaller than the static HTML. Moverover the payload can be hosted on a content delivery network so that it is re-used with every report.
+    </p>
+  <img class='inline mb-3' src='static/logreduce-wasm-size.png' alt='wasm-size' style='width: inherit;' />
+    <p class='mb-3'>
+      WASM is a fascinating system, and I am looking forward making more use of it. In particular, it would be interesting to compile the whole logreduce process to produce the report directly on the client side.
     </p>
   
 
@@ -342,24 +505,42 @@ window.MathJax = {
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
         Perhaps Emanote should inject tagMetas with urls.
       -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
         <!-- DoNotFormat -->
-        #haskell
+        #blog
         <!-- DoNotFormat -->
       </a>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
         Perhaps Emanote should inject tagMetas with urls.
       -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/nix'>
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/rust'>
         <!-- DoNotFormat -->
-        #nix
+        #rust
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/logreduce'>
+        <!-- DoNotFormat -->
+        #logreduce
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/25'>
+        <!-- DoNotFormat -->
+        #25
         <!-- DoNotFormat -->
       </a>
     
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/project/easy-retroclash-nix.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/logreduce-web-interface-wasm.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
