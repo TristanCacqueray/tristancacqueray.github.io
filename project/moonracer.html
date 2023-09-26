@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Continuous Integration – Tristan's Zettelkasten
+    moonracer – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='In software engineering, continuous integration (CI) is the practice of merging all developers’ working copies to a shared mainline several times a day: wikipedia article.' />
+      <meta property='og:description' content='A tiny game.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Continuous Integration' />
+      <meta property='og:title' content='moonracer' />
     
     
       <base href='/' />
@@ -272,19 +272,8 @@ window.MathJax = {
             <li>
 
   <div class='text-gray-900 forest-link'>
-    <a href='zettle/softwares'>
-      Softwares
-    </a>
-  </div>
-
-  
-    <ul>
-      
-        <li>
-
-  <div class='text-gray-900 forest-link'>
-    <a href='zettle'>
-      Zettelkasten
+    <a href='project'>
+      Projects
     </a>
   </div>
 
@@ -299,10 +288,6 @@ window.MathJax = {
     </a>
   </div>
 
-  
-</li>
-      
-    </ul>
   
 </li>
       
@@ -330,104 +315,61 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Continuous Integration
+    moonracer
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
     <p class='mb-3'>
-      In software engineering, continuous integration (CI) is the practice of merging all developers’ working copies to a shared mainline several times a day: <a href='https://en.wikipedia.org/wiki/Continuous_integration' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>wikipedia article</a>.
+      A tiny game.
     </p>
-  <h2 id='implementations' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Implementations</h2>
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <a href='zettle/softwares/zuul' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkBranch'>Zuul</a>
-        </li>
-      
-    </ul>
   
+    <p class='mb-3'>
+      Source: <a href='https://github.com/TristanCacqueray/moonracer' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/moonracer</a>
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>#!/usr/bin/env -S stack script --compile --resolver lts-20.13 --package gloss
+import Imports;a=(b,b,b,[(m(p`mod`70-35),m(5+p`mod`50))|p&lt;-[0,88..]]);b=(0,0)
+main=play(InWindow"MoonRacer"(800,600)(5,5))white 30("",b,a)g i l;d p=scale p p
+c(p,q)=translate(p*10)(q*10);e p=c p(Circle 3);f p q=c p(d 10$line[b,q])
+h(EventKey(SpecialKey p)q _ _)=(p,bool 1 0$q==Up);h _=(KeyF1,0);j=(*)0.8;o=True
+g(p,_,(_,q,_,r:_))=c(0,-29.7)(d 0.1(Text p)&lt;&gt;e q&lt;&gt;e r);i p(q,(r,s),t)=let
+ (u,v)=h p;w|u==KeyRight=v|u==KeyLeft=n v|o=r;x|u==KeyUp=v|o=s in (q,(w,x),t)
+k=0.3;n=negate;m=fromIntegral;l p(q,r@(s,t),((u,v),(w,x),(y,z),α@((β,γ):δ)))=let
+ ε μ ν=abs(μ-ν)&lt;1;(ζ,η)|ε w β&&amp;ε x γ=(u+1,δ)|o=(u,α);θ=(w+(y+s)*k,x+(z+t)*k)
+ ι=(j(s+y),j(t+z-k));κ=((ζ,v+p),θ,ι,η);λ|u&gt;9=(show v,b,a)|o=(q,r,κ)in λ
+-- ^10 ------------------------------------------------------------------ 80&gt; --</code></pre></div>
 
   <!-- What goes in this file will appear below the note body-->
 </article>
               <div class='flex flex-col lg:flex-row lg:space-x-2'>
                 
                 
-  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
-    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
-    <ul class='space-y-1'>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='zettle/softwares/zuul'>
-            Zuul
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p><a href='https://zuul-ci.org' class='text-gray-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Zuul</a> is a <a href='zettle/continuous-integration' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Continuous Integration</a> system that features cross-project <a href='https://zuul-ci.org/docs/zuul/discussion/gating.html' class='text-gray-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>gating</a>. This is a process that prevents invalid changes from being merged. This keeps the mainline of development open and working for all developers, and only when a change is confirmed to work without disruption it is merged.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href=''>
-            Tristan de Cacqueray
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>Welcome to my homepage. I am a software engineer working for Red Hat on OpenStack cloud <a href='zettle/continuous-integration' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Continuous Integration</a> and the <a href='zettle/software-factory' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Software Factory Project</a>.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='zettle/softwares'>
-            Softwares
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><a href='zettle/continuous-integration' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkBranch'>Continuous Integration</a></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='zettle/software-factory'>
-            Software Factory Project
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p><a href='https://www.softwarefactory-project.io/' class='text-gray-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Software Factory</a> is a software development forge. The project integrates a <a href='zettle/code-review' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Code Review</a>, <a href='zettle/continuous-integration' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Continuous Integration</a> and collaborative system. It features an easy-to-use configuration system to setup all the services.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-    </ul>
-  </div>
-
               </div>
               
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/game'>
+        <!-- DoNotFormat -->
+        #game
+        <!-- DoNotFormat -->
+      </a>
+    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/zettle/continuous-integration.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/project/moonracer.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
