@@ -8,15 +8,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Nix – Tristan's Zettelkasten
+    Switching To An Ergonomic Keyboard – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='nix is a [[purely-functional]] expression language.' />
+      <meta property='og:description' content='This post is a live journal to document my switch to using an ergonomic keyboard. I am writing it as suggested by a colleague, and I hope that you’ll find this entertaining and useful.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='media/ergo-init-layer-base.png' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Nix' />
+      <meta property='og:title' content='Switching To An Ergonomic Keyboard' />
     
     
       <base href='/' />
@@ -272,19 +272,8 @@ window.MathJax = {
             <li>
 
   <div class='text-gray-900 forest-link'>
-    <a href='zettle/programing-languages'>
-      Programing Languages
-    </a>
-  </div>
-
-  
-    <ul>
-      
-        <li>
-
-  <div class='text-gray-900 forest-link'>
-    <a href='zettle'>
-      Zettelkasten
+    <a href='blog'>
+      Blog
     </a>
   </div>
 
@@ -299,10 +288,6 @@ window.MathJax = {
     </a>
   </div>
 
-  
-</li>
-      
-    </ul>
   
 </li>
       
@@ -330,18 +315,142 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Nix
+    Switching To An Ergonomic Keyboard
   </a>
 </h1>
               <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
     <p class='mb-3'>
-      <a href='https://nixos.org/manual/nix/stable/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>nix</a> is a <a href='zettle/programing-languages/purely-functional' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Purely Functional</a> expression language.
+      This post is a live journal to document my switch to using an ergonomic keyboard. I am writing it as suggested by a colleague, and I hope that you’ll find this entertaining and useful.
+    </p>
+  <h2 id='making-a-decision' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Making a decision</h2>
+    <p class='mb-3'>
+      To put this into context: I have been using various keyboards to write copious amounts of code for almost 30 years now. I used Emacs, then Vim, and now mostly vanilla Emacs with the default bindings. My favorite keyboard layout is the 75%, but after relocating back from South Korea, the keyboards I bought all broke right after the warranty was over. That was really frustrating because I was not able to fix them and I don’t want to produce waste.
     </p>
   
     <p class='mb-3'>
-      I implemented <a href='project/devenv' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>devenv</a> with nix.
+      Thus, last year I switched back to using my laptop keyboard and I developed a bad habit of reaching the arrow keys using my pinky. It’s worth noting that I don’t use fancy navigation or browser plugins and that I rely on the arrows key for reading. After a while, my right hand became painful and I worried that I could get a serious injury if I kept going like that.
+    </p>
+  
+    <p class='mb-3'>
+      A couple of weeks ago, a friend told me about his switch to a split keyboard and that sparked my curiosity. After spending half a day checking what I could get, I settled on the Moonlander. There are lots of option, and it’s difficult to make a choice, and since I am not familiar with these systems, the Moonlander looked like the easiest option since it comes pre-built. I just wished they had a version without any LEDs.
+    </p>
+  <h2 id='waiting' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Waiting</h2>
+    <p class='mb-3'>
+      After making the purchase, my curiosity grew over the days, and I was wondering if I made the right decision. Thankfully, ZSA, the producer of the Moonlander, has really good support and they provide great resources to get started.
+    </p>
+  
+    <p class='mb-3'>
+      Then I read the following resources:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://peterxjang.com/blog/designing-a-36-key-custom-keyboard-layout.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Designing a 36-key custom keyboard layout</a>
+        </li>
+      
+        <li>
+          <a href='https://lobste.rs/s/2ps6iq/how_do_you_use_layers_on_your_keyboard' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>How do you use layers on your keyboard?</a>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      … and these made me wonder if I shouldn’t have picked the <a href='https://shop.keyboard.io/products/keyboardio-atreus' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>atreus</a>.
+    </p>
+  
+    <p class='mb-3'>
+      Anyways, yesterday, on a Friday morning I got the “out for delivery” notification which prompt me to prepare the layout. I didn’t want to waste time tinkering my own system, and I simply replicated the layout technomancy generously shared <a href='https://atreus.technomancy.us/cheat.pdf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>here</a>. Using the online configurator, I made this config: <a href='https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0</a>
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          
+    <p class='mb-3'>
+      The base layer: <span title='Link is broken'><s>![ergo-init-layer-base](media/ergo-init-layer-base.png)</s>❌</span>
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      The fun layer: <span title='Link is broken'><s>![ergo-init-layer-fun](media/ergo-init-layer-fun.png)</s>❌</span>
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      The upper layer: <span title='Link is broken'><s>![ergo-init-layer-upper](media/ergo-init-layer-upper.png)</s>❌</span>
+    </p>
+  
+        </li>
+      
+    </ul>
+  <h2 id='unboxing' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Unboxing</h2>
+    <p class='mb-3'>
+      On Friday evening, eight days after making the order, I got the keyboard. I flashed the initial layout I prepared and quickly realized that the learning curves was going to be too steep. This was just too much of a change and I couldn’t see how I would be able to get used to such a different setup. Thus, I made the following adjustments to get something usable more quickly:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          add back the numbers row.
+        </li>
+      
+        <li>
+          assign the tab key where it used to be.
+        </li>
+      
+        <li>
+          assign a key to turn off the leds.
+        </li>
+      
+        <li>
+          remove the unassigned key-cap to help me place my fingers correctly.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      After re-flashing the firmware, I got something a bit more usable, but it still felt like using an alien device or an advanced technology:
+    </p>
+  <img class='inline mb-3' src='static/ergo-unbox.jpg' alt='ergo-unbox' style='width: inherit;' />
+    <p class='mb-3'>
+      My first task was to start Emacs, by typing alt-f2 and “emacs”. That was quite a challenge since the function keys are in the upper layer. This was a big relief because it felt like something I can get used to. After this first success, it was already getting late and I call it a day.
+    </p>
+  <h2 id='first-contact' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>First contact</h2>
+    <p class='mb-3'>
+      On Saturday, I got some practice by writing this post, my goal was to get used to:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          the ortho layout, in particular the <code class='py-0.5 px-0.5 bg-gray-100'>c</code> key location.
+        </li>
+      
+        <li>
+          the <code class='py-0.5 px-0.5 bg-gray-100'>enter</code>, <code class='py-0.5 px-0.5 bg-gray-100'>space</code>, <code class='py-0.5 px-0.5 bg-gray-100'>ctrl</code> and <code class='py-0.5 px-0.5 bg-gray-100'>alt</code> location.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Writing prose was surprisingly easy to get used to, however, editing is a very different beast. I realized that I don’t even know what are the keys to make basic operations such as selecting, copy/pasting or undoing. These are so fundamental that I am relying on muscle memory to hit the right keys. So I had to manually perform these actions on my previous keyboard to take note of the keys I was hitting.
+    </p>
+  
+    <p class='mb-3'>
+      On one hand it is irritating having to slow down to recall new hand motions, but on the other hand, it is satisfying to see this process getting continuously faster as I am using the keyboard more and more. I might never reach the proficiency I had before, but it feels like I should achieve a satisfying speed in a couple of weeks.
+    </p>
+  
+    <p class='mb-3'>
+      Anyway, I am not doing this switch to become faster anyway, it’s an investment for my well-being, and I can already feels that it is paying off. My wrists and fingers barely moved as I am writing this post.
     </p>
   
 
@@ -350,58 +459,6 @@ window.MathJax = {
               <div class='flex flex-col lg:flex-row lg:space-x-2'>
                 
                 
-  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
-    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
-    <ul class='space-y-1'>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='project/modularix'>
-            modularix
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p><a href='zettle/music/daw' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkBranch'>Digital Audio Workstation</a> powered by <a href='zettle/programing-languages/nix' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Nix</a> flakes.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='project/hspkgs'>
-            hspkgs
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>A bleeding edge <a href='zettle/programing-languages/nix' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Nix</a> package set for haskell.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='project/10-years-of-zuul'>
-            10 Years of Zuul
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>I composed and produced the music, and made a <a href='zettle/programing-languages/nix' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Nix</a> expression to render the video:</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-    </ul>
-  </div>
-
               </div>
               
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
@@ -409,24 +466,15 @@ window.MathJax = {
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
         Perhaps Emanote should inject tagMetas with urls.
       -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/pl'>
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
         <!-- DoNotFormat -->
-        #pl
-        <!-- DoNotFormat -->
-      </a>
-    
-      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
-        Perhaps Emanote should inject tagMetas with urls.
-      -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/functional/pure'>
-        <!-- DoNotFormat -->
-        #functional/pure
+        #blog
         <!-- DoNotFormat -->
       </a>
     
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/zettle/programing-languages/nix.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/docs/blog/switching-to-ergo-keyboard.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
