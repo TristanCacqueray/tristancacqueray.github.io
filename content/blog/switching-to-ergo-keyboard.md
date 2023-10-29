@@ -89,3 +89,33 @@ I might never reach the proficiency I had before, but it feels like I should ach
 
 I am not doing this switch to become faster anyway, it's an investment for my well-being, and I can already feels that it is paying off:
 my wrists and fingers barely moved as I am writing this post.
+
+
+## Let the fun begin
+
+On Sunday, I focused my practice on using the fun layer.
+This layer systems is a neat feature that lets you remap keys, similarly to what the shift key does.
+This is what really lets you reduce hand motions.
+
+There are 4 options to switch layers, and for now I'm using the `TT` mode, which stands for *tap* *toggle*.
+I can access the fun layer by holding the key down, or I can toggle the layer by tapping the key.
+Similar to the caps lock, the keyboard has LEDs to indicate which layer is currently activated.
+I think it would be easier without the toggle, but since the navigation is on the fun layer, it can be useful to keep it active by tapping the key.
+
+It quickly became natural to hold the fun key to access arrows keys and symbols such as `#` or `*`.
+My goal is to eventually get rid of the numbers row, and using a different modifiers for such symbols is not as difficult as I thought it would be.
+On the contrary, it is actually easier because using symbols now requires less motion.
+
+I have also realized that the layout I was using didn't have the `%` key.
+Perhaps there is a combo to send this symbol, but since I'm aiming for a 44keys layout, and the one I copied was a 42keys layout, I had a spare key to use for `%`.
+I am not sure it's a good idea to do such change as I believe the default layout is well thought out.
+But I guess it's fine to try changing one key at a time and see if it works better.
+
+I forgot to mention yesterday that while ergonomics was the primary reason for using such a keyboard,
+I also enjoy the fact that this keyboard is designed for long term usage with a durable design.
+It looks like this one will not end up in the trash and I will be able to repair failures that will happen in the future.
+
+
+## Getting to work
+
+To be continued...
