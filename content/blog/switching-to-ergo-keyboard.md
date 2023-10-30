@@ -7,7 +7,7 @@ tags: [blog]
 This post is a live journal to document my switch to using an ergonomic keyboard.
 I am writing it as suggested by a colleague, and I hope that you'll find this entertaining and useful.
 
-## Making a decision
+## Thu, Oct 19: Making a decision
 
 To put this into context: I have been using various keyboards to write copious amounts of code for almost 30 years now.
 I used Emacs, then Vim, and now mostly vanilla Emacs with the default key bindings.
@@ -24,7 +24,7 @@ There are lots of option, and it's difficult to make a choice, and since I am no
 I just wished they had a version without any LEDs.
 
 
-## Waiting
+## Thu, Oct 26: Waiting
 
 After making the purchase, my curiosity grew over the days, and I was wondering if I made the right decision.
 Thankfully, ZSA, the producer of the Moonlander, has really good support and they provide great resources to get started.
@@ -51,7 +51,7 @@ Using the online configurator, I made this config: https://configure.zsa.io/moon
 
 
 
-## Unboxing
+## Fri, Oct 27: Unboxing
 
 On Friday evening, eight days after making the order, I got the keyboard.
 I flashed the initial layout I prepared and quickly realized that the learning curves was going to be too steep.
@@ -72,7 +72,7 @@ This was a big relief because it felt like something I can get used to.
 After this first success, it was already getting late and I call it a day.
 
 
-## First contact
+## Sat, Oct 28: First contact
 
 On Saturday, I got some practice by writing this post, my goal was to get used to:
 
@@ -91,7 +91,7 @@ I am not doing this switch to become faster anyway, it's an investment for my we
 my wrists and fingers barely moved as I am writing this post.
 
 
-## Let the fun begin
+## Sun, Oct 29: Let the fun begin
 
 On Sunday, I focused my practice on using the fun layer.
 This layer systems is a neat feature that lets you remap keys, similarly to what the shift key does.
@@ -116,6 +116,30 @@ I also enjoy the fact that this keyboard is designed for long term usage with a 
 It looks like this one will not end up in the trash and I will be able to repair failures that will happen in the future.
 
 
-## Getting to work
+## Mon, Oct 30: Getting to work
 
-To be continued...
+I am not going to lie, today was rough. My colleagues were supportive and patient with me, but using such a new device took a mental toll on me.
+The day started with an innocuous tmux session to fix a service that was not starting, and I stuttered to perform most actions.
+This slowdown is annoying because by the time I typed something, I almost forgot the context of what I was doing.
+
+Perhaps I shouldn't be using the new keyboard full time and I should be taking breaks using my old one.
+But I also enjoy the new physical experience where my fingers barely move anymore.
+As long as nothing really urgent happens, I'll probably just push trough the learning curve.
+
+Here are the list of changes I made to my layout:
+
+* Similar to the change I made for the `tab` key, I moved the `'` key next to the `p` key. I am using my palms to hit the outer keys (`esc` on the left and `enter` on the right) and the adjacent keys are hard to reach for me.
+  I think this is happening because I retro fitted a straight 5x4 layout by offsetting the lower row.
+  Anyway, changing a single key is easy to get used to.
+* I also changed my push-to-talk combo for mumble [from `<Super>F2` to `<Shift>Escape`](https://github.com/TristanCacqueray/gnome-mumble-push-to-talk/commit/60ff973b15028d1f16bb14c644992567cbcb59c8).
+  I am not sure how to access the upper layer quickly enough.
+  I can hit `fn`-`L2`-`F1` to start a eshell fine, but that's not practical for mumble or running gnome command.
+
+I am also having troubles with windows management: I am using the default awesomewm keys to send a window to a different workspace with `super`-`shift`-`NUM`.
+This no longer works well because `super` and `shift` are next to each others.
+Well that will be a story for another day.
+
+By the end of the day, I still managed to push a bunch of commits, and I am getting a bit more comfortable within emacs.
+
+
+## Tue, Oct 31: to be continued...
