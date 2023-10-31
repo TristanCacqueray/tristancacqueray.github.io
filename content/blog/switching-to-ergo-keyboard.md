@@ -142,4 +142,23 @@ Well that will be a story for another day.
 By the end of the day, I still managed to push a bunch of commits, and I am getting a bit more comfortable within emacs.
 
 
-## Tue, Oct 31: to be continued...
+## Tue, Oct 31: Typing
+
+After two full days using the keyboard, I have to say that I'm getting used to the new motions, and I can feel that with a bit more practice I'll be done with the initial learning curve.
+I was a skeptical at first, but I'm glad that such a change is doable.
+I did a bit of monkeytype.com and I am presently at 60 WPM for English, and about 25 WPM for Rust.
+
+I have also read these reviews which match my impressions:
+
+* https://no-kill-switch.ghost.io/keyboardio-atreus-yeah-or-meh-review/
+* https://arslan.io/2021/05/19/a-review-of-my-first-split-keyboard-moonlander-mk1/
+
+Here are the list of changes I made to my layout:
+
+* I was missing the `^` key. Of course I could reach it with `Shift`-`6`, but as I said, I'd like to get rid of the numbers row eventually so I needed a replacement.
+* I was often toggling the fun layer by mistake, so I switched from tap/toggle to hold. I guess that's why the arrow keys are also on the upper layer, which I assume is the one that needs to be toggled.
+
+I don't expect more changes, I just wished there was a better location for the enter key. Here is the link if you want to check out what I am using: https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0
+
+
+## Wed, Nov 1: To be continued…
