@@ -161,4 +161,18 @@ Here are the list of changes I made to my layout:
 I don't expect more changes, I just wished there was a better location for the enter key. Here is the link if you want to check out what I am using: https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0
 
 
-## Wed, Nov 1: To be continued…
+## Wed, Nov 1: Holding keys
+
+As I was practicing I realized that the space key's location was not ideal. And to reach the `-` key I had to move my thumb all the way under my hand.
+I was also reluctant to use the thumb cluster as it was hard to reach when the keyboard is tented.
+But after putting the keyboard flat, as suggested in the getting started guide, I found it was quite a natural place to rest my thumbs. So I moved the `backspace` and `space` keys there.
+
+And since now is a good time to do such adjustments, I am also experimenting with a multi function key to make the `Alt` key send `Enter` on tap.
+Here is my new layout:
+
+![ergo-held-map](media/ergo-held-map.png)
+
+It wasn't fun getting used to the new positions, and doing such tweaks was exactly what I wanted to avoid.
+Hopefully, it didn't took too long to get up to speed, and after a couple of hours of training I reached about 30 WPM for Rust code.
+
+## To be continued
