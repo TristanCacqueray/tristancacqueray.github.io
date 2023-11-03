@@ -175,4 +175,37 @@ Here is my new layout:
 It wasn't fun getting used to the new positions, and doing such tweaks was exactly what I wanted to avoid.
 Hopefully, it didn't took too long to get up to speed, and after a couple of hours of training I reached about 30 WPM for Rust code.
 
+
+## Thu, Nov 2: Getting rid of the nums row
+
+I realized that reaching for the numbers on the top row offsets my hands in such a way that I can no longer reach the thumb clusters easily.
+Perhaps if the cluster was higher up that wouldn't be such an issue, but I think the ultimate solution is to get rid of that row entirely.
+The layout I am using already provides a num pad on the fun layer which I can get used to.
+Then I also changed my gnome settings for switching workspace to use the home row instead [that way](https://github.com/TristanCacqueray/dot-files/commit/de20d6fd1edca1dabb0b5bf0aa80d0bde53cb385)
+
+
+## Fri, Nov 3: Emulating the mouse
+
+One thing I really missed was the ThinkPad track-point.
+Thankfully, it is possible to emulate the mouse using the keyboard, and that seems to work well.
+Here are the settings I used:
+
+![ergo-mouse-settings](media/ergo-mouse-settings.png)
+
+And here is my layout to control the mouse:
+
+![ergo-mouse-layout](media/ergo-mouse-layout.png)
+
+
+Here is another article that resonate with my experience so far:
+
+- https://www.jonashietala.se/blog/2023/11/02/i_designed_my_own_keyboard_layout_was_it_worth_it/
+
+
+I have been using this new keyboard for a week now. I am now adjusted to the new layout and I no longer need the printout to know where the keys are.
+However, while I am making good progress on monkeytype.com (at 40 WPM for Rust code), I still feel disoriented in the terminal or in Emacs, and I hope that it'll get better soon.
+
+I barely use my pinky anymore, however I am feeling a light soreness on my other fingers. I hope this is just my hand adjusting and that it won't become painful.
+
+
 ## To be continued
