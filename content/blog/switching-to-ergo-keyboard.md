@@ -208,4 +208,23 @@ However, while I am making good progress on monkeytype.com (at 40 WPM for Rust c
 I barely use my pinky anymore, however I am feeling a light soreness on my other fingers. I hope this is just my hand adjusting and that it won't become painful.
 
 
+## Sat, Nov 4: Trying Colemak-DH
+
+Out of curiosity I gave Colemak-DH a try.
+It's not that I wanted to make this journey anymore difficult, but I thought it would be an interesting challenge to see if I can also get used to different letter keys positions.
+I went to [colemakclub](https://gnusenpai.net/colemakclub/) and reached 15 WPM at the level 2.
+That was a really interesting experience and I now wonder if such exercise could be beneficial for improving my memory.
+
+
+## Sun, Nov 5: Introducing (combo) home row mods
+
+Home row mods lets you add `super`, `alt`, `ctrl` and `shift` (mods) to the home row (the keys of the default fingers position).
+I am giving this a try because I find the lower part of the thumb cluster hard to reach, and by moving modifiers to the home row, I can further reduce thumbs movements.
+This feels like a really great improvement, unfortunately that didn't worked out with my typing style where my finger rolls on the keys, resulting in frequent missfire.
+Here is a good summary of the challenges of using home row mods: [Taming home row mods with bilateral combinations](https://sunaku.github.io/home-row-mods.html).
+
+Though I really liked the idea of having modifiers keys on the home row, so I used the combo trick described in [https://jasoncarloscox.com/blog/combo-mods/](https://jasoncarloscox.com/blog/combo-mods/).
+That seems to work much better, albeit the odd motion to activate the mods.
+
+
 ## To be continued
