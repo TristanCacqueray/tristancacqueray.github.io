@@ -108,7 +108,7 @@ On the contrary, it is actually easier because using symbols now requires less m
 
 I have also realized that the layout I was using didn't have the `%` key.
 Perhaps there is a combo to send this symbol, but since I'm aiming for a 44keys layout, and the one I copied was a 42keys layout, I had a spare key to use for `%`.
-I am not sure it's a good idea to do such change as I believe the default layout is well thought out.
+I am not sure it's a good idea to do such change as I believe the layout technomancy created is well thought out.
 But I guess it's fine to try changing one key at a time and see if it works better.
 
 I forgot to mention yesterday that while ergonomics was the primary reason for using such a keyboard,
@@ -203,9 +203,9 @@ Here is another article that resonate with my experience so far:
 
 
 I have been using this new keyboard for a week now. I am now adjusted to the new layout and I no longer need the printout to know where the keys are.
-However, while I am making good progress on monkeytype.com (at 40 WPM for Rust code), I still feel disoriented in the terminal or in Emacs, and I hope that it'll get better soon.
+However, while I am making good progress on monkeytype.com (at 40 WPM for Rust code), I still feel disoriented in the terminal or in Emacs.
 
-I barely use my pinky anymore, however I am feeling a light soreness on my other fingers. I hope this is just my hand adjusting and that it won't become painful.
+I barely use my pinky anymore, however I am feeling a light soreness on my other fingers. I hope this is just my hand adjusting and that it won't become an issue.
 
 
 ## Sat, Nov 4: Trying Colemak-DH
@@ -220,11 +220,79 @@ That was a really interesting experience and I now wonder if such exercise could
 
 Home row mods lets you add `super`, `alt`, `ctrl` and `shift` (mods) to the home row (the keys of the default fingers position).
 I am giving this a try because I find the lower part of the thumb cluster hard to reach, and by moving modifiers to the home row, I can further reduce thumbs movements.
-This feels like a really great improvement, unfortunately that didn't worked out with my typing style where my finger rolls on the keys, resulting in frequent missfire.
+This feels like a really great improvement, unfortunately that didn't worked out with my typing style where my finger rolls on the keys, resulting in frequent misfire.
 Here is a good summary of the challenges of using home row mods: [Taming home row mods with bilateral combinations](https://sunaku.github.io/home-row-mods.html).
 
 Though I really liked the idea of having modifiers keys on the home row, so I used the combo trick described in [https://jasoncarloscox.com/blog/combo-mods/](https://jasoncarloscox.com/blog/combo-mods/).
 That seems to work much better, albeit the odd motion to activate the mods.
 
 
-## To be continued
+## Mon, Nov 6: Reducing thumbs uses
+
+After a while, I developed an irritating thumbs fatigues.
+It seems like using thumbs keys for modifiers didn't work for me.
+I was so focused on reducing my pinky usage that I inadvertently put too much pressure on my thumbs, as described in this article: [PSA: Thumbs can get overuse injuries](https://getreuer.info/posts/keyboards/thumb-ergo/index.html).
+Therefor I moved back the `enter` and `` ` `` keys where they used to be.
+
+
+## Tue, Nov 7: Adopting the Corne layout
+
+The last arrangement worked like a charm, and I consolidated the key positions according to the [corne](https://github.com/foostan/crkbd#readme) layout:
+
+![ergo-corne-map](media/ergo-corne-map.png)
+
+
+## Wed, Nov 8: Fixing right thumb fatigue
+
+Unfortunately, my right thumb was still getting uncomfortable after a while.
+After all, I basically double its usage by having the `fun` layer toggle next to the space bar.
+I was also having issues hitting the combo modifiers consistently.
+So, I could think of two solutions: either bring back the number rows, or move the `fun` toggle to another location.
+
+I decided to bite the bullet and setup the so called home-row-mods.
+I already tried using the firmware provided by ZSA and that was not practical for me.
+So I settled on using the [Achordion](https://getreuer.info/posts/keyboards/achordion/) library.
+That was not an easy thing to do, and I should write a guide about it in the future. Until then, here is the gist of what I did:
+
+- Download the source from ORIX.
+- Setup the qmk toolchain and fix the compatibility issue (mostly key-codes that now have different names).
+- Flash the new firmware using keymapp and make sure it works.
+- Enable Achordion.
+
+And that was it, I was quite happy that this fixed the issues I had with HRMs.
+My config is now hosted [here](https://github.com/TristanCacqueray/qmk-config), and here is my current layout:
+
+:::{.flex .items-center .justify-center}
+![cornec](./media/cornec-1.png)
+:::
+
+## Thu, Nov 9: Patching the firmware
+
+Alas, there was a couple of issues that were really annoying:
+
+- Holding `shift` and pressing an HRM was either slow or simply didn't work. I explained the issue in detail in this [discussion](https://github.com/getreuer/qmk-keymap/discussions/47) and eventually implemented a work around.
+- Holding `fun` and pressing `v` didn't reliably produce a `)`. You can read about it in this [issue](https://github.com/getreuer/qmk-keymap/issues/48) and I found a solution in a PR for upstream qmk.
+
+I guess that is the path you have to take when using niche system…
+
+
+## Fri, Nov 10: Taming the home-row keys
+
+While HRMs are really nice to use, they takes time to get used to. In particular, those keys are now visually delayed until the firmware can tell if they are pressed or held.
+It seems like ZMQ has a better implementation and I'd like to use a typing streak delay to avoid misfire when typing fast.
+
+It has been two weeks since I switched to an ergonomic keyboard, and even after all the changes I kept on making, I have now mostly regained my fluency.
+I am proud of the layout I developed as it seems to be well balanced for my usage.
+
+
+## Sun, Nov 11: Limiting outer column usage
+
+Being able to toggle the fun layer from the home-row made me wonder if I could work with a 36 keys layout.
+To that effect I moved the quotes and equal key where my page up/down was located.
+Then for the `enter` and `tab` keys, it turns out that the terminal already emulate these keys with `ctrl`-`m` and `ctrl`-`i`:
+
+:::{.flex .items-center .justify-center}
+![cornec-2](./media/cornec-2.png)
+:::
+
+By changing a couple of keys at a time, it only takes me about 30 to 60 minutes to acquire the new motions.
