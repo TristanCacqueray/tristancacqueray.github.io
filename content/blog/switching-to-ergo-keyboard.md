@@ -34,8 +34,6 @@ Then I read the following resources:
 * [Designing a 36-key custom keyboard layout](https://peterxjang.com/blog/designing-a-36-key-custom-keyboard-layout.html)
 * [How do you use layers on your keyboard?](https://lobste.rs/s/2ps6iq/how_do_you_use_layers_on_your_keyboard)
 
-… and these made me wonder if I shouldn't have picked the [atreus](https://shop.keyboard.io/products/keyboardio-atreus).
-
 Anyways, yesterday, on a Friday morning I got the "out for delivery" notification which prompt me to prepare the layout.
 I didn't want to waste time tinkering my own system, and I simply replicated the layout technomancy generously shared [here](https://atreus.technomancy.us/cheat.pdf).
 Using the online configurator, I made this config: https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0
@@ -49,7 +47,7 @@ Using the online configurator, I made this config: https://configure.zsa.io/moon
 * The upper layer:
 ![ergo-init-layer-upper](media/ergo-init-layer-upper.png)
 
-
+> Update: I do not recommend using this layout, see "thumbs fatigue" below
 
 ## Fri, Oct 27: Unboxing
 
@@ -113,7 +111,7 @@ But I guess it's fine to try changing one key at a time and see if it works bett
 
 I forgot to mention yesterday that while ergonomics was the primary reason for using such a keyboard,
 I also enjoy the fact that this keyboard is designed for long term usage with a durable design.
-It looks like this one will not end up in the trash and I will be able to repair failures that will happen in the future.
+It looks like I will be able to repair failures that will happen in the future.
 
 
 ## Mon, Oct 30: Getting to work
@@ -296,3 +294,111 @@ Then for the `enter` and `tab` keys, it turns out that the terminal already emul
 :::
 
 By changing a couple of keys at a time, it only takes me about 30 to 60 minutes to acquire the new motions.
+
+
+## Mon, Nov 12: Typetouch training
+
+Now that my layout got stable, it was time to do some touch typing exercise using monkeytype.com with rust code and simple English.
+My goal was to ensure I kept my fingers on the home-row so that I memorize the correct motion.
+I quickly made some good progress and here are my current WPM:
+
+:::{.flex .items-center .justify-center}
+![wpm-rust](media/wpm-rust.png)
+:::
+
+:::{.flex .items-center .justify-center}
+![wpm-english](media/wpm-english.png)
+:::
+
+
+## Wed, Nov 15: Unicode
+
+To write `é` or `…` I used to rely on spell checkers to fix my spelling.
+With a programmable keyboard, it is possible to implement macros to send Unicode characters.
+So I added a new *accent* layer with the following custom code:
+
+```c
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // achordion hooks omitted
+
+  if (record->event.pressed) {
+    const bool is_shifted = get_mods() & MOD_MASK_SHIFT;
+    switch (keycode) {
+    case M_ECUTE:  send_unicode_string(is_shifted ? "É" : "é"); break;
+    case M_EGRAV:  send_unicode_string(is_shifted ? "È" : "è"); break;
+    case M_ECIRC:  send_unicode_string(is_shifted ? "Ê" : "ê"); break;
+    case M_ETREMA: send_unicode_string(is_shifted ? "Ë" : "ë"); break;
+    case M_ICIRC:  send_unicode_string(is_shifted ? "Î" : "î"); break;
+    case M_ITREMA: send_unicode_string(is_shifted ? "Ï" : "ï"); break;
+    case M_AGRAV:  send_unicode_string(is_shifted ? "À" : "à"); break;
+    case M_ACIRC:  send_unicode_string(is_shifted ? "Â" : "â"); break;
+    case M_UCUTE:  send_unicode_string(is_shifted ? "Ù" : "ù"); break;
+    case M_UTREMA: send_unicode_string(is_shifted ? "Ü" : "ü"); break;
+    case M_CEDIL:  send_unicode_string(is_shifted ? "Ç" : "ç"); break;
+    case M_OE:     send_unicode_string(is_shifted ? "Œ" : "œ"); break;
+
+    case M_LAMBDA: send_unicode_string(is_shifted ? "Λ" : "λ"); break;
+    case M_DOTDOT: send_unicode_string("…"); break;
+    case M_EURO:   send_unicode_string("€"); break;
+    }
+  }
+}
+```
+
+It's quite a neat feature since it works without changing anything on the operating system.
+Alas, emacs doesn't accept the common sequence by default.
+I needed to add a new binding to get the desired behavior:
+
+```lisp
+;; enable standard unicode input (but still needs to press bksp-enter to complete the sequence)
+(define-key global-map (kbd "C-S-u") 'insert-char)
+```
+
+## Thu, Nov 16: Emacs shortcuts
+
+Similar to the *accent* layer, I added a few macro to type common shortcuts:
+
+```c
+    // emacs windows
+    case M_CX_0:   SEND_STRING(SS_LCTL("x") "0"); break;
+    case M_CX_1:   SEND_STRING(SS_LCTL("x") "1"); break;
+    case M_CX_2:   SEND_STRING(SS_LCTL("x") "2"); break;
+    case M_CX_3:   SEND_STRING(SS_LCTL("x") "3"); break;
+
+    // emacs buffers
+    case M_CX_B:   SEND_STRING(SS_LCTL("x") "b"); break;
+    case M_CX_CF:  SEND_STRING(SS_LCTL("xf")); break;
+    case M_CX_CS:  SEND_STRING(SS_LCTL("xs")); break;
+
+    // emacs project
+    case M_CC_P_P: SEND_STRING(SS_LCTL("c") "pp"); break;
+    case M_CC_P_F: SEND_STRING(SS_LCTL("c") "pf"); break;
+```
+
+Here is my latest layout:
+
+:::{.flex .items-center .justify-center}
+![cornec](media/cornec-3.png)
+:::
+
+
+## Fri, Nov 17: Lighter switches and low profile keycaps
+
+With such a layout, it seems like lighter switches and low profile caps are preferable since that eases chording modifiers and layer changes.
+After reading the [ZSA guide](https://www.zsa.io/moonlander/keyswitches/) on the subject, I ordered the kailh super speed silver switches with low profile keycaps from *xvx*.
+
+Coming from the cherry silent red, I find these much more enjoyable, but they make a charming thock sound when reaching the bottom.
+Perhaps I should have picked the pink ones, which are supposedly quieter.
+These switches are so light that sometime an adjacent key get triggered by mistake, in particular the `G` and `H`. For these I simply kept the red switches to avoid the issue.
+
+I have been using this new keyboard for 3 weeks now, and I am glad I made this change.
+The columnar layout helps me a lot with touch typing, and having a programmable firmware is great to reduce the number of keys and achieve minimal hand motions.
+Here is how my setup looks like now:
+
+:::{.flex .items-center .justify-center}
+![moonwalker](media/moonwalker-low.jpg)
+:::
+
+Using horizontal 2u keys for the thumbs brings this layout even closer to the corne. Also, note that the labels are not accurate, for example the left thumb is for *space*, not *+*.
+
+## To be continued...
