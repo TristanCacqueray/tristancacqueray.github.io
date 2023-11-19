@@ -31,6 +31,9 @@
 <script>hljs.highlightAll();</script>
 
 
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
+
 <!-- mermaid.js --><script type='module'>
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: false });
@@ -48,7 +51,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=eeee7201-45fd-49b3-a002-199005be4e18' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=2e5d4d69-31db-49ee-8771-50cd12fa7287' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -358,10 +361,6 @@ window.MathJax = {
     </ul>
   
     <p class='mb-3'>
-      … and these made me wonder if I shouldn’t have picked the <a href='https://shop.keyboard.io/products/keyboardio-atreus' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>atreus</a>.
-    </p>
-  
-    <p class='mb-3'>
       Anyways, yesterday, on a Friday morning I got the “out for delivery” notification which prompt me to prepare the layout. I didn’t want to waste time tinkering my own system, and I simply replicated the layout technomancy generously shared <a href='https://atreus.technomancy.us/cheat.pdf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>here</a>. Using the online configurator, I made this config: <a href='https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0</a>
     </p>
   
@@ -392,6 +391,14 @@ window.MathJax = {
         </li>
       
     </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Update: I do not recommend using this layout, see “thumbs fatigue” below
+    </p>
+  
+    </blockquote>
   <h2 id='fri-oct-27-unboxing' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Oct 27: Unboxing</h2>
     <p class='mb-3'>
       On Friday evening, eight days after making the order, I got the keyboard. I flashed the initial layout I prepared and quickly realized that the learning curves was going to be too steep. This was just too much of a change and I couldn’t see how I would be able to get used to such a different setup. Thus, I made the following adjustments to get something usable more quickly:
@@ -470,7 +477,7 @@ window.MathJax = {
     </p>
   
     <p class='mb-3'>
-      I forgot to mention yesterday that while ergonomics was the primary reason for using such a keyboard, I also enjoy the fact that this keyboard is designed for long term usage with a durable design. It looks like this one will not end up in the trash and I will be able to repair failures that will happen in the future.
+      I forgot to mention yesterday that while ergonomics was the primary reason for using such a keyboard, I also enjoy the fact that this keyboard is designed for long term usage with a durable design. It looks like I will be able to repair failures that will happen in the future.
     </p>
   <h2 id='mon-oct-30-getting-to-work' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mon, Oct 30: Getting to work</h2>
     <p class='mb-3'>
@@ -676,7 +683,81 @@ window.MathJax = {
     <p class='mb-3'>
       By changing a couple of keys at a time, it only takes me about 30 to 60 minutes to acquire the new motions.
     </p>
+  <h2 id='mon-nov-12-typetouch-training' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mon, Nov 12: Typetouch training</h2>
+    <p class='mb-3'>
+      Now that my layout got stable, it was time to do some touch typing exercise using monkeytype.com with rust code and simple English. My goal was to ensure I kept my fingers on the home-row so that I memorize the correct motion. I quickly made some good progress and here are my current WPM:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/wpm-rust.png' alt='wpm-rust' style='width: inherit;' /></div><div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/wpm-english.png' alt='wpm-english' style='width: inherit;' /></div><h2 id='wed-nov-15-unicode' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Wed, Nov 15: Unicode</h2>
+    <p class='mb-3'>
+      To write <code class='py-0.5 px-0.5 bg-gray-100'>é</code> or <code class='py-0.5 px-0.5 bg-gray-100'>…</code> I used to rely on spell checkers to fix my spelling. With a programmable keyboard, it is possible to implement macros to send Unicode characters. So I added a new <em>accent</em> layer with the following custom code:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='c language-c'>bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // achordion hooks omitted
+
+  if (record-&gt;event.pressed) {
+    const bool is_shifted = get_mods() & MOD_MASK_SHIFT;
+    switch (keycode) {
+    case M_ECUTE:  send_unicode_string(is_shifted ? "É" : "é"); break;
+    case M_EGRAV:  send_unicode_string(is_shifted ? "È" : "è"); break;
+    case M_ECIRC:  send_unicode_string(is_shifted ? "Ê" : "ê"); break;
+    case M_ETREMA: send_unicode_string(is_shifted ? "Ë" : "ë"); break;
+    case M_ICIRC:  send_unicode_string(is_shifted ? "Î" : "î"); break;
+    case M_ITREMA: send_unicode_string(is_shifted ? "Ï" : "ï"); break;
+    case M_AGRAV:  send_unicode_string(is_shifted ? "À" : "à"); break;
+    case M_ACIRC:  send_unicode_string(is_shifted ? "Â" : "â"); break;
+    case M_UCUTE:  send_unicode_string(is_shifted ? "Ù" : "ù"); break;
+    case M_UTREMA: send_unicode_string(is_shifted ? "Ü" : "ü"); break;
+    case M_CEDIL:  send_unicode_string(is_shifted ? "Ç" : "ç"); break;
+    case M_OE:     send_unicode_string(is_shifted ? "Œ" : "œ"); break;
+
+    case M_LAMBDA: send_unicode_string(is_shifted ? "Λ" : "λ"); break;
+    case M_DOTDOT: send_unicode_string("…"); break;
+    case M_EURO:   send_unicode_string("€"); break;
+    }
+  }
+}</code></pre></div>
+    <p class='mb-3'>
+      It’s quite a neat feature since it works without changing anything on the operating system. Alas, emacs doesn’t accept the common sequence by default. I needed to add a new binding to get the desired behavior:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>;; enable standard unicode input (but still needs to press bksp-enter to complete the sequence)
+(define-key global-map (kbd "C-S-u") 'insert-char)</code></pre></div><h2 id='thu-nov-16-emacs-shortcuts' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Nov 16: Emacs shortcuts</h2>
+    <p class='mb-3'>
+      Similar to the <em>accent</em> layer, I added a few macro to type common shortcuts:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='c language-c'>    // emacs windows
+    case M_CX_0:   SEND_STRING(SS_LCTL("x") "0"); break;
+    case M_CX_1:   SEND_STRING(SS_LCTL("x") "1"); break;
+    case M_CX_2:   SEND_STRING(SS_LCTL("x") "2"); break;
+    case M_CX_3:   SEND_STRING(SS_LCTL("x") "3"); break;
+
+    // emacs buffers
+    case M_CX_B:   SEND_STRING(SS_LCTL("x") "b"); break;
+    case M_CX_CF:  SEND_STRING(SS_LCTL("xf")); break;
+    case M_CX_CS:  SEND_STRING(SS_LCTL("xs")); break;
+
+    // emacs project
+    case M_CC_P_P: SEND_STRING(SS_LCTL("c") "pp"); break;
+    case M_CC_P_F: SEND_STRING(SS_LCTL("c") "pf"); break;</code></pre></div>
+    <p class='mb-3'>
+      Here is my latest layout:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/cornec-3.png' alt='cornec' style='width: inherit;' /></div><h2 id='fri-nov-17-lighter-switches-and-low-profile-keycaps' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Nov 17: Lighter switches and low profile keycaps</h2>
+    <p class='mb-3'>
+      With such a layout, it seems like lighter switches and low profile caps are preferable since that eases chording modifiers and layer changes. After reading the <a href='https://www.zsa.io/moonlander/keyswitches/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ZSA guide</a> on the subject, I ordered the kailh super speed silver switches with low profile keycaps from <em>xvx</em>.
+    </p>
   
+    <p class='mb-3'>
+      Coming from the cherry silent red, I find these much more enjoyable, but they make a charming thock sound when reaching the bottom. Perhaps I should have picked the pink ones, which are supposedly quieter. These switches are so light that sometime an adjacent key get triggered by mistake, in particular the <code class='py-0.5 px-0.5 bg-gray-100'>G</code> and <code class='py-0.5 px-0.5 bg-gray-100'>H</code>. For these I simply kept the red switches to avoid the issue.
+    </p>
+  
+    <p class='mb-3'>
+      I have been using this new keyboard for 3 weeks now, and I am glad I made this change. The columnar layout helps me a lot with touch typing, and having a programmable firmware is great to reduce the number of keys and achieve minimal hand motions. Here is how my setup looks like now:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/moonwalker-low.jpg' alt='moonwalker' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Using horizontal 2u keys for the thumbs brings this layout even closer to the corne. Also, note that the labels are not accurate, for example the left thumb is for <em>space</em>, not <em>+</em>.
+    </p>
+  <h2 id='to-be-continued' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>To be continued…</h2>
 
   <!-- What goes in this file will appear below the note body-->
 </article>
