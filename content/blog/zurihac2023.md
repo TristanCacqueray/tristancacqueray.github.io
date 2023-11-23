@@ -39,7 +39,7 @@ Moreover, a week earlier I helped him configure his Emacs text editor and we had
 The ZuriHac is composed of a mix of presentations and workshops.
 As part of my volunteer work with the Haskell Security Response Team (SRT), we spent some time kick-starting the new security-advisories database.
 It was great to be able to sit down in a quiet room.
-There we managed to help an attendee make a contribution [PR#39](https://github.com/haskell/security-advisories/pull/39) to our hsec-tools project.
+There we managed to help an attendee make a contribution [PR\#39](https://github.com/haskell/security-advisories/pull/39) to our hsec-tools project.
 
 
 ## Hallway Track
