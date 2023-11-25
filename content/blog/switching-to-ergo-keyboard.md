@@ -399,6 +399,86 @@ Here is how my setup looks like now:
 ![moonwalker](media/moonwalker-low.jpg)
 :::
 
-Using horizontal 2u keys for the thumbs brings this layout even closer to the corne. Also, note that the labels are not accurate, for example the left thumb is for *space*, not *+*.
+Using horizontal 2u keys for the thumbs brings this layout even closer to the corne. Also, note that the labels are not accurate, for example the right thumb is for *space*, not *+*.
+
+
+## Sat, Nov 18: Ordering a wireless corne
+
+Since I was pretty satisfied with my 42 keys layout, I looked for a smaller keyboard. I also wanted to try low profile switches after reading that they are easier on the fingers.
+I found several vendors that offer the corne which perfectly fits my current setup, with the added bonus that it brings the thumbs key closer:
+
+:::{.flex .items-center .justify-center}
+![split-compare](media/split-compare.png)
+:::
+
+I hesitated between [holykeebs](https://holykeebs.com/products/corne-choc) and [typeractive](https://typeractive.xyz/products/corne-partially-assembled-pcb).
+I picked the later because it features the ZMK firmware which looked superior to QMK, and it works wireless-ly.
+Though I really wanted to have a track-point, unfortunately this not yet possible with ZMK as the implementation is still in progress (see [PR\#1751](https://github.com/zmkfirmware/zmk/pull/1751)).
+
+
+## Sun, Nov 19: Migrating my layout from QMK to ZMK
+
+Inspired by *@urob*'s [zmk-config](https://github.com/urob/zmk-config), I migrated my configuration to this new repository: https://github.com/TristanCacqueray/zmk-config/ .
+I replaced my Achordion implementation with *hold-trigger-key-positions*.
+It was interesting to see how the ZMK setup rely on GitHub action to automatically build the firmware in the cloud.
+
+
+## Wed, Nov 22: Building my corne
+
+The board was smaller than I thought, it turns out that low profile switches spacing is smaller (19x18mm vs 20x20mm).
+With the help of a friend, I managed to solder the controller and assembled the keyboard in an hour or so:
+
+:::{.flex .items-center .justify-center}
+![corne-soldering](media/corne-soldering.jpeg)
+:::
+
+:::{.flex .items-center .justify-center}
+![corne-soldering](media/corne-built.jpeg)
+:::
+
+
+## Thu, Nov 23: Ah snap, here we go again
+
+While ZMK fixed my issues with home-row mods, I discovered that it comes with its own set of problems.
+For example the key repeat timing is too tight for my taste, and the tap-hold mods are no longer eagerly applied which is not great for mouse actions such as `shift+click`.
+Though the behavior system seems to work really well and I'm satisfied with the change.
+
+Fortunately it didn't took long to get used to the new keyboard size and the thumb keys' placement seemed to work better for my hands.
+
+
+## Fri, Nov 24: Low profile combos
+
+With the ZMK *require-prior-idle-ms* solution for home-row mods, I had to make a slight pause before entering symbols.
+For example, to enter `parse(`, I had to hold `l` (to switch to the fun layer) and press `c` for the paren, and if I typed this too fast, then I would get `parselc`. That's a so called false negative.
+
+Thanks to the low profile spacing, it is possible to hit two keys at once with a single finger by pressing between the keys.
+So I started to replace the problematic symbols with combos, a couple of key at a time.
+By the end of the day I was comfortable with this setup and I came up with this layout:
+
+:::{.flex .items-center .justify-center}
+![moonwalker-1](media/moonwalker-1.svg)
+:::
+
+Note that I progressively transformed the initial [layout from technomancy](https://atreus.technomancy.us/cheat.pdf).
+I found that changing only a couple of keys at a time worked the best, even if that resulted in odd looking layouts.
+This is a complex topic, which depends a lot on usage of programming languages to find the optimal placement to reduce same finger use (SFU) and to foster inward rolls.
+It's also a balancing act between comfort and speed. For example having the `shift` or `fn` on the thumbs is more efficient but that can be less comfortable.
+
+
+## Sat, Nov 25: Typetouch training again
+
+To get used to this new combos system I did a bunch of monkeytype practice, and I have to say, it was really fun.
+It's quite a novel way to use a keyboard and I found the whole learning process an amazing experience.
+I particularly enjoyed being able to tweak the device to my taste and getting used to the change.
+
+If you are curious about how using this keyboard looks like, I recorded myself doing some practice in this video:
+
+:::{.flex .items-center .justify-center .pb-3}
+<iframe width="888" height="500" src="https://www.youtube.com/embed/kApLVe1ZKWE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+:::
+
+I started this journey a month ago today, and even though it took me a while to find my path, it seems like I'm reaching my end game.
+I really enjoy the ortho/columnar arrangement and the discomfort I had in my hands seems to be fading away!
+
 
 ## To be continued...
