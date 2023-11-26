@@ -51,7 +51,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=b4bbcd02-7dbd-44a5-b51e-1b9c8b2ed23c' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=969e1548-8a99-4f26-a119-9e25631c147d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -755,7 +755,56 @@ window.MathJax = {
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/moonwalker-low.jpg' alt='moonwalker' style='width: inherit;' /></div>
     <p class='mb-3'>
-      Using horizontal 2u keys for the thumbs brings this layout even closer to the corne. Also, note that the labels are not accurate, for example the left thumb is for <em>space</em>, not <em>+</em>.
+      Using horizontal 2u keys for the thumbs brings this layout even closer to the corne. Also, note that the labels are not accurate, for example the right thumb is for <em>space</em>, not <em>+</em>.
+    </p>
+  <h2 id='sat-nov-18-ordering-a-wireless-corne' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sat, Nov 18: Ordering a wireless corne</h2>
+    <p class='mb-3'>
+      Since I was pretty satisfied with my 42 keys layout, I looked for a smaller keyboard. I also wanted to try low profile switches after reading that they are easier on the fingers. I found several vendors that offer the corne which perfectly fits my current setup, with the added bonus that it brings the thumbs key closer:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/split-compare.png' alt='split-compare' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      I hesitated between <a href='https://holykeebs.com/products/corne-choc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>holykeebs</a> and <a href='https://typeractive.xyz/products/corne-partially-assembled-pcb' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>typeractive</a>. I picked the later because it features the ZMK firmware which looked superior to QMK, and it works wireless-ly. Though I really wanted to have a track-point, unfortunately this not yet possible with ZMK as the implementation is still in progress (see <a href='https://github.com/zmkfirmware/zmk/pull/1751' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PR#1751</a>).
+    </p>
+  <h2 id='sun-nov-19-migrating-my-layout-from-qmk-to-zmk' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sun, Nov 19: Migrating my layout from QMK to ZMK</h2>
+    <p class='mb-3'>
+      Inspired by <em>@urob</em>’s <a href='https://github.com/urob/zmk-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>zmk-config</a>, I migrated my configuration to this new repository: <a href='https://github.com/TristanCacqueray/zmk-config/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/zmk-config/</a> . I replaced my Achordion implementation with <em>hold-trigger-key-positions</em>. It was interesting to see how the ZMK setup rely on GitHub action to automatically build the firmware in the cloud.
+    </p>
+  <h2 id='wed-nov-22-building-my-corne' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Wed, Nov 22: Building my corne</h2>
+    <p class='mb-3'>
+      The board was smaller than I thought, it turns out that low profile switches spacing is smaller (19x18mm vs 20x20mm). With the help of a friend, I managed to solder the controller and assembled the keyboard in an hour or so:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/corne-soldering.jpeg' alt='corne-soldering' style='width: inherit;' /></div><div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/corne-built.jpeg' alt='corne-soldering' style='width: inherit;' /></div><h2 id='thu-nov-23-ah-snap-here-we-go-again' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Nov 23: Ah snap, here we go again</h2>
+    <p class='mb-3'>
+      While ZMK fixed my issues with home-row mods, I discovered that it comes with its own set of problems. For example the key repeat timing is too tight for my taste, and the tap-hold mods are no longer eagerly applied which is not great for mouse actions such as <code class='py-0.5 px-0.5 bg-gray-100'>shift+click</code>. Though the behavior system seems to work really well and I’m satisfied with the change.
+    </p>
+  
+    <p class='mb-3'>
+      Fortunately it didn’t took long to get used to the new keyboard size and the thumb keys’ placement seemed to work better for my hands.
+    </p>
+  <h2 id='fri-nov-24-low-profile-combos' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Nov 24: Low profile combos</h2>
+    <p class='mb-3'>
+      With the ZMK <em>require-prior-idle-ms</em> solution for home-row mods, I had to make a slight pause before entering symbols. For example, to enter <code class='py-0.5 px-0.5 bg-gray-100'>parse(</code>, I had to hold <code class='py-0.5 px-0.5 bg-gray-100'>l</code> (to switch to the fun layer) and press <code class='py-0.5 px-0.5 bg-gray-100'>c</code> for the paren, and if I typed this too fast, then I would get <code class='py-0.5 px-0.5 bg-gray-100'>parselc</code>. That’s a so called false negative.
+    </p>
+  
+    <p class='mb-3'>
+      Thanks to the low profile spacing, it is possible to hit two keys at once with a single finger by pressing between the keys. So I started to replace the problematic symbols with combos, a couple of key at a time. By the end of the day I was comfortable with this setup and I came up with this layout:
+    </p>
+  <div class='flex items-center justify-center'><span title='Link is broken'><s>![moonwalker-1](media/moonwalker-1.svg)</s>❌</span></div>
+    <p class='mb-3'>
+      Note that I progressively transformed the initial <a href='https://atreus.technomancy.us/cheat.pdf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>layout from technomancy</a>. I found that changing only a couple of keys at a time worked the best, even if that resulted in odd looking layouts. This is a complex topic, which depends a lot on usage of programming languages to find the optimal placement to reduce same finger use (SFU) and to foster inward rolls. It’s also a balancing act between comfort and speed. For example having the <code class='py-0.5 px-0.5 bg-gray-100'>shift</code> or <code class='py-0.5 px-0.5 bg-gray-100'>fn</code> on the thumbs is more efficient but that can be less comfortable.
+    </p>
+  <h2 id='sat-nov-25-typetouch-training-again' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sat, Nov 25: Typetouch training again</h2>
+    <p class='mb-3'>
+      To get used to this new combos system I did a bunch of monkeytype practice, and I have to say, it was really fun. It’s quite a novel way to use a keyboard and I found the whole learning process an amazing experience. I particularly enjoyed being able to tweak the device to my taste and getting used to the change.
+    </p>
+  
+    <p class='mb-3'>
+      If you are curious about how using this keyboard looks like, I recorded myself doing some practice in this video:
+    </p>
+  <div class='flex items-center justify-center pb-3'><div xmlhtmlRaw><iframe width="888" height="500" src="https://www.youtube.com/embed/kApLVe1ZKWE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div></div>
+    <p class='mb-3'>
+      I started this journey a month ago today, and even though it took me a while to find my path, it seems like I’m reaching my end game. I really enjoy the ortho/columnar arrangement and the discomfort I had in my hands seems to be fading away!
     </p>
   <h2 id='to-be-continued' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>To be continued…</h2>
 
