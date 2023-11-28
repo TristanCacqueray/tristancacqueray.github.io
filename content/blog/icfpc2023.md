@@ -266,7 +266,7 @@ lineCrossCircle attendee (mx, my) distance radius (px, py) = discriment > 0
     discriment = radius ^ 2 * distance - d ^ 2
 ```
 
-Thanks to the matworld.wolfram.com website, I found a suitable circle-line intersection function.
+Thanks to the mathworld.wolfram.com website, I found a suitable circle-line intersection function.
 
 ### Musician placements
 
