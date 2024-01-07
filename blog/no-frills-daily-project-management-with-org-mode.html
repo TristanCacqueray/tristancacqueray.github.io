@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    No Frills Daily Project Management – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='In this post I document a setup to manage projects with org-mode and org-ql.' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='media/nano-org-init.png' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='No Frills Daily Project Management' />
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  
+  <link href='tailwind.css?instanceId=da7bd3e6-9001-4168-af09-feb3a5f11045' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script id='emanote-stork' data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        indexIsStale: false,
+        toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
+          }
+        }
+
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='overflow-y-scroll bg-gray-400'>
+  
+    <div class='container mx-auto max-w-screen-lg'>
+      <div class='mt-2 md:mt-4'>
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href='blog'>
+      Blog
+    </a>
+  </div>
+
+  
+    <ul>
+      
+        <li>
+
+  <div class='text-gray-900 forest-link'>
+    <a href=''>
+      Tristan de Cacqueray
+    </a>
+  </div>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+
+        <div class='relative md:shadow-2xl md:mb-8'>
+
+          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+            </a>
+          </div>
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+            <main class='px-4 py-4'>
+              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    No Frills Daily Project Management
+  </a>
+</h1>
+              <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+    <p class='mb-3'>
+      In this post I document a setup to manage projects with <a href='https://orgmode.org/features.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-mode</a> and <a href='https://github.com/alphapapa/org-ql#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-ql</a>.
+    </p>
+  <h2 id='context' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context</h2>
+    <p class='mb-3'>
+      At work, we share an etherpad document as a support for two main ceremonies:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Daily standup meeting where each members provides an update on their work.
+        </li>
+      
+        <li>
+          Semi-montly review meeting where each we summarize our work for the broader organization.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Without an organizational system, we can simply recall what happened and fill out the document right before the meeting starts. It is more efficient to implement a system to keep track of tasks as they come up, so that you don’t have to rely soly on your memory.
+    </p>
+  <h2 id='introducing-org-mode' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing org-mode</h2>
+    <p class='mb-3'>
+      <a href='https://orgmode.org/features.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-mode</a> is arguably the most advanced system for taking notes and organizing things. It is a free software that comes with Emacs.
+    </p>
+  
+    <p class='mb-3'>
+      In the next section I focus on the <strong>todo</strong> feature, but note that org-mode comes with many additional features such as:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Calendar, agenda and clocking.
+        </li>
+      
+        <li>
+          Structural editor with markup language.
+        </li>
+      
+        <li>
+          Literate source code editor with evaluation similar to jupyter notebook.
+        </li>
+      
+    </ul>
+  <h2 id='capturing-tasks' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Capturing tasks</h2>
+    <p class='mb-3'>
+      Use the <code class='py-0.5 px-0.5 bg-gray-100'>org-capture</code> command to enter a task. This can happen in one of the following situations:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          To record something that needs to be done, e.g. a planned task like “implement a feature”.
+        </li>
+      
+        <li>
+          To record something that has been completed, e.g. an unplaned task like “fix the logserver”.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      To tell <code class='py-0.5 px-0.5 bg-gray-100'>org-capture</code> where to write down a task, create the following template at <code class='py-0.5 px-0.5 bg-gray-100'>~/org/projects.org</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>* Inbox
+
+* Monocle changemetrics.io
+:PROPERTIES:
+:CATEGORY: Monocle
+:END:
+
++ Opendev
+:PROPERTIES:
+:CATEGORY: Opendev
+:END:</code></pre></div>
+    <p class='mb-3'>
+      This document contains three headings showing how properties can be attached to create categories. Here is how that looks like in <a href='https://github.com/rougier/nano-emacs#gnu-emacs--n-%CE%BB-n-o' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>nano-emacs</a>:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-init.png' alt='nano-org-init' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Then in <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs.el</code> write the following configuration:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>;; Configure where tasks are written
+(setq org-capture-templates
+      '(
+        ("t" "todo" entry (file+headline "~/org/projects.org" "Inbox")
+         "* TODO %?\n/Entered on/ %U\n")
+        ))
+
+;; Define a new helper function
+(defun tc/org-capture-todo ()
+  "Directly capture a todo."
+  (interactive)
+  (org-capture nil "t"))
+
+;; Press F5 to capture a task (same key as quicksave in KSP)
+(define-key global-map (kbd "&lt;f5&gt;") 'tc/org-capture-todo)</code></pre></div>
+    <p class='mb-3'>
+      Now pressing <span xmlhtmlRaw><kbd></span>F5<span xmlhtmlRaw></kbd></span> create the following window:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-capture.png' alt='nano-capture' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      After filling a description of the task, you have three options:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <em>org-capture-finalize</em> <span xmlhtmlRaw><kbd></span>C-c C-c<span xmlhtmlRaw></kbd></span>: add the task to the inbox
+        </li>
+      
+        <li>
+          <em>org-capture-refile</em> <span xmlhtmlRaw><kbd></span>C-c C-w<span xmlhtmlRaw></kbd></span>: refile the task to a project
+        </li>
+      
+        <li>
+          <em>org-capture-kill</em> <span xmlhtmlRaw><kbd></span>C-c C-k<span xmlhtmlRaw></kbd></span>: abort the capture process and close the window.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Then our <code class='py-0.5 px-0.5 bg-gray-100'>projects.org</code> documents is updated with:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-inbox.png' alt='nano-org-inbox' style='width: inherit;' /></div><h2 id='managing-tasks' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Managing tasks</h2>
+    <p class='mb-3'>
+      Use <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-refile</code> to move a task, and press <span xmlhtmlRaw><kbd></span>tab<span xmlhtmlRaw></kbd></span> to get a list of destination:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-refile.png' alt='nano-org-refile' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      For example, pressing <span xmlhtmlRaw><kbd></span>M<span xmlhtmlRaw></kbd></span> <span xmlhtmlRaw><kbd></span>tab<span xmlhtmlRaw></kbd></span> <span xmlhtmlRaw><kbd></span>enter<span xmlhtmlRaw></kbd></span> moves the task to the monocle project
+    </p>
+  
+    <p class='mb-3'>
+      To change the status of task use <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-todo</code>, this will cycle between NA, TODO and DONE. Note that this can be used to turn any heading into a task too.
+    </p>
+  
+    <p class='mb-3'>
+      In <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs.el</code> add the following setting to attach a CLOSED property when a task is done.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>;; Keep track of when the task was completed
+(setq org-log-done 'time)</code></pre></div>
+    <p class='mb-3'>
+      Running <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-todo</code> on the example task results in:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-done.png' alt='nano-org-done' style='width: inherit;' /></div><h2 id='listing-tasks' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Listing tasks</h2>
+    <p class='mb-3'>
+      To list tasks, configure where to look for tasks:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>;; Tell org-agenda where are the org files
+(setq org-agenda-files '("~/org"))</code></pre></div>
+    <p class='mb-3'>
+      Then running <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-todo-list</code> display the global list of tasks:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-list.png' alt='nano-org-list' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Click on a task to jump to its location in the <code class='py-0.5 px-0.5 bg-gray-100'>projects.org</code> file. You can also manage the task directly from the list, e.g. using <code class='py-0.5 px-0.5 bg-gray-100'>org-todo</code> to change its status.
+    </p>
+  
+    <p class='mb-3'>
+      You can also run <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-agenda-filter</code> to narrow down the listing by category.
+    </p>
+  <h2 id='creating-report-with-org-ql' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Creating report with org-ql</h2>
+    <p class='mb-3'>
+      <a href='https://github.com/alphapapa/org-ql#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-ql</a> lets you search the tasks to produce custom report.
+    </p>
+  
+    <p class='mb-3'>
+      Install the library by adding the following to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs.el</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>;; Install org-ql through melpa
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+(package-install 'org-ql)</code></pre></div>
+    <p class='mb-3'>
+      While you can use org-ql interactively, for example by running <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-ql-search</code>, it’s also possible to fully customize the output using Emacs native configuration language.
+    </p>
+  
+    <p class='mb-3'>
+      For example, a daily standup report needs to look like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>YYYY-MM-DD
+
+$USER:
+* entry</code></pre></div>
+    <p class='mb-3'>
+      Here is how to render your tasks for this particular format:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>;; string manipulation library from https://github.com/magnars/s.el
+(require 's)
+(require 'org-ql)
+
+;; The inverse of s-lines
+(defun s-unlines (xs) (s-join "\n" xs))
+
+(defun tc/daily-format-item (item)
+  "Format 'org-ql-select' output. ITEM is a prop list."
+  (let* ((properties (cadr item))
+         (title (plist-get properties :raw-value))
+         (category (org-entry-get (plist-get properties :org-marker) "CATEGORY")))
+    (format "* %s - %s" (s-pad-left 13 " " category) title)))
+
+(defun tc/daily-format (items)
+  "Format all ITEMS."
+  (let* ((today (format-time-string "%Y-%m-%d"))
+         (header (list today "" user-login-name))
+         (body (mapcar 'tc/daily-format-item items)))
+    (s-unlines (append header body))))
+
+(defun tc/mk-daily-report ()
+  "Produce a report for team daily."
+  (interactive)
+  ;; todo: adjust the from timestamp to a single day for tue-wed-thu-fri
+  (let* ((entries (org-ql-select "~/org/projects.org"
+                    '(and (done) (ts :from -3 :to today))
+                    :action 'element-with-markers))
+         (report (tc/daily-format entries))
+         (*buffer* (get-buffer-create "*tc/daily*")))
+    (with-current-buffer *buffer*
+      (erase-buffer)
+      (insert report))
+    (switch-to-buffer-other-window *buffer*)))
+
+(define-key global-map (kbd "&lt;f6&gt;") 'tc/mk-daily-report)</code></pre></div>
+    <p class='mb-3'>
+      Then running <code class='py-0.5 px-0.5 bg-gray-100'>M-x tc/mk-daily-report</code> creates a new window with the following content, ready to be shared with the team:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-report.png' alt='nano-org-report' style='width: inherit;' /></div><h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+    <p class='mb-3'>
+      This post demonstrated a minimal usage of org-mode to perform project management. To learn more, I recommend the following guide by Nicolas P. Rougier: <a href='https://www.labri.fr/perso/nrougier/GTD/index.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Get Things Done with Emacs</a>.
+    </p>
+  
+
+  <!-- What goes in this file will appear below the note body-->
+</article>
+              <div class='flex flex-col lg:flex-row lg:space-x-2'>
+                
+                
+              </div>
+              
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/emacs'>
+        <!-- DoNotFormat -->
+        #emacs
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/no-frills-daily-project-management-with-org-mode.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+              <!-- What goes in this file will at the very end of the main div -->
+            </main>
+          </div>
+        </div>
+        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+      </div>
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
