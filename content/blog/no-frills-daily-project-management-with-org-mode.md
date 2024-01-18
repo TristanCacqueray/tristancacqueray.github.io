@@ -26,7 +26,7 @@ It is a free software that comes with Emacs.
 In the next section I focus on the **todo** feature, but note that org-mode comes with many additional features such as:
 - Calendar, agenda and clocking.
 - Structural editor with markup language.
-- Literate source code editor with evaluation similar to Jupiter notebook.
+- Literate source code editor with evaluation similar to Jupiter notebooks.
 
 [org-mode]: https://orgmode.org/features.html
 
