@@ -1,7 +1,7 @@
 {
   inputs = {
     emanote.url =
-      "github:srid/emanote/fa7e38215285de3edb8f890d81724e91b5408038";
+      "github:srid/emanote/9982078e770d6f3edc9587b101ee0a3daf10234f";
     nixpkgs.follows = "emanote/nixpkgs";
     flake-parts.follows = "emanote/flake-parts";
     nixpkgs2.url =
@@ -41,6 +41,8 @@
         p.servant-lucid
         p.websockets
         p.yaml
+        p.pandoc
+        p.pandoc-types
         (pkgs.haskellPackages.callCabal2nix "ebml" ebml { })
       ]);
       apps = {

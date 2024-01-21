@@ -1,0 +1,236 @@
+#+TITLE: Snippets
+
+These are code snippets for one-off task.
+
+* git
+** delete merged branch
+
+#+begin_src bash
+git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
+#+end_src
+
+* ffmpeg
+** Encode mp3 with pochette for youtube
+
+#+begin_src bash
+ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortest -c:v libx264 opFreak-album.mp4
+#+end_src
+
+* gnome
+** Show wifi passwords
+
+#+begin_src bash
+nmcli -s connection show $SSID | grep -i psk
+#+end_src
+
+* rpm
+** List installed by size
+#+begin_src bash
+# rpm -qia|awk '$1=="Name" {n=$3} $1=="Size" {s=$3} $1=="Description" {print s " " n }' | sort -n
+rpm -qa --queryformat '%{SIZE} %{NAME}\n'
+#+end_src
+
+* wayland
+** Disable input
+#+begin_src bash
+sudo libinput list-devices
+# grab the input path and run:
+sudo nix run nixpkgs#evtest --grab /dev/input/event3
+#+end_src
+
+* x11
+** mouse speeds
+#+begin_src bash
+xinputs -> get the mouse id
+xinputs list-props -> get the matrix prop id
+xinput set-prop $MID $PID 3.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 1.0
+#+end_src
+
+* gpg
+
+** Update expired keys
+#+BEGIN_SRC bash
+$ gpg --edit-key EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
+gpg> expire
+...
+gpg> key 1
+gpg> expire
+...
+gpg> save
+$ gpg  --send-keys  EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
+#+END_SRC
+** Add ssh key
+From https://opensource.com/article/19/4/gpg-subkeys-ssh
+#+BEGIN_SRC bash
+$ gpg2 --expert --edit-key <KEY ID>
+gpg> addkey
+   (8) RSA (set your own capabilities)
+Your selection? 8
+
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Authenticate
+
+   (Q) Finished
+
+Your selection? q
+Is this correct? (y/N) y
+Really create? (y/N) y
+gpg> quit
+Save changes? (y/N) y
+#+END_SRC
+
+In gpg.conf
+#+BEGIN_SRC
+ enable-ssh-support
+#+END_SRC
+
+Auto add key to agent
+#+BEGIN_SRC
+gpg2 -K --with-keygrip
+echo ID >> ~/.gnupg/sshcontrol
+#+END_SRC
+
+Then in .xinitrc
+#+BEGIN_SRC
+gpg-agent --daemon --keep-display
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+#+END_SRC
+
+
+* image magic
+*** Compare test
+#+BEGIN_SRC bash
+// Use imagemagick to test that your image is what you want
+'compare -metric RMSE actual.png expected.png',
+#+END_SRC
+
+
+* gnuplot
+** nice looking charts from CSV
+From https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html
+#+BEGIN_SRC bash
+set datafile separator ','
+set xdata time
+set timefmt "%Y-%m-%dT%H:%M:%S"
+set key autotitle columnhead
+set ylabel "First Y Units"
+set xlabel 'Time'
+set y2tics
+set ytics nomirror
+set y2label "Second Y Axis Value"
+set style line 100 lt 1 lc rgb "grey" lw 0.5
+set grid ls 100
+set ytics 0.5
+set xtics 1
+set style line 101 lw 3 lt rgb "#f62aa0"
+set style line 102 lw 3 lt rgb "#26dfd0"
+set style line 103 lw 4 lt rgb "#b8ee30"
+
+set xtics rotate # rotate labels on the x axis
+set key right center # legend placement
+
+plot filename using 1:2 with lines ls 101, '' using 1:3 with lines ls 102, '' using 1:4 with lines axis x1y2 ls 103
+#+END_SRC
+
+* google calendar
+** Export to org mode:
+Download archive from https://calendar.google.com/calendar/r/settings/export, then
+#+BEGIN_SRC bash
+TZ=Asia/Seoul ical2orgpy cal.ics gcal.org
+#+END_SRC
+
+* notmuch
+** Delete mails matching query
+#+BEGIN_SRC bash
+notmuch search --output=files --exclude=false tag:monit | xargs -L1000 rm
+#+END_SRC
+
+* ZooKeeper
+** Connect with kazoo
+#+begin_src python
+import json
+import kazoo.client
+client = kazoo.client.KazooClient(hosts="zookeeper")
+client.start()
+def load_node(path, node, x):
+    d = {}
+    try:
+      d = json.loads(node[0].decode('utf-8'))
+      d['node_path'] = path + x
+    except:
+      print("error: ", x, node)
+    return d
+
+
+nodes = list(map(lambda x: load_node(client.get("/nodepool/nodes/" + x), x), client.get_children("/nodepool/nodes")))
+
+# delete provider node
+for node in nodes:
+    if node.get('cloud') == 'rdo-cloud':
+        print("deleting ", node.get('node_path'))
+        client.delete(node['node_path'], recursive=True)
+
+node = json.loads(client.get("/nodepool/nodes/" + nodes[0])[0].decode('utf-8'))
+#+end_src
+
+* OpenStack
+** Deploy local instance
+
+#+begin_src bash
+yum install openstack-nova openstack-neutron libvirt openstack-glance openstack-cinder openstack-heat-api openstack-heat-common openstack-heat-engine openstack-keystone openstack-nova-scheduler qemu-img-ev rabbitmq-server libvirt-daemon-kvm galera mariadb-server-galera memcached container-selinux openstack-selinux sos openstack-neutron-ml2 targetcli openvswitch
+# resize hdd
+fdisk /dev/vda
+resize2fs /dev/vda
+
+packstack --answer-file=basic
+
+# Create cirros
+curl -OL https://trunk.rdoproject.org/cirros-0.3.4-x86_64-disk.img
+openstack image create --file cirros-0.3.4-x86_64-disk.img --disk-format qcow2 cirros2
+
+# Remove router1
+neutron router-gateway-clear router1
+neutron router-port-list router1
+neutron router-interface-delete router1 03916f57-a7a5-417d-b7d9-528b2fb4f993
+neutron router-delete router1
+
+# Remove public_subnet
+neutron subnet-delete public_subnet
+
+# Set br-ex network
+/etc/sysconfig/network-scripts/ifcfg-br-ex
+DEVICE=br-ex
+DEVICETYPE=ovs
+TYPE=OVSBridge
+BOOTPROTO=static
+IPADDR=192.168.100.2
+NETMASK=255.255.255.0
+GATEWAY=192.168.100.1
+DNS1=192.168.42.1
+ONBOOT=yes
+
+/etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+TYPE=OVSPort
+DEVICETYPE=ovs
+OVS_BRIDGE=br-ex
+ONBOOT=yes
+
+systemctl restart network
+
+# Create public_subnet
+neutron subnet-create --name public_subnet --enable_dhcp=True --allocation-pool=start=192.168.100.200,end=192.168.100.250  --gateway=192.168.100.1 public 192.168.100.0/24
+# Create router1
+neutron router-create router1
+neutron router-gateway-set router1 public
+neutron router-interface-add router1 private_subnet
+
+# Create keypair
+openstack keypair create --public-key kp id_rsa
+
+openstack image set --public centos-7
+
+# Enable ingress
+openstack security group rule create --ingress default
+openstack security group rule create --protocol icmp --ingress default
+#+end_src

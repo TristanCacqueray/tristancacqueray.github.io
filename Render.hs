@@ -1,9 +1,8 @@
--- | Render.hs is a program to generate custom template:
+-- \| Render.hs is a program to generate custom template:
 -- - projects list from directory listing
 -- - snippets from org mode file
 --
 -- nix develop --command ghcid ./Render.hs -T main
-
 {-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE ImportQualifiedPost #-}
@@ -14,10 +13,11 @@
 import Data.Aeson (FromJSON)
 import Data.ByteString qualified as BS
 import Data.ByteString.Char8 qualified as BS
-import Data.List (sortOn)
+import Data.List (isSuffixOf, sortOn)
 import Data.String.QQ (s)
 import Data.Text qualified as Text
 import Data.Text.IO qualified as Text
+import Data.Tree
 import Data.Yaml hiding (Parser)
 import Lucid
 import Lucid.Base (makeAttribute, makeElement, makeElementNoEnd)
@@ -25,6 +25,12 @@ import RIO
 import RIO.Text qualified
 import System.Directory (listDirectory)
 import System.FilePath
+import Text.Pandoc.Class (runIOorExplode)
+import Text.Pandoc.Definition
+import Text.Pandoc.Extensions
+import Text.Pandoc.Options (def, readerExtensions)
+import Text.Pandoc.Readers.Markdown (readMarkdown)
+import Text.Pandoc.Readers.Org (readOrg)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Text (Parser)
 
@@ -141,8 +147,56 @@ introParser = Parsec.many1 (wordP <|> linkP <|> dotP)
 formatIntro :: [Text] -> Text
 formatIntro = flip mappend "." . mconcat . takeWhile (/= ".")
 
-main :: IO ()
-main = do
+mainProjs :: IO ()
+mainProjs = do
     projFiles <- map (mappend "content/project/") <$> listDirectory "content/project"
     projs <- traverse parseProject projFiles
     renderToFile "content/templates/components/projects.tpl" (renderProjects (reverse $ sortOn (date . meta) projs))
+
+-- (id, title)
+data DocHeading = DocHeading Text Text
+
+pandocTOCTree :: Pandoc -> Forest DocHeading
+pandocTOCTree (Pandoc _ blocks) = go [] 1 blocks
+  where
+    go acc _lvl [] = reverse acc
+    go acc lvl (x : rest) = case x of
+        Header hlvl (oid, _, _) [Str title]
+            | hlvl == lvl ->
+                -- TODO: support nested heading
+                let oh = DocHeading oid title
+                    childs = []
+                 in go (Node oh childs : acc) lvl rest
+        _ -> go acc lvl rest
+
+renderTOCTree :: Text -> Tree DocHeading -> Html ()
+renderTOCTree base (Node (DocHeading oid title) childs) = li_ do
+    with a_ [href_ (mconcat [base, "#", oid])] do
+        (toHtml title)
+    unless (null childs) do
+        ul_ do
+            traverse_ (renderTOCTree base) childs
+
+doRead :: FilePath -> IO Pandoc
+doRead fp = do
+    content <- Text.readFile fp
+    runIOorExplode $
+        if ".org" `isSuffixOf` fp
+            then readOrg readerOpts content
+            else readMarkdown readerOpts content
+  where
+    readerOpts = def{readerExtensions = extensionsFromList (exts)}
+    exts = [Ext_auto_identifiers]
+
+renderTOCTemplate :: FilePath -> Pandoc -> IO ()
+renderTOCTemplate fp doc = do
+    renderToFile fp do
+        ul_ do
+            traverse_ (renderTOCTree "snippets") (pandocTOCTree doc)
+
+mainSnippets :: IO ()
+mainSnippets = do
+    renderTOCTemplate "content/templates/components/toc-snippets.tpl" =<< doRead "content/snippets.org"
+
+main :: IO ()
+main = mainProjs >> mainSnippets
