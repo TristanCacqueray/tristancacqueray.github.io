@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
-<!-- DoNotFormat -->
+
 
 <html lang='en'>
 
@@ -8,15 +7,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Reason – Tristan's Zettelkasten
+    Snippets – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='ReasonML lets you write simple, fast and quality type safe code while leveraging both the JavaScript & OCaml ecosystems. It is an [[ocaml]] syntax that is similar to JSX. It compiles to javascript using the [[rescript]] compiler.' />
+      <meta property='og:description' content />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Reason' />
+      <meta property='og:title' content='Snippets' />
     
     
       <base href='/' />
@@ -275,41 +274,11 @@ window.MathJax = {
             <li>
 
   <div class='text-gray-900 forest-link'>
-    <a href='zettle/programing-languages'>
-      Programing Languages
-    </a>
-  </div>
-
-  
-    <ul>
-      
-        <li>
-
-  <div class='text-gray-900 forest-link'>
-    <a href='zettle'>
-      Zettelkasten
-    </a>
-  </div>
-
-  
-    <ul>
-      
-        <li>
-
-  <div class='text-gray-900 forest-link'>
     <a href=''>
       Tristan de Cacqueray
     </a>
   </div>
 
-  
-</li>
-      
-    </ul>
-  
-</li>
-      
-    </ul>
   
 </li>
           
@@ -320,7 +289,6 @@ window.MathJax = {
 </nav>
 
         <div class='relative md:shadow-2xl md:mb-8'>
-
           <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
             <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
               <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
@@ -333,73 +301,197 @@ window.MathJax = {
             <main class='px-4 py-4'>
               <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Reason
+    Snippets
   </a>
 </h1>
-              <article class='overflow-auto'>
-  <!-- What goes in this file will appear on top of note body-->
-  
+              <div class='grid grid-cols-12'>
+                <aside class='bg-indigo-50 col-span-3 px-2 py-1 -mt-4'>
+                  <div class='sticky top-0'>
+                    <ul><li><a href='#git'>git</a></li><li><a href='#ffmpeg'>ffmpeg</a></li><li><a href='#gnome'>gnome</a></li><li><a href='#rpm'>rpm</a></li><li><a href='#wayland'>wayland</a></li><li><a href='#x11'>x11</a></li><li><a href='#gpg'>gpg</a></li><li><a href='#gnuplot'>gnuplot</a></li><li><a href='#notmuch'>notmuch</a></li><li><a href='#zookeeper'>ZooKeeper</a></li><li><a href='#openstack'>OpenStack</a></li></ul>
+                  </div>
+                </aside>
+                <article class='overflow-auto col-span-9 mx-2'>
+                  
     <p class='mb-3'>
-      <a href='https://reasonml.github.io/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ReasonML</a> lets you write simple, fast and quality type safe code while leveraging both the JavaScript & OCaml ecosystems. It is an <a href='zettle/programing-languages/ocaml' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>OCaml</a> syntax that is similar to JSX. It compiles to javascript using the <a href='zettle/programing-languages/rescript' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>ReScript</a> compiler.
+      These are code snippets for one-off task.
     </p>
-  
+  <h1 id='git' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>git</h1><h2 id='delete-merged-branch' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>delete merged branch</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
+</code></pre></div><h1 id='ffmpeg' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>ffmpeg</h1><h2 id='encode-mp3-with-pochette-for-youtube' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Encode mp3 with pochette for youtube</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortest -c:v libx264 opFreak-album.mp4
+</code></pre></div><h1 id='gnome' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>gnome</h1><h2 id='show-wifi-passwords' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Show wifi passwords</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>nmcli -s connection show $SSID | grep -i psk
+</code></pre></div><h1 id='rpm' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>rpm</h1><h2 id='list-installed-by-size' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>List installed by size</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># rpm -qia|awk '$1=="Name" {n=$3} $1=="Size" {s=$3} $1=="Description" {print s " " n }' | sort -n
+rpm -qa --queryformat '%{SIZE} %{NAME}\n'
+</code></pre></div><h1 id='wayland' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>wayland</h1><h2 id='disable-input' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Disable input</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>sudo libinput list-devices
+# grab the input path and run:
+sudo nix run nixpkgs#evtest --grab /dev/input/event3
+</code></pre></div><h1 id='x11' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>x11</h1><h2 id='mouse-speeds' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>mouse speeds</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>xinputs -&gt; get the mouse id
+xinputs list-props -&gt; get the matrix prop id
+xinput set-prop $MID $PID 3.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 1.0
+</code></pre></div><h1 id='gpg' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>gpg</h1><h2 id='update-expired-keys' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Update expired keys</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ gpg --edit-key EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
+gpg&gt; expire
+...
+gpg&gt; key 1
+gpg&gt; expire
+...
+gpg&gt; save
+$ gpg  --send-keys  EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
+</code></pre></div><h2 id='add-ssh-key' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Add ssh key</h2>
     <p class='mb-3'>
-      I wrote a blog post about the language: <a href='https://www.softwarefactory-project.io/software-factory-resources-in-reason.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Software Factory Resources in Reason</a>
+      From <a href='https://opensource.com/article/19/4/gpg-subkeys-ssh' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://opensource.com/article/19/4/gpg-subkeys-ssh</a>
     </p>
-  
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ gpg2 --expert --edit-key &lt;KEY ID&gt;
+gpg&gt; addkey
+   (8) RSA (set your own capabilities)
+Your selection? 8
 
-  <!-- What goes in this file will appear below the note body-->
-</article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
-  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
-    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
-    <ul class='space-y-1'>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='project/zuul-results-gerrit-plugin'>
-            Zuul Results Gerrit Plugin
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>The plugin is implemented with <a href='zettle/programing-languages/reason' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Reason</a> using the <a href='https://gerrit-review.googlesource.com/Documentation/js-api.html' class='text-gray-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>JavaScript API</a>.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-    </ul>
-  </div>
+Possible actions for a RSA key: Sign Encrypt Authenticate
+Current allowed actions: Authenticate
 
+   (Q) Finished
+
+Your selection? q
+Is this correct? (y/N) y
+Really create? (y/N) y
+gpg&gt; quit
+Save changes? (y/N) y
+</code></pre></div>
+    <p class='mb-3'>
+      In gpg.conf
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>enable-ssh-support
+</code></pre></div>
+    <p class='mb-3'>
+      Auto add key to agent
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>gpg2 -K --with-keygrip
+echo ID &gt;&gt; ~/.gnupg/sshcontrol
+</code></pre></div>
+    <p class='mb-3'>
+      Then in .xinitrc
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>gpg-agent --daemon --keep-display
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+</code></pre></div><h1 id='image-magic' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>image magic</h1><h3 id='compare-test' class='mt-6 mb-2 text-2xl font-bold text-gray-700'>Compare test</h3><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>// Use imagemagick to test that your image is what you want
+'compare -metric RMSE actual.png expected.png',
+</code></pre></div><h1 id='gnuplot' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>gnuplot</h1><h2 id='nice-looking-charts-from-csv' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>nice looking charts from CSV</h2>
+    <p class='mb-3'>
+      From <a href='https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html</a>
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>set datafile separator ','
+set xdata time
+set timefmt "%Y-%m-%dT%H:%M:%S"
+set key autotitle columnhead
+set ylabel "First Y Units"
+set xlabel 'Time'
+set y2tics
+set ytics nomirror
+set y2label "Second Y Axis Value"
+set style line 100 lt 1 lc rgb "grey" lw 0.5
+set grid ls 100
+set ytics 0.5
+set xtics 1
+set style line 101 lw 3 lt rgb "#f62aa0"
+set style line 102 lw 3 lt rgb "#26dfd0"
+set style line 103 lw 4 lt rgb "#b8ee30"
+
+set xtics rotate # rotate labels on the x axis
+set key right center # legend placement
+
+plot filename using 1:2 with lines ls 101, '' using 1:3 with lines ls 102, '' using 1:4 with lines axis x1y2 ls 103
+</code></pre></div><h1 id='google-calendar' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>google calendar</h1><h2 id='export-to-org-mode' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Export to org mode:</h2>
+    <p class='mb-3'>
+      Download archive from <a href='https://calendar.google.com/calendar/r/settings/export' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://calendar.google.com/calendar/r/settings/export</a>, then
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>TZ=Asia/Seoul ical2orgpy cal.ics gcal.org
+</code></pre></div><h1 id='notmuch' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>notmuch</h1><h2 id='delete-mails-matching-query' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Delete mails matching query</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>notmuch search --output=files --exclude=false tag:monit | xargs -L1000 rm
+</code></pre></div><h1 id='zookeeper' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>ZooKeeper</h1><h2 id='connect-with-kazoo' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Connect with kazoo</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>import json
+import kazoo.client
+client = kazoo.client.KazooClient(hosts="zookeeper")
+client.start()
+def load_node(path, node, x):
+    d = {}
+    try:
+      d = json.loads(node[0].decode('utf-8'))
+      d['node_path'] = path + x
+    except:
+      print("error: ", x, node)
+    return d
+
+
+nodes = list(map(lambda x: load_node(client.get("/nodepool/nodes/" + x), x), client.get_children("/nodepool/nodes")))
+
+# delete provider node
+for node in nodes:
+    if node.get('cloud') == 'rdo-cloud':
+        print("deleting ", node.get('node_path'))
+        client.delete(node['node_path'], recursive=True)
+
+node = json.loads(client.get("/nodepool/nodes/" + nodes[0])[0].decode('utf-8'))
+</code></pre></div><h1 id='openstack' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>OpenStack</h1><h2 id='deploy-local-instance' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Deploy local instance</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>yum install openstack-nova openstack-neutron libvirt openstack-glance openstack-cinder openstack-heat-api openstack-heat-common openstack-heat-engine openstack-keystone openstack-nova-scheduler qemu-img-ev rabbitmq-server libvirt-daemon-kvm galera mariadb-server-galera memcached container-selinux openstack-selinux sos openstack-neutron-ml2 targetcli openvswitch
+# resize hdd
+fdisk /dev/vda
+resize2fs /dev/vda
+
+packstack --answer-file=basic
+
+# Create cirros
+curl -OL https://trunk.rdoproject.org/cirros-0.3.4-x86_64-disk.img
+openstack image create --file cirros-0.3.4-x86_64-disk.img --disk-format qcow2 cirros2
+
+# Remove router1
+neutron router-gateway-clear router1
+neutron router-port-list router1
+neutron router-interface-delete router1 03916f57-a7a5-417d-b7d9-528b2fb4f993
+neutron router-delete router1
+
+# Remove public_subnet
+neutron subnet-delete public_subnet
+
+# Set br-ex network
+/etc/sysconfig/network-scripts/ifcfg-br-ex
+DEVICE=br-ex
+DEVICETYPE=ovs
+TYPE=OVSBridge
+BOOTPROTO=static
+IPADDR=192.168.100.2
+NETMASK=255.255.255.0
+GATEWAY=192.168.100.1
+DNS1=192.168.42.1
+ONBOOT=yes
+
+/etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+TYPE=OVSPort
+DEVICETYPE=ovs
+OVS_BRIDGE=br-ex
+ONBOOT=yes
+
+systemctl restart network
+
+# Create public_subnet
+neutron subnet-create --name public_subnet --enable_dhcp=True --allocation-pool=start=192.168.100.200,end=192.168.100.250  --gateway=192.168.100.1 public 192.168.100.0/24
+# Create router1
+neutron router-create router1
+neutron router-gateway-set router1 public
+neutron router-interface-add router1 private_subnet
+
+# Create keypair
+openstack keypair create --public-key kp id_rsa
+
+openstack image set --public centos-7
+
+# Enable ingress
+openstack security group rule create --ingress default
+openstack security group rule create --protocol icmp --ingress default
+</code></pre></div>
+
+                </article>
               </div>
               
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
-      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
-        Perhaps Emanote should inject tagMetas with urls.
-      -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/pl'>
-        <!-- DoNotFormat -->
-        #pl
-        <!-- DoNotFormat -->
-      </a>
-    
-      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
-        Perhaps Emanote should inject tagMetas with urls.
-      -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/ml'>
-        <!-- DoNotFormat -->
-        #ml
-        <!-- DoNotFormat -->
-      </a>
-    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/zettle/programing-languages/reason.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/snippets.org'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
@@ -465,3 +557,4 @@ window.MathJax = {
 </body>
 
 </html>
+
