@@ -44,6 +44,9 @@
         (pkgs.haskellPackages.callCabal2nix "ebml" ebml { })
       ]);
       apps = {
+        devShells."x86_64-linux".default = pkgs.mkShell {
+          buildInputs = [ ghc pkgs.ghcid ];
+        };
         devShells."x86_64-linux".gstreamer = pkgs.mkShell {
           buildInputs = [ ghc pkgs.ghcid pkgs.gst_all_1.gstreamer ];
           GST_PLUGIN_PATH =

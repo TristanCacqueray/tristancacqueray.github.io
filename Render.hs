@@ -1,4 +1,9 @@
--- nix develop .#gstreamer --command ghcid ./projects.hs -T main
+-- | Render.hs is a program to generate custom template:
+-- - projects list from directory listing
+-- - snippets from org mode file
+--
+-- nix develop --command ghcid ./Render.hs -T main
+
 {-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE ImportQualifiedPost #-}
@@ -138,6 +143,6 @@ formatIntro = flip mappend "." . mconcat . takeWhile (/= ".")
 
 main :: IO ()
 main = do
-    projFiles <- map (mappend "project/") <$> listDirectory "project"
+    projFiles <- map (mappend "content/project/") <$> listDirectory "content/project"
     projs <- traverse parseProject projFiles
-    renderToFile "templates/components/projects.tpl" (renderProjects (reverse $ sortOn (date . meta) projs))
+    renderToFile "content/templates/components/projects.tpl" (renderProjects (reverse $ sortOn (date . meta) projs))
