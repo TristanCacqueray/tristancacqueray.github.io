@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This post introduces a couple of techniques I used to synchronize audio contents with the output of my animation-fractal project. In two parts, I present:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Synchronizing Sound PCM with Image FPS' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Synchronizing Sound PCM with Image FPS
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       This post introduces a couple of techniques I used to synchronize audio contents with the output of my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project. In two parts, I present:
     </p>
@@ -346,7 +433,21 @@ window.MathJax = {
   <div class='flex items-center justify-center'><div xmlhtmlRaw><iframe width="888" height="500" src="https://www.youtube.com/embed/ouoys1PABwA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div></div>
     <hr class='mb-3' />
-  <h2 id='normalize-the-audio-data' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Normalize the audio data</h2>
+  
+    <h2 id='normalize-the-audio-data' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Normalize the audio data
+  
+  <a href='blog/pulse-simple-pcm#normalize-the-audio-data'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       First, we need to decode the audio data into a raw format suitable for real-time playback. The main requirement is to pick a fixed sample rate so that the data can be divided into per frame chunk. In this case the video runs at 60 frames per second, so we can use the 44100 sampling frequency. The resulting audio chunk size is: <span class='math inline'>\(44100/60 = 735\)</span> samples.
     </p>
@@ -372,7 +473,21 @@ decodeFile fname = do
     <p class='mb-3'>
       This function relies on <a href='https://hackage.haskell.org/package/bytestring-0.11.3.1/docs/Data-ByteString-Internal.html#v:toForeignPtr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>toForeignPtr0</a> from the <a href='https://hackage.haskell.org/package/bytestring' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>bytestring</a> library to access the underlying memory. Then we convert it into a <code class='py-0.5 px-0.5 bg-gray-100'>Vector</code> using <a href='https://hackage.haskell.org/package/vector-0.13.0.0/docs/Data-Vector-Storable.html#v:unsafeFromForeignPtr0' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>unsafeFromForeignPtr0</a>.
     </p>
-  <h2 id='playback-through-pipewire' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Playback through pipewire</h2>
+  
+    <h2 id='playback-through-pipewire' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Playback through pipewire
+  
+  <a href='blog/pulse-simple-pcm#playback-through-pipewire'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Using the <a href='https://hackage.haskell.org/package/pulse-simple' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pulse-simple</a> library, we send the samples to the speaker with this function:
     </p>
@@ -392,7 +507,21 @@ playSample samples client = PS.simpleWriteRaw client bs
     <p class='mb-3'>
       <a href='https://hackage.haskell.org/package/pulse-simple' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pulse-simple</a> is a synchronous API: the <em>simpleWriteRaw</em> call blocks until the samples are completely consumed. It’s also amazing to see that the library has been published 10 years ago (2012), and it still compiles today!
     </p>
-  <h2 id='audio-player-thread' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Audio player thread</h2>
+  
+    <h2 id='audio-player-thread' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Audio player thread
+  
+  <a href='blog/pulse-simple-pcm#audio-player-thread'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       We use a dedicated thread to handle the synchronous audio connection with a channel to receive the samples to be played:
     </p>
@@ -426,7 +555,21 @@ clientThread chan = do
   where
     name = "animation-fractal"
     newClient = PS.simpleNew Nothing name PS.Play Nothing "pulse-pipe" spec Nothing Nothing
-    spec = PS.SampleSpec (PS.F32 PS.LittleEndian) 44100 1</code></pre></div><h2 id='synchronize-the-audio-with-the-video' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Synchronize the audio with the video</h2>
+    spec = PS.SampleSpec (PS.F32 PS.LittleEndian) 44100 1</code></pre></div>
+    <h2 id='synchronize-the-audio-with-the-video' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Synchronize the audio with the video
+  
+  <a href='blog/pulse-simple-pcm#synchronize-the-audio-with-the-video'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Finally, we submit the audio samples by calling this function in the video render loop:
     </p>
@@ -440,7 +583,21 @@ playAudioFrame (Frame position) samples chan =
     <p class='mb-3'>
       Playing 60 audio chunks per second may be too fast, resulting in some audible clips. Thus this function only submits 30 chunks per second instead.
     </p>
-  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/pulse-simple-pcm#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Similarly to the previous post <a href='blog/massiv-vulkan-capture' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Capturing Vulkan Framebuffer with Massiv</a>, we used the Haskell <code class='py-0.5 px-0.5 bg-gray-100'>Foreign</code> capabilities to efficiently manipulate raw data. While this initial implementation does not prevent under/over-run, it already performs quite well: we can jump to arbitrary location and the audio is played in sync with the video.
     </p>
@@ -449,12 +606,11 @@ playAudioFrame (Frame position) samples chan =
       Haskell offers efficient low-level interfaces that are available from a high level of abstraction.
     </p>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
   <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
     <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
     <ul class='space-y-1'>
@@ -492,8 +648,8 @@ playAudioFrame (Frame position) samples chan =
     </ul>
   </div>
 
-              </div>
-              
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -527,11 +683,13 @@ playAudioFrame (Frame position) samples chan =
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -557,13 +715,12 @@ playAudioFrame (Frame position) samples chan =
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

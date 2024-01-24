@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This post was initially published on the Software Factory blog: https://www.softwarefactory-project.io/practical-haskell-use-cases.html' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Haskell use cases for ChangeMetrics' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Haskell use cases for ChangeMetrics
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
     <p class='mb-3'>
@@ -339,7 +426,21 @@ window.MathJax = {
     <p class='mb-3'>
       After using Python type annotations, and then the OCaml type system, a colleague and I started to use Haskell to better define our program. We are satisfied with the initial results, and it is my pleasure to share our use cases.
     </p>
-  <h2 id='lentille-a-bugzilla-task-data-crawler' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lentille: a bugzilla task data crawler</h2>
+  
+    <h2 id='lentille-a-bugzilla-task-data-crawler' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Lentille: a bugzilla task data crawler
+  
+  <a href='blog/haskell-use-cases#lentille-a-bugzilla-task-data-crawler'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Our goal was to perform Bugzilla API data processing. The challenge was to query a HTTP API and adapt the responses for our needs.
     </p>
@@ -388,7 +489,21 @@ process postFunc =
     <p class='mb-3'>
       The client library missed a few features that we were able to implement locally. It was easy to integrate the work in progress changes using a <code class='py-0.5 px-0.5 bg-gray-100'>cabal.project</code> file to override the location of a build dependency. For example, we added <a href='https://github.com/juhp/hsbugzilla/pull/15/files' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>support for apikey</a>.
     </p>
-  <h2 id='monocle-http-api-based-on-protobuf' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Monocle HTTP API based on Protobuf</h2>
+  
+    <h2 id='monocle-http-api-based-on-protobuf' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Monocle HTTP API based on Protobuf
+  
+  <a href='blog/haskell-use-cases#monocle-http-api-based-on-protobuf'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Satisfied with the result of Lentille, we wanted to leverage this strongly typed approach for the API. The goal was to ensure the backend, the workers, and the frontend would use a common and well defined API. Check out this <a href='https://github.com/change-metrics/monocle/blob/master/doc/adr/0010-choice-of-protobuf.md' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Architecture Decision Record</a> for more info.
     </p>
@@ -409,7 +524,21 @@ process postFunc =
     <p class='mb-3'>
       Another issue that came up was about the Timestamp message from the Google protobuf well known type library. The official <code class='py-0.5 px-0.5 bg-gray-100'>protoc-compiler</code> transparently encodes this message as a rfc3339 string. We had to create a <a href='https://github.com/awakesecurity/proto3-suite/pull/150' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>custom timestamp decoder</a>.
     </p>
-  <h2 id='monocle-search-query' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Monocle Search Query</h2>
+  
+    <h2 id='monocle-search-query' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Monocle Search Query
+  
+  <a href='blog/haskell-use-cases#monocle-search-query'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Our goal was to improve the query interface by replacing a filters form with a query language. The challenge was to support text based query such as <code class='py-0.5 px-0.5 bg-gray-100'>(repo:openstack/nova or repo:openstack/ironic) and score&gt;200</code>. Check out the <a href='https://github.com/change-metrics/monocle/blob/master/doc/adr/0011-search-query-language.md' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>language architecture decision record</a> for more info.
     </p>
@@ -425,7 +554,21 @@ compile :: Expr         -&gt; Either ParseError Query</code></pre></div>
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type MonocleAPI =
        "search_fields" :&gt; ReqBody '[PBJSON] FieldsRequest :&gt; Post '[PBJSON] FieldsResponse
-  :&lt;|&gt; "changes" :&gt; ReqBody '[PBJSON] ChangesQueryRequest :&gt; Post '[PBJSON] ChangesQueryResponse</code></pre></div><h2 id='lentille-graphql-client-for-github-and-gitlab' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Lentille GraphQL client for GitHub and GitLab</h2>
+  :&lt;|&gt; "changes" :&gt; ReqBody '[PBJSON] ChangesQueryRequest :&gt; Post '[PBJSON] ChangesQueryResponse</code></pre></div>
+    <h2 id='lentille-graphql-client-for-github-and-gitlab' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Lentille GraphQL client for GitHub and GitLab
+  
+  <a href='blog/haskell-use-cases#lentille-graphql-client-for-github-and-gitlab'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Our goal was to perform data processing of GraphQL APIs. The challenge was to integrate complex queries defined using an extra language.
     </p>
@@ -469,7 +612,21 @@ streamFetch client mkArgs transformResponse = go Nothing
       Similar to Servant, using Morpheus GraphQL adds strong guarantees to our code. This comes at the cost of tediously handling complex data types. Fortunately, Haskell features pattern synonyms, which make the pattern matching on deeply nested structure a bit more manageable. Here is an example pattern to match the labels of a GitHub issue:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>pattern IssueLabels nodesLabel
-  &lt;- SearchNodesIssue _ _ _ _ (Just (SearchNodesLabelsLabelConnection (Just nodesLabel))) _</code></pre></div><h2 id='gerritbot-for-matrix' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Gerritbot for Matrix</h2>
+  &lt;- SearchNodesIssue _ _ _ _ (Just (SearchNodesLabelsLabelConnection (Just nodesLabel))) _</code></pre></div>
+    <h2 id='gerritbot-for-matrix' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Gerritbot for Matrix
+  
+  <a href='blog/haskell-use-cases#gerritbot-for-matrix'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       The goal was to implement a service to forward Gerrit events to Matrix rooms. The challenge was to adapt a stream of events into HTTP queries.
     </p>
@@ -524,7 +681,21 @@ bufferQueueRead maxTime tqueue = do
     <p class='mb-3'>
       These strongly type interfaces allowed me to safely add new features without breaking the service. I was able to keep the service running during development without any interruptions.
     </p>
-  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/haskell-use-cases#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Haskell is designed to enable efficient programing. There is a wealth of libraries with which to compose, and thanks to the Haddock documentation system, we were able to integrate many of them.
     </p>
@@ -557,14 +728,13 @@ bufferQueueRead maxTime tqueue = do
       Thanks for your time!
     </p>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
-              </div>
-              
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -598,11 +768,13 @@ bufferQueueRead maxTime tqueue = do
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -628,13 +800,12 @@ bufferQueueRead maxTime tqueue = do
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

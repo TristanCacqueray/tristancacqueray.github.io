@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This post demonstrates a motivating use-case for my new ebml library: an audio broadcasting server for WebSocket clients. In three parts, I present:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='../static/qpwgraph-gstreamer.png' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/../static/qpwgraph-gstreamer.png' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Broadcasting a WebM stream using MSE' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Broadcasting a WebM stream using MSE
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       This post demonstrates a motivating use-case for my new <a href='https://hackage.haskell.org/package/ebml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ebml</a> library: an audio broadcasting server for WebSocket clients. In three parts, I present:
     </p>
@@ -369,7 +456,21 @@ window.MathJax = {
     </blockquote>
   
     <hr class='mb-3' />
-  <h2 id='key-features' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Key Features</h2>
+  
+    <h2 id='key-features' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Key Features
+  
+  <a href='blog/broadcasting-webm#key-features'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       This section introduces the demo’s context and key features.
     </p>
@@ -377,7 +478,21 @@ window.MathJax = {
     <p class='mb-3'>
       After struggling with native libraries, such as SDL and Vulkan, for my <a href='https://gitlab.com/TristanCacqueray/animation-fractal' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>animation-fractal</a> project, I wanted to try the <a href='https://developer.mozilla.org/en-US/docs/Web/API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web API</a> to implement multi-media applications. Modern web browsers implement a sizable set of features for such applications, and it looked like a great platform to work with.
     </p>
-  <h3 id='overview' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Overview</h3>
+  
+    <h3 id='overview' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Overview
+  
+  <a href='blog/broadcasting-webm#overview'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       I set the following goals for myself:
     </p>
@@ -413,7 +528,21 @@ window.MathJax = {
     <p class='mb-3'>
       As a first step, I used WebSocket connections to handle dynamic interactions. While this approach has acceptable performance, I am also looking forward to using the <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebTransport_API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>WebTransport</a> API, a new API to replace WebSocket with HTTP/3 transport. I believe this is going to be a great match for such embedded system.
     </p>
-  <h3 id='use-cases' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Use-Cases</h3>
+  
+    <h3 id='use-cases' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Use-Cases
+  
+  <a href='blog/broadcasting-webm#use-cases'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Concretely, this demo can be used for:
     </p>
@@ -457,11 +586,39 @@ window.MathJax = {
     <p class='mb-3'>
       I decided to use MSE because it looked like the most straight forward API to use with WebSockets. The next section describes the rationals for using the WebM format.
     </p>
-  <h2 id='webm-stream' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>WebM Stream</h2>
+  
+    <h2 id='webm-stream' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  WebM Stream
+  
+  <a href='blog/broadcasting-webm#webm-stream'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Before diving into the characteristics of a WebM stream, let’s see why using such format is necessary.
     </p>
-  <h3 id='playing-live-audio' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Playing live audio</h3>
+  
+    <h3 id='playing-live-audio' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Playing live audio
+  
+  <a href='blog/broadcasting-webm#playing-live-audio'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       There are two options to play audio from JavaScript:
     </p>
@@ -489,7 +646,21 @@ window.MathJax = {
     <p class='mb-3'>
       I decided to use a container format for the MSE to reduce the footprint.
     </p>
-  <h3 id='container-formats-supported-by-mse' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Container formats supported by MSE</h3>
+  
+    <h3 id='container-formats-supported-by-mse' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Container formats supported by MSE
+  
+  <a href='blog/broadcasting-webm#container-formats-supported-by-mse'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       In an early experiment, I used the <a href='https://xiph.org/ogg/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ogg</a> container because it is a simpler format that the browser MediaRecorder can produce natively. It looked promising because the resulting buffers were valid frames starting with the correct <code class='py-0.5 px-0.5 bg-gray-100'>OggS</code> header. Unfortunately, I learned the hard way that MSE can’t playback this format.
     </p>
@@ -513,7 +684,21 @@ window.MathJax = {
     <p class='mb-3'>
       I decided to use WebM because it is the most recent format and, as the name suggests, it is optimized for the web.
     </p>
-  <h3 id='webm-format' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>WebM format</h3>
+  
+    <h3 id='webm-format' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  WebM format
+  
+  <a href='blog/broadcasting-webm#webm-format'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       WebM is based on the <a href='https://www.matroska.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Matroska</a> container, which implements the Extensible Binary Meta Language (<a href='https://hackage.haskell.org/package/ebml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>EBML</a>). The layout is surprisingly simple, each element are defined as:
     </p>
@@ -543,11 +728,39 @@ window.MathJax = {
     <p class='mb-3'>
       Therefore, a new client must be provided with the stream initialization segments along with the beginning of the most recent media segment. And this is precisely the goal of the <a href='https://hackage.haskell.org/package/ebml-0.1.0.0/docs/Codec-EBML.html#g:3' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>StreamReader</a> of my <a href='https://hackage.haskell.org/package/ebml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ebml</a> library. The next section presents how that works in practice.
     </p>
-  <h2 id='demo' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Demo</h2>
+  
+    <h2 id='demo' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Demo
+  
+  <a href='blog/broadcasting-webm#demo'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       This section introduces a standalone application that broadcasts a local audio stream to web clients through WebSockets.
     </p>
-  <h3 id='extension-and-packages' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Extension and packages</h3>
+  
+    <h3 id='extension-and-packages' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Extension and packages
+  
+  <a href='blog/broadcasting-webm#extension-and-packages'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       I wrote this program for GHC2021, here are the necessary extra extensions:
     </p>
@@ -582,7 +795,21 @@ import Network.Wai qualified as Wai
 import Lucid qualified
 
 -- ebml, the new library to decode WebM stream
-import Codec.EBML qualified as EBML</code></pre></div><h3 id='broadcast-server' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Broadcast server</h3>
+import Codec.EBML qualified as EBML</code></pre></div>
+    <h3 id='broadcast-server' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Broadcast server
+  
+  <a href='blog/broadcasting-webm#broadcast-server'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       The server is defined as a broadcast channel of (raw data, frame):
     </p>
@@ -608,7 +835,21 @@ audioStreamer srv = RIO.withProcessWait_ cmdProc (readProcess EBML.newStreamRead
             Left err -&gt; error ("Stream failed: " &lt;&gt; show err)
             Right (mFrame, newSR) -&gt; do
                 broadcast srv (buf, mFrame)
-                readProcess newSR process</code></pre></div><h3 id='broadcast-client' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Broadcast client</h3>
+                readProcess newSR process</code></pre></div>
+    <h3 id='broadcast-client' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Broadcast client
+  
+  <a href='blog/broadcasting-webm#broadcast-client'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       A client is defined as a broadcast channel reader:
     </p>
@@ -639,7 +880,21 @@ audioClient srv client = sendHeader &gt;&gt; sendStream
     <p class='mb-3'>
       The <code class='py-0.5 px-0.5 bg-gray-100'>audioStreamer</code> and <code class='py-0.5 px-0.5 bg-gray-100'>audioClient</code> functions are the core of this demo.
     </p>
-  <h3 id='servant-api' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Servant API</h3>
+  
+    <h3 id='servant-api' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Servant API
+  
+  <a href='blog/broadcasting-webm#servant-api'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       The API data defines three routes:
     </p>
@@ -690,7 +945,21 @@ main = do
     srv &lt;- newBroadcastServer
     race_ (audioStreamer srv) do
         putStrLn "Serving to http://localhost:8000"
-        Warp.run 8000 (app srv)</code></pre></div><h3 id='javascript-client' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>JavaScript client</h3><div class='hidden'>
+        Warp.run 8000 (app srv)</code></pre></div>
+    <h3 id='javascript-client' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  JavaScript client
+  
+  <a href='blog/broadcasting-webm#javascript-client'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  <div class='hidden'>
     <p class='mb-3'>
       The JavaScript code is inlined as a multi-line string.
     </p>
@@ -814,7 +1083,21 @@ jsScript = cleanup jsClient
     <p class='mb-3'>
       Once the service is running, you can use the <code class='py-0.5 px-0.5 bg-gray-100'>qpwgraph</code> tool to configure the I/O, for example using such graph:
     </p>
-  <img class='inline mb-3' src='static/qpwgraph-gstreamer.png' alt='qpwgraph-gstreamer' style='width: inherit;' /><h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  <img class='inline mb-3' src='static/qpwgraph-gstreamer.png' alt='qpwgraph-gstreamer' style='width: inherit;' />
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/broadcasting-webm#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       It wasn’t obvious that this implementation would work in practice. I had to study the EBML format and use trial and error as a means of understanding MSE. In the end, I am happy with the results, Haskell once again proved its efficiency: the service runs steadily and its overhead is barely noticeable.
     </p>
@@ -827,12 +1110,11 @@ jsScript = cleanup jsClient
       Cheers!
     </p>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
   <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
     <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
     <ul class='space-y-1'>
@@ -855,8 +1137,8 @@ jsScript = cleanup jsClient
     </ul>
   </div>
 
-              </div>
-              
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -899,11 +1181,13 @@ jsScript = cleanup jsClient
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -929,13 +1213,12 @@ jsScript = cleanup jsClient
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

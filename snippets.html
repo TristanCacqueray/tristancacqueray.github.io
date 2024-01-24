@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 
 
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
 <html lang='en'>
 
 <head>
@@ -13,9 +16,12 @@
     
       <meta property='og:description' content />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Snippets' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -50,7 +56,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -58,6 +64,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -258,7 +311,7 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
     <div class='container mx-auto max-w-screen-lg'>
       <div class='mt-2 md:mt-4'>
@@ -273,11 +326,11 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -312,21 +365,223 @@ window.MathJax = {
                 </aside>
                 <article class='overflow-auto col-span-9 mx-2'>
                   
+
+
+
+
+
+
     <p class='mb-3'>
       These are code snippets for one-off task.
     </p>
-  <h1 id='git' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>git</h1><h2 id='delete-merged-branch' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>delete merged branch</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
-</code></pre></div><h1 id='ffmpeg' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>ffmpeg</h1><h2 id='encode-mp3-with-pochette-for-youtube' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Encode mp3 with pochette for youtube</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortest -c:v libx264 opFreak-album.mp4
-</code></pre></div><h1 id='gnome' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>gnome</h1><h2 id='show-wifi-passwords' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Show wifi passwords</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>nmcli -s connection show $SSID | grep -i psk
-</code></pre></div><h1 id='rpm' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>rpm</h1><h2 id='list-installed-by-size' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>List installed by size</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># rpm -qia|awk '$1=="Name" {n=$3} $1=="Size" {s=$3} $1=="Description" {print s " " n }' | sort -n
+  
+    <h1 id='git' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  git
+  
+  <a href='snippets#git'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='delete-merged-branch' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  delete merged branch
+  
+  <a href='snippets#delete-merged-branch'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
+</code></pre></div>
+    <h1 id='ffmpeg' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  ffmpeg
+  
+  <a href='snippets#ffmpeg'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='encode-mp3-with-pochette-for-youtube' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Encode mp3 with pochette for youtube
+  
+  <a href='snippets#encode-mp3-with-pochette-for-youtube'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortest -c:v libx264 opFreak-album.mp4
+</code></pre></div>
+    <h1 id='gnome' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  gnome
+  
+  <a href='snippets#gnome'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='show-wifi-passwords' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Show wifi passwords
+  
+  <a href='snippets#show-wifi-passwords'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>nmcli -s connection show $SSID | grep -i psk
+</code></pre></div>
+    <h1 id='rpm' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  rpm
+  
+  <a href='snippets#rpm'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='list-installed-by-size' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  List installed by size
+  
+  <a href='snippets#list-installed-by-size'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># rpm -qia|awk '$1=="Name" {n=$3} $1=="Size" {s=$3} $1=="Description" {print s " " n }' | sort -n
 rpm -qa --queryformat '%{SIZE} %{NAME}\n'
-</code></pre></div><h1 id='wayland' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>wayland</h1><h2 id='disable-input' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Disable input</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>sudo libinput list-devices
+</code></pre></div>
+    <h1 id='wayland' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  wayland
+  
+  <a href='snippets#wayland'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='disable-input' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Disable input
+  
+  <a href='snippets#disable-input'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>sudo libinput list-devices
 # grab the input path and run:
 sudo nix run nixpkgs#evtest --grab /dev/input/event3
-</code></pre></div><h1 id='x11' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>x11</h1><h2 id='mouse-speeds' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>mouse speeds</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>xinputs -&gt; get the mouse id
+</code></pre></div>
+    <h1 id='x11' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  x11
+  
+  <a href='snippets#x11'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='mouse-speeds' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  mouse speeds
+  
+  <a href='snippets#mouse-speeds'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>xinputs -&gt; get the mouse id
 xinputs list-props -&gt; get the matrix prop id
 xinput set-prop $MID $PID 3.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 1.0
-</code></pre></div><h1 id='gpg' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>gpg</h1><h2 id='update-expired-keys' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Update expired keys</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ gpg --edit-key EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
+</code></pre></div>
+    <h1 id='gpg' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  gpg
+  
+  <a href='snippets#gpg'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='update-expired-keys' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Update expired keys
+  
+  <a href='snippets#update-expired-keys'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ gpg --edit-key EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
 gpg&gt; expire
 ...
 gpg&gt; key 1
@@ -334,7 +589,21 @@ gpg&gt; expire
 ...
 gpg&gt; save
 $ gpg  --send-keys  EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
-</code></pre></div><h2 id='add-ssh-key' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Add ssh key</h2>
+</code></pre></div>
+    <h2 id='add-ssh-key' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Add ssh key
+  
+  <a href='snippets#add-ssh-key'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       From <a href='https://opensource.com/article/19/4/gpg-subkeys-ssh' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://opensource.com/article/19/4/gpg-subkeys-ssh</a>
     </p>
@@ -370,9 +639,65 @@ echo ID &gt;&gt; ~/.gnupg/sshcontrol
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>gpg-agent --daemon --keep-display
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-</code></pre></div><h1 id='image-magic' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>image magic</h1><h3 id='compare-test' class='mt-6 mb-2 text-2xl font-bold text-gray-700'>Compare test</h3><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>// Use imagemagick to test that your image is what you want
+</code></pre></div>
+    <h1 id='image-magic' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  image magic
+  
+  <a href='snippets#image-magic'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h3 id='compare-test' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Compare test
+  
+  <a href='snippets#compare-test'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>// Use imagemagick to test that your image is what you want
 'compare -metric RMSE actual.png expected.png',
-</code></pre></div><h1 id='gnuplot' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>gnuplot</h1><h2 id='nice-looking-charts-from-csv' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>nice looking charts from CSV</h2>
+</code></pre></div>
+    <h1 id='gnuplot' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  gnuplot
+  
+  <a href='snippets#gnuplot'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='nice-looking-charts-from-csv' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  nice looking charts from CSV
+  
+  <a href='snippets#nice-looking-charts-from-csv'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       From <a href='https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html</a>
     </p>
@@ -397,13 +722,97 @@ set xtics rotate # rotate labels on the x axis
 set key right center # legend placement
 
 plot filename using 1:2 with lines ls 101, '' using 1:3 with lines ls 102, '' using 1:4 with lines axis x1y2 ls 103
-</code></pre></div><h1 id='google-calendar' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>google calendar</h1><h2 id='export-to-org-mode' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Export to org mode:</h2>
+</code></pre></div>
+    <h1 id='google-calendar' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  google calendar
+  
+  <a href='snippets#google-calendar'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='export-to-org-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Export to org mode:
+  
+  <a href='snippets#export-to-org-mode'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Download archive from <a href='https://calendar.google.com/calendar/r/settings/export' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://calendar.google.com/calendar/r/settings/export</a>, then
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>TZ=Asia/Seoul ical2orgpy cal.ics gcal.org
-</code></pre></div><h1 id='notmuch' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>notmuch</h1><h2 id='delete-mails-matching-query' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Delete mails matching query</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>notmuch search --output=files --exclude=false tag:monit | xargs -L1000 rm
-</code></pre></div><h1 id='zookeeper' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>ZooKeeper</h1><h2 id='connect-with-kazoo' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Connect with kazoo</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>import json
+</code></pre></div>
+    <h1 id='notmuch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  notmuch
+  
+  <a href='snippets#notmuch'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='delete-mails-matching-query' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Delete mails matching query
+  
+  <a href='snippets#delete-mails-matching-query'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>notmuch search --output=files --exclude=false tag:monit | xargs -L1000 rm
+</code></pre></div>
+    <h1 id='zookeeper' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  ZooKeeper
+  
+  <a href='snippets#zookeeper'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='connect-with-kazoo' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Connect with kazoo
+  
+  <a href='snippets#connect-with-kazoo'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>import json
 import kazoo.client
 client = kazoo.client.KazooClient(hosts="zookeeper")
 client.start()
@@ -426,7 +835,35 @@ for node in nodes:
         client.delete(node['node_path'], recursive=True)
 
 node = json.loads(client.get("/nodepool/nodes/" + nodes[0])[0].decode('utf-8'))
-</code></pre></div><h1 id='openstack' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>OpenStack</h1><h2 id='deploy-local-instance' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Deploy local instance</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>yum install openstack-nova openstack-neutron libvirt openstack-glance openstack-cinder openstack-heat-api openstack-heat-common openstack-heat-engine openstack-keystone openstack-nova-scheduler qemu-img-ev rabbitmq-server libvirt-daemon-kvm galera mariadb-server-galera memcached container-selinux openstack-selinux sos openstack-neutron-ml2 targetcli openvswitch
+</code></pre></div>
+    <h1 id='openstack' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  OpenStack
+  
+  <a href='snippets#openstack'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='deploy-local-instance' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Deploy local instance
+  
+  <a href='snippets#deploy-local-instance'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>yum install openstack-nova openstack-neutron libvirt openstack-glance openstack-cinder openstack-heat-api openstack-heat-common openstack-heat-engine openstack-keystone openstack-nova-scheduler qemu-img-ev rabbitmq-server libvirt-daemon-kvm galera mariadb-server-galera memcached container-selinux openstack-selinux sos openstack-neutron-ml2 targetcli openvswitch
 # resize hdd
 fdisk /dev/vda
 resize2fs /dev/vda
@@ -532,7 +969,7 @@ openstack security group rule create --protocol icmp --ingress default
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
@@ -557,4 +994,3 @@ openstack security group rule create --protocol icmp --ingress default
 </body>
 
 </html>
-

@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This post introduces the dear-imgui library along with its Haskell binding to create this simple user interface:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='../static/dear-imgui-demo.png' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/../static/dear-imgui-demo.png' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Incredibly Magic Graphics User Interface' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Incredibly Magic Graphics User Interface
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       This post introduces the <a href='https://github.com/ocornut/imgui#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dear-imgui</a> library along with its Haskell <a href='https://hackage.haskell.org/package/dear-imgui' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>binding</a> to create this simple user interface:
     </p>
@@ -360,7 +447,21 @@ import DearImGui.OpenGL3 qualified as DGL3
 import DearImGui.SDL qualified as DSDL
 import DearImGui.SDL.OpenGL qualified as DGL
 import Graphics.GL qualified as GL
-import SDL qualified</code></pre></div><h2 id='context' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Context</h2>
+import SDL qualified</code></pre></div>
+    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Context
+  
+  <a href='blog/dear-imgui#context'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       For this demonstration purpose, we’ll create a GUI to add and remove elements from a list. The GUI contains:
     </p>
@@ -390,7 +491,21 @@ import SDL qualified</code></pre></div><h2 id='context' class='mt-6 mb-4 text-4x
 }
 
 newClipManager :: STM ClipManager
-newClipManager = ClipManager &lt;$&gt; newTVar "default" &lt;*&gt; newTVar []</code></pre></div><h2 id='how-it-works' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>How it works</h2>
+newClipManager = ClipManager &lt;$&gt; newTVar "default" &lt;*&gt; newTVar []</code></pre></div>
+    <h2 id='how-it-works' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  How it works
+  
+  <a href='blog/dear-imgui#how-it-works'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       The dear-imgui API defines graphical components as draw calls to be performed for each frame. In the main event loop, we call procedures to define the user interface. These drawing procedures may returns information about the state of the interface. For example, a <a href='https://hackage.haskell.org/package/dear-imgui-2.1.1/docs/DearImGui.html#v:button' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>button</a> returns true when the user clicks it.
     </p>
@@ -418,7 +533,21 @@ drawClipManager ClipManager{currentClip, clips} = do
   -- Draw the list selector
   DearImGui.setNextItemWidth 200
   drawClipSelector
- where</code></pre></div><h2 id='layout' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Layout</h2>
+ where</code></pre></div>
+    <h2 id='layout' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Layout
+  
+  <a href='blog/dear-imgui#layout'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       By default, the elements are drawn vertically, from top to bottom. By calling <a href='https://hackage.haskell.org/package/dear-imgui-2.1.1/docs/DearImGui.html#v:sameLine' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>sameLine</a>, we discard the last line return, which result in the element being drawn on the same line. It’s as simple as that!
     </p>
@@ -426,7 +555,21 @@ drawClipManager ClipManager{currentClip, clips} = do
     <p class='mb-3'>
       We can also adjust individual elements, for example by calling <a href='https://hackage.haskell.org/package/dear-imgui-2.1.1/docs/DearImGui.html#v:setNextItemWidth' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>setNextItemWidth</a>.
     </p>
-  <h2 id='button-handler' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Button handler</h2>
+  
+    <h2 id='button-handler' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Button handler
+  
+  <a href='blog/dear-imgui#button-handler'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       The handlers simply update the element list. Note that dear-imgui store the current name to the <code class='py-0.5 px-0.5 bg-gray-100'>currentClip</code> reference.
     </p>
@@ -438,7 +581,21 @@ drawClipManager ClipManager{currentClip, clips} = do
   deleteHandler = atomically do
     currentName &lt;- readTVar currentClip
     writeTVar currentClip "new"
-    modifyTVar' clips (filter (/= currentName))</code></pre></div><h2 id='dear-id' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Dear ID</h2>
+    modifyTVar' clips (filter (/= currentName))</code></pre></div>
+    <h2 id='dear-id' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Dear ID
+  
+  <a href='blog/dear-imgui#dear-id'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       dear-imgui requires an unique ID for each component so that the library can properly manage their individual state. By default, the library builds a stack of ID using the component names.
     </p>
@@ -446,7 +603,21 @@ drawClipManager ClipManager{currentClip, clips} = do
     <p class='mb-3'>
       When two components share the same name, or when they don’t have a name (e.g. our inputText), we can specify the ID using the <code class='py-0.5 px-0.5 bg-gray-100'>##ID</code> notation. We can also adds an ID to the stack using <a href='https://hackage.haskell.org/package/dear-imgui-2.1.1/docs/DearImGui.html#v:withID' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>withID</a>.
     </p>
-  <h2 id='list-selector' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>List selector</h2>
+  
+    <h2 id='list-selector' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  List selector
+  
+  <a href='blog/dear-imgui#list-selector'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Creating a selector is also very easy, here is the whole implementation:
     </p>
@@ -464,7 +635,21 @@ drawClipManager ClipManager{currentClip, clips} = do
     <p class='mb-3'>
       … which looks like this:
     </p>
-  <img class='inline mb-3' src='static/dear-imgui-demo-selector.png' alt='dear-imgui-demo-selector' style='width: inherit;' /><h2 id='run-the-gui' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Run the GUI</h2>
+  <img class='inline mb-3' src='static/dear-imgui-demo-selector.png' alt='dear-imgui-demo-selector' style='width: inherit;' />
+    <h2 id='run-the-gui' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Run the GUI
+  
+  <a href='blog/dear-imgui#run-the-gui'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Finally, the initializing code borrowed from the dear-imgui README:
     </p>
@@ -518,7 +703,21 @@ mainLoop window doDrawGUI = unlessQuit do
         Just event -&gt;
           (isQuit event ||) &lt;$&gt; checkEvents
     isQuit event =
-      SDL.eventPayload event == SDL.QuitEvent</code></pre></div><h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+      SDL.eventPayload event == SDL.QuitEvent</code></pre></div>
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/dear-imgui#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Coming from React or GTK, dear-imgui offers a solid alternative to create graphical user interfaces. Don’t let the retro look fools you, it is well capable and very efficient. Checkout the <a href='https://github.com/ocornut/imgui#gallery' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>gallery</a>.
     </p>
@@ -539,12 +738,11 @@ mainLoop window doDrawGUI = unlessQuit do
   
     </blockquote>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
   <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
     <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
     <ul class='space-y-1'>
@@ -582,8 +780,8 @@ mainLoop window doDrawGUI = unlessQuit do
     </ul>
   </div>
 
-              </div>
-              
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -617,11 +815,13 @@ mainLoop window doDrawGUI = unlessQuit do
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -647,13 +847,12 @@ mainLoop window doDrawGUI = unlessQuit do
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

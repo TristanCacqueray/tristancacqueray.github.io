@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='A light system container environment.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='systemd nspawn' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='zettle'>
+  <a href='zettle'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Zettelkasten
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     systemd nspawn
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       A light system container environment.
     </p>
@@ -331,17 +418,59 @@ window.MathJax = {
     <p class='mb-3'>
       Here are some notes to install a CentOS on Fedora in the <code class='py-0.5 px-0.5 bg-gray-100'>~/sfroot</code> directory using a local <code class='py-0.5 px-0.5 bg-gray-100'>192.168.242.42</code> ip:
     </p>
-  <h2 id='setup-chroot' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Setup chroot</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>cat &lt;&lt;EOF&gt;sf.repo
+  
+    <h2 id='setup-chroot' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Setup chroot
+  
+  <a href='zettle/systemd-nspawn#setup-chroot'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>cat &lt;&lt;EOF&gt;sf.repo
 [sf-master]
 name=SF
 baseurl=https://softwarefactory-project.io/kojifiles/repos/sf-master-el7-build/latest/x86_64/
 gpgcheck=0
 EOF
 mkdir sfroot
-sudo dnf -c sf.repo --disablerepo=* --enablerepo=sf-master --installroot ~/sfroot install systemd sf-config passwd openssh-server vim yum openssh-clients hostname selinux-policy</code></pre></div><h2 id='setup-root-access' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Setup root access</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>sudo systemd-nspawn -D ~/sfroot/
+sudo dnf -c sf.repo --disablerepo=* --enablerepo=sf-master --installroot ~/sfroot install systemd sf-config passwd openssh-server vim yum openssh-clients hostname selinux-policy</code></pre></div>
+    <h2 id='setup-root-access' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Setup root access
+  
+  <a href='zettle/systemd-nspawn#setup-root-access'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>sudo systemd-nspawn -D ~/sfroot/
 chroot&gt; passwd -d root
 chroot&gt; rm /etc/securetty
-chroot&gt; systemctl enable sshd</code></pre></div><h2 id='boot-with-network' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Boot with network</h2><div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>sudo systemd-nspawn -bD ~/sfroot -n</code></pre></div>
+chroot&gt; systemctl enable sshd</code></pre></div>
+    <h2 id='boot-with-network' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Boot with network
+  
+  <a href='zettle/systemd-nspawn#boot-with-network'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>sudo systemd-nspawn -bD ~/sfroot -n</code></pre></div>
     <p class='mb-3'>
       On the host:
     </p>
@@ -361,12 +490,11 @@ ip route add default via 192.168.242.1</code></pre></div>
       Stop from the host by running <code class='py-0.5 px-0.5 bg-gray-100'>killall systemd-nspawn</code>.
     </p>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
   <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
     <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
     <ul class='space-y-1'>
@@ -389,8 +517,8 @@ ip route add default via 192.168.242.1</code></pre></div>
     </ul>
   </div>
 
-              </div>
-              
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
   </section>
@@ -406,11 +534,13 @@ ip route add default via 192.168.242.1</code></pre></div>
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -436,13 +566,12 @@ ip route add default via 192.168.242.1</code></pre></div>
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

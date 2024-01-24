@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This post is a live journal to document my switch to using an ergonomic keyboard. I am writing it as suggested by a colleague, and I hope that you’ll find this entertaining and useful.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='media/ergo-init-layer-base.png' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/media/ergo-init-layer-base.png' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Switching To An Ergonomic Keyboard' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,31 +378,57 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Switching To An Ergonomic Keyboard
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       This post is a live journal to document my switch to using an ergonomic keyboard. I am writing it as suggested by a colleague, and I hope that you’ll find this entertaining and useful.
     </p>
-  <h2 id='thu-oct-19-making-a-decision' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Oct 19: Making a decision</h2>
+  
+    <h2 id='thu-oct-19-making-a-decision' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Thu, Oct 19: Making a decision
+  
+  <a href='blog/switching-to-ergo-keyboard#thu-oct-19-making-a-decision'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       To put this into context: I have been using various keyboards to write copious amounts of code for almost 30 years now. I used Emacs, then Vim, and now mostly vanilla Emacs with the default key bindings. My favorite keyboard layout is the 75%, but after relocating back from South Korea, the keyboards I bought all broke right after the warranty was over. That was really frustrating because I was not able to fix them and I don’t want to produce waste.
     </p>
@@ -339,7 +440,21 @@ window.MathJax = {
     <p class='mb-3'>
       A couple of weeks ago, a friend told me about his switch to a split keyboard and that sparked my curiosity. After spending half a day checking what I could get, I settled on the Moonlander. There are lots of option, and it’s difficult to make a choice, and since I am not familiar with these systems, the Moonlander looked like the easiest option since it comes pre-built. I just wished they had a version without any LEDs.
     </p>
-  <h2 id='thu-oct-26-waiting' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Oct 26: Waiting</h2>
+  
+    <h2 id='thu-oct-26-waiting' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Thu, Oct 26: Waiting
+  
+  <a href='blog/switching-to-ergo-keyboard#thu-oct-26-waiting'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       After making the purchase, my curiosity grew over the days, and I was wondering if I made the right decision. Thankfully, ZSA, the producer of the Moonlander, has really good support and they provide great resources to get started.
     </p>
@@ -399,7 +514,21 @@ window.MathJax = {
     </p>
   
     </blockquote>
-  <h2 id='fri-oct-27-unboxing' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Oct 27: Unboxing</h2>
+  
+    <h2 id='fri-oct-27-unboxing' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Fri, Oct 27: Unboxing
+  
+  <a href='blog/switching-to-ergo-keyboard#fri-oct-27-unboxing'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       On Friday evening, eight days after making the order, I got the keyboard. I flashed the initial layout I prepared and quickly realized that the learning curves was going to be too steep. This was just too much of a change and I couldn’t see how I would be able to get used to such a different setup. Thus, I made the following adjustments to get something usable more quickly:
     </p>
@@ -431,7 +560,21 @@ window.MathJax = {
     <p class='mb-3'>
       My first task was to start Emacs, by typing alt-f2 and “emacs”. That was quite a challenge since the function keys are in the upper layer. This was a big relief because it felt like something I can get used to. After this first success, it was already getting late and I call it a day.
     </p>
-  <h2 id='sat-oct-28-first-contact' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sat, Oct 28: First contact</h2>
+  
+    <h2 id='sat-oct-28-first-contact' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sat, Oct 28: First contact
+  
+  <a href='blog/switching-to-ergo-keyboard#sat-oct-28-first-contact'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       On Saturday, I got some practice by writing this post, my goal was to get used to:
     </p>
@@ -459,7 +602,21 @@ window.MathJax = {
     <p class='mb-3'>
       I am not doing this switch to become faster anyway, it’s an investment for my well-being, and I can already feels that it is paying off: my wrists and fingers barely moved as I am writing this post.
     </p>
-  <h2 id='sun-oct-29-let-the-fun-begin' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sun, Oct 29: Let the fun begin</h2>
+  
+    <h2 id='sun-oct-29-let-the-fun-begin' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sun, Oct 29: Let the fun begin
+  
+  <a href='blog/switching-to-ergo-keyboard#sun-oct-29-let-the-fun-begin'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       On Sunday, I focused my practice on using the fun layer. This layer systems is a neat feature that lets you remap keys, similarly to what the shift key does. This is what really lets you reduce hand motions.
     </p>
@@ -479,7 +636,21 @@ window.MathJax = {
     <p class='mb-3'>
       I forgot to mention yesterday that while ergonomics was the primary reason for using such a keyboard, I also enjoy the fact that this keyboard is designed for long term usage with a durable design. It looks like I will be able to repair failures that will happen in the future.
     </p>
-  <h2 id='mon-oct-30-getting-to-work' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mon, Oct 30: Getting to work</h2>
+  
+    <h2 id='mon-oct-30-getting-to-work' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Mon, Oct 30: Getting to work
+  
+  <a href='blog/switching-to-ergo-keyboard#mon-oct-30-getting-to-work'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       I am not going to lie, today was rough. My colleagues were supportive and patient with me, but using such a new device took a mental toll on me. The day started with an innocuous tmux session to fix a service that was not starting, and I stuttered to perform most actions. This slowdown is annoying because by the time I typed something, I almost forgot the context of what I was doing.
     </p>
@@ -511,7 +682,21 @@ window.MathJax = {
     <p class='mb-3'>
       By the end of the day, I still managed to push a bunch of commits, and I am getting a bit more comfortable within emacs.
     </p>
-  <h2 id='tue-oct-31-typing' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Tue, Oct 31: Typing</h2>
+  
+    <h2 id='tue-oct-31-typing' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Tue, Oct 31: Typing
+  
+  <a href='blog/switching-to-ergo-keyboard#tue-oct-31-typing'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       After two full days using the keyboard, I have to say that I’m getting used to the new motions, and I can feel that with a bit more practice I’ll be done with the initial learning curve. I was a skeptical at first, but I’m glad that such a change is doable. I did a bit of monkeytype.com and I am presently at 60 WPM for English, and about 25 WPM for Rust.
     </p>
@@ -551,7 +736,21 @@ window.MathJax = {
     <p class='mb-3'>
       I don’t expect more changes, I just wished there was a better location for the enter key. Here is the link if you want to check out what I am using: <a href='https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://configure.zsa.io/moonlander/layouts/J5QlB/latest/0</a>
     </p>
-  <h2 id='wed-nov-1-holding-keys' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Wed, Nov 1: Holding keys</h2>
+  
+    <h2 id='wed-nov-1-holding-keys' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Wed, Nov 1: Holding keys
+  
+  <a href='blog/switching-to-ergo-keyboard#wed-nov-1-holding-keys'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       As I was practicing I realized that the space key’s location was not ideal. And to reach the <code class='py-0.5 px-0.5 bg-gray-100'>-</code> key I had to move my thumb all the way under my hand. I was also reluctant to use the thumb cluster as it was hard to reach when the keyboard is tented. But after putting the keyboard flat, as suggested in the getting started guide, I found it was quite a natural place to rest my thumbs. So I moved the <code class='py-0.5 px-0.5 bg-gray-100'>backspace</code> and <code class='py-0.5 px-0.5 bg-gray-100'>space</code> keys there.
     </p>
@@ -563,11 +762,39 @@ window.MathJax = {
     <p class='mb-3'>
       It wasn’t fun getting used to the new positions, and doing such tweaks was exactly what I wanted to avoid. Hopefully, it didn’t took too long to get up to speed, and after a couple of hours of training I reached about 30 WPM for Rust code.
     </p>
-  <h2 id='thu-nov-2-getting-rid-of-the-nums-row' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Nov 2: Getting rid of the nums row</h2>
+  
+    <h2 id='thu-nov-2-getting-rid-of-the-nums-row' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Thu, Nov 2: Getting rid of the nums row
+  
+  <a href='blog/switching-to-ergo-keyboard#thu-nov-2-getting-rid-of-the-nums-row'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       I realized that reaching for the numbers on the top row offsets my hands in such a way that I can no longer reach the thumb clusters easily. Perhaps if the cluster was higher up that wouldn’t be such an issue, but I think the ultimate solution is to get rid of that row entirely. The layout I am using already provides a num pad on the fun layer which I can get used to. Then I also changed my gnome settings for switching workspace to use the home row instead <a href='https://github.com/TristanCacqueray/dot-files/commit/de20d6fd1edca1dabb0b5bf0aa80d0bde53cb385' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>that way</a>
     </p>
-  <h2 id='fri-nov-3-emulating-the-mouse' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Nov 3: Emulating the mouse</h2>
+  
+    <h2 id='fri-nov-3-emulating-the-mouse' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Fri, Nov 3: Emulating the mouse
+  
+  <a href='blog/switching-to-ergo-keyboard#fri-nov-3-emulating-the-mouse'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       One thing I really missed was the ThinkPad track-point. Thankfully, it is possible to emulate the mouse using the keyboard, and that seems to work well. Here are the settings I used:
     </p>
@@ -595,11 +822,39 @@ window.MathJax = {
     <p class='mb-3'>
       I barely use my pinky anymore, however I am feeling a light soreness on my other fingers. I hope this is just my hand adjusting and that it won’t become an issue.
     </p>
-  <h2 id='sat-nov-4-trying-colemak-dh' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sat, Nov 4: Trying Colemak-DH</h2>
+  
+    <h2 id='sat-nov-4-trying-colemak-dh' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sat, Nov 4: Trying Colemak-DH
+  
+  <a href='blog/switching-to-ergo-keyboard#sat-nov-4-trying-colemak-dh'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Out of curiosity I gave Colemak-DH a try. It’s not that I wanted to make this journey anymore difficult, but I thought it would be an interesting challenge to see if I can also get used to different letter keys positions. I went to <a href='https://gnusenpai.net/colemakclub/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>colemakclub</a> and reached 15 WPM at the level 2. That was a really interesting experience and I now wonder if such exercise could be beneficial for improving my memory.
     </p>
-  <h2 id='sun-nov-5-introducing-combo-home-row-mods' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sun, Nov 5: Introducing (combo) home row mods</h2>
+  
+    <h2 id='sun-nov-5-introducing-combo-home-row-mods' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sun, Nov 5: Introducing (combo) home row mods
+  
+  <a href='blog/switching-to-ergo-keyboard#sun-nov-5-introducing-combo-home-row-mods'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Home row mods lets you add <code class='py-0.5 px-0.5 bg-gray-100'>super</code>, <code class='py-0.5 px-0.5 bg-gray-100'>alt</code>, <code class='py-0.5 px-0.5 bg-gray-100'>ctrl</code> and <code class='py-0.5 px-0.5 bg-gray-100'>shift</code> (mods) to the home row (the keys of the default fingers position). I am giving this a try because I find the lower part of the thumb cluster hard to reach, and by moving modifiers to the home row, I can further reduce thumbs movements. This feels like a really great improvement, unfortunately that didn’t worked out with my typing style where my finger rolls on the keys, resulting in frequent misfire. Here is a good summary of the challenges of using home row mods: <a href='https://sunaku.github.io/home-row-mods.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Taming home row mods with bilateral combinations</a>.
     </p>
@@ -607,15 +862,57 @@ window.MathJax = {
     <p class='mb-3'>
       Though I really liked the idea of having modifiers keys on the home row, so I used the combo trick described in <a href='https://jasoncarloscox.com/blog/combo-mods/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'><a href='https://jasoncarloscox.com/blog/combo-mods/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://jasoncarloscox.com/blog/combo-mods/</a></a>. That seems to work much better, albeit the odd motion to activate the mods.
     </p>
-  <h2 id='mon-nov-6-reducing-thumbs-uses' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mon, Nov 6: Reducing thumbs uses</h2>
+  
+    <h2 id='mon-nov-6-reducing-thumbs-uses' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Mon, Nov 6: Reducing thumbs uses
+  
+  <a href='blog/switching-to-ergo-keyboard#mon-nov-6-reducing-thumbs-uses'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       After a while, I developed an irritating thumbs fatigues. It seems like using thumbs keys for modifiers didn’t work for me. I was so focused on reducing my pinky usage that I inadvertently put too much pressure on my thumbs, as described in this article: <a href='https://getreuer.info/posts/keyboards/thumb-ergo/index.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PSA: Thumbs can get overuse injuries</a>. Therefor I moved back the <code class='py-0.5 px-0.5 bg-gray-100'>enter</code> and <code class='py-0.5 px-0.5 bg-gray-100'>`</code> keys where they used to be.
     </p>
-  <h2 id='tue-nov-7-adopting-the-corne-layout' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Tue, Nov 7: Adopting the Corne layout</h2>
+  
+    <h2 id='tue-nov-7-adopting-the-corne-layout' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Tue, Nov 7: Adopting the Corne layout
+  
+  <a href='blog/switching-to-ergo-keyboard#tue-nov-7-adopting-the-corne-layout'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       The last arrangement worked like a charm, and I consolidated the key positions according to the <a href='https://github.com/foostan/crkbd#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>corne</a> layout:
     </p>
-  <img class='inline mb-3' src='blog/media/ergo-corne-map.png' alt='ergo-corne-map' style='width: inherit;' /><h2 id='wed-nov-8-fixing-right-thumb-fatigue' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Wed, Nov 8: Fixing right thumb fatigue</h2>
+  <img class='inline mb-3' src='blog/media/ergo-corne-map.png' alt='ergo-corne-map' style='width: inherit;' />
+    <h2 id='wed-nov-8-fixing-right-thumb-fatigue' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Wed, Nov 8: Fixing right thumb fatigue
+  
+  <a href='blog/switching-to-ergo-keyboard#wed-nov-8-fixing-right-thumb-fatigue'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Unfortunately, my right thumb was still getting uncomfortable after a while. After all, I basically double its usage by having the <code class='py-0.5 px-0.5 bg-gray-100'>fun</code> layer toggle next to the space bar. I was also having issues hitting the combo modifiers consistently. So, I could think of two solutions: either bring back the number rows, or move the <code class='py-0.5 px-0.5 bg-gray-100'>fun</code> toggle to another location.
     </p>
@@ -647,7 +944,21 @@ window.MathJax = {
     <p class='mb-3'>
       And that was it, I was quite happy that this fixed the issues I had with HRMs. My config is now hosted <a href='https://github.com/TristanCacqueray/qmk-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>here</a>, and here is my current layout:
     </p>
-  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/cornec-1.png' alt='cornec' style='width: inherit;' /></div><h2 id='thu-nov-9-patching-the-firmware' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Nov 9: Patching the firmware</h2>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/cornec-1.png' alt='cornec' style='width: inherit;' /></div>
+    <h2 id='thu-nov-9-patching-the-firmware' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Thu, Nov 9: Patching the firmware
+  
+  <a href='blog/switching-to-ergo-keyboard#thu-nov-9-patching-the-firmware'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Alas, there was a couple of issues that were really annoying:
     </p>
@@ -667,7 +978,21 @@ window.MathJax = {
     <p class='mb-3'>
       I guess that is the path you have to take when using niche system…
     </p>
-  <h2 id='fri-nov-10-taming-the-home-row-keys' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Nov 10: Taming the home-row keys</h2>
+  
+    <h2 id='fri-nov-10-taming-the-home-row-keys' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Fri, Nov 10: Taming the home-row keys
+  
+  <a href='blog/switching-to-ergo-keyboard#fri-nov-10-taming-the-home-row-keys'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       While HRMs are really nice to use, they takes time to get used to. In particular, those keys are now visually delayed until the firmware can tell if they are pressed or held. It seems like ZMQ has a better implementation and I’d like to use a typing streak delay to avoid misfire when typing fast.
     </p>
@@ -675,7 +1000,21 @@ window.MathJax = {
     <p class='mb-3'>
       It has been two weeks since I switched to an ergonomic keyboard, and even after all the changes I kept on making, I have now mostly regained my fluency. I am proud of the layout I developed as it seems to be well balanced for my usage.
     </p>
-  <h2 id='sun-nov-11-limiting-outer-column-usage' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sun, Nov 11: Limiting outer column usage</h2>
+  
+    <h2 id='sun-nov-11-limiting-outer-column-usage' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sun, Nov 11: Limiting outer column usage
+  
+  <a href='blog/switching-to-ergo-keyboard#sun-nov-11-limiting-outer-column-usage'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Being able to toggle the fun layer from the home-row made me wonder if I could work with a 36 keys layout. To that effect I moved the quotes and equal key where my page up/down was located. Then for the <code class='py-0.5 px-0.5 bg-gray-100'>enter</code> and <code class='py-0.5 px-0.5 bg-gray-100'>tab</code> keys, it turns out that the terminal already emulate these keys with <code class='py-0.5 px-0.5 bg-gray-100'>ctrl</code>-<code class='py-0.5 px-0.5 bg-gray-100'>m</code> and <code class='py-0.5 px-0.5 bg-gray-100'>ctrl</code>-<code class='py-0.5 px-0.5 bg-gray-100'>i</code>:
     </p>
@@ -683,11 +1022,39 @@ window.MathJax = {
     <p class='mb-3'>
       By changing a couple of keys at a time, it only takes me about 30 to 60 minutes to acquire the new motions.
     </p>
-  <h2 id='mon-nov-12-typetouch-training' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Mon, Nov 12: Typetouch training</h2>
+  
+    <h2 id='mon-nov-12-typetouch-training' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Mon, Nov 12: Typetouch training
+  
+  <a href='blog/switching-to-ergo-keyboard#mon-nov-12-typetouch-training'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Now that my layout got stable, it was time to do some touch typing exercise using monkeytype.com with rust code and simple English. My goal was to ensure I kept my fingers on the home-row so that I memorize the correct motion. I quickly made some good progress and here are my current WPM:
     </p>
-  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/wpm-rust.png' alt='wpm-rust' style='width: inherit;' /></div><div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/wpm-english.png' alt='wpm-english' style='width: inherit;' /></div><h2 id='wed-nov-15-unicode' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Wed, Nov 15: Unicode</h2>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/wpm-rust.png' alt='wpm-rust' style='width: inherit;' /></div><div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/wpm-english.png' alt='wpm-english' style='width: inherit;' /></div>
+    <h2 id='wed-nov-15-unicode' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Wed, Nov 15: Unicode
+  
+  <a href='blog/switching-to-ergo-keyboard#wed-nov-15-unicode'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       To write <code class='py-0.5 px-0.5 bg-gray-100'>é</code> or <code class='py-0.5 px-0.5 bg-gray-100'>…</code> I used to rely on spell checkers to fix my spelling. With a programmable keyboard, it is possible to implement macros to send Unicode characters. So I added a new <em>accent</em> layer with the following custom code:
     </p>
@@ -720,7 +1087,21 @@ window.MathJax = {
       It’s quite a neat feature since it works without changing anything on the operating system. Alas, emacs doesn’t accept the common sequence by default. I needed to add a new binding to get the desired behavior:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>;; enable standard unicode input (but still needs to press bksp-enter to complete the sequence)
-(define-key global-map (kbd "C-S-u") 'insert-char)</code></pre></div><h2 id='thu-nov-16-emacs-shortcuts' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Nov 16: Emacs shortcuts</h2>
+(define-key global-map (kbd "C-S-u") 'insert-char)</code></pre></div>
+    <h2 id='thu-nov-16-emacs-shortcuts' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Thu, Nov 16: Emacs shortcuts
+  
+  <a href='blog/switching-to-ergo-keyboard#thu-nov-16-emacs-shortcuts'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Similar to the <em>accent</em> layer, I added a few macro to type common shortcuts:
     </p>
@@ -741,7 +1122,21 @@ window.MathJax = {
     <p class='mb-3'>
       Here is my latest layout:
     </p>
-  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/cornec-3.png' alt='cornec' style='width: inherit;' /></div><h2 id='fri-nov-17-lighter-switches-and-low-profile-keycaps' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Nov 17: Lighter switches and low profile keycaps</h2>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/cornec-3.png' alt='cornec' style='width: inherit;' /></div>
+    <h2 id='fri-nov-17-lighter-switches-and-low-profile-keycaps' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Fri, Nov 17: Lighter switches and low profile keycaps
+  
+  <a href='blog/switching-to-ergo-keyboard#fri-nov-17-lighter-switches-and-low-profile-keycaps'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       With such a layout, it seems like lighter switches and low profile caps are preferable since that eases chording modifiers and layer changes. After reading the <a href='https://www.zsa.io/moonlander/keyswitches/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ZSA guide</a> on the subject, I ordered the kailh super speed silver switches with low profile keycaps from <em>xvx</em>.
     </p>
@@ -757,7 +1152,21 @@ window.MathJax = {
     <p class='mb-3'>
       Using horizontal 2u keys for the thumbs brings this layout even closer to the corne. Also, note that the labels are not accurate, for example the right thumb is for <em>space</em>, not <em>+</em>.
     </p>
-  <h2 id='sat-nov-18-ordering-a-wireless-corne' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sat, Nov 18: Ordering a wireless corne</h2>
+  
+    <h2 id='sat-nov-18-ordering-a-wireless-corne' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sat, Nov 18: Ordering a wireless corne
+  
+  <a href='blog/switching-to-ergo-keyboard#sat-nov-18-ordering-a-wireless-corne'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Since I was pretty satisfied with my 42 keys layout, I looked for a smaller keyboard. I also wanted to try low profile switches after reading that they are easier on the fingers. I found several vendors that offer the corne which perfectly fits my current setup, with the added bonus that it brings the thumbs key closer:
     </p>
@@ -765,15 +1174,57 @@ window.MathJax = {
     <p class='mb-3'>
       I hesitated between <a href='https://holykeebs.com/products/corne-choc' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>holykeebs</a> and <a href='https://typeractive.xyz/products/corne-partially-assembled-pcb' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>typeractive</a>. I picked the later because it features the ZMK firmware which looked superior to QMK, and it works wireless-ly. Though I really wanted to have a track-point, unfortunately this not yet possible with ZMK as the implementation is still in progress (see <a href='https://github.com/zmkfirmware/zmk/pull/1751' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PR#1751</a>).
     </p>
-  <h2 id='sun-nov-19-migrating-my-layout-from-qmk-to-zmk' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sun, Nov 19: Migrating my layout from QMK to ZMK</h2>
+  
+    <h2 id='sun-nov-19-migrating-my-layout-from-qmk-to-zmk' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sun, Nov 19: Migrating my layout from QMK to ZMK
+  
+  <a href='blog/switching-to-ergo-keyboard#sun-nov-19-migrating-my-layout-from-qmk-to-zmk'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Inspired by <em>@urob</em>’s <a href='https://github.com/urob/zmk-config' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>zmk-config</a>, I migrated my configuration to this new repository: <a href='https://github.com/TristanCacqueray/zmk-config/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/zmk-config/</a> . I replaced my Achordion implementation with <em>hold-trigger-key-positions</em>. It was interesting to see how the ZMK setup rely on GitHub action to automatically build the firmware in the cloud.
     </p>
-  <h2 id='wed-nov-22-building-my-corne' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Wed, Nov 22: Building my corne</h2>
+  
+    <h2 id='wed-nov-22-building-my-corne' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Wed, Nov 22: Building my corne
+  
+  <a href='blog/switching-to-ergo-keyboard#wed-nov-22-building-my-corne'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       The board was smaller than I thought, it turns out that low profile switches spacing is smaller (19x18mm vs 20x20mm). With the help of a friend, I managed to solder the controller and assembled the keyboard in an hour or so:
     </p>
-  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/corne-soldering.jpeg' alt='corne-soldering' style='width: inherit;' /></div><div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/corne-built.jpeg' alt='corne-soldering' style='width: inherit;' /></div><h2 id='thu-nov-23-ah-snap-here-we-go-again' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Thu, Nov 23: Ah snap, here we go again</h2>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/corne-soldering.jpeg' alt='corne-soldering' style='width: inherit;' /></div><div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/corne-built.jpeg' alt='corne-soldering' style='width: inherit;' /></div>
+    <h2 id='thu-nov-23-ah-snap-here-we-go-again' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Thu, Nov 23: Ah snap, here we go again
+  
+  <a href='blog/switching-to-ergo-keyboard#thu-nov-23-ah-snap-here-we-go-again'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       While ZMK fixed my issues with home-row mods, I discovered that it comes with its own set of problems. For example the key repeat timing is too tight for my taste, and the tap-hold mods are no longer eagerly applied which is not great for mouse actions such as <code class='py-0.5 px-0.5 bg-gray-100'>shift+click</code>. Though the behavior system seems to work really well and I’m satisfied with the change.
     </p>
@@ -781,7 +1232,21 @@ window.MathJax = {
     <p class='mb-3'>
       Fortunately it didn’t took long to get used to the new keyboard size and the thumb keys’ placement seemed to work better for my hands.
     </p>
-  <h2 id='fri-nov-24-low-profile-combos' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Fri, Nov 24: Low profile combos</h2>
+  
+    <h2 id='fri-nov-24-low-profile-combos' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Fri, Nov 24: Low profile combos
+  
+  <a href='blog/switching-to-ergo-keyboard#fri-nov-24-low-profile-combos'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       With the ZMK <em>require-prior-idle-ms</em> solution for home-row mods, I had to make a slight pause before entering symbols. For example, to enter <code class='py-0.5 px-0.5 bg-gray-100'>parse(</code>, I had to hold <code class='py-0.5 px-0.5 bg-gray-100'>l</code> (to switch to the fun layer) and press <code class='py-0.5 px-0.5 bg-gray-100'>c</code> for the paren, and if I typed this too fast, then I would get <code class='py-0.5 px-0.5 bg-gray-100'>parselc</code>. That’s a so called false negative.
     </p>
@@ -793,7 +1258,21 @@ window.MathJax = {
     <p class='mb-3'>
       Note that I progressively transformed the initial <a href='https://atreus.technomancy.us/cheat.pdf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>layout from technomancy</a>. I found that changing only a couple of keys at a time worked the best, even if that resulted in odd looking layouts. This is a complex topic, which depends a lot on usage of programming languages to find the optimal placement to reduce same finger use (SFU) and to foster inward rolls. It’s also a balancing act between comfort and speed. For example having the <code class='py-0.5 px-0.5 bg-gray-100'>shift</code> or <code class='py-0.5 px-0.5 bg-gray-100'>fn</code> on the thumbs is more efficient but that can be less comfortable.
     </p>
-  <h2 id='sat-nov-25-typetouch-training-again' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Sat, Nov 25: Typetouch training again</h2>
+  
+    <h2 id='sat-nov-25-typetouch-training-again' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Sat, Nov 25: Typetouch training again
+  
+  <a href='blog/switching-to-ergo-keyboard#sat-nov-25-typetouch-training-again'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       To get used to this new combos system I did a bunch of monkeytype practice, and I have to say, it was really fun. It’s quite a novel way to use a keyboard and I found the whole learning process an amazing experience. I particularly enjoyed being able to tweak the device to my taste and getting used to the change.
     </p>
@@ -806,15 +1285,28 @@ window.MathJax = {
     <p class='mb-3'>
       I started this journey a month ago today, and even though it took me a while to find my path, it seems like I’m reaching my end game. I really enjoy the ortho/columnar arrangement and the discomfort I had in my hands seems to be fading away!
     </p>
-  <h2 id='to-be-continued' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>To be continued…</h2>
+  
+    <h2 id='to-be-continued' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  To be continued…
+  
+  <a href='blog/switching-to-ergo-keyboard#to-be-continued'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
 
+
+    </h2>
+  
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
-              </div>
-              
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -839,11 +1331,13 @@ window.MathJax = {
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -869,13 +1363,12 @@ window.MathJax = {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

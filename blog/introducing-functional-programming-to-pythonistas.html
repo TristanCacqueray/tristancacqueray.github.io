@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This year, I continued my journey through computer science by learning functional programming. I started using functional programming (FP) through emacs lisp, then scheme with the SICP book, until I discovered Haskell, which is arguably the best language to learn FP concepts. There I discovered software designs that provide elegant solutions to some of the problems my team and I are facing.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Introducing Functional Programming to Pythonistas' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Introducing Functional Programming to Pythonistas
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       This year, I continued my journey through computer science by learning functional programming. I started using functional programming (FP) through emacs lisp, then scheme with the SICP book, until I discovered Haskell, which is arguably the best language to learn FP concepts. There I discovered software designs that provide elegant solutions to some of the problems my team and I are facing.
     </p>
@@ -331,7 +418,21 @@ window.MathJax = {
     <p class='mb-3'>
       This post documents why I introduced FP to my team, and what strategies I used. But first, let’s define the FP paradigms.
     </p>
-  <h2 id='functional-programming-paradigms' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Functional programming paradigms</h2>
+  
+    <h2 id='functional-programming-paradigms' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Functional programming paradigms
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#functional-programming-paradigms'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -359,7 +460,21 @@ window.MathJax = {
     <p class='mb-3'>
       With that definition out of the way, the next section explains the advantages of FP paradigms.
     </p>
-  <h2 id='reasons-to-use-functional-programming' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Reasons to use functional programming</h2>
+  
+    <h2 id='reasons-to-use-functional-programming' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Reasons to use functional programming
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#reasons-to-use-functional-programming'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       As Michael Snoyman explains in his <a href='https://www.youtube.com/watch?v=n7QETok5hYI' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Economic Argument for Functional Programming</a> talk, FP benefits include:
     </p>
@@ -387,15 +502,57 @@ window.MathJax = {
     <p class='mb-3'>
       In particular there are three areas in which I am looking for solutions:
     </p>
-  <h3 id='development-cycle' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Development cycle</h3>
+  
+    <h3 id='development-cycle' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Development cycle
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#development-cycle'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       When we update our software we rely on extensive tests to check the code. These tests may take hours to complete, resulting in a long feedback loop. FP may provide a faster feedback loop to improve our productivity.
     </p>
-  <h3 id='reusability' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Reusability</h3>
+  
+    <h3 id='reusability' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Reusability
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#reusability'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       When we integrate software to build services, we are often dealing with a complex stack of components that do not share or re-use common computations. For example, we have many independent TLS setup implementations. Such components rely on complex state management that is difficult to compose. FP provides effective tools to define and re-use the common computations.
     </p>
-  <h3 id='system-operations' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>System operations</h3>
+  
+    <h3 id='system-operations' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  System operations
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#system-operations'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       When we operate software, we are often faced with runtime errors such as AttributeError or ReferenceError. For example, when we restart our CI scheduler, we may not be able to re-enqueue some changes when they are in an undefined state. This kind of issue is nasty because:
     </p>
@@ -423,7 +580,21 @@ window.MathJax = {
     <p class='mb-3'>
       However, learning FP has a significant cost of its own. The next section describes the strategies I used to introduce FP.
     </p>
-  <h2 id='introducing-new-concepts' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing new concepts</h2>
+  
+    <h2 id='introducing-new-concepts' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing new concepts
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-new-concepts'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       As my team works remotely, I proposed that we set a weekly online event to spend some time together. Without a specific goal, I meant to create a fun and relaxed space where we would collaborate outside of our day to day activities. We used a shared remote desktop environment so that the whole team would see and use the same tools.
     </p>
@@ -451,11 +622,53 @@ window.MathJax = {
     <p class='mb-3'>
       The next sections describes each concept I introduced over the year.
     </p>
-  <h2 id='introducing-function-composition' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing function composition</h2><h3 id='why' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Why</h3>
+  
+    <h2 id='introducing-function-composition' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing function composition
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-function-composition'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='why' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Why
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#why'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Function composition is a mechanism that combines two functions. It is similar to object inheritance or object composition, but uses general purpose primitives that can be applied to a large set of problems. In particular, using function composition results in a more consistent interface compared to stateful objects.
     </p>
-  <h3 id='how' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>How</h3>
+  
+    <h3 id='how' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  How
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#how'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       I shared Scott Wlaschin’s talk <a href='https://www.youtube.com/watch?v=WhEkBCWpDas' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>The Power of Composition</a> and looked for practical use-cases in our code base. For example, instead of writing this computation:
     </p>
@@ -474,7 +687,21 @@ def process(build):
     print(build.log_url)
     ...
 
-list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 id='benefits' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Benefits</h3>
+list(map(process, filter(completed_build, get_builds())))</code></pre></div>
+    <h3 id='benefits' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Benefits
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#benefits'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -490,7 +717,21 @@ list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 
         </li>
       
     </ul>
-  <h3 id='results' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Results</h3>
+  
+    <h3 id='results' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Results
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#results'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Thinking in terms of function composition requires a change in habit, though I think this first concept is easy to introduce. A colleague even started to use <code class='py-0.5 px-0.5 bg-gray-100'>functools.reduce</code> when <code class='py-0.5 px-0.5 bg-gray-100'>map</code> was not enough.
     </p>
@@ -502,11 +743,53 @@ list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 
     <p class='mb-3'>
       To build up on function composition, I then introduced pure functions.
     </p>
-  <h2 id='introducing-pure-function' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing pure function</h2><h3 id='why-1' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Why</h3>
+  
+    <h2 id='introducing-pure-function' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing pure function
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-pure-function'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='why-1' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Why
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#why-1'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       For a given input, a pure function always produces the same output. Thus, it is possible to truly study and understand such functions independently from others and they provide a solid building block for complex computations.
     </p>
-  <h3 id='how-1' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>How</h3>
+  
+    <h3 id='how-1' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  How
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#how-1'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       I introduced Haskell for a small side project where we needed a new service to forward statsd metrics from UDP packets to two backends: telegraph and prometheus. We implemented the service in Python (<a href='https://softwarefactory-project.io/cgit/software-factory/sf-infra/tree/roles/udp-multiplexer/files/udp-multiplexer.py?id=e3eea281571325f1ccb282391613f0035adc121c' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>source</a>) and Haskell (<a href='https://softwarefactory-project.io/cgit/software-factory/sf-infra/tree/roles/udp-multiplexer/files/udp-multiplexer.hs?id=e3eea281571325f1ccb282391613f0035adc121c' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>source</a>) in pair programming.
     </p>
@@ -514,7 +797,21 @@ list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 
     <p class='mb-3'>
       Then I wrote a couple of blog posts about the language: <a href='https://fedoramagazine.org/getting-started-with-haskell-on-fedora/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Getting Started with Haskell on Fedora</a> and <a href='https://www.softwarefactory-project.io/haskell-for-python-developers.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell for python developpers</a>. I also demonstrated how we could use the language for other use-cases such as documentation management and software factory packages update.
     </p>
-  <h3 id='benefits-1' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Benefits</h3>
+  
+    <h3 id='benefits-1' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Benefits
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#benefits-1'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -534,15 +831,71 @@ list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 
         </li>
       
     </ul>
-  <h3 id='results-1' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Results</h3>
+  
+    <h3 id='results-1' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Results
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#results-1'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       There is a lot going on in Haskell and there is a steep learning curve. Learning Haskell is a significant investment and the project I used to introduce the language was too small to allow for the team to gain adequate experience using the language. Though new projects are a good opportunity to explore new languages.
     </p>
-  <h2 id='introducing-monadic-function' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing monadic function</h2><h3 id='why-2' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Why</h3>
+  
+    <h2 id='introducing-monadic-function' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing monadic function
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-monadic-function'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='why-2' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Why
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#why-2'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       As Graham Hutton states in the <a href='https://www.youtube.com/watch?v=t1e8gqXLbsU' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>What is a Monad?</a> computerphile video, Monad is one of the most important developments in programming languages in the last twenty-eight years.
     </p>
-  <h3 id='how-2' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>How</h3>
+  
+    <h3 id='how-2' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  How
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#how-2'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       I introduced the concept through a code kata using the <a href='https://www.cs.nott.ac.uk/~pszgmh/monparsing.pdf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Monadic Parser Combinators</a> paper to implement a RPM spec file parser. I went through the paper by re-implementing each functions in pure Python. Then I showed how the same concepts can be used for error handling and to manage side effects.
     </p>
@@ -550,11 +903,39 @@ list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 
     <p class='mb-3'>
       I also presented a couple of Python libraries such as <code class='py-0.5 px-0.5 bg-gray-100'>toolz</code> and <code class='py-0.5 px-0.5 bg-gray-100'>effect</code>.
     </p>
-  <h3 id='benefits-2' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Benefits</h3>
+  
+    <h3 id='benefits-2' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Benefits
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#benefits-2'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Monad is a general purpose building block that can be applied for many, if not all, computations. Combined with pure functions, monads enable a clean composition for effectful computations.
     </p>
-  <h3 id='results-2' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Results</h3>
+  
+    <h3 id='results-2' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Results
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#results-2'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Explaining this concept from the ground up is a difficult exercise and using an existing combinator library might have been a better strategy. Moreover, Python is not the most ergonomic language to write purely functional style code, resulting in non idiomatic implementations.
     </p>
@@ -562,7 +943,35 @@ list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 
     <p class='mb-3'>
       Even though pure monadic functions did not spark much joy for my team, there is still a lot to learn from FP. Thus, I switched gears to the more practical type system concept.
     </p>
-  <h2 id='introducing-type-system-and-immutability' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing type system and immutability</h2><h3 id='why-3' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Why</h3>
+  
+    <h2 id='introducing-type-system-and-immutability' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing type system and immutability
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-type-system-and-immutability'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='why-3' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Why
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#why-3'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
     <p class='mb-3'>
@@ -574,7 +983,21 @@ list(map(process, filter(completed_build, get_builds())))</code></pre></div><h3 
     </p>
   
     </blockquote>
-  <h3 id='how-3' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>How</h3>
+  
+    <h3 id='how-3' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  How
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#how-3'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Since python version 3.6, we can add type annotations and use the <code class='py-0.5 px-0.5 bg-gray-100'>mypy</code> type checker. So instead of using such object:
     </p>
@@ -593,7 +1016,21 @@ def get_build() -&gt; Build:
     <p class='mb-3'>
       I performed a code kata on dataclass and wrote a <a href='https://www.softwarefactory-project.io/python-dataclasses.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>blog post</a>.
     </p>
-  <h3 id='benefits-3' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Benefits</h3>
+  
+    <h3 id='benefits-3' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Benefits
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#benefits-3'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -605,15 +1042,71 @@ def get_build() -&gt; Build:
         </li>
       
     </ul>
-  <h3 id='results-3' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Results</h3>
+  
+    <h3 id='results-3' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Results
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#results-3'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       This was well received and the benefit of <code class='py-0.5 px-0.5 bg-gray-100'>mypy</code> is quite practical, but dataclasses are difficult to introduce in an existing code base. Thus, we were not able to benefit much from it.
     </p>
-  <h2 id='introducing-strong-type-system' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing strong type system</h2><h3 id='why-4' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Why</h3>
+  
+    <h2 id='introducing-strong-type-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing strong type system
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-strong-type-system'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='why-4' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Why
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#why-4'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       A strong type system provides stronger safety and definitely excludes certain classes of programming errors.
     </p>
-  <h3 id='how-4' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>How</h3>
+  
+    <h3 id='how-4' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  How
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#how-4'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       I presented algebraic data type to enable type composition in the form of:
     </p>
@@ -637,7 +1130,21 @@ def get_build() -&gt; Build:
     <p class='mb-3'>
       For another side project, I presented different languages featuring a strong type system: PureScript, ELM and ReasonML. We picked ReasonML as the team was already familiar with React, and I wrote a blog post about this choice: <a href='https://www.softwarefactory-project.io/software-factory-resources-in-reason.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Software Factory Resources in Reason</a>.
     </p>
-  <h3 id='benefits-4' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Benefits</h3>
+  
+    <h3 id='benefits-4' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Benefits
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#benefits-4'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -649,7 +1156,21 @@ def get_build() -&gt; Build:
         </li>
       
     </ul>
-  <h3 id='results-4' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Results</h3>
+  
+    <h3 id='results-4' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Results
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#results-4'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Even though we applied this concept to a web application, using a strong type system was a very valuable experience. We could have used Python with some tricks, for example, by enabling the <code class='py-0.5 px-0.5 bg-gray-100'>strict</code> and <code class='py-0.5 px-0.5 bg-gray-100'>disallow-any-expr</code> options. This is impractical because Python is dearly missing support for tagged union and pattern matching.
     </p>
@@ -657,11 +1178,53 @@ def get_build() -&gt; Build:
     <p class='mb-3'>
       To learn more about strong type systems, I recommend watching this talk by Jane Street: <a href='https://www.youtube.com/watch?v=kZ1P8cHN3pY' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Why Functional Programming Doesn’t Matter</a>.
     </p>
-  <h2 id='introducing-programmable-configuration' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing programmable configuration</h2><h3 id='why-5' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Why</h3>
+  
+    <h2 id='introducing-programmable-configuration' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing programmable configuration
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-programmable-configuration'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='why-5' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Why
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#why-5'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Using a general purpose configuration DSL such as Dhall enables a functional approach to configuration management.
     </p>
-  <h3 id='how-5' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>How</h3>
+  
+    <h3 id='how-5' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  How
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#how-5'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Instead of using a data serialization language like JSON or YAML, I introduced the Dhall language to define our configurations.
     </p>
@@ -673,7 +1236,21 @@ def get_build() -&gt; Build:
     <p class='mb-3'>
       For the <code class='py-0.5 px-0.5 bg-gray-100'>zuul-operator</code> I wrote a Dhall function to convert the high level definition of a Zuul service into a collection of Kubernetes resources and ConfigMap.
     </p>
-  <h3 id='benefits-5' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Benefits</h3>
+  
+    <h3 id='benefits-5' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Benefits
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#benefits-5'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -689,19 +1266,75 @@ def get_build() -&gt; Build:
         </li>
       
     </ul>
-  <h3 id='results-5' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Results</h3>
+  
+    <h3 id='results-5' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Results
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#results-5'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Adopting a new syntax for configuration is a major difficulty. Though I showed how this functional language can be used for all our configuration needs, such as Kubernetes resources, container definitions, CI pipelines and Ansible playbooks.
     </p>
-  <h2 id='introducing-knowledge-as-code' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Introducing knowledge as code</h2>
+  
+    <h2 id='introducing-knowledge-as-code' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Introducing knowledge as code
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#introducing-knowledge-as-code'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       As presented by Mikael Tönnberg in his <a href='https://carboncloud.com/2020/12/07/tech-knowledge-as-code/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Tech Knowledge-as-Code</a> article, I re-introduced type systems as a mean to manage software knowledge.
     </p>
-  <h3 id='why-6' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Why</h3>
+  
+    <h3 id='why-6' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Why
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#why-6'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       To capture knowledge in a way that is understandable for both the computer and humans, now and in the future.
     </p>
-  <h3 id='how-6' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>How</h3>
+  
+    <h3 id='how-6' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  How
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#how-6'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Comparing with object’s names, documentations and tests, I showed how type annotation could capture the knowledge more effectively.
     </p>
@@ -713,7 +1346,21 @@ def get_build() -&gt; Build:
     <p class='mb-3'>
       We used the <code class='py-0.5 px-0.5 bg-gray-100'>TypedDict</code> annotation to incrementally document the <code class='py-0.5 px-0.5 bg-gray-100'>distroinfo</code> library output.
     </p>
-  <h3 id='benefits-6' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Benefits</h3>
+  
+    <h3 id='benefits-6' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Benefits
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#benefits-6'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
@@ -725,11 +1372,39 @@ def get_build() -&gt; Build:
         </li>
       
     </ul>
-  <h3 id='results-6' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Results</h3>
+  
+    <h3 id='results-6' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Results
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#results-6'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       This concept is relatively easy to demonstrate and it yielded the most engagement from my team.
     </p>
-  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/introducing-functional-programming-to-pythonistas#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Introducing new concepts can be an exhausting process. Most pragmatic engineers are likely to push back against new ideas, particularly when they induce friction. As an example, even early languages like Fortran were frowned upon by traditional binary bytecodes authors. Von Neuman himself was apparently getting <a href='http://www.columbia.edu/cu/computinghistory/index.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>angry</a> when his students used such language instead of writing the bytecode by hand.
     </p>
@@ -746,14 +1421,13 @@ def get_build() -&gt; Build:
       At the end of the day, even if FP concepts are not applied directly, they can significantly improve non-FP development.
     </p>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
-              </div>
-              
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -778,11 +1452,13 @@ def get_build() -&gt; Build:
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -808,13 +1484,12 @@ def get_build() -&gt; Build:
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

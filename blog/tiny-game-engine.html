@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This post presents the techniques I used for the Haskell Tiny Game Jam. The goal was to implement a game that fits in 10 lines of 80 characters. I love this kind of challenge, and inspired by the possibilities, I submitted a few entries for each category.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='../static/tiny-brot.gif' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/../static/tiny-brot.gif' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Implementing tiny game engines' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,31 +378,57 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Implementing tiny game engines
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       This post presents the techniques I used for the <a href='https://github.com/haskell-game/tiny-games-hs#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell Tiny Game Jam</a>. The goal was to implement a game that fits in 10 lines of 80 characters. I love this kind of challenge, and inspired by the possibilities, I submitted a few entries for each category.
     </p>
-  <h2 id='prelude' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Prelude</h2>
+  
+    <h2 id='prelude' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Prelude
+  
+  <a href='blog/tiny-game-engine#prelude'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       In this category, no imports are allowed, only the default Prelude from base is provided. As far as I could tell, only turn-based games are possible because:
     </p>
@@ -378,7 +479,21 @@ Done</code></pre></div>
     <p class='mb-3'>
       Laziness is such an interesting property, in retrospect, I should have called this game <em>lazy-doors</em>.
     </p>
-  <div class='flex justify-center items-center mx-auto mb-2'><img class='inline mb-3' src='static/pure-doors.png' alt='pure-doors' style='width: inherit;' /></div><h2 id='base' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Base</h2>
+  <div class='flex justify-center items-center mx-auto mb-2'><img class='inline mb-3' src='static/pure-doors.png' alt='pure-doors' style='width: inherit;' /></div>
+    <h2 id='base' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Base
+  
+  <a href='blog/tiny-game-engine#base'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       In this category, all the base’s modules are available. In particular:
     </p>
@@ -443,7 +558,21 @@ main = gameLoop 0</code></pre></div><div class='flex justify-center items-center
     </sup>
    way in base to achieve a smooth animation.
     </p>
-  <h2 id='default' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Default</h2>
+  
+    <h2 id='default' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Default
+  
+  <a href='blog/tiny-game-engine#default'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       In this category, all the <a href='https://downloads.haskell.org/ghc/latest/docs/libraries/index.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>GHC’s default packages</a> are available.
     </p>
@@ -484,7 +613,21 @@ main = hSetBuffering stdin NoBuffering &gt;&gt; hSetEcho stdin False &gt;&gt; ga
     </sup>
   . I used <code class='py-0.5 px-0.5 bg-gray-100'>bytestring</code> because it fits the default category and it exhibits a nice behavior: when pressing a key, the terminal pauses before repeating the input. This results in the rocket plume flickering before going full-throttle which provides a little ignition animation for free :)
     </p>
-  <h2 id='terminal-escape-sequence' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Terminal Escape Sequence</h2>
+  
+    <h2 id='terminal-escape-sequence' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Terminal Escape Sequence
+  
+  <a href='blog/tiny-game-engine#terminal-escape-sequence'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       By printing a special sequence of bytes, we can control the cursor location, color, font styling, and other options on video text terminals. The bytes are usually produced using a library such as <em>termcap</em> or <em>ncurses</em>, but it is also possible to hard-code the common <a href='https://en.wikipedia.org/wiki/ANSI_escape_code' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ANSI escape code</a>. For example:
     </p>
@@ -500,7 +643,21 @@ main = hSetBuffering stdin NoBuffering &gt;&gt; hSetEcho stdin False &gt;&gt; ga
     <p class='mb-3'>
       Checkout the <a href='https://unicode.org/emoji/charts/full-emoji-list.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Unicode emoji list</a>.
     </p>
-  <h2 id='hackage' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Hackage</h2>
+  
+    <h2 id='hackage' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Hackage
+  
+  <a href='blog/tiny-game-engine#hackage'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       In this category, any package available on <a href='https://hackage.haskell.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Hackage</a> can be used. The two most popular options are <a href='https://hackage.haskell.org/package/ansi-terminal-game' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ansi-terminal-game</a> and <a href='https://hackage.haskell.org/package/gloss' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>gloss</a>. I used the former for <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/hackage/lazy-march#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>lazy-march</a>:
     </p>
@@ -508,7 +665,21 @@ main = hSetBuffering stdin NoBuffering &gt;&gt; hSetEcho stdin False &gt;&gt; ga
     <p class='mb-3'>
       The package takes care of the frame rate as well as the terminal escape sequences.
     </p>
-  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/tiny-game-engine#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       I really enjoyed this <a href='https://github.com/haskell-game/tiny-games-hs#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell Tiny Game Jam</a>. At first it seemed like an impossible task, but after carefully reading the library’s documentation, I realized that a lot could be done within the 10x80 limit.
     </p>
@@ -544,14 +715,13 @@ main = hSetBuffering stdin NoBuffering &gt;&gt; hSetEcho stdin False &gt;&gt; ga
       
     </div>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
-              </div>
-              
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -594,11 +764,13 @@ main = hSetBuffering stdin NoBuffering &gt;&gt; hSetEcho stdin False &gt;&gt; ga
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -624,13 +796,12 @@ main = hSetBuffering stdin NoBuffering &gt;&gt; hSetEcho stdin False &gt;&gt; ga
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

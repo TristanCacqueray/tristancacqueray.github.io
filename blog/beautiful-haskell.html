@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -17,6 +23,9 @@
       <meta property='og:image' content='https://user-images.githubusercontent.com/154392/259258034-48874d11-673c-49b0-950c-7e16829aa0b9.jpg' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Beautiful Haskell' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Beautiful Haskell
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       Some days there are streams of negative posts about Haskell, with which I disagree. There are many reasons why I enjoy using Haskell, many of which I have already mentioned in previous posts. See for example the <a href='blog/introducing-butler#rts' class='text-blue-600 mavenLinkBold hover:underline'>Haskell RunTime System</a> or <a href='https://github.com/TristanCacqueray/Haxible#why-haxl' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Why Haxl?</a>. In this post, I present:
     </p>
@@ -339,11 +426,39 @@ window.MathJax = {
         </li>
       
     </ul>
-  <h2 id='beautiful-functional-programming' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Beautiful Functional Programming</h2>
+  
+    <h2 id='beautiful-functional-programming' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Beautiful Functional Programming
+  
+  <a href='blog/beautiful-haskell#beautiful-functional-programming'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       In a discourse post by the same title, Simon Peyton Jones introduced the following <a href='https://discourse.haskell.org/t/beautiful-functional-programming/7411' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>challenge</a>:
     </p>
-  <h3 id='the-nested-map-reduce-traversal-challenge' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>The nested-map-reduce-traversal challenge</h3>
+  
+    <h3 id='the-nested-map-reduce-traversal-challenge' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  The nested-map-reduce-traversal challenge
+  
+  <a href='blog/beautiful-haskell#the-nested-map-reduce-traversal-challenge'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       This challenge is about transforming a list of lessons nested inside a list of sections by adding their positions according to the following rules:
     </p>
@@ -385,7 +500,21 @@ window.MathJax = {
     <p class='mb-3'>
       Therefor, the challenge is to keep track of the nested counter while traversing the main list.
     </p>
-  <h3 id='my-solution' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>My solution</h3>
+  
+    <h3 id='my-solution' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  My solution
+  
+  <a href='blog/beautiful-haskell#my-solution'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       In this section I introduce the Haskell syntax I used in my solution to the challenge:
     </p>
@@ -430,7 +559,21 @@ numberSection = go (1, 1)
     <p class='mb-3'>
       I find the Haskell Syntax really easy to read and write, and I think it is as simple as it can get. Of course, Haskell has a lot more to offer. In the next section I introduce the full syntax I typically use.
     </p>
-  <h3 id='haskell-2021-syntax' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Haskell 2021 Syntax</h3>
+  
+    <h3 id='haskell-2021-syntax' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Haskell 2021 Syntax
+  
+  <a href='blog/beautiful-haskell#haskell-2021-syntax'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       The Haskell 2021 Syntax is defined by the <a href='https://www.haskell.org/onlinereport/haskell2010/haskell.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>haskell 2010 report</a> along with a bunch of language extensions that are enabled by default through <a href='https://downloads.haskell.org/ghc/9.6.2/docs/users_guide/exts/control.html#extension-GHC2021' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>GHC2021</a>.
     </p>
@@ -502,7 +645,21 @@ numberSection = go (1, 1)
     <p class='mb-3'>
       Overall, I think Haskell’s syntax can be explained in fewer words than most other languages’. In the next section I draw a comparison with Python.
     </p>
-  <h3 id='comparison-with-python' class='mt-6 mb-2 text-3xl font-bold text-gray-700'>Comparison with Python</h3>
+  
+    <h3 id='comparison-with-python' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Comparison with Python
+  
+  <a href='blog/beautiful-haskell#comparison-with-python'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <p class='mb-3'>
       Python’s built-in syntax contains many elements, for example it has:
     </p>
@@ -546,7 +703,21 @@ numberSection = go (1, 1)
     <p class='mb-3'>
       In the next section, I present the Haskell Core Language, which I think is the key reason why the Haskell syntax is so simple.
     </p>
-  <h2 id='haskell-core-language' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Haskell Core Language</h2>
+  
+    <h2 id='haskell-core-language' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Haskell Core Language
+  
+  <a href='blog/beautiful-haskell#haskell-core-language'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       The Haskell Core Language is an intermediate representation that is used before machine code generation. Without further ado, here is the <a href='https://hackage.haskell.org/package/ghc-9.6.1/docs/GHC-Core.html#t:Expr' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>GHC.Core.Expr</a> data type
     <sup class='px-0.5'>
@@ -598,7 +769,21 @@ go (x:rest) = ...</code></pre></div>
     <p class='mb-3'>
       The Haskell Core language is based on a fundamental concept known as Lambda Calculus, which is an universal model of computation that can be used to simulate any Turing machine. This model is so powerful that it has been added to most, if not, all programming languages, and by using Haskell, you get to use this power from the ground up.
     </p>
-  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/beautiful-haskell#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       I am rooting for a better language than Haskell. For example, I hope that Verse will deliver on its promise of a distributed transactional memory on top of an epic game engine, that sounds fantastic to me. But until then, Haskell remains my go-to language because it strikes a nice balance between usability, ranging from type level web DSL to hardware description language, and a magnificent syntax and core foundation.
     </p>
@@ -650,14 +835,13 @@ go (x:rest) = ...</code></pre></div>
       
     </div>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
-              </div>
-              
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -691,11 +875,13 @@ go (x:rest) = ...</code></pre></div>
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -721,13 +907,12 @@ go (x:rest) = ...</code></pre></div>
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>

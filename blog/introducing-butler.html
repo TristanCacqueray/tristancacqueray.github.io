@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<!-- TODO: Main navigation links (Home, index, tags, ...) --><!-- DoNotFormat -->
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
 <html lang='en'>
@@ -14,9 +20,12 @@
     
       <meta property='og:description' content='This post introduces haskell-butler, a virtual operating system that runs multi-players applications on the web. In two parts, I present:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='../static/butler-demo.png' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/../static/butler-demo.png' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Introducing Butler Virtual Operating System' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
     
     
       <base href='/' />
@@ -51,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e8158e69-e198-44e4-a3dd-02a2ca0ec456' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f04ede9c-637c-4e10-9892-142edae14a9e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -59,6 +68,53 @@ window.MathJax = {
       color: lightcoral;
       font-size: 90%;
       font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
     }
 
     /* External link icon */
@@ -150,7 +206,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -259,10 +334,10 @@ window.MathJax = {
 
 <!-- DoNotFormat -->
 
-<body class='overflow-y-scroll bg-gray-400'>
+<body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -274,22 +349,22 @@ window.MathJax = {
           
             <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href='blog'>
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Blog
-    </a>
-  </div>
+    </div>
+  </a>
 
   
     <ul>
       
         <li>
 
-  <div class='text-gray-900 forest-link'>
-    <a href=''>
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
-    </a>
-  </div>
+    </div>
+  </a>
 
   
 </li>
@@ -303,27 +378,39 @@ window.MathJax = {
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
+      
 
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
+    </a>
+  </div>
+
+          <!-- Main body column -->
           <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Introducing Butler Virtual Operating System
   </a>
 </h1>
-              <article class='overflow-auto'>
+    <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
+
+
+
+
+
+
     <p class='mb-3'>
       This post introduces <a href='https://github.com/ButlerOS/haskell-butler' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>haskell-butler</a>, a virtual operating system that runs multi-players applications on the web. In two parts, I present:
     </p>
@@ -339,7 +426,21 @@ window.MathJax = {
         </li>
       
     </ul>
-  <img class='inline mb-3' src='static/butler-demo.png' alt='butler-demo' style='width: inherit;' /><h2 id='hobby-project' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Hobby Project</h2>
+  <img class='inline mb-3' src='static/butler-demo.png' alt='butler-demo' style='width: inherit;' />
+    <h2 id='hobby-project' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Hobby Project
+  
+  <a href='blog/introducing-butler#hobby-project'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Before I begin, let me set the expectations. Butler is a hobby project inspired by the <a href='https://serenityos.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>SerenityOS</a> project. I am working on it on my free time as a challenge and learning experience. Moreover I am considering alternative runtimes and protocols. Therefore the implementation is subject to change.
     </p>
@@ -347,7 +448,21 @@ window.MathJax = {
     <p class='mb-3'>
       That being said, the project reached a point where it is now enjoyable, and I’m happy to share its current state with you.
     </p>
-  <h2 id='modular-operating-system' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Modular Operating System</h2>
+  
+    <h2 id='modular-operating-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Modular Operating System
+  
+  <a href='blog/introducing-butler#modular-operating-system'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Butler’s goal is to implement a virtual operating system with a strong focus on concurrency. Butler is not a computer hardware operating system. Instead, Butler is an application environment that runs on top of an existing system.
     </p>
@@ -431,7 +546,21 @@ window.MathJax = {
     <p class='mb-3'>
       I find it valuable to model these APIs after regular operating system constructs. They are available through a single top level <a href='https://butleros.github.io/haddock/Butler.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Butler</a> module. The next section introduces the application environment.
     </p>
-  <h2 id='application-actor' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Application Actor</h2>
+  
+    <h2 id='application-actor' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Application Actor
+  
+  <a href='blog/introducing-butler#application-actor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Butler applications are implemented as standalone processes that operate a <a href='https://butleros.github.io/haddock/Butler.html#t:AppEvent' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AppEvent</a> pipe. Checkout the <a href='https://butleros.github.io/haddock/Butler.html#t:App' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>App</a> definition. Applications start with a <a href='https://butleros.github.io/haddock/Butler.html#t:AppContext' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AppContext</a> provided by the display.
     </p>
@@ -471,7 +600,21 @@ window.MathJax = {
     <p class='mb-3'>
       The key design is that clients are dumb terminals and the state is controlled server side. A good example is the text editor app named <a href='https://github.com/ButlerOS/haskell-butler/blob/main/src/Butler/App/Noter.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Noter</a>. This app leverages the whole application environment to implement an etherpad like text editor.
     </p>
-  <h2 id='haskell-runtime-system' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'><span xmlhtmlRaw><a id="rts"></span>Haskell RunTime System<span xmlhtmlRaw></a></span></h2>
+  
+    <h2 id='haskell-runtime-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  <span xmlhtmlRaw><a id="rts"></span>Haskell RunTime System<span xmlhtmlRaw></a></span>
+  
+  <a href='blog/introducing-butler#haskell-runtime-system'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       In this section I explain the choice of using <a href='https://haskell.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell</a>. Beyond the language’s common features, here are two reasons for using Haskell:
     </p>
@@ -507,7 +650,21 @@ window.MathJax = {
     <p class='mb-3'>
       That being said, Haskell works great for Butler. So far I have only used its most basic features, and the project source is only 5k lines of code according to <a href='https://github.com/vmchale/polyglot' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>polyglot</a>.
     </p>
-  <h2 id='html5-graphical-user-interface' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>HTML5 Graphical User Interface</h2>
+  
+    <h2 id='html5-graphical-user-interface' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  HTML5 Graphical User Interface
+  
+  <a href='blog/introducing-butler#html5-graphical-user-interface'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       In this section I explain the choice of using HTML5 for the GUI. I choose HTML5 because it is an ubiquitous standard and the <a href='https://developer.mozilla.org/en-US/docs/Web/API' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web API</a> offers a fully featured application environment. Thanks to the hypermedia paradigm enabled by <a href='https://htmx.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>htmx</a>, it is a great fit for Butler.
     </p>
@@ -515,7 +672,21 @@ window.MathJax = {
     <p class='mb-3'>
       Though it would be interesting to investigate <a href='https://github.com/patrick-steele-idem/morphdom' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>morphdom</a> and rich client alternatives, such as <a href='https://www.w3.org/TR/webgpu/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web GPU</a> or <a href='https://flutter.dev/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Flutter</a>.
     </p>
-  <h2 id='application-demos' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Application Demos</h2>
+  
+    <h2 id='application-demos' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Application Demos
+  
+  <a href='blog/introducing-butler#application-demos'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       Here is a list of demos I am using to validate the core implementation:
     </p>
@@ -555,7 +726,21 @@ window.MathJax = {
     <p class='mb-3'>
       I am mostly focusing on the desktop use-case, but I also helped my colleague fboucher use Butler to create a game named <a href='https://github.com/web-apps-lab/HazardHunter' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>HazardHunter</a>.
     </p>
-  <h2 id='road-map' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Road-map</h2>
+  
+    <h2 id='road-map' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Road-map
+  
+  <a href='blog/introducing-butler#road-map'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       A terminal and VNC client are already provided to access non Butler applications, and perhaps it is possible to re-implemented these legacy system as Butler native applications. For example, I am looking forward adding:
     </p>
@@ -615,7 +800,21 @@ window.MathJax = {
     <p class='mb-3'>
       Finally, it would be interesting to investigate if and how an app registry could be implemented. For example as a list of packages that could be dynamically loaded/unloaded into a running instance.
     </p>
-  <h2 id='conclusion' class='mt-6 mb-4 text-4xl font-bold text-gray-700 border-b-2'>Conclusion</h2>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/introducing-butler#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
     <p class='mb-3'>
       The actor framework looks like a great solution for web applications, and I am quite happy with the Butler’s implementation. Moreover, I am excited about the community discussion for moving <a href='https://discourse.haskell.org/t/towards-an-actor-framework-for-haskell/5929' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Towards an actor framework for Haskell</a>. My implementation is rather limited, and I would be happy to use a common library similar to the <a href='https://github.com/erlang/otp' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>erlang/otp</a>.
     </p>
@@ -632,12 +831,11 @@ window.MathJax = {
       Cheers!
     </p>
   
-
   <!-- What goes in this file will appear below the note body-->
 </article>
-              <div class='flex flex-col lg:flex-row lg:space-x-2'>
-                
-                
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
   <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
     <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
     <ul class='space-y-1'>
@@ -675,8 +873,8 @@ window.MathJax = {
     </ul>
   </div>
 
-              </div>
-              
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
@@ -719,11 +917,13 @@ window.MathJax = {
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -749,13 +949,12 @@ window.MathJax = {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.2.0.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
