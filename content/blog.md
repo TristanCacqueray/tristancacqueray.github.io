@@ -2,7 +2,6 @@
 feed:
   enable: true
   title: Tristan's blog
-  siteUrl: https://tristancacqueray.github.io
 ---
 
 # Blog

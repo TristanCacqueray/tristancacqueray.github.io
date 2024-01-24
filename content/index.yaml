@@ -1,4 +1,5 @@
 page:
+  siteUrl: https://tristancacqueray.github.io
   siteTitle: Tristan's Zettelkasten
   headHtml: |
     <snippet var="js.highlightjs" />
@@ -17,7 +18,15 @@ page:
 
 
 template:
-  name: /templates/layouts/note
+  uptree:
+    enable: true
+  sidebar:
+    enable: false
+  breadcrumbs:
+    enable: false
+  base:
+    containerClass: container mx-auto w-[64rem]
+
   layout:
     base:
       bodyClass: overflow-y-scroll bg-gray-400
