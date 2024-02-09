@@ -65,3 +65,5 @@ I wrote two articles about the language:
 ## Conf
 
 [[zurihac]]#
+
+[[compositional-type-checking]]#
