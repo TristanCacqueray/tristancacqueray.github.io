@@ -2,6 +2,16 @@
 
 These are code snippets for one-off task.
 
+* perf
+** create a flamegraph
+
+#+begin_src bash
+# Record perf data
+sudo perf record -a -g -- ma-command
+# Generate flame graph
+sudo perf script | ~/src/github.com/brendangregg/FlameGraph/stackcollapse-perf.pl --all | ~/src/github.com/brendangregg/FlameGraph/flamegraph.pl > perfjuicer.svg
+#+end_src
+
 * git
 ** delete merged branch
 
