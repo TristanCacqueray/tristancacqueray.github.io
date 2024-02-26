@@ -6,6 +6,8 @@ tags:
   - functional/pure
 ---
 
+John Carmack on Haskell: https://youtu.be/1PhArSujR_A?t=125
+
 ## Notes on GHC
 
 Given a program `Foo.hs`:
