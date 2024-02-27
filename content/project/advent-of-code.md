@@ -1,7 +1,7 @@
 ---
 title: advent-of-code
 date: 2019-11-28
-tags: []
+tags: [code]
 ---
 
 My solutions to the advent-of-code puzzles.

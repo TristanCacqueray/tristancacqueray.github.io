@@ -9,12 +9,13 @@
 
 I actively maintain these projects:
 
+- [[animation-fractal]]
 - [[software-factory]]
 - [[zuul]]
 - [pkgtreediff](https://github.com/juhp/pkgtreediff)
 - [ButlerOS/haskell-butler](https://github.com/ButlerOS/haskell-butler)
 - [change-metrics/monocle](https://github.com/change-metrics/monocle)
-- [logjuicer/logjuicer](https://github.com/logjuicer/logjuicer)
+- [logjuicer](https://github.com/logjuicer/logjuicer)
 - [podenv](https://github.com/podenv)
 - [purescript-gjs](https://github.com/purescript-gjs)
 

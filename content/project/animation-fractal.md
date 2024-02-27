@@ -17,3 +17,5 @@ I wrote several blog post about it:
 - [[introducing-animation-fractal]]
 - [[massiv-vulkan-capture]]
 - [[pulse-simple-pcm]]
+
+Checkout the source: https://gitlab.com/TristanCacqueray/animation-fractal/

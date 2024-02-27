@@ -87,6 +87,7 @@ getIcon p
     | "nix" `elem` p.meta.tags || "packaging" `elem` p.meta.tags = Just "📦"
     | "contributor" `elem` p.meta.tags = Just "🧑"
     | "game" `elem` p.meta.tags = Just "🎮"
+    | "code" `elem` p.meta.tags || "keyboard" `elem` p.meta.tags = Just "⌨"
     | otherwise = Nothing
 
 viewBox_ = makeAttribute "viewBox"
