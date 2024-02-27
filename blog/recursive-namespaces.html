@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Recursive namespaces to run containers inside a container – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post was initially published on the Software Factory blog: https://www.softwarefactory-project.io/leveraging-capn-proto-for-logreduce-reports.html' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Recursive namespaces to run containers inside a container' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  
+  <link href='tailwind.css?instanceId=124d7272-17ed-400b-a684-0251fbed83ca' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"]::after {
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script id='emanote-stork' data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        indexIsStale: false,
+        toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
+          }
+        }
+
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+      
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Blog
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Tristan de Cacqueray
+    </div>
+  </a>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+      
+
+      
+
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+    </a>
+  </div>
+
+          <!-- Main body column -->
+          <div class='flex-1 w-full overflow-x-auto bg-white'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Recursive namespaces to run containers inside a container
+  </a>
+</h1>
+    <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+
+
+
+
+
+
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      This post was initially published on the Software Factory blog: <a href='https://www.softwarefactory-project.io/leveraging-capn-proto-for-logreduce-reports.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.softwarefactory-project.io/leveraging-capn-proto-for-logreduce-reports.html</a>
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      We would like to deploy a containerized workload that creates nested containers to isolate individual tasks. This post explores the challenges of safely running a container inside a container. In three parts, I present:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          User namespaces.
+        </li>
+      
+        <li>
+          Required capabilities.
+        </li>
+      
+        <li>
+          Procfs kernel restrictions.
+        </li>
+      
+    </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      The examples in this post are using the following packages:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          kernel-6.6.11-200.fc39.x86_64
+        </li>
+      
+        <li>
+          selinux-policy-39.3-1.fc39.noarch
+        </li>
+      
+        <li>
+          util-linux-core-2.39.3-1.fc39.x86_64
+        </li>
+      
+        <li>
+          bubblewrap-0.8.0-1.fc39.x86_64
+        </li>
+      
+        <li>
+          podman-4.8.3-1.fc39.x86_64
+        </li>
+      
+    </ul>
+  
+    </blockquote>
+  
+    <h2 id='context-and-problem-statement' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Context and problem statement
+  
+  <a href='blog/recursive-namespaces#context-and-problem-statement'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      The context is leveraging the <a href='https://github.com/containers/bubblewrap' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>bubblewrap</a> tool to create temporary sandboxes for running Ansible playbooks as part of a CI build system named <code class='py-0.5 px-0.5 bg-gray-100'>zuul-executor</code>.
+    </p>
+  
+    <p class='mb-3'>
+      The problem we are facing is that creating nested containers requires a privileged context from the parent container runtime. And this is an issue when running in an environment that enforces security constraints, like OpenShift clusters managed by a third party.
+    </p>
+  
+    <p class='mb-3'>
+      The next sections describe the implications of this privileged context.
+    </p>
+  
+    <h2 id='user-namespaces' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  User namespaces
+  
+  <a href='blog/recursive-namespaces#user-namespaces'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      Since RHEL8, regular users are allowed to create namespaces. This used to be a privileged action that only the admin (root) could perform. But thanks to the unprivileged user namespace, users can become root in a limited context to perform the actions required to setup a container.
+    </p>
+  
+    <p class='mb-3'>
+      We can explore this feature using the standard <code class='py-0.5 px-0.5 bg-gray-100'>unshare</code> utility. As a regular user, we can create new namespaces that are isolated from the host:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>[tristanc@fedora ~]$ unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+root@fedora:~# id
+uid=0(root) gid=65534(nfsnobody) groups=65534(nfsnobody) context=unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+root@fedora:~# ip a
+1: lo: &lt;LOOPBACK&gt; mtu 65536 qdisc noop state DOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+root@fedora:~# ps afx
+    PID TTY      STAT   TIME COMMAND
+      1 pts/5    S      0:00 -bash
+     79 pts/5    R+     0:00 ps afx</code></pre></div>
+    <p class='mb-3'>
+      Above we can see that:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>--user</code> creates a new uid mapping which lets us become root.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>--net</code> creates a new network stack.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>--pid</code> creates a new procfs.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      To create these namespaces, the process uses the <code class='py-0.5 px-0.5 bg-gray-100'>CLONE_NEWNS|CLONE_NEWUSER|CLONE_NEWPID|CLONE_NEWNET</code> flags (either for the <code class='py-0.5 px-0.5 bg-gray-100'>unshare(2)</code> or <code class='py-0.5 px-0.5 bg-gray-100'>clone(2)</code> syscall).
+    </p>
+  
+    <p class='mb-3'>
+      Note that it is necessary to create a new user namespace (with <code class='py-0.5 px-0.5 bg-gray-100'>--user</code>), otherwise we wouldn’t get the capabilities for creating the other namespaces.
+    </p>
+  
+    <p class='mb-3'>
+      We can also create nested namespaces:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>[tristanc@fedora ~]$ unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+root@fedora:~# sleep 1001 &
+[1] 23
+root@fedora:~# unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+root@fedora:~# ps afx
+    PID TTY      STAT   TIME COMMAND
+      1 pts/8    S      0:00 -bash
+     23 pts/8    R+     0:00 ps afx
+root@fedora:~# exit
+root@fedora:~# ps afx
+    PID TTY      STAT   TIME COMMAND
+      1 pts/8    S      0:00 -bash
+     23 pts/8    S      0:00 sleep 1001
+     48 pts/8    R+     0:00 ps afx</code></pre></div>
+    <p class='mb-3'>
+      We can also use the <code class='py-0.5 px-0.5 bg-gray-100'>bwrap</code> command from the bubblewrap package to achieve the same kind of isolation:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>[tristanc@fedora ~]$ bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 bash
+bash: cannot set terminal process group (1): Inappropriate ioctl for device
+bash: no job control in this shell
+bash-5.2# sleep 4242 &
+[1] 7
+bash-5.2# bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 bash
+bash: cannot set terminal process group (1): Inappropriate ioctl for device
+bash: no job control in this shell
+bash-5.2# ps afx
+    PID TTY      STAT   TIME COMMAND
+      1 ?        Ss     0:00 bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 bash
+      2 ?        S      0:00 bash
+      3 ?        R      0:00  \_ ps afx</code></pre></div>
+    <p class='mb-3'>
+      And we can confirm from the host that the namespaces are indeed nested:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>[tristanc@fedora ~]$ ps afx
+...
+ 165104 pts/8    Ss     0:00  |   \_ /bin/bash --posix
+ 170707 pts/8    S+     0:00  |       \_ bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 bash
+ 170708 ?        Ss     0:00  |           \_ bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 bash
+ 170709 ?        S      0:00  |               \_ bash
+ 170826 ?        S      0:00  |                   \_ sleep 4242
+ 170827 ?        S      0:00  |                   \_ bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 bash
+ 170828 ?        Ss     0:00  |                       \_ bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 bash
+ 170829 ?        S      0:00  |                           \_ bash</code></pre></div>
+    <p class='mb-3'>
+      In this section, we demonstrated that a regular unprivileged user is able to create namespaces recursively (up to 32 layers). And even though the user appears to be root in the namespace, it is still a regular user from the host perspective, and the user didn’t gain new privileges.
+    </p>
+  
+    <p class='mb-3'>
+      In the next section, we investigate what happens when the first namespace is created by a container runtime.
+    </p>
+  
+    <h2 id='container-runtime' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Container runtime
+  
+  <a href='blog/recursive-namespaces#container-runtime'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      In a production environment, the initial container namespaces are created by a container runtime such as <a href='https://github.com/containers/podman' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>podman</a>. To investigate this setup, let’s add some tools to the fedora’s base container image:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>[tristanc@fedora ~]$ CTX=$(buildah from fedora)
+[tristanc@fedora ~]$ buildah run $CTX dnf install -y util-linux procps-ng bubblewrap
+[tristanc@fedora ~]$ buildah commit --rm $CTX fedora</code></pre></div>
+    <p class='mb-3'>
+      With a minimal container, using the least amount of privileges by adding <code class='py-0.5 px-0.5 bg-gray-100'>--cap-drop all</code>, we are not able to create the user namespace:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>[tristanc@fedora ~]$ podman run --cap-drop all -it --rm fedora unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+unshare: write failed /proc/self/uid_map: Operation not permitted</code></pre></div>
+    <p class='mb-3'>
+      At least, we need the <code class='py-0.5 px-0.5 bg-gray-100'>setfcap</code> capability which is enabled by default, but that is not enough:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>[tristanc@fedora ~]$ podman run -it --rm fedora unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+unshare: mount /proc failed: Permission denied</code></pre></div>
+    <p class='mb-3'>
+      It appears that we need to provide the <code class='py-0.5 px-0.5 bg-gray-100'>--privileged</code> flag:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>[tristanc@fedora ~]$ podman run --privileged -it --rm fedora unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+-sh-5.2# unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+-sh-5.2#</code></pre></div>
+    <p class='mb-3'>
+      Podman, as well as <a href='https://github.com/cri-o/cri-o' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>cri-o</a>, provides additional isolations. In the next section we’ll investigate what is happening.
+    </p>
+  
+    <h2 id='procfs-kernel-restrictions' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Procfs kernel restrictions
+  
+  <a href='blog/recursive-namespaces#procfs-kernel-restrictions'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      It appears that, for the purpose of nested containerization, the <code class='py-0.5 px-0.5 bg-gray-100'>--privileged</code> argument keeps the <code class='py-0.5 px-0.5 bg-gray-100'>/proc</code> untainted from any mountpoints. Indeed, we can observe that a regular container does not have access to the full <code class='py-0.5 px-0.5 bg-gray-100'>/proc</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>[tristanc@fedora ~]$ podman run -it --rm fedora grep "^tmpfs /proc" /proc/mounts
+tmpfs /proc/acpi tmpfs ro,context="system_u:object_r:container_file_t:s0:c373,c905",relatime,size=0k,uid=1000,gid=1000,inode64 0 0
+tmpfs /proc/scsi tmpfs ro,context="system_u:object_r:container_file_t:s0:c373,c905",relatime,size=0k,uid=1000,gid=1000,inode64 0 0
+[tristanc@fedora ~]$ podman run --privileged -it --rm fedora grep "^tmpfs /proc" /proc/mounts | wc -l
+0</code></pre></div>
+    <p class='mb-3'>
+      The container runtime hides some <code class='py-0.5 px-0.5 bg-gray-100'>/proc</code> sub directories to prevent leaking unnecessary information from the host. We can observe the same behavior without a container runtime, similar to what we did in the first section. For example the initial example no longer works in that situation:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>[tristanc@fedora ~]$ sudo mount -t tmpfs none /proc/scsi
+[sudo] password for tristanc:
+[tristanc@fedora ~]$ unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+unshare: mount /proc failed: Operation not permitted
+[tristanc@fedora ~]$ bwrap --ro-bind /usr /usr --symlink usr/lib64 /lib64 --proc /proc --dev /dev --tmpfs /tmp --unshare-all --new-session --cap-add all --uid 0 ps afx
+bwrap: Can't mount proc on /newroot/proc: Operation not permitted</code></pre></div>
+    <p class='mb-3'>
+      The same error can happen inside a privileged pod when manually hiding a directory, here <code class='py-0.5 px-0.5 bg-gray-100'>/proc/scsi</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>[tristanc@fedora ~]$ podman run --tmpfs /proc/scsi --privileged -it --rm fedora unshare --user --mount --net --pid --fork --map-root-user --mount-proc
+unshare: mount /proc failed: Operation not permitted</code></pre></div>
+    <p class='mb-3'>
+      When the procfs is not fully visible, then the kernel prevents further attempt to create a new fresh procfs, resulting in the <code class='py-0.5 px-0.5 bg-gray-100'>mount /proc failed: Operation not permitted</code> error. This is unfortunate because our workload does not need a fully visible procfs, and the workload would work if the hidden paths were propagated automatically. This is also confusing because the process is allowed to create the pid namespace with <code class='py-0.5 px-0.5 bg-gray-100'>CLONE_NEWPID</code>, but it is not allowed to use it when mounting the procfs.
+    </p>
+  
+    <p class='mb-3'>
+      Thankfully, as pointed out by @giuseppe from the Red Hat Container Team, there is already a <a href='https://github.com/kubernetes/enhancements/issues/4265' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>MountProc</a> enhancement proposed in kubernetes to enable this use-case.
+    </p>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Conclusion
+  
+  <a href='blog/recursive-namespaces#conclusion'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      In conclusion, we saw that creating recursive namespaces is possible under normal conditions. However, container runtimes are tainting the <code class='py-0.5 px-0.5 bg-gray-100'>/proc</code> file-system with tmpfs to prevent data from being exposed into a container, and this alone prevents the creation of nested PID namespace.
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/recursive-namespaces.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
+        </div>
+      
+
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>

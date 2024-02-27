@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=8e618ead-3394-4d19-b60b-52ca91a26b6b' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=124d7272-17ed-400b-a684-0251fbed83ca' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -431,6 +431,15 @@ window.MathJax = {
     </div>
     
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/code'>
+        <!-- DoNotFormat -->
+        #code
+        <!-- DoNotFormat -->
+      </a>
     
   </section>
   <div class='flex items-center justify-center mt-2'>
