@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=12db0380-2473-4b8d-be58-21808f474d74' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -115,6 +115,10 @@ window.MathJax = {
 
     div.callout-title div.callout-title-inner {
       margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
     }
 
     /* External link icon */
@@ -395,14 +399,17 @@ window.MathJax = {
   </div>
 
           <!-- Main body column -->
-          <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Running Software Factory on OpenShift
   </a>
 </h1>
-    <article class='overflow-auto'>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
 
@@ -423,11 +430,11 @@ window.MathJax = {
       This article presents a plan for running Software Factory on OpenShift.
     </p>
   
-    <h2 id='context-and-problem-statement' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='context-and-problem-statement' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Context and Problem Statement
   
-  <a href='blog/sf-on-kubernetes#context-and-problem-statement'>
+  <a href='blog/sf-on-kubernetes#context-and-problem-statement' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -469,11 +476,11 @@ window.MathJax = {
       
     </ul>
   
-    <h2 id='considered-options' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='considered-options' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Considered Options
   
-  <a href='blog/sf-on-kubernetes#considered-options'>
+  <a href='blog/sf-on-kubernetes#considered-options' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -495,11 +502,11 @@ window.MathJax = {
       
     </ul>
   
-    <h2 id='decision-outcome' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='decision-outcome' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Decision Outcome
   
-  <a href='blog/sf-on-kubernetes#decision-outcome'>
+  <a href='blog/sf-on-kubernetes#decision-outcome' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -517,7 +524,7 @@ window.MathJax = {
       
   Localhost configuration
   
-  <a href='blog/sf-on-kubernetes#localhost-configuration'>
+  <a href='blog/sf-on-kubernetes#localhost-configuration' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -535,7 +542,7 @@ window.MathJax = {
       
   Service deployment
   
-  <a href='blog/sf-on-kubernetes#service-deployment'>
+  <a href='blog/sf-on-kubernetes#service-deployment' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -565,7 +572,7 @@ window.MathJax = {
       
   Developper mode
   
-  <a href='blog/sf-on-kubernetes#developper-mode'>
+  <a href='blog/sf-on-kubernetes#developper-mode' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -583,7 +590,7 @@ window.MathJax = {
       
   Migration from sfconfig.yaml and arch.yaml
   
-  <a href='blog/sf-on-kubernetes#migration-from-sfconfigyaml-and-archyaml'>
+  <a href='blog/sf-on-kubernetes#migration-from-sfconfigyaml-and-archyaml' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -599,6 +606,150 @@ window.MathJax = {
   
   <!-- What goes in this file will appear below the note body-->
 </article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context and Problem Statement'>
+              <a href='blog/sf-on-kubernetes#context-and-problem-statement' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context and Problem Statement
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Considered Options'>
+              <a href='blog/sf-on-kubernetes#considered-options' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Considered Options
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Decision Outcome'>
+              <a href='blog/sf-on-kubernetes#decision-outcome' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Decision Outcome
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Localhost configuration'>
+              <a href='blog/sf-on-kubernetes#localhost-configuration' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Localhost configuration
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Service deployment'>
+              <a href='blog/sf-on-kubernetes#service-deployment' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Service deployment
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Developper mode'>
+              <a href='blog/sf-on-kubernetes#developper-mode' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Developper mode
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Migration from sfconfig.yaml and arch.yaml'>
+              <a href='blog/sf-on-kubernetes#migration-from-sfconfigyaml-and-archyaml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Migration from sfconfig.yaml and arch.yaml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -651,7 +802,6 @@ window.MathJax = {
 </div>
         </div>
       
-
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
@@ -678,7 +828,7 @@ window.MathJax = {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

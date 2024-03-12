@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=12db0380-2473-4b8d-be58-21808f474d74' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -115,6 +115,10 @@ window.MathJax = {
 
     div.callout-title div.callout-title-inner {
       margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
     }
 
     /* External link icon */
@@ -395,14 +399,17 @@ window.MathJax = {
   </div>
 
           <!-- Main body column -->
-          <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Broadcasting a WebM stream using MSE
   </a>
 </h1>
-    <article class='overflow-auto'>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
 
@@ -457,11 +464,11 @@ window.MathJax = {
   
     <hr class='mb-3' />
   
-    <h2 id='key-features' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='key-features' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Key Features
   
-  <a href='blog/broadcasting-webm#key-features'>
+  <a href='blog/broadcasting-webm#key-features' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -483,7 +490,7 @@ window.MathJax = {
       
   Overview
   
-  <a href='blog/broadcasting-webm#overview'>
+  <a href='blog/broadcasting-webm#overview' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -533,7 +540,7 @@ window.MathJax = {
       
   Use-Cases
   
-  <a href='blog/broadcasting-webm#use-cases'>
+  <a href='blog/broadcasting-webm#use-cases' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -587,11 +594,11 @@ window.MathJax = {
       I decided to use MSE because it looked like the most straight forward API to use with WebSockets. The next section describes the rationals for using the WebM format.
     </p>
   
-    <h2 id='webm-stream' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='webm-stream' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   WebM Stream
   
-  <a href='blog/broadcasting-webm#webm-stream'>
+  <a href='blog/broadcasting-webm#webm-stream' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -609,7 +616,7 @@ window.MathJax = {
       
   Playing live audio
   
-  <a href='blog/broadcasting-webm#playing-live-audio'>
+  <a href='blog/broadcasting-webm#playing-live-audio' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -651,7 +658,7 @@ window.MathJax = {
       
   Container formats supported by MSE
   
-  <a href='blog/broadcasting-webm#container-formats-supported-by-mse'>
+  <a href='blog/broadcasting-webm#container-formats-supported-by-mse' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -689,7 +696,7 @@ window.MathJax = {
       
   WebM format
   
-  <a href='blog/broadcasting-webm#webm-format'>
+  <a href='blog/broadcasting-webm#webm-format' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -729,11 +736,11 @@ window.MathJax = {
       Therefore, a new client must be provided with the stream initialization segments along with the beginning of the most recent media segment. And this is precisely the goal of the <a href='https://hackage.haskell.org/package/ebml-0.1.0.0/docs/Codec-EBML.html#g:3' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>StreamReader</a> of my <a href='https://hackage.haskell.org/package/ebml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ebml</a> library. The next section presents how that works in practice.
     </p>
   
-    <h2 id='demo' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='demo' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Demo
   
-  <a href='blog/broadcasting-webm#demo'>
+  <a href='blog/broadcasting-webm#demo' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -751,7 +758,7 @@ window.MathJax = {
       
   Extension and packages
   
-  <a href='blog/broadcasting-webm#extension-and-packages'>
+  <a href='blog/broadcasting-webm#extension-and-packages' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -800,7 +807,7 @@ import Codec.EBML qualified as EBML</code></pre></div>
       
   Broadcast server
   
-  <a href='blog/broadcasting-webm#broadcast-server'>
+  <a href='blog/broadcasting-webm#broadcast-server' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -840,7 +847,7 @@ audioStreamer srv = RIO.withProcessWait_ cmdProc (readProcess EBML.newStreamRead
       
   Broadcast client
   
-  <a href='blog/broadcasting-webm#broadcast-client'>
+  <a href='blog/broadcasting-webm#broadcast-client' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -885,7 +892,7 @@ audioClient srv client = sendHeader &gt;&gt; sendStream
       
   Servant API
   
-  <a href='blog/broadcasting-webm#servant-api'>
+  <a href='blog/broadcasting-webm#servant-api' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -950,7 +957,7 @@ main = do
       
   JavaScript client
   
-  <a href='blog/broadcasting-webm#javascript-client'>
+  <a href='blog/broadcasting-webm#javascript-client' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -1084,11 +1091,11 @@ jsScript = cleanup jsClient
       Once the service is running, you can use the <code class='py-0.5 px-0.5 bg-gray-100'>qpwgraph</code> tool to configure the I/O, for example using such graph:
     </p>
   <img class='inline mb-3' src='static/qpwgraph-gstreamer.png' alt='qpwgraph-gstreamer' style='width: inherit;' />
-    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Conclusion
   
-  <a href='blog/broadcasting-webm#conclusion'>
+  <a href='blog/broadcasting-webm#conclusion' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -1112,6 +1119,227 @@ jsScript = cleanup jsClient
   
   <!-- What goes in this file will appear below the note body-->
 </article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Key Features'>
+              <a href='blog/broadcasting-webm#key-features' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Key Features
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Overview'>
+              <a href='blog/broadcasting-webm#overview' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Overview
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Use-Cases'>
+              <a href='blog/broadcasting-webm#use-cases' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Use-Cases
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='WebM Stream'>
+              <a href='blog/broadcasting-webm#webm-stream' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                WebM Stream
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Playing live audio'>
+              <a href='blog/broadcasting-webm#playing-live-audio' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Playing live audio
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Container formats supported by MSE'>
+              <a href='blog/broadcasting-webm#container-formats-supported-by-mse' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Container formats supported by MSE
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='WebM format'>
+              <a href='blog/broadcasting-webm#webm-format' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                WebM format
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Demo'>
+              <a href='blog/broadcasting-webm#demo' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Demo
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Extension and packages'>
+              <a href='blog/broadcasting-webm#extension-and-packages' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Extension and packages
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Broadcast server'>
+              <a href='blog/broadcasting-webm#broadcast-server' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Broadcast server
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Broadcast client'>
+              <a href='blog/broadcasting-webm#broadcast-client' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Broadcast client
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Servant API'>
+              <a href='blog/broadcasting-webm#servant-api' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Servant API
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='JavaScript client'>
+              <a href='blog/broadcasting-webm#javascript-client' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                JavaScript client
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/broadcasting-webm#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -1186,7 +1414,6 @@ jsScript = cleanup jsClient
 </div>
         </div>
       
-
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
@@ -1213,7 +1440,7 @@ jsScript = cleanup jsClient
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

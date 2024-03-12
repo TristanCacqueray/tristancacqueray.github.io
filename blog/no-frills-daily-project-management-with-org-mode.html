@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=12db0380-2473-4b8d-be58-21808f474d74' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -115,6 +115,10 @@ window.MathJax = {
 
     div.callout-title div.callout-title-inner {
       margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
     }
 
     /* External link icon */
@@ -395,14 +399,17 @@ window.MathJax = {
   </div>
 
           <!-- Main body column -->
-          <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     No Frills Daily Project Management
   </a>
 </h1>
-    <article class='overflow-auto'>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
 
@@ -415,11 +422,11 @@ window.MathJax = {
       In this post I document a setup to manage projects with <a href='https://orgmode.org/features.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-mode</a> and <a href='https://github.com/alphapapa/org-ql#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-ql</a>.
     </p>
   
-    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Context
   
-  <a href='blog/no-frills-daily-project-management-with-org-mode#context'>
+  <a href='blog/no-frills-daily-project-management-with-org-mode#context' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -449,11 +456,11 @@ window.MathJax = {
       Without an organizational system, we can simply recall what happened and fill out the document right before the meeting starts. It is more efficient to implement a system to keep track of tasks as they come up, so that you don’t have to rely solely on your memory.
     </p>
   
-    <h2 id='introducing-org-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='introducing-org-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Introducing org-mode
   
-  <a href='blog/no-frills-daily-project-management-with-org-mode#introducing-org-mode'>
+  <a href='blog/no-frills-daily-project-management-with-org-mode#introducing-org-mode' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -487,11 +494,11 @@ window.MathJax = {
       
     </ul>
   
-    <h2 id='capturing-tasks' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='capturing-tasks' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Capturing tasks
   
-  <a href='blog/no-frills-daily-project-management-with-org-mode#capturing-tasks'>
+  <a href='blog/no-frills-daily-project-management-with-org-mode#capturing-tasks' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -581,11 +588,11 @@ window.MathJax = {
       Then your <code class='py-0.5 px-0.5 bg-gray-100'>projects.org</code> documents is updated with:
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-inbox.png' alt='nano-org-inbox' style='width: inherit;' /></div>
-    <h2 id='managing-tasks' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='managing-tasks' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Managing tasks
   
-  <a href='blog/no-frills-daily-project-management-with-org-mode#managing-tasks'>
+  <a href='blog/no-frills-daily-project-management-with-org-mode#managing-tasks' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -616,11 +623,11 @@ window.MathJax = {
       Running <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-todo</code> on the example task results in:
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-done.png' alt='nano-org-done' style='width: inherit;' /></div>
-    <h2 id='listing-tasks' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='listing-tasks' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Listing tasks
   
-  <a href='blog/no-frills-daily-project-management-with-org-mode#listing-tasks'>
+  <a href='blog/no-frills-daily-project-management-with-org-mode#listing-tasks' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -647,11 +654,11 @@ window.MathJax = {
       You can also run <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-agenda-filter</code> to narrow down the listing by category.
     </p>
   
-    <h2 id='creating-report-with-org-ql' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='creating-report-with-org-ql' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Creating report with org-ql
   
-  <a href='blog/no-frills-daily-project-management-with-org-mode#creating-report-with-org-ql'>
+  <a href='blog/no-frills-daily-project-management-with-org-mode#creating-report-with-org-ql' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -726,11 +733,11 @@ $USER:
       Then running <code class='py-0.5 px-0.5 bg-gray-100'>M-x tc/mk-daily-report</code> creates a new window with the following content, ready to be shared with the team:
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-report.png' alt='nano-org-report' style='width: inherit;' /></div>
-    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Conclusion
   
-  <a href='blog/no-frills-daily-project-management-with-org-mode#conclusion'>
+  <a href='blog/no-frills-daily-project-management-with-org-mode#conclusion' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -750,6 +757,150 @@ $USER:
   
   <!-- What goes in this file will appear below the note body-->
 </article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context'>
+              <a href='blog/no-frills-daily-project-management-with-org-mode#context' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Introducing org-mode'>
+              <a href='blog/no-frills-daily-project-management-with-org-mode#introducing-org-mode' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Introducing org-mode
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Capturing tasks'>
+              <a href='blog/no-frills-daily-project-management-with-org-mode#capturing-tasks' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Capturing tasks
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Managing tasks'>
+              <a href='blog/no-frills-daily-project-management-with-org-mode#managing-tasks' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Managing tasks
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Listing tasks'>
+              <a href='blog/no-frills-daily-project-management-with-org-mode#listing-tasks' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Listing tasks
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Creating report with org-ql'>
+              <a href='blog/no-frills-daily-project-management-with-org-mode#creating-report-with-org-ql' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Creating report with org-ql
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/no-frills-daily-project-management-with-org-mode#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -815,7 +966,6 @@ $USER:
 </div>
         </div>
       
-
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
@@ -842,7 +992,7 @@ $USER:
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

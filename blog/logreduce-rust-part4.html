@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=12db0380-2473-4b8d-be58-21808f474d74' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -115,6 +115,10 @@ window.MathJax = {
 
     div.callout-title div.callout-title-inner {
       margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
     }
 
     /* External link icon */
@@ -395,14 +399,17 @@ window.MathJax = {
   </div>
 
           <!-- Main body column -->
-          <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Completing the first release of logreduce-rust
   </a>
 </h1>
-    <article class='overflow-auto'>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
 
@@ -467,11 +474,11 @@ window.MathJax = {
       
     </ul>
   
-    <h2 id='implementing-the-model-processor' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='implementing-the-model-processor' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Implementing the model processor
   
-  <a href='blog/logreduce-rust-part4#implementing-the-model-processor'>
+  <a href='blog/logreduce-rust-part4#implementing-the-model-processor' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -519,11 +526,11 @@ impl&lt;'index, R: Read&gt; Iterator for ChunkProcessor&lt;'index, R&gt; {
       You can check the full implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/model/src/process.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>process.rs</a> module.
     </p>
   
-    <h2 id='using-static-dispatch-for-the-data-model' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='using-static-dispatch-for-the-data-model' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Using static dispatch for the data model
   
-  <a href='blog/logreduce-rust-part4#using-static-dispatch-for-the-data-model'>
+  <a href='blog/logreduce-rust-part4#using-static-dispatch-for-the-data-model' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -629,11 +636,11 @@ struct Report {
       I documented the complete model in an <a href='https://adr.github.io/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Architectural Decision Record</a> you can find here: <a href='https://github.com/logreduce/logreduce-rust/blob/main/doc/adr/0001-architecture-cli.md' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>0001-architecture-cli.md</a>. You can check the implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/model/src/model.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>model.rs</a> module.
     </p>
   
-    <h2 id='crawling-logs-in-parallel-using-a-threadpool' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='crawling-logs-in-parallel-using-a-threadpool' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Crawling logs in parallel using a threadpool
   
-  <a href='blog/logreduce-rust-part4#crawling-logs-in-parallel-using-a-threadpool'>
+  <a href='blog/logreduce-rust-part4#crawling-logs-in-parallel-using-a-threadpool' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -693,11 +700,11 @@ struct Report {
       You can check the complete implementation in the <a href='https://github.com/logreduce/logreduce-rust/blob/main/httpdir/src/httpdir.rs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>httpdir.rs</a> module.
     </p>
   
-    <h2 id='completing-my-first-project-in-rust' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='completing-my-first-project-in-rust' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Completing my first project in Rust
   
-  <a href='blog/logreduce-rust-part4#completing-my-first-project-in-rust'>
+  <a href='blog/logreduce-rust-part4#completing-my-first-project-in-rust' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -755,11 +762,11 @@ struct Report {
       I am mainly interested in Rust's expressive static types. They generally work the same as in Haskell and OCaml, or any other language featuring <a href='https://doc.rust-lang.org/book/ch06-00-enums.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Algebraic Data Types</a>. Such types let me fearlessly perform heart surgery on complex code. As explained in the <a href='https://www.youtube.com/watch?v=kZ1P8cHN3pY' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Why Functional Programming Doesn't Matter</a> talk, expressive static types give us the dexterity to extend our system in a fairly safe way. In particular, by making illegal states unrepresentable, we don't have to worry about many kinds of errors. The type system statically verifies a significant part of our program, enabling us to move fast by focusing on the most important part.
     </p>
   
-    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Conclusion
   
-  <a href='blog/logreduce-rust-part4#conclusion'>
+  <a href='blog/logreduce-rust-part4#conclusion' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -803,6 +810,128 @@ struct Report {
   
   <!-- What goes in this file will appear below the note body-->
 </article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Implementing the model processor'>
+              <a href='blog/logreduce-rust-part4#implementing-the-model-processor' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Implementing the model processor
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Using static dispatch for the data model'>
+              <a href='blog/logreduce-rust-part4#using-static-dispatch-for-the-data-model' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Using static dispatch for the data model
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Crawling logs in parallel using a threadpool'>
+              <a href='blog/logreduce-rust-part4#crawling-logs-in-parallel-using-a-threadpool' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Crawling logs in parallel using a threadpool
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Completing my first project in Rust'>
+              <a href='blog/logreduce-rust-part4#completing-my-first-project-in-rust' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Completing my first project in Rust
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/logreduce-rust-part4#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -855,7 +984,6 @@ struct Report {
 </div>
         </div>
       
-
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
@@ -882,7 +1010,7 @@ struct Report {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

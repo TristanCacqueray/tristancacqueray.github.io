@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=12db0380-2473-4b8d-be58-21808f474d74' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -115,6 +115,10 @@ window.MathJax = {
 
     div.callout-title div.callout-title-inner {
       margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
     }
 
     /* External link icon */
@@ -395,14 +399,17 @@ window.MathJax = {
   </div>
 
           <!-- Main body column -->
-          <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     How to manually update Kubernetes Resources
   </a>
 </h1>
-    <article class='overflow-auto'>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
 
@@ -423,11 +430,11 @@ window.MathJax = {
       This article demonstrates different strategies to update kubernetes resources.
     </p>
   
-    <h2 id='context-and-problem-statement' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='context-and-problem-statement' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Context and Problem Statement
   
-  <a href='blog/kubernetes-resources-update#context-and-problem-statement'>
+  <a href='blog/kubernetes-resources-update#context-and-problem-statement' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -445,11 +452,11 @@ window.MathJax = {
       In the context of a kubernetes operator, there are two forms of resource update: <em>replace</em> and <em>patch</em>. To demonstrate how the update process works, we'll use the API directly by starting a proxy:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>kubectl proxy --port=8080</code></pre></div>
-    <h2 id='resource-version' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='resource-version' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Resource Version
   
-  <a href='blog/kubernetes-resources-update#resource-version'>
+  <a href='blog/kubernetes-resources-update#resource-version' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -492,11 +499,11 @@ EOF</code></pre></div>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>curl -XVERB -H "Content-Type: TYPE" http://localhost:8080/apis/apps/v1/namespaces/tristanc/deployments/demo-deployment --data-binary @- &lt;&lt;EOF
   BODY
 EOF</code></pre></div>
-    <h2 id='json-patch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='json-patch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   JSON Patch
   
-  <a href='blog/kubernetes-resources-update#json-patch'>
+  <a href='blog/kubernetes-resources-update#json-patch' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -514,7 +521,7 @@ EOF</code></pre></div>
       
   Add a container
   
-  <a href='blog/kubernetes-resources-update#add-a-container'>
+  <a href='blog/kubernetes-resources-update#add-a-container' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -539,7 +546,7 @@ EOF</code></pre></div>
       
   Remove a container
   
-  <a href='blog/kubernetes-resources-update#remove-a-container'>
+  <a href='blog/kubernetes-resources-update#remove-a-container' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -562,7 +569,7 @@ EOF</code></pre></div>
       
   Change the image
   
-  <a href='blog/kubernetes-resources-update#change-the-image'>
+  <a href='blog/kubernetes-resources-update#change-the-image' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -582,7 +589,7 @@ EOF</code></pre></div>
       
   Test
   
-  <a href='blog/kubernetes-resources-update#test'>
+  <a href='blog/kubernetes-resources-update#test' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -602,11 +609,11 @@ EOF</code></pre></div>
     "value": "registry.fedoraproject.org/fedora:37"
   }
 ]</code></pre></div>
-    <h2 id='json-merge-patch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='json-merge-patch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   JSON Merge Patch
   
-  <a href='blog/kubernetes-resources-update#json-merge-patch'>
+  <a href='blog/kubernetes-resources-update#json-merge-patch' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -624,7 +631,7 @@ EOF</code></pre></div>
       
   Change containers
   
-  <a href='blog/kubernetes-resources-update#change-containers'>
+  <a href='blog/kubernetes-resources-update#change-containers' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -656,7 +663,7 @@ EOF</code></pre></div>
       
   Change replica count
   
-  <a href='blog/kubernetes-resources-update#change-replica-count'>
+  <a href='blog/kubernetes-resources-update#change-replica-count' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -670,11 +677,11 @@ EOF</code></pre></div>
     "replicas": 2
   }
 }</code></pre></div>
-    <h2 id='strategic-merge-patch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='strategic-merge-patch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Strategic Merge Patch
   
-  <a href='blog/kubernetes-resources-update#strategic-merge-patch'>
+  <a href='blog/kubernetes-resources-update#strategic-merge-patch' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -692,7 +699,7 @@ EOF</code></pre></div>
       
   Add a container
   
-  <a href='blog/kubernetes-resources-update#add-a-container-1'>
+  <a href='blog/kubernetes-resources-update#add-a-container-1' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -715,11 +722,11 @@ EOF</code></pre></div>
     }
   }
 }</code></pre></div>
-    <h2 id='server-side-apply' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='server-side-apply' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Server Side Apply
   
-  <a href='blog/kubernetes-resources-update#server-side-apply'>
+  <a href='blog/kubernetes-resources-update#server-side-apply' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -737,11 +744,11 @@ EOF</code></pre></div>
       This feature leverage a new "field management" mechanism, and it seems useful when multiple clients are updating a single resource. This feature is fairly new, and it is not yet fully supported by the controller-runtime client.
     </p>
   
-    <h2 id='replace' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='replace' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Replace
   
-  <a href='blog/kubernetes-resources-update#replace'>
+  <a href='blog/kubernetes-resources-update#replace' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -763,7 +770,7 @@ EOF</code></pre></div>
       
   Get and replace
   
-  <a href='blog/kubernetes-resources-update#get-and-replace'>
+  <a href='blog/kubernetes-resources-update#get-and-replace' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -779,11 +786,11 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
       Notice that changing the resource results in a new <em>resourceVersion</em>, and trying to repeat the last request will fails because the version no longer match.
     </p>
   
-    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Conclusion
   
-  <a href='blog/kubernetes-resources-update#conclusion'>
+  <a href='blog/kubernetes-resources-update#conclusion' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -819,6 +826,249 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
   
   <!-- What goes in this file will appear below the note body-->
 </article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context and Problem Statement'>
+              <a href='blog/kubernetes-resources-update#context-and-problem-statement' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context and Problem Statement
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Resource Version'>
+              <a href='blog/kubernetes-resources-update#resource-version' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Resource Version
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='JSON Patch'>
+              <a href='blog/kubernetes-resources-update#json-patch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                JSON Patch
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Add a container'>
+              <a href='blog/kubernetes-resources-update#add-a-container' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Add a container
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Remove a container'>
+              <a href='blog/kubernetes-resources-update#remove-a-container' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Remove a container
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Change the image'>
+              <a href='blog/kubernetes-resources-update#change-the-image' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Change the image
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Test'>
+              <a href='blog/kubernetes-resources-update#test' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Test
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='JSON Merge Patch'>
+              <a href='blog/kubernetes-resources-update#json-merge-patch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                JSON Merge Patch
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Change containers'>
+              <a href='blog/kubernetes-resources-update#change-containers' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Change containers
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Change replica count'>
+              <a href='blog/kubernetes-resources-update#change-replica-count' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Change replica count
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Strategic Merge Patch'>
+              <a href='blog/kubernetes-resources-update#strategic-merge-patch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Strategic Merge Patch
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Add a container'>
+              <a href='blog/kubernetes-resources-update#add-a-container-1' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Add a container
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Server Side Apply'>
+              <a href='blog/kubernetes-resources-update#server-side-apply' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Server Side Apply
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Replace'>
+              <a href='blog/kubernetes-resources-update#replace' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Replace
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Get and replace'>
+              <a href='blog/kubernetes-resources-update#get-and-replace' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Get and replace
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/kubernetes-resources-update#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -862,7 +1112,6 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
 </div>
         </div>
       
-
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
@@ -889,7 +1138,7 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>

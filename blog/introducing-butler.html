@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=12db0380-2473-4b8d-be58-21808f474d74' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -115,6 +115,10 @@ window.MathJax = {
 
     div.callout-title div.callout-title-inner {
       margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
     }
 
     /* External link icon */
@@ -395,14 +399,17 @@ window.MathJax = {
   </div>
 
           <!-- Main body column -->
-          <div class='flex-1 w-full overflow-x-auto bg-white'>
+          <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Introducing Butler Virtual Operating System
   </a>
 </h1>
-    <article class='overflow-auto'>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
 
@@ -427,11 +434,11 @@ window.MathJax = {
       
     </ul>
   <img class='inline mb-3' src='static/butler-demo.png' alt='butler-demo' style='width: inherit;' />
-    <h2 id='hobby-project' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='hobby-project' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Hobby Project
   
-  <a href='blog/introducing-butler#hobby-project'>
+  <a href='blog/introducing-butler#hobby-project' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -449,11 +456,11 @@ window.MathJax = {
       That being said, the project reached a point where it is now enjoyable, and I’m happy to share its current state with you.
     </p>
   
-    <h2 id='modular-operating-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='modular-operating-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Modular Operating System
   
-  <a href='blog/introducing-butler#modular-operating-system'>
+  <a href='blog/introducing-butler#modular-operating-system' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -547,11 +554,11 @@ window.MathJax = {
       I find it valuable to model these APIs after regular operating system constructs. They are available through a single top level <a href='https://butleros.github.io/haddock/Butler.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Butler</a> module. The next section introduces the application environment.
     </p>
   
-    <h2 id='application-actor' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='application-actor' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Application Actor
   
-  <a href='blog/introducing-butler#application-actor'>
+  <a href='blog/introducing-butler#application-actor' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -601,11 +608,11 @@ window.MathJax = {
       The key design is that clients are dumb terminals and the state is controlled server side. A good example is the text editor app named <a href='https://github.com/ButlerOS/haskell-butler/blob/main/src/Butler/App/Noter.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Noter</a>. This app leverages the whole application environment to implement an etherpad like text editor.
     </p>
   
-    <h2 id='haskell-runtime-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='haskell-runtime-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   <span xmlhtmlRaw><a id="rts"></span>Haskell RunTime System<span xmlhtmlRaw></a></span>
   
-  <a href='blog/introducing-butler#haskell-runtime-system'>
+  <a href='blog/introducing-butler#haskell-runtime-system' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -651,11 +658,11 @@ window.MathJax = {
       That being said, Haskell works great for Butler. So far I have only used its most basic features, and the project source is only 5k lines of code according to <a href='https://github.com/vmchale/polyglot' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>polyglot</a>.
     </p>
   
-    <h2 id='html5-graphical-user-interface' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='html5-graphical-user-interface' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   HTML5 Graphical User Interface
   
-  <a href='blog/introducing-butler#html5-graphical-user-interface'>
+  <a href='blog/introducing-butler#html5-graphical-user-interface' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -673,11 +680,11 @@ window.MathJax = {
       Though it would be interesting to investigate <a href='https://github.com/patrick-steele-idem/morphdom' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>morphdom</a> and rich client alternatives, such as <a href='https://www.w3.org/TR/webgpu/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Web GPU</a> or <a href='https://flutter.dev/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Flutter</a>.
     </p>
   
-    <h2 id='application-demos' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='application-demos' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Application Demos
   
-  <a href='blog/introducing-butler#application-demos'>
+  <a href='blog/introducing-butler#application-demos' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -727,11 +734,11 @@ window.MathJax = {
       I am mostly focusing on the desktop use-case, but I also helped my colleague fboucher use Butler to create a game named <a href='https://github.com/web-apps-lab/HazardHunter' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>HazardHunter</a>.
     </p>
   
-    <h2 id='road-map' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='road-map' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Road-map
   
-  <a href='blog/introducing-butler#road-map'>
+  <a href='blog/introducing-butler#road-map' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -801,11 +808,11 @@ window.MathJax = {
       Finally, it would be interesting to investigate if and how an app registry could be implemented. For example as a list of packages that could be dynamically loaded/unloaded into a running instance.
     </p>
   
-    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Conclusion
   
-  <a href='blog/introducing-butler#conclusion'>
+  <a href='blog/introducing-butler#conclusion' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -833,6 +840,161 @@ window.MathJax = {
   
   <!-- What goes in this file will appear below the note body-->
 </article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Hobby Project'>
+              <a href='blog/introducing-butler#hobby-project' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Hobby Project
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Modular Operating System'>
+              <a href='blog/introducing-butler#modular-operating-system' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Modular Operating System
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Application Actor'>
+              <a href='blog/introducing-butler#application-actor' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Application Actor
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='<a id="rts">Haskell RunTime System</a>'>
+              <a href='blog/introducing-butler#haskell-runtime-system' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                &lt;a id="rts"&gt;Haskell RunTime System&lt;/a&gt;
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='HTML5 Graphical User Interface'>
+              <a href='blog/introducing-butler#html5-graphical-user-interface' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                HTML5 Graphical User Interface
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Application Demos'>
+              <a href='blog/introducing-butler#application-demos' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Application Demos
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Road-map'>
+              <a href='blog/introducing-butler#road-map' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Road-map
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/introducing-butler#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -922,7 +1084,6 @@ window.MathJax = {
 </div>
         </div>
       
-
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
@@ -949,7 +1110,7 @@ window.MathJax = {
     </a>
   </div>
   <div>
-    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.11.0'>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
       <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
     </a>
   </div>
