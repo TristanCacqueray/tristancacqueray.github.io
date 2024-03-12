@@ -18,7 +18,7 @@
   </title>
   
     
-      <meta property='og:description' content />
+      <meta property='og:description' content='When recording midi sequence through extenal synth with the miniFuse, the audio latency is negative (recording starts a few ms after the audio play first midi).' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=124d7272-17ed-400b-a684-0251fbed83ca' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=12db0380-2473-4b8d-be58-21808f474d74' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -515,6 +515,68 @@ window.MathJax = {
         </li>
       
     </ul>
+  
+    <h2 id='find-bpm' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Find BPM
+  
+  <a href='zettle/music/reaper#find-bpm'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          insert tempo marker in the timeline <span xmlhtmlRaw><kbd></span>shift<span xmlhtmlRaw></kbd></span><span xmlhtmlRaw><kbd></span>c<span xmlhtmlRaw></kbd></span>
+        </li>
+      
+        <li>
+          ctrl drag the mark to match transient
+        </li>
+      
+    </ul>
+  
+    <h2 id='move-items-on-one-axis-only-ctrlshift' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Move items on one axis only: <span xmlhtmlRaw><kbd></span>ctrl<span xmlhtmlRaw></kbd></span><span xmlhtmlRaw><kbd></span>shift<span xmlhtmlRaw></kbd></span>
+  
+  <a href='zettle/music/reaper#move-items-on-one-axis-only-ctrlshift'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h2 id='midi-note-too-early' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Midi note too early
+  
+  <a href='zettle/music/reaper#midi-note-too-early'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      When recording midi sequence through extenal synth with the miniFuse, the audio latency is negative (recording starts a few ms after the audio play first midi).
+    </p>
+  
+    <p class='mb-3'>
+      In <code class='py-0.5 px-0.5 bg-gray-100'>Preferences</code> -&gt; <code class='py-0.5 px-0.5 bg-gray-100'>Audio</code> -&gt; <code class='py-0.5 px-0.5 bg-gray-100'>Recording</code>, untick <code class='py-0.5 px-0.5 bg-gray-100'>Use audio driver reported latency</code>, then adjust recording manually.
+    </p>
   
   <!-- What goes in this file will appear below the note body-->
 </article>
