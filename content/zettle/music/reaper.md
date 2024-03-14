@@ -21,3 +21,7 @@ When recording midi sequence through extenal synth with the miniFuse,
 the audio latency is negative (recording starts a few ms after the audio play first midi).
 
 In `Preferences` -> `Audio` -> `Recording`, untick `Use audio driver reported latency`, then adjust recording manually.
+
+## Free impulse response
+
+For ReaVerb, use [Big Gee's Lexicon 480L](https://grantnelson.co/article/1/lexicon-480l-free-impulse-responses), like Large Room, or Small Plate (which is bigger :)
