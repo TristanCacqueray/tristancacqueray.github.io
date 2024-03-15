@@ -62,7 +62,7 @@ graph
 Here is how this setup looks like on my desk:
 
 :::{.flex .items-center .justify-center}
-![shadertoy-mandelbrot](../static/microX-setup.jpeg)
+![desk](media/microX-setup.jpeg)
 :::
 
 Previously I worked exclusively on the [op1][op1], running the DAW only at the end to cleanup the composition.
