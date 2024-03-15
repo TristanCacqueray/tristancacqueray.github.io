@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=c7a78c2c-92f4-4a7e-8ff8-13ed6d6cbc00' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=9b97db38-c88d-48ff-94dd-4ee16e169e64' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -618,7 +618,7 @@ window.MathJax = {
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
     <p class='mb-3'>
-      Do yourself a favor, make a local copy by running: <code class='py-0.5 px-0.5 bg-gray-100'>for id in $(grep '&lt;.*&gt;$' playlists.md | sed -e 's/.* &lt;//g' -e 's/&gt;$//'); do echo podenv youtube-dl "https://www.youtube.com/watch?v=$id"; done</code>
+      Do yourself a favor, make a local copy by running: <code class='py-0.5 px-0.5 bg-gray-100'>for id in $(grep '&lt;.*&gt;$' playlists.md | sed -e 's/.* &lt;//g' -e 's/&gt;$//'); do echo podenv youtube-dl --audio-format best "https://www.youtube.com/watch?v=$id"; done</code>
     </p>
   
     </blockquote>
