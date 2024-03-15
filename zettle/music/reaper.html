@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=820fffdd-758a-439e-9084-f637ed90b3f7' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -130,7 +130,11 @@ window.MathJax = {
       content: ""
     }
 
+    a[data-linkicon="external"] {
+      padding-right: 24px;
+    }
     a[data-linkicon="external"]::after {
+      margin-right: -24px;
       content: url('data:image/svg+xml,\
       <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
         <g style="stroke:gray;stroke-width:1"> \
@@ -585,6 +589,24 @@ window.MathJax = {
       In <code class='py-0.5 px-0.5 bg-gray-100'>Preferences</code> -&gt; <code class='py-0.5 px-0.5 bg-gray-100'>Audio</code> -&gt; <code class='py-0.5 px-0.5 bg-gray-100'>Recording</code>, untick <code class='py-0.5 px-0.5 bg-gray-100'>Use audio driver reported latency</code>, then adjust recording manually.
     </p>
   
+    <h2 id='free-impulse-response' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Free impulse response
+  
+  <a href='zettle/music/reaper#free-impulse-response' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      For ReaVerb, use <a href='https://grantnelson.co/article/1/lexicon-480l-free-impulse-responses' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Big Gee’s Lexicon 480L</a>, like Large Room, or Small Plate (which is bigger :)
+    </p>
+  
   <!-- What goes in this file will appear below the note body-->
 </article>
         </div>
@@ -630,6 +652,17 @@ window.MathJax = {
             <li class='whitespace-nowrap truncate mt-2' title='Midi note too early'>
               <a href='zettle/music/reaper#midi-note-too-early' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 Midi note too early
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Free impulse response'>
+              <a href='zettle/music/reaper#free-impulse-response' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Free impulse response
               </a>
               
         <ul class='ml-2'>
@@ -795,3 +828,4 @@ window.MathJax = {
 </body>
 
 </html>
+

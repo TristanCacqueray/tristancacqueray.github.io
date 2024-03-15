@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=820fffdd-758a-439e-9084-f637ed90b3f7' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -130,7 +130,11 @@ window.MathJax = {
       content: ""
     }
 
+    a[data-linkicon="external"] {
+      padding-right: 24px;
+    }
     a[data-linkicon="external"]::after {
+      margin-right: -24px;
       content: url('data:image/svg+xml,\
       <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
         <g style="stroke:gray;stroke-width:1"> \
@@ -469,6 +473,21 @@ window.MathJax = {
     <ul class='space-y-1'>
       
         <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='blog/making-of-microX'>
+            Making Of MicroX
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>To make the video, I used <a href='project/animation-fractal' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Animation Fractal</a>, a free Haskell Vulkan powered engine to create visualizations that mimics the sound. While the core didn’t change much since <a href='blog/making-of-op961' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Making Of OP-961</a>, I recently found a new shadertoy named <a href='https://www.shadertoy.com/view/7lKSWW' class='text-gray-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Truchet + Kaleidoscope FTW</a> by @mrange.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+        <li>
           <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='zettle/fractal-animation'>
             Fractal Animation
           </a>
@@ -591,3 +610,4 @@ window.MathJax = {
 </body>
 
 </html>
+

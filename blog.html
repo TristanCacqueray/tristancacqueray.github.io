@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   <link href='/blog.xml' rel='alternate' type='application/atom+xml' title='Atom Feed' />
-  <link href='tailwind.css?instanceId=b0b19c2f-25bb-4c21-96d7-7cbaf5d8b69d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=820fffdd-758a-439e-9084-f637ed90b3f7' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -130,7 +130,11 @@ window.MathJax = {
       content: ""
     }
 
+    a[data-linkicon="external"] {
+      padding-right: 24px;
+    }
     a[data-linkicon="external"]::after {
+      margin-right: -24px;
       content: url('data:image/svg+xml,\
       <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
         <g style="stroke:gray;stroke-width:1"> \
@@ -410,6 +414,19 @@ window.MathJax = {
       Pages tagged by 'blog'
     </header>
     <ul>
+      
+        <li>
+          <div class='flex flex-wrap flex-row my-2'>
+            
+              <span data-nosnippet class='mr-2 text-right font-mono text-gray-600'>
+                2024-03-15
+              </span>
+            
+            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='blog/making-of-microX'>
+              Making Of MicroX
+            </a>
+          </div>
+        </li>
       
         <li>
           <div class='flex flex-wrap flex-row my-2'>
@@ -1065,3 +1082,4 @@ window.MathJax = {
 </body>
 
 </html>
+
