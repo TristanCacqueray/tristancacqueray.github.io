@@ -48,4 +48,4 @@ These artists/bands failed one of the two first rules:
 ## Archive
 
 > Do yourself a favor, make a local copy by running:
-> `for id in $(grep '<.*>$' playlists.md | sed -e 's/.* <//g' -e 's/>$//'); do echo podenv youtube-dl "https://www.youtube.com/watch?v=$id"; done`
+> `for id in $(grep '<.*>$' playlists.md | sed -e 's/.* <//g' -e 's/>$//'); do echo podenv youtube-dl --audio-format best "https://www.youtube.com/watch?v=$id"; done`
