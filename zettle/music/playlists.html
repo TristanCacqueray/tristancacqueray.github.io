@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=4908cbb2-f047-4e49-9959-bf969ca6b820' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=de7058e8-9a37-423e-9edd-60a898e3306a' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -832,7 +832,7 @@ window.MathJax = {
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
     <p class='mb-3'>
-      Do yourself a favor, make a local copy by running: <code class='py-0.5 px-0.5 bg-gray-100'>for id in $(grep '&lt;.*&gt;$' playlists.md | sed -e 's/.* &lt;//g' -e 's/&gt;$//'); do echo podenv youtube-dl --audio-format best "https://www.youtube.com/watch?v=$id"; done</code>
+      Do yourself a favor, make a local copy by running: <code class='py-0.5 px-0.5 bg-gray-100'>podenv youtube-dl --audio-format best $(for id in $(curl https://raw.githubusercontent.com/TristanCacqueray/TristanCacqueray.github.io/main/content/zettle/music/playlists.md | grep '&lt;.*&gt;$' | sed -e 's/.* &lt;//g' -e 's/&gt;$//'); do echo "https://www.youtube.com/watch?v=$id"; done)</code>
     </p>
   
     </blockquote>
