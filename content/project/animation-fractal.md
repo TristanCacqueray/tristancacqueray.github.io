@@ -17,5 +17,7 @@ I wrote several blog post about it:
 - [[introducing-animation-fractal]]
 - [[massiv-vulkan-capture]]
 - [[pulse-simple-pcm]]
+- [[making-of-op961]]
+- [[making-of-microX]]
 
 Checkout the source: https://gitlab.com/TristanCacqueray/animation-fractal/
