@@ -17,7 +17,7 @@ In two parts, I present:
 But first, here is a video  where I demonstrate the app along with a modular synthesizer:
 
 :::{.flex .items-center .justify-center}
-<iframe width="888" height="500" src="https://www.youtube.com/embed/LqAKjAut_ag" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LqAKjAut_ag" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 :::
 ---
 
