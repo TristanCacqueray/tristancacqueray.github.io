@@ -2,6 +2,17 @@
 
 These are code snippets for one-off task.
 
+* ghc
+** compare core output
+#+begin_src bash
+# Bump with core output
+cabal clean && cabal build --ghc-options="-ddump-simpl -ddump-to-file -dsuppress-uniques" lib:simple-dsp
+# Save output
+cp ./dist-newstyle/build/x86_64-linux/ghc-9.6.1/simple-dsp-0.1/build/src/SimpleDSP/IIR.dump-simpl .
+# Rebuild and compare diff
+...
+#+end_src
+
 * perf
 ** create a flamegraph
 
