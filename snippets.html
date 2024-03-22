@@ -56,7 +56,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=44cbaf0f-7725-4aae-aa8b-672bda1c31bb' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=3440e2b1-1532-47d7-8cb0-23d3e2a20b3b' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -368,7 +368,7 @@ window.MathJax = {
               <div class='grid grid-cols-12'>
                 <aside class='bg-indigo-50 col-span-3 px-2 py-1 -mt-4'>
                   <div class='sticky top-0'>
-                    <ul><li><a href='snippets#perf'>perf</a></li><li><a href='snippets#git'>git</a></li><li><a href='snippets#ffmpeg'>ffmpeg</a></li><li><a href='snippets#gnome'>gnome</a></li><li><a href='snippets#rpm'>rpm</a></li><li><a href='snippets#wayland'>wayland</a></li><li><a href='snippets#x11'>x11</a></li><li><a href='snippets#gpg'>gpg</a></li><li><a href='snippets#gnuplot'>gnuplot</a></li><li><a href='snippets#notmuch'>notmuch</a></li><li><a href='snippets#zookeeper'>ZooKeeper</a></li><li><a href='snippets#openstack'>OpenStack</a></li></ul>
+                    <ul><li><a href='snippets#ghc'>ghc</a></li><li><a href='snippets#perf'>perf</a></li><li><a href='snippets#git'>git</a></li><li><a href='snippets#ffmpeg'>ffmpeg</a></li><li><a href='snippets#gnome'>gnome</a></li><li><a href='snippets#rpm'>rpm</a></li><li><a href='snippets#wayland'>wayland</a></li><li><a href='snippets#x11'>x11</a></li><li><a href='snippets#gpg'>gpg</a></li><li><a href='snippets#gnuplot'>gnuplot</a></li><li><a href='snippets#notmuch'>notmuch</a></li><li><a href='snippets#zookeeper'>ZooKeeper</a></li><li><a href='snippets#openstack'>OpenStack</a></li></ul>
                   </div>
                 </aside>
                 <article class='overflow-auto col-span-9 mx-2'>
@@ -383,6 +383,40 @@ window.MathJax = {
       These are code snippets for one-off task.
     </p>
   
+    <h1 id='ghc' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  ghc
+  
+  <a href='snippets#ghc'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <h2 id='compare-core-output' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  compare core output
+  
+  <a href='snippets#compare-core-output'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># Bump with core output
+cabal clean && cabal build --ghc-options="-ddump-simpl -ddump-to-file -dsuppress-uniques" lib:simple-dsp
+# Save output
+cp ./dist-newstyle/build/x86_64-linux/ghc-9.6.1/simple-dsp-0.1/build/src/SimpleDSP/IIR.dump-simpl .
+# Rebuild and compare diff
+...
+</code></pre></div>
     <h1 id='perf' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
       
   perf
