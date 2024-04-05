@@ -9,8 +9,27 @@ These are code snippets for one-off task.
 cabal clean && cabal build --ghc-options="-ddump-simpl -ddump-to-file -dsuppress-uniques" lib:simple-dsp
 # Save output
 cp ./dist-newstyle/build/x86_64-linux/ghc-9.6.1/simple-dsp-0.1/build/src/SimpleDSP/IIR.dump-simpl .
-# Rebuild and compare diff
+# Make change, rebuild and compare diff
 ...
+#+end_src
+
+** runtime profile
+With `cabal.project.local`:
+#+begin_src cabal
+ignore-project: False
+library-profiling: True
+executable-profiling: True
+tests: True
+benchmarks: True
+profiling: True
+#+end_src
+
+Run:
+#+begin_src bash
+# Build/run the project with profiling options
+cabal run -O2 --enable-library-profiling --enable-profiling --ghc-options="-fprof-late-inline" exe:my-exe -- +RTS -p -hy -l-au -RTS
+# Render report
+nix shell nixpkgs#haskellPackages.eventlog2html eventlog2html my-exe.eventlog
 #+end_src
 
 * perf
