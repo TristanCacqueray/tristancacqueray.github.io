@@ -25,3 +25,9 @@ In `Preferences` -> `Audio` -> `Recording`, untick `Use audio driver reported la
 ## Free impulse response
 
 For ReaVerb, use [Big Gee's Lexicon 480L](https://grantnelson.co/article/1/lexicon-480l-free-impulse-responses), like Large Room, or Small Plate (which is bigger :)
+
+## Automatic Gain Riding
+
+- Use loudness meter plugin to write LUFS-M env
+- Move automation to track envelop
+- Tweaks envelop params to inverse

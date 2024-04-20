@@ -55,6 +55,7 @@ To add:
 - Rolling Stones
 - Portishead Roseland NYC
 - Nina Simone
+- Elton John
 
 Please let me know who is missing!
 
@@ -79,6 +80,7 @@ These artists/bands failed one of the two first rules:
 
 To add:
 - Jefferson Airplane - Somebody To Love
+- New Order - Blue Monday
 
 ## French
 
