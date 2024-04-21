@@ -14,15 +14,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Introducing an effects system for Monocle – Tristan's Zettelkasten
+    Using Dhall To Animate Fractal – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='This post was initially published on https://www.softwarefactory-project.io/introducing-an-effects-system-for-monocle.html' />
+      <meta property='og:description' content='This post presents the new [[animation-fractal]] (AF) configuration schema I used to produce the following 19th Century Piano Fractal playlist:' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='https://tristancacqueray.github.io/' />
+      <meta property='og:image' content='https://tristancacqueray.github.io//static/af-piano-cover.png' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Introducing an effects system for Monocle' />
+      <meta property='og:title' content='Using Dhall To Animate Fractal' />
       
         <meta name='twitter:card' content='summary_large_image' />
       
@@ -407,7 +407,7 @@ window.MathJax = {
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Introducing an effects system for Monocle
+    Using Dhall To Animate Fractal
   </a>
 </h1>
     
@@ -422,27 +422,157 @@ window.MathJax = {
 
 
 
+    <p class='mb-3'>
+      This post presents the new <a href='project/animation-fractal' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Animation Fractal</a> (AF) configuration schema I used to produce the following <a href='https://www.youtube.com/playlist?list=PLOA1Lq_GM0VvsnCyvoBjul7rYEBAAkN_s' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>19th Century Piano Fractal</a> playlist:
+    </p>
+  <div class='hidden'><span title='Link is broken'><s>![cover](/static/af-piano-cover.png)</s>❌</span></div><div class='flex items-center justify-center'><div xmlhtmlRaw><iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=ZU-gDRVkXxuW6lKh&amp;list=PLOA1Lq_GM0VvsnCyvoBjul7rYEBAAkN_s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div></div>
+    <hr class='mb-3' />
+  
+    <p class='mb-3'>
+      In three parts, I describe how AF demos are defined, the new <a href='https://dhall-lang.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Dhall</a> schemas, and its Haskell embedding.
+    </p>
+  
+    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Context
+  
+  <a href='blog/using-dhall-to-animate-fractal#context' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      AF demos are defined with the following elements:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Variables: the shader inputs passed as uniform values.
+        </li>
+      
+        <li>
+          Inputs: modulations and how they modify the variables.
+        </li>
+      
+        <li>
+          Media: external files providing modulation sources.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Here is the underlying data type:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Scene = Scene
+  { name :: String,
+    variables :: [Variable],
+    inputs :: [Input],
+    medias :: [FilePath]
+  }
+
+data Variable = Variable
+  { name :: String,
+    controller :: Controller
+  }
+
+data Controller
+  = SliderFloat {min :: Double, max :: Double}
+  | ColorPicker
+  | Toggle
+
+data Input = Input
+  { source :: Source,
+    modulation :: Modulation
+  }
+
+data Source
+  = Clock
+  | Audio {freq :: Double}
+  | Midi {track :: String}
+
+data Modulation = Modulation
+  { speed :: Double,
+    variable :: String
+  }</code></pre></div>
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
     <p class='mb-3'>
-      This post was initially published on <a href='https://www.softwarefactory-project.io/introducing-an-effects-system-for-monocle.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.softwarefactory-project.io/introducing-an-effects-system-for-monocle.html</a>
+      Notice how data types can be divided into two groups:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Records such as <code class='py-0.5 px-0.5 bg-gray-100'>Scene</code> are the product of multiple types.
+        </li>
+      
+        <li>
+          Enums such as <code class='py-0.5 px-0.5 bg-gray-100'>Controller</code> are the sum of multiple types.
+        </li>
+      
+    </ul>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      Here is an example demo defined in Haskell:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>demo :: Scene
+demo =
+  Scene
+    { name = "microChop",
+      variables =
+        [ Variable "iTime" (SliderFloat 0 256),
+          Variable "iColor" ColorPicker,
+          Variable "iMotion" (SliderFloat 0 256)
+        ],
+      inputs =
+        [ Input Clock (Modulation 1 "iTime"),
+          Input (Audio 440) (Modulation 42 "iColor"),
+          Input (Midi "piano") (Modulation 60 "iMotion")
+        ],
+      medias = ["mazurka-op63.mp3", "mazurka-op63.mid"]
+    }</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      You can checkout the full data type in the <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/34cd830b0713a2ac703e63bac43fc3b93903c15c/src/AnimationFractal/Scene.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AnimationFractal.Scene module</a> and how it was used in the <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/34cd830b0713a2ac703e63bac43fc3b93903c15c/src/Demo/Mandelbrot.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Demo.Mandelbrot</a>.
     </p>
   
     </blockquote>
   
     <p class='mb-3'>
-      This blog post explains the reasons we integrated an <a href='https://en.wikipedia.org/wiki/Effect_system' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effect system</a> in <a href='https://changemetrics.io/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Monocle</a>. This post aims to be beginner friendly. We understand that some concepts sound intimidating and we hope that this post demystifies them a bit.
+      This implementation had two major flaws:
     </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Adding a new demo required rebuilding the source code, and,
+        </li>
+      
+        <li>
+          The scene data type is tailored for the runtime and all the fields need to be provided up-front, resulting in some repetitions.
+        </li>
+      
+    </ul>
   
     <p class='mb-3'>
-      First, it describes the context and its main issue. Next, it defines key terms and concepts. Finally, it shows how we used the <a href='https://github.com/haskell-effectful/effectful#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effectful</a> library to improve Monocle composability.
+      In the next sections, I show how I fixed these flaws.
     </p>
   
-    <h2 id='context-and-problem-statement' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h2 id='use-case-for-dhall' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
-  Context and problem statement
+  Use case for dhall
   
-  <a href='blog/introducing-effects#context-and-problem-statement' class='--ema-anchor'>
+  <a href='blog/using-dhall-to-animate-fractal#use-case-for-dhall' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -453,18 +583,54 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      Monocle components are implemented using dedicated actions. The goal is to limit the available side-effects and to maintain a clear separation of concerns.
+      As I already explained in the <a href='https://github.com/podenv/podenv/blob/main/docs/discussions/dhall-configuration.md' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>podenv documentation</a>, I like <a href='https://dhall-lang.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Dhall</a> because it simplifies the runtime configuration logic. Having a programmable configuration language lets you define a cleaner API for the user config.
     </p>
   
     <p class='mb-3'>
-      The current implementation is based on the ‘ReaderT over IO’ pattern and it is affected by a problem known as the ‘n² instances’. The issue is that adding new side-effects requires unnecessary modifications, which limit the composability and testability of the components.
+      For example, with a static language like YAML, the configuration could be implemented like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='yaml language-yaml'>- scene:
+    name: microChop
+    variables:
+      - name: iTime
+        controller: slider
+      - name: iColor
+        controller: color
+    inputs:
+      - source: {kind: clock}
+        modulation: {speed: 1, variable: iTime}
+
+- scene:
+    parent: microChop
+    inputs:
+      - source: {kind: midi, track: piano}
+        modulation: {speed: 42, variable: iColor}
+    medias:
+      - mazurka-op63.mp3
+      - mazurka-op63.mid</code></pre></div>
+    <p class='mb-3'>
+      Then, the runtime configuration logic would be in charge of resolving the parent inheritance and merging the configuration values. The media list definition could also be improved using ad hoc interpolation, for example with:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='yaml language-yaml'>- env:
+    compo: "mazurka-op63"
+
+- demo:
+    medias:
+      - "{{ env.compo }}.mp3"
+      - "{{ env.compo }}.mid"</code></pre></div>
+    <p class='mb-3'>
+      It is tempting to provide this type a schema, as it appears simple to use, but I think that results in a bad user experience. It relies on a custom runtime logic to resolve the final scene definition, and the user has no other choices but to execute the application to interpret the configuration.
     </p>
   
-    <h2 id='what-is-a-side-effect' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
-      
-  What is a side-effect?
+    <p class='mb-3'>
+      In the next section, I explain how I used Dhall to implement AF configuration.
+    </p>
   
-  <a href='blog/introducing-effects#what-is-a-side-effect' class='--ema-anchor'>
+    <h2 id='dhall-schemas' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Dhall schemas
+  
+  <a href='blog/using-dhall-to-animate-fractal#dhall-schemas' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -475,42 +641,81 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      A function has <a href='https://en.wikipedia.org/wiki/Side_effect_(computer_science)' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>side-effects</a> when it modifies a state outside of its local environment. Common examples of side-effects include:
+      Here is the Scene data type from the above defined in a Dhall package:
     </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          Accessing the filesystem,
-        </li>
-      
-        <li>
-          Executing another program, or
-        </li>
-      
-        <li>
-          Connecting to a network service.
-        </li>
-      
-    </ul>
-  
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | package.dhall
+let Modulation =
+      { Type = { speed : Double, variable : Text }
+      , default.speed = 60.0
+      }
+
+let Source =
+      &lt; Clock
+      | Audio : { freq : Double }
+      | Midi : { track : Text }
+      &gt;
+
+let Input =
+      { Type = { source : Source, modulation : Modulation.Type }
+      , default = {=}
+      }
+
+let Controller =
+      &lt; SliderFloat : { min : Double, max : Double }
+      | ColorPicker
+      | Toggle
+      &gt;
+
+let Variable =
+      { Type = { name : Text, controller : Controller }
+      , default = {=} }
+
+let Scene =
+      { Type =
+          { name : Text
+          , variables : List Variable.Type
+          , inputs : List Input.Type
+          , medias : List Text
+          }
+      , default = { medias = [] : List Text, inputs = [] : List Input.Type }
+      }
+
+in  { Modulation, Source, Input, Controller, Variable, Scene }</code></pre></div>
     <p class='mb-3'>
-      In other words, a function has side-effects if its output does not depend solely on its input. It’s valuable to identify side-effects because they require extra care when testing and optimizing.
+      Here is an example usage:
     </p>
-  
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>let AF = ./package.dhall
+
+in  AF.Scene::{
+    , name = "microChop"
+    , variables =
+      [ AF.Variable::{
+        , name = "iTime"
+        , controller = AF.Controller.SliderFloat { min = 0.0, max = 256.0 }
+        }
+      , AF.Variable::{ name = "iColor", controller = AF.Controller.ColorPicker }
+      ]
+    , inputs =
+      [ AF.Input::{
+        , source = AF.Source.Clock
+        , modulation = AF.Modulation::{ speed = 1.0, variable = "iTime" }
+        }
+      , AF.Input::{
+        , source = AF.Source.Audio { freq = 440.0 }
+        , modulation = AF.Modulation::{ speed = 42.0, variable = "iTime" }
+        }
+      ]
+    , medias = [ "mazurka-op63.mp3", "mazurka-op63.mid" ]
+    }</code></pre></div>
     <p class='mb-3'>
-      The Haskell type system defines function with side-effects by wrapping the return value in the IO action. For example, the standard ‘readFile’ function is defined as <code class='py-0.5 px-0.5 bg-gray-100'>FilePath -&gt; IO String</code>: given a file path, ‘readFile’ returns an IO action that produces a string.
+      The user can customize the schema using the language construct, for example, using this function:
     </p>
-  
-    <p class='mb-3'>
-      Previously, in Monocle, we used the ‘ReaderT over IO’ pattern.
-    </p>
-  
-    <h2 id='what-is-a-reader' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>let mkMedias = \(name : Text) -&gt; ["${name}.mp3", "${name}.mid"]</code></pre></div>
+    <h2 id='embedding-dhall-in-haskell' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
-  What is a reader?
+  Embedding Dhall in Haskell
   
-  <a href='blog/introducing-effects#what-is-a-reader' class='--ema-anchor'>
+  <a href='blog/using-dhall-to-animate-fractal#embedding-dhall-in-haskell' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -521,261 +726,70 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      A reader provides an environment to the functions. For example, instead of passing the environment using explicit parameters:
+      Haskell data types can be generated from the Dhall schemas. Here I used intermediary types, prefixed with <code class='py-0.5 px-0.5 bg-gray-100'>DH</code>, to provide a layer between the configuration value and the runtime value, which contains more information. Since I gradually introduced this new configuration format, it’s also useful to have a dedicated end user data type while the full API is not directly available.
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: Logger -&gt; Database -&gt; Param -&gt; IO Metric</code></pre></div>
-    <p class='mb-3'>
-      A reader can declare the available environment by wrapping the return value:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: Param -&gt; ReaderT (Logger, Database) IO Metric</code></pre></div>
-    <p class='mb-3'>
-      This function signature means: given a parameter, ‘computeMetric’ returns a reader action that procudes a metric using the <code class='py-0.5 px-0.5 bg-gray-100'>(Logger, Database)</code> environment. This lets us focus on the business logic without manually handling the environment. This is particularly convenient for intermediary functions which don’t have to pass the environment parameters around. In other words, the reader re-arranges the function’s parameters to move the environment out of the way.
-    </p>
-  
-    <p class='mb-3'>
-      A reader is analogous to this Python construct:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>class Api:
-    def __init__(self, logger, database):
-        self.logger = logger
-        self.database = database
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Dhall qualified
+import Dhall.TH
 
-    def compute_metric(self, param) -&gt; Metric:
-        ...</code></pre></div>
-    <p class='mb-3'>
-      This ‘Api’ object attaches the environment to a general purpose <code class='py-0.5 px-0.5 bg-gray-100'>self</code> reference which is passed on to every object method. The <code class='py-0.5 px-0.5 bg-gray-100'>compute_metric</code> method can freely read and modify the <code class='py-0.5 px-0.5 bg-gray-100'>self</code> attributes. On the other hand, the reader action precisely describes the available environment for the <code class='py-0.5 px-0.5 bg-gray-100'>computeMetric</code> function.
-    </p>
-  
-    <p class='mb-3'>
-      The next sections present how Monocle used to be implemented and what is the benefit of using an effect system.
-    </p>
-  
-    <h2 id='monocle-action-contexts' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+Dhall.TH.makeHaskellTypes
+    [ SingleConstructor "DHModulation" "MkModulation" "(./package.dhall).Modulation.Type"
+    , MultipleConstructors "DHSource" "(./package.dhall).Source"
+    , SingleConstructor "DHInput" "MkInput" "(./package.dhall).Input.Type"
+    , MultipleConstructors "DHController" "(./package.dhall).Controller"
+    , SingleConstructor "DHVariable" "MkVariable" "(./package.dhall).Variable.Type"
+    , SingleConstructor "DHScene" "MkScene" "(./package.dhall).Scene.Type"
+    ]</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
-  Monocle action contexts
+    <p class='mb-3'>
+      Records are generated using the <code class='py-0.5 px-0.5 bg-gray-100'>SingleConstructor</code> param and enums use the <code class='py-0.5 px-0.5 bg-gray-100'>MultipleConsuctors</code> param.
+    </p>
   
-  <a href='blog/introducing-effects#monocle-action-contexts' class='--ema-anchor'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
+    </blockquote>
+  
+    <p class='mb-3'>
+      Here is the conversion function between the configuration and the runtime types:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>mkScene :: DHScene -&gt; AF.Scene
+mkScene scene =
+  AF.Scene
+    { name = scene.name,
+      variables = map mkVariable scene.variables,
+      inputs = map mkInput scene.inputs,
+      medias = scene.medias
+    }
+  where
+    mkInput :: DHInput -&gt; AF.Input
+    mkInput input =
+      AF.Input
+        { source = mkSource input.source,
+          modulation = mkModulation input.modulation
+        }
 
+    mkSource :: DHSource -&gt; AF.Source
+    mkSource = \case
+      Clock -&gt; AF.Clock
+      Audio {freq} -&gt; AF.Audio freq []
+      Midi {track} -&gt; AF.Midi track
 
-    </h2>
-  
-    <p class='mb-3'>
-      The Monocle component actions were defined as:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>newtype AppAction a = AppAction (ReaderT AppEnv IO a)</code> to initialize the index and serve the API.
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>newtype QueryActon a = QueryAction (ReaderT QueryEnv IO a)</code> to serve user metric.
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>newtype CrawlerAction a = CrawlerAction (ReaderT CrawlerEnv IO a)</code> to collect changes data.
-        </li>
-      
-    </ul>
-  
-    <p class='mb-3'>
-      Instead of using the new types, the individual functions used mtl-style typeclass constraints to enable generic implementations. For example Monocle had:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>class TimeContext m</code>, to enable reading the local time,
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>class RetryContext m</code>, to catch network error and retry the action with exponential backoff,
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>class LoggerContext m</code>, to log messages, and
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>class DatabaseContext m</code>, to access the database.
-        </li>
-      
-    </ul>
-  
-    <p class='mb-3'>
-      Such typeclasses are different from Python’s class: a typeclass defines a set of methods that is shared across multiple types. This is analogous to the Rust <a href='https://doc.rust-lang.org/book/ch10-02-traits.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>trait system</a>. That means each action needed to provide its own instance, for example:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>instance DatabaseContext AppAction</code>
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>instance DatabaseContext QueryAction</code>
-        </li>
-      
-    </ul>
-  
-    <p class='mb-3'>
-      Monocle also defined super constraints for the component code to avoid listing the individual constraint:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>class (TimeContext m, LoggerContext m, DatabaseContext m) =&gt; AppContext m</code>
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>class (LoggerContext m, DatabaseContext m) =&gt; QueryContext m</code>
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>class (TimeContext m, RetryContext m) =&gt; CrawlerContext m</code>
-        </li>
-      
-    </ul>
-  
-    <p class='mb-3'>
-      So that the <code class='py-0.5 px-0.5 bg-gray-100'>computeMetric</code> function was defined as:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: QueryContext m =&gt; Param -&gt; m Metric</code></pre></div>
-    <p class='mb-3'>
-      Similarly, the <code class='py-0.5 px-0.5 bg-gray-100'>getChanges</code> crawler function was defined as:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>getChanges :: CrawlerContext m =&gt; Repository -&gt; m [Changes]</code></pre></div>
-    <p class='mb-3'>
-      Pros:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          Restricted side effects: the function can’t do arbitrary IO.
-        </li>
-      
-        <li>
-          The constraints can be implemented differently depending on the context.
-        </li>
-      
-        <li>
-          The types enforce the available effects. For example, accessing the database from a crawler context is a compile time error.
-        </li>
-      
-    </ul>
-  
-    <p class='mb-3'>
-      Cons:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          Adding a new contraint requires adding new instances, the so called ‘n² instances’ problem.
-        </li>
-      
-        <li>
-          This abstraction has an overhead cost, though it was not noticable in Monocle performance.
-        </li>
-      
-    </ul>
-  
-    <h2 id='effects-system' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
-      
-  Effects system
-  
-  <a href='blog/introducing-effects#effects-system' class='--ema-anchor'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
+    mkVariable :: DHVariable -&gt; AF.Variable
+    mkModulation :: DHModulation -&gt; AF.Modulation
 
-
-    </h2>
-  
+loadConfig :: FilePath -&gt; IO Scene
+loadConfig fp = mkScene &lt;$&gt; Dhall.input Dhall.auto (from fp)</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
     <p class='mb-3'>
-      To improve the Monocle code base, we replaced the mtl-style constraints with an effect system. Instead of using constraints for the execution context, denoted <code class='py-0.5 px-0.5 bg-gray-100'>m</code>, Monocle now uses a list of effect constraints, denoted <code class='py-0.5 px-0.5 bg-gray-100'>es</code>, along with the <code class='py-0.5 px-0.5 bg-gray-100'>Eff</code> action provided by the <a href='https://github.com/haskell-effectful/effectful#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>effectful</a> library.
+      I omitted some details, you can checkout the full configuration logic in the <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/blob/main/src/AnimationFractal/Config.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>AnimationFractal.Config module</a>.
     </p>
   
-    <p class='mb-3'>
-      The main difference is that the effect’s environments are defined individually, and we no longer have to implement the <code class='py-0.5 px-0.5 bg-gray-100'>m</code> constraint for every context. Effectful effectively lets us easily compose a list of readers. To learn more about this technique, checkout the <a href='https://hackage.haskell.org/package/effectful-core-2.1.0.0/docs/Effectful-Dispatch-Static.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Effectful.Dispatch.Static</a> module documentation.
-    </p>
-  
-    <p class='mb-3'>
-      We replaced the super contexts with a type alias to list all the necessary effects in one place:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>type QueryEffects es = [LoggerEffect,DatabaseEffect] :&gt;&gt; es</code>
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>type CrawlerEffects es = [TimeEffect,RetryEffect] :&gt;&gt; es</code>
-        </li>
-      
-    </ul>
-  
-    <p class='mb-3'>
-      And the <code class='py-0.5 px-0.5 bg-gray-100'>computeMetric</code> and <code class='py-0.5 px-0.5 bg-gray-100'>getChanges</code> functions are now defined as:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>computeMetric :: QueryEffects es =&gt; Param -&gt; Eff es Metric
-getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></pre></div>
-    <p class='mb-3'>
-      The initial refactor aimed for a drop-in replacement so that only the function’s signature changed from <code class='py-0.5 px-0.5 bg-gray-100'>m</code> to <code class='py-0.5 px-0.5 bg-gray-100'>Eff es</code>. If you are curious, you can check the <a href='https://github.com/change-metrics/monocle/pull/954' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PR 954</a> which introduced the new implementation.
-    </p>
-  
-    <p class='mb-3'>
-      Pros:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          This new implementation is arguably simpler: an effect is defined only once.
-        </li>
-      
-        <li>
-          Effectful enables seamless integration with the existing Haskell ecosystem.
-        </li>
-      
-        <li>
-          Eff is fast: the effect lookup is <code class='py-0.5 px-0.5 bg-gray-100'>O(1)</code> according to its <a href='https://hackage.haskell.org/package/effectful-core-2.1.0.0/docs/Effectful-Internal-Effect.html#t:Effect' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>documentation</a>.
-        </li>
-      
-    </ul>
-  
-    <p class='mb-3'>
-      Cons:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          The effectful library is relatively new and the ecosystem is still immature.
-        </li>
-      
-        <li>
-          The Eff implementation is more complicated than a simple Reader, for example the process known as <a href='https://github.com/fpco/unliftio#unlifting-in-2-minutes' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>unlifting</a> requires extra attentions when running concurrently.
-        </li>
-      
-    </ul>
+    </blockquote>
   
     <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Conclusion
   
-  <a href='blog/introducing-effects#conclusion' class='--ema-anchor'>
+  <a href='blog/using-dhall-to-animate-fractal#conclusion' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -786,15 +800,11 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
     </h2>
   
     <p class='mb-3'>
-      We are satisfied with the transition and we are looking forward to contributing to the effectful ecosystem by sharing the Monocle implementations.
+      This new configuration helps streamline AF usage and it let me create the many new demos of the <a href='https://www.youtube.com/playlist?list=PLOA1Lq_GM0VvsnCyvoBjul7rYEBAAkN_s' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>19th Century Piano Fractal</a> playlist. You can check all the definitions in the <a href='https://gitlab.com/TristanCacqueray/animation-fractal/-/tree/main/demo' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>demo directory</a>.
     </p>
   
     <p class='mb-3'>
-      Please note that behind the ‘Action’ and ‘Context’ mentioned in this post, there is a fundamental structure called a <a href='https://en.wikipedia.org/wiki/Monad_(functional_programming)' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Monad</a>. If you are not familiar with the concept already, we recommend this <a href='https://www.youtube.com/watch?v=t1e8gqXLbsU' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>computerphile video</a> by Graham Hutton.
-    </p>
-  
-    <p class='mb-3'>
-      Thanks for reading!
+      I hope you’ll enjoy this, thanks for your time!
     </p>
   
   <!-- What goes in this file will appear below the note body-->
@@ -806,9 +816,9 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
     
         <ul class='ml-2'>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Context and problem statement'>
-              <a href='blog/introducing-effects#context-and-problem-statement' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Context and problem statement
+            <li class='whitespace-nowrap truncate mt-2' title='Context'>
+              <a href='blog/using-dhall-to-animate-fractal#context' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context
               </a>
               
         <ul class='ml-2'>
@@ -817,9 +827,9 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='What is a side-effect?'>
-              <a href='blog/introducing-effects#what-is-a-side-effect' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                What is a side-effect?
+            <li class='whitespace-nowrap truncate mt-2' title='Use case for dhall'>
+              <a href='blog/using-dhall-to-animate-fractal#use-case-for-dhall' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Use case for dhall
               </a>
               
         <ul class='ml-2'>
@@ -828,9 +838,9 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='What is a reader?'>
-              <a href='blog/introducing-effects#what-is-a-reader' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                What is a reader?
+            <li class='whitespace-nowrap truncate mt-2' title='Dhall schemas'>
+              <a href='blog/using-dhall-to-animate-fractal#dhall-schemas' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Dhall schemas
               </a>
               
         <ul class='ml-2'>
@@ -839,20 +849,9 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Monocle action contexts'>
-              <a href='blog/introducing-effects#monocle-action-contexts' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Monocle action contexts
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Effects system'>
-              <a href='blog/introducing-effects#effects-system' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Effects system
+            <li class='whitespace-nowrap truncate mt-2' title='Embedding Dhall in Haskell'>
+              <a href='blog/using-dhall-to-animate-fractal#embedding-dhall-in-haskell' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Embedding Dhall in Haskell
               </a>
               
         <ul class='ml-2'>
@@ -862,7 +861,7 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
             </li>
           
             <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
-              <a href='blog/introducing-effects#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+              <a href='blog/using-dhall-to-animate-fractal#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 Conclusion
               </a>
               
@@ -942,15 +941,6 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
         Perhaps Emanote should inject tagMetas with urls.
       -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
-        <!-- DoNotFormat -->
-        #blog
-        <!-- DoNotFormat -->
-      </a>
-    
-      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
-        Perhaps Emanote should inject tagMetas with urls.
-      -->
       <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
         <!-- DoNotFormat -->
         #haskell
@@ -960,15 +950,15 @@ getChanges :: CrawlerEffects es =&gt; Repository -&gt; Eff es [Changes]</code></
       <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
         Perhaps Emanote should inject tagMetas with urls.
       -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/monocle'>
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
         <!-- DoNotFormat -->
-        #monocle
+        #blog
         <!-- DoNotFormat -->
       </a>
     
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/introducing-effects.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/using-dhall-to-animate-fractal.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
