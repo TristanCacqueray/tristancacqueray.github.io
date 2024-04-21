@@ -150,7 +150,7 @@ The media list definition could also be improved using ad hoc interpolation, for
       - "{{ env.compo }}.mid"
 ```
 
-It is tempting to provide this type a schema, as it appears simple to use,
+It is tempting to provide this type of schema, as it appears simple to use,
 but I think that results in a bad user experience. It relies on a custom
 runtime logic to resolve the final scene definition, and the user has no other choices
 but to execute the application to interpret the configuration.
@@ -223,7 +223,7 @@ in  AF.Scene::{
         }
       , AF.Input::{
         , source = AF.Source.Audio { freq = 440.0 }
-        , modulation = AF.Modulation::{ speed = 42.0, variable = "iTime" }
+        , modulation = AF.Modulation::{ speed = 42.0, variable = "iColor" }
         }
       ]
     , medias = [ "mazurka-op63.mp3", "mazurka-op63.mid" ]
