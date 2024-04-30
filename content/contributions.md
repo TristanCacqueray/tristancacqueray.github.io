@@ -185,6 +185,7 @@ I made contributions to:
 - [patternfly/patternfly-react](https://github.com/patternfly/patternfly-react)
 - [Pauan/rust-dominator](https://github.com/Pauan/rust-dominator)
 - [pdoc3/pdoc](https://github.com/pdoc3/pdoc)
+- [pipewire](https://gitlab.freedesktop.org/pipewire/pipewire)
 - [podenv/devenv](https://github.com/podenv/devenv)
 - [podenv/hspkgs](https://github.com/podenv/hspkgs)
 - [podenv/hub](https://github.com/podenv/hub)
