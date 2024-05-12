@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Live Reloading Haskell GUI From Scratch – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post shows how to setup a live reloading workflow to develop graphical user interfaces (GUI) with Haskell on Fedora Linux from scratch. This post demonstrates how to create a developer environment with a blazingly fast and flexible feedback loop to develop this dear-imgui application:' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='https://tristancacqueray.github.io/media/dear-from-scratch-demo.png' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Live Reloading Haskell GUI From Scratch' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
+    
+    
+      <base href='/' />
+      <link href='static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  
+  <link href='tailwind.css?instanceId=9c86cd16-e893-4034-90f7-42bc8890b52b' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"] {
+      padding-right: 24px;
+    }
+    a[data-linkicon="external"]::after {
+      margin-right: -24px;
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script id='emanote-stork' data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        indexIsStale: false,
+        toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
+          }
+        }
+
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto w-[67rem] mt-2 md:mt-4  '>
+      
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Blog
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Tristan de Cacqueray
+    </div>
+  </a>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+      
+
+      
+
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+    </a>
+  </div>
+
+          <!-- Main body column -->
+          <div class='flex-1 w-full bg-white'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Live Reloading Haskell GUI From Scratch
+  </a>
+</h1>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+
+
+
+
+
+
+    <p class='mb-3'>
+      This post shows how to setup a live reloading workflow to develop graphical user interfaces (GUI) with Haskell on Fedora Linux from scratch. This post demonstrates how to create a developer environment with a blazingly fast and flexible feedback loop to develop this <a href='https://github.com/haskell-game/dear-imgui.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dear-imgui</a> application:
+    </p>
+  <video class='mb-3' autoplay loop muted>
+  <source src='blog/media/dear-from-scratch-demo.webm' />
+  Your browser doesn't support HTML5 video. Here is a <a class='text-blue-600 hover:underline' href='blog/media/dear-from-scratch-demo.webm'>link to the
+    video</a> instead.
+</video><div class='hidden'><img class='inline mb-3' src='blog/media/dear-from-scratch-demo.png' alt='dear-from-scratch-demo' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      In four parts, I present how to:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Setup a container with system dependencies.
+        </li>
+      
+        <li>
+          Install the latest Haskell toolchain with ghcup.
+        </li>
+      
+        <li>
+          Create a Haskell package with cabal init.
+        </li>
+      
+        <li>
+          Setup a live reloading workflow with ghcid.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      To follow along, you will need a Fedora Workstation, or any Linux system with:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Podman container runtime.
+        </li>
+      
+        <li>
+          Wayland powered desktop environment.
+        </li>
+      
+        <li>
+          6 GB of free disk-space (3GB for ghcup, 1.6GB for packages, 2GB for the container image).
+        </li>
+      
+    </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Please let me know if you have any issues running the examples, I am very interested in updating that guide so that it works in any situation.
+    </p>
+  
+    </blockquote>
+  
+    <h2 id='setup-system-shell' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Setup System Shell
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#setup-system-shell' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      First, you need to setup a shell, which is a command line interface, to enter the build commands. While you can directly use the desktop terminal from the host operating system, it is better to use a rootless container to keep everything isolated from the rest of the OS. If you don’t want to use a container, skip the next section.
+    </p>
+  
+    <h3 id='developer-container' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Developer container
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#developer-container' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      If you don’t have it already, I recommend using <a href='project/podenv' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>podenv</a>, install it with the following command:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ curl -L https://github.com/podenv/podenv/releases/download/v0.5.0/podenv-x86_64-linux.tar.bz2 | tar -xvjf -C ~/.local -</code></pre></div>
+    <p class='mb-3'>
+      Podenv is a standalone executable that simplifies desktop container creation so that a fully featured shell can be started with this command:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ podenv --wayland --dri --name haskell-gui fedora</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      If you don’t want to use podenv, you can run podman directly with:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>podman run -it --rm --device /dev/dri --env GDK_BACKEND=wayland --env HOME=/root --env QT_QPA_PLATFORM=wayland --env SDL_VIDEODRIVER=wayland --env TERM=xterm-256color --env WAYLAND_DISPLAY=wayland-0 --env XDG_RUNTIME_DIR=/run/user/$UID --env XDG_SESSION_TYPE=wayland --mount type=tmpfs,destination=/tmp --mount type=tmpfs,destination=/dev/shm --volume /etc/machine-id:/etc/machine-id --volume haskell-gui:/root --mount type=tmpfs,destination=/run/user --volume $HOME/src:/root/src --volume /run/user/$UID/wayland-0:/run/user/$UID/wayland-0 --volume /usr/share/egl:/usr/share/egl --security-opt label=disable --user 0 --hostname fedora --name haskell-gui --workdir /root --detach-keys "" registry.fedoraproject.org/fedora:latest</code></pre></div>
+    <p class='mb-3'>
+      Podenv simply takes care of passing the necessary arguments to podman. For example, if your graphic card is from NVidia, then you need to add <code class='py-0.5 px-0.5 bg-gray-100'>$(for dev in /dev/nvidia*; do echo --device $dev; done)</code> to the podman arguments.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      Inside the container, validate everything is working by running a mesa-demos:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ dnf install -y mesa-demos && /usr/lib64/mesa/eglgears_wayland</code></pre></div>
+    <p class='mb-3'>
+      … which will display a window with the gears example, confirming that everything is setup correctly:
+    </p>
+  <img class='inline mb-3' src='blog/media/dear-from-scratch-glxgear.png' alt='dear-from-scratch-glxgear' style='width: inherit;' />
+    <p class='mb-3'>
+      When you exit the container, the mesa-demos package will be removed because only the home directory is preserved. To keep the system packages, you have to bake them into the image. You can use <a href='https://buildah.io' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>buildah</a> to update the container image by running these commands:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>CTX=$(buildah from --pull=false registry.fedoraproject.org/fedora:latest)
+buildah run $CTX dnf install -y git vim-enhanced gcc-g++ gmp-devel zlib-devel SDL2-devel glm-devel mesa-libGLU-devel mesa-libGL-devel glfw-devel glew-devel mesa-dri-drivers vulkan-loader-devel VulkanMemoryAllocator-devel vulkan-validation-layers-devel libXxf86vm-devel mesa-demos
+buildah commit --rm $CTX registry.fedoraproject.org/fedora:latest</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Feel free to adjust the package list and re-run the above commands to add more packages to your container image.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      You can access the container’s files from the host in: <code class='py-0.5 px-0.5 bg-gray-100'>~/.local/share/podenv/volumes/haskell-gui-home/</code> (or <code class='py-0.5 px-0.5 bg-gray-100'>~/.local/share/containers/storage/volumes/haskell-gui/_data/</code> if you used podman manually). To join an existing container from another terminal window, run: <code class='py-0.5 px-0.5 bg-gray-100'>podman exec -it haskell-gui bash</code>. The rest of this article assumes the commands are executed inside the container.
+    </p>
+  
+    <h3 id='system-dependencies' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  System dependencies
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#system-dependencies' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      For this demo, you’ll need the following system dependencies:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ dnf install -y git gcc gcc-c++ gmp gmp-devel make ncurses ncurses-compat-libs xz perl pkg-config zlib-devel SDL2-devel glm-devel mesa-libGLU-devel mesa-libGL-devel glfw-devel glew-devel libXxf86vm-devel</code></pre></div>
+    <p class='mb-3'>
+      This ensures common development libraries are installed, in this case:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          gmp and zlib which are commonly required.
+        </li>
+      
+        <li>
+          mesa* for low level rendering.
+        </li>
+      
+        <li>
+          SDL for the GUI. GLFW is also an option, but the Fedora package doesn’t support wayland yet.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      You now have a shell with system dependencies (which you can check by running <code class='py-0.5 px-0.5 bg-gray-100'>pkg-config --list-all</code>). In the next section we will install the Haskell toolchain.
+    </p>
+  
+    <h2 id='install-haskell-toolchain' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Install Haskell Toolchain
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#install-haskell-toolchain' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      To setup the Haskell toolchain use <a href='https://www.haskell.org/ghcup/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ghcup</a>. Run the following command to install all the necessary components:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | sh</code></pre></div>
+    <p class='mb-3'>
+      Accept all the default answers by pressing enter and run <code class='py-0.5 px-0.5 bg-gray-100'>source ~/.bashrc</code> once this is done. You now have the following tools:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          ghc, the Haskell compiler, and,
+        </li>
+      
+        <li>
+          cabal, the package manager, using <a href='https://hackage.haskell.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Hackage</a> as the registry.
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ ghc --version
+The Glorious Glasgow Haskell Compilation System, version 9.4.8
+$ cabal --version
+cabal-install version 3.10.3.0</code></pre></div>
+    <p class='mb-3'>
+      Finally fetch the Hackage packages registry by running:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ cabal update</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      If you don’t run cabal update, package builds will fails with such errors: <code class='py-0.5 px-0.5 bg-gray-100'>unknown package</code>.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      You now have the haskell toolchain (which you can check by running <code class='py-0.5 px-0.5 bg-gray-100'>ghc-pkg list</code>). In the next section we will setup a project with the dear-imgui build depends.
+    </p>
+  
+    <h2 id='create-haskell-package' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Create Haskell Package
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#create-haskell-package' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      Initialize a new package by running the following command:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ cabal init my-gui</code></pre></div>
+    <p class='mb-3'>
+      Here are the non default options I recommend:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          What does the package build: <code class='py-0.5 px-0.5 bg-gray-100'>Library and Executable</code>
+        </li>
+      
+        <li>
+          Package version: <code class='py-0.5 px-0.5 bg-gray-100'>0.1</code>
+        </li>
+      
+        <li>
+          License: <code class='py-0.5 px-0.5 bg-gray-100'>GPL-3.0-only</code>
+        </li>
+      
+        <li>
+          Choose a language: <code class='py-0.5 px-0.5 bg-gray-100'>GHC2021</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Then validate your package is ready:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ cd my-gui
+$ cabal test
+1 of 1 test suites (1 of 1 test cases) passed.</code></pre></div>
+    <p class='mb-3'>
+      To start using dear-imgui, we need to import the boilerplate from the upstream readme:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Add the <code class='py-0.5 px-0.5 bg-gray-100'>dear-imgui</code> build-depends to the library section in <code class='py-0.5 px-0.5 bg-gray-100'>my-gui.cabal</code>:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='diff language-diff'>-    build-depends:    base ^&gt;=4.19.1.0
++    build-depends:    base ^&gt;=4.19.1.0, dear-imgui</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Add the following dependencies to the executable section in <code class='py-0.5 px-0.5 bg-gray-100'>my-gui.cabal</code>:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='diff language-diff'>     build-depends:
+         base ^&gt;=4.19.1.0,
+-        my-gui
++        my-gui, dear-imgui, sdl2, managed, gl</code></pre></div>
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Replace your <code class='py-0.5 px-0.5 bg-gray-100'>app/Main.sh</code> with the example:
+        </li>
+      
+    </ul>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ curl https://raw.githubusercontent.com/haskell-game/dear-imgui.hs/main/examples/Readme.hs &gt; app/Main.hs</code></pre></div>
+    <p class='mb-3'>
+      Then running the application with:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ cabal run</code></pre></div>
+    <p class='mb-3'>
+      … creates the following window:
+    </p>
+  <img class='inline mb-3' src='blog/media/dear-from-scratch-hello-gui.png' alt='dear-from-scratch-hello-gui' style='width: inherit;' />
+    <p class='mb-3'>
+      You now have a working Haskell project. In the next section we’ll setup a live reload workflow.
+    </p>
+  
+    <h2 id='haskell-package-targets' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Haskell Package Targets
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#haskell-package-targets' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      Before setting up the workflow, you need to understand what a target is. A target defines a list of modules, their dependencies, and their compilation flags. Haskell packages can be divided into four kinds of targets:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>exe:name</code> are the executables.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>lib:name</code> are the libraries (a package can contain multiple libraries).
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>test:name</code> are the tests.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>bench:name</code> are the benchmarks.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This lets you apply separation of concern, for example:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          exe provides command line argument parser.
+        </li>
+      
+        <li>
+          lib provides the core logic that can be shared independently.
+        </li>
+      
+        <li>
+          test and bench provides testing code.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      When publishing a package to the Hackage registry, only one public library is presently supported. The first library definition in a cabal file does not need a name argument as it picks the package name.
+    </p>
+  
+    <p class='mb-3'>
+      Haskell projects that are defined with a <code class='py-0.5 px-0.5 bg-gray-100'>cabal.project</code> file let you define a workspace with multiple packages. This is necessary for publishing multiple libraries because Hackage doesn’t yet support multiple public libraries defined in a single package. You can also setup a <code class='py-0.5 px-0.5 bg-gray-100'>cabal.project</code> file to override external libraries location using a local copy, which is very useful to work on your dependencies.
+    </p>
+  
+    <p class='mb-3'>
+      Here are a couple of example projects with multiple targets:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://github.com/haskell-servant/servant' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>servant</a>, which includes one package per feature, checkout the <code class='py-0.5 px-0.5 bg-gray-100'>cabal.project</code> file.
+        </li>
+      
+        <li>
+          <a href='https://github.com/tfausak/saturn' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>saturn</a>, which features a single package with multiple library, checkout the <code class='py-0.5 px-0.5 bg-gray-100'>saturn.cabal</code> file.
+        </li>
+      
+    </ul>
+  
+    <h2 id='live-reloading-workflow' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Live Reloading Workflow
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#live-reloading-workflow' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      Use ghcid to quickly interpret the code on every file save by running the following commands:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ cabal install ghcid
+$ ghcid --warnings --test Main.main --command "cabal repl exe:my-gui"</code></pre></div>
+    <p class='mb-3'>
+      It is necessary to specify the executable target with <code class='py-0.5 px-0.5 bg-gray-100'>exe:my-gui</code>, otherwise, ghcid picks the default library target <code class='py-0.5 px-0.5 bg-gray-100'>lib:my-gui</code>. This means only one target can be live reloaded.
+    </p>
+  
+    <p class='mb-3'>
+      The new <code class='py-0.5 px-0.5 bg-gray-100'>multi-repl</code> feature available in the upcoming cabal release version 3.12 lets you live reload multiple target in a single session: At the time of writing, cabal version 3.12 can be installed with the following command:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ ghcup --no-cache install cabal -u 'https://gitlab.haskell.org/haskell/cabal/-/jobs/1848320/artifacts/raw/out/cabal-install-3.11.0.0-x86_64-linux-alpine3_12.tar.xz' 3.12.0.0-prerelease</code></pre></div>
+    <p class='mb-3'>
+      This feature is very powerful as it lets you seamlessly run the application or the test suite when editing the library. You can now use the following command:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ ghcid --warnings --test Main.main --command "cabal repl --enable-multi-repl exe:my-gui lib:my-gui"</code></pre></div>
+    <p class='mb-3'>
+      To demonstrate how that works, we’ll implement a test GUI in the library to be displayed by the application. Apply the following change to the project:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='diff language-diff'>diff --git a/app/Main.hs b/app/Main.hs
+index 016e0a7..15ff0b0 100644
+--- a/app/Main.hs
++++ b/app/Main.hs
+@@ -5,6 +5,8 @@
+
+ module Main ( main ) where
+
++import MyLib
++
+ import DearImGui
+ import DearImGui.OpenGL3
+ import DearImGui.SDL
+@@ -51,12 +53,7 @@ mainLoop window = unlessQuit $ do
+
+   -- Build the GUI
+   withWindowOpen "Hello, ImGui!" $ do
+-    -- Add a text widget
+-    text "Hello, ImGui!"
+-
+-    -- Add a button widget, and call 'putStrLn' when it's clicked
+-    button "Clickety Click" &gt;&gt;= \clicked -&gt;
+-      when clicked $ putStrLn "Ow!"
++    MyLib.myGUI
+
+   -- Show the ImGui demo window
+   showDemoWindow</code></pre></div>
+    <p class='mb-3'>
+      And copy the following module to <code class='py-0.5 px-0.5 bg-gray-100'>src/MyLib.hs</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>{-# language OverloadedStrings #-}
+
+module MyLib where
+
+import DearImGui qualified
+
+myGUI :: IO ()
+myGUI = do
+  DearImGui.text "Fast reload"</code></pre></div>
+    <p class='mb-3'>
+      Here is how that looks in action:
+    </p>
+  <video class='mb-3' autoplay loop muted>
+  <source src='blog/media/dear-from-scratch-demo.webm' />
+  Your browser doesn't support HTML5 video. Here is a <a class='text-blue-600 hover:underline' href='blog/media/dear-from-scratch-demo.webm'>link to the
+    video</a> instead.
+</video>
+    <p class='mb-3'>
+      You now have a fast live reloading feedback loop to develop Haskell GUI.
+    </p>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Conclusion
+  
+  <a href='blog/live-reloading-haskell-gui-from-scratch#conclusion' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      This post shows how the Haskell toolchain provides powerful tools to develop GUI. I believe the killer feature is the REPL interpreted mode which lets you run the code without linking, which is often the slowest part of a live reload workflow. For example, even with all the tweaks prescribed in the Bevy Rust engine <a href='https://bevyengine.org/learn/quick-start/getting-started/setup/#compile-with-performance-optimizations' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>compile optimizations doc</a>, including using the new mold linker, I couldn’t make my toy <a href='https://github.com/TristanCacqueray/bevy-moonracer' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>moonracer</a> game reload in less than a few seconds.
+    </p>
+  
+    <p class='mb-3'>
+      While the ecosystem is continuously improving, this setup is still a bit experimental. Sometimes, ghcid will get stuck and it won’t be able to refresh the window. In that case, a custom wrapper to persist the window between reload can be implemented. Though, this bare minimal setup can work pretty well in most cases.
+    </p>
+  
+    <p class='mb-3'>
+      This post also shows how far the Haskell toolchain has progressed in the recent years. I initially meant to use nixpkgs to setup everything, but it doesn’t have the latest cabal yet and using OpenGL requires an extra step to setup <a href='https://github.com/nix-community/nixGL' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>nixGL</a>. I would like to thanks the amazing folks working on GHC, cabal and ghcup as well as the whole haskell game community.
+    </p>
+  
+    <p class='mb-3'>
+      Thanks for your time!
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Setup System Shell'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#setup-system-shell' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Setup System Shell
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Developer container'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#developer-container' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Developer container
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='System dependencies'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#system-dependencies' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                System dependencies
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Install Haskell Toolchain'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#install-haskell-toolchain' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Install Haskell Toolchain
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Create Haskell Package'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#create-haskell-package' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Create Haskell Package
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Haskell Package Targets'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#haskell-package-targets' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Haskell Package Targets
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Live Reloading Workflow'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#live-reloading-workflow' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Live Reloading Workflow
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/live-reloading-haskell-gui-from-scratch#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/blog'>
+        <!-- DoNotFormat -->
+        #blog
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/live-reloading-haskell-gui-from-scratch.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
+        </div>
+      
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
+

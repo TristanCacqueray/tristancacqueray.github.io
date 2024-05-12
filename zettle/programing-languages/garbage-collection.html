@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=a5e89b94-3095-4e2a-90d2-5819d9eada9f' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=9c86cd16-e893-4034-90f7-42bc8890b52b' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -344,7 +344,7 @@ window.MathJax = {
 
 <body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto w-[64rem] mt-2 md:mt-4  '>
+    <div class='container mx-auto w-[67rem] mt-2 md:mt-4  '>
       
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
@@ -454,6 +454,29 @@ window.MathJax = {
       <a href='zettle/programing-languages/c' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>C</a> and <a href='zettle/programing-languages/rust' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Rust</a> do not have a garbage collector.
     </p>
   
+    <h2 id='erlang-optimization' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Erlang optimization
+  
+  <a href='zettle/programing-languages/garbage-collection#erlang-optimization' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      In <a href='https://www.erlang.org/blog/optimizations/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.erlang.org/blog/optimizations/</a> , the author says:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>My own anecdotal evidence suggests that in most cases there are no measurable performance wins by producing less garbage.
+
+I also remember when an optimization that reduced the size of an Erlang term resulted in a benchmark being consistently slower.
+It took the author of that optimization several days of investigation to confirm that the slowdown in the benchmark was not
+the fault of his optimization, but by creating less garbage, garbage collection happened at a later time
+when it happened to be much more expensive.</code></pre></div>
   <!-- What goes in this file will appear below the note body-->
 </article>
     
