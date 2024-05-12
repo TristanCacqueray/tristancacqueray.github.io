@@ -41,7 +41,7 @@ If you don't want to use a container, skip the next section.
 If you don't have it already, I recommend using [[podenv]], install it with the following command:
 
 ```ShellSession
-$ curl -L https://github.com/podenv/podenv/releases/download/v0.5.0/podenv-x86_64-linux.tar.bz2 | tar -xvjf -C ~/.local -
+$ curl -L https://github.com/podenv/podenv/releases/download/v0.5.0/podenv-x86_64-linux.tar.bz2 | tar -C ~/.local -xvjf -
 ```
 
 Podenv is a standalone executable that simplifies desktop container creation so that a fully featured shell can be started with this command:
