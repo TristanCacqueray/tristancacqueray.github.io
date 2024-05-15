@@ -10,7 +10,7 @@ This post demonstrates how to create a developer environment with a blazingly fa
 ![[dear-from-scratch-demo.webm]]
 
 :::{.hidden}
-![dear-from-scratch-demo](media/dear-from-scratch-demo.png)
+![dear-from-scratch-demo](/blog/media/dear-from-scratch-demo.png)
 :::
 
 In four parts, I present how to:
