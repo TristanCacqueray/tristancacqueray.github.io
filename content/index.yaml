@@ -33,7 +33,7 @@ template:
     note:
       containerClass: container mx-auto max-w-screen-lg
   theme: blue
-  iconUrl: static/favicon.jpeg
+  iconUrl: /static/favicon.jpeg
   urlStrategy: pretty
 
 pandoc:
