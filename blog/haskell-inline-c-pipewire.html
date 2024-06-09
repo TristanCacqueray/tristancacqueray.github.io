@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Haskell inline-c Demo For Pipewire – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='This post shows how I created a high level, proof of concept, Haskell binding for the libpipewire using inline-c. The goal is to demonstrate how to implement a Pipewire client with Haskell.' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Haskell inline-c Demo For Pipewire' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
+    
+    
+      <base href='/' />
+      <link href='/static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  
+  <link href='tailwind.css?instanceId=e5737cbe-e5d0-4189-8906-e7c818886e76' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"] {
+      padding-right: 24px;
+    }
+    a[data-linkicon="external"]::after {
+      margin-right: -24px;
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script id='emanote-stork' data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        indexIsStale: false,
+        toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
+          }
+        }
+
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto w-[67rem] mt-2 md:mt-4  '>
+      
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Blog
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Tristan de Cacqueray
+    </div>
+  </a>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+      
+
+      
+
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+    </a>
+  </div>
+
+          <!-- Main body column -->
+          <div class='flex-1 w-full bg-white'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Haskell inline-c Demo For Pipewire
+  </a>
+</h1>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+
+
+
+
+
+
+    <p class='mb-3'>
+      This post shows how I created a high level, proof of concept, Haskell binding for the <a href='https://docs.pipewire.org/page_api.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>libpipewire</a> using <a href='https://hackage.haskell.org/package/inline-c' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>inline-c</a>. The goal is to demonstrate how to implement a Pipewire client with Haskell.
+    </p>
+  <div class='flex items-center justify-center'><div xmlhtmlRaw><img src="/static/pipewire-hs.svg" width=370 />
+</div></div>
+    <hr class='mb-3' />
+  
+    <p class='mb-3'>
+      This post introduces the initial implementation of the <a href='https://github.com/TristanCacqueray/pipewire.hs#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pipewire.hs</a> library, which I hope will provide a new foundation for handling multimedia with Haskell. In four parts I present:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Introduction to Pipewire.
+        </li>
+      
+        <li>
+          How to play a tone with C and the libpipewire.
+        </li>
+      
+        <li>
+          The Haskell Foreign Function Interface (FFI).
+        </li>
+      
+        <li>
+          Future work and conclusion.
+        </li>
+      
+    </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Note that this is also a learning exercise for me as I’m not familiar with Pipewire or the Haskell FFI. I welcome your feedback and I would appreciate the opportunity to fix any errors contained in this post.
+    </p>
+  
+    </blockquote>
+  
+    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Context
+  
+  <a href='blog/haskell-inline-c-pipewire#context' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      <a href='https://pipewire.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Pipewire</a> is a multimedia framework that can be used to capture and play audio, midi and video streams with minimal latency. Pipewire provides an unified system to process multimedia in real-time and can replace services like <a href='https://www.freedesktop.org/wiki/Software/PulseAudio/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pulseaudio</a> and <a href='https://jackaudio.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>jack</a>. It was created by Wim Taymans, one of the main developers of the popular <a href='https://gstreamer.freedesktop.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>gstreamer</a> framework. Pipewire is now enabled by default on most Linux systems.
+    </p>
+  
+    <p class='mb-3'>
+      Pipewire can be used for a wide range of multimedia applications, such as:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Media Player.
+        </li>
+      
+        <li>
+          Digital Audio Workstation (DAW).
+        </li>
+      
+        <li>
+          MIDI Sequencer.
+        </li>
+      
+        <li>
+          Screen casting and live streaming.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I recently started to learn more about how this system works and it looked like a great fit for my <a href='project/animation-fractal' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Animation Fractal</a> project as Pipewire can be used to:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Replace the pulse-simple player with a more powerful client to playback sound file input.
+        </li>
+      
+        <li>
+          Capture external modulation inputs.
+        </li>
+      
+        <li>
+          Stream video output.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      However, I was not familiar with using the Haskell Foreign Function Interface (FFI) to interact with this system, and I was not even sure if Haskell was a practical language for such tasks. Thus, I started the <a href='https://github.com/TristanCacqueray/pipewire.hs#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pipewire.hs</a> project to learn these new skills.
+    </p>
+  
+    <p class='mb-3'>
+      This post shows how I implemented a Haskell binding for the libpipewire client library to demonstrate a minimal media player.
+    </p>
+  
+    <h2 id='playing-a-tone-with-the-libpipewire' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Playing a tone with the libpipewire
+  
+  <a href='blog/haskell-inline-c-pipewire#playing-a-tone-with-the-libpipewire' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      The libpipewire is a C library, and it provides many examples that describe how to use the API. The <a href='https://docs.pipewire.org/tutorial4_8c-example.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>tutorial4.c</a> in particular explains how to play a tone using the following procedure:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Initialize a client context.
+        </li>
+      
+        <li>
+          Create a stream and setup its events listener.
+        </li>
+      
+        <li>
+          Configure and connect the stream.
+        </li>
+      
+        <li>
+          Run the main loop.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The implementation looks like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='c language-c'>#include &lt;pipewire/pipewire.h&gt;
+
+// The events listener
+static const struct pw_stream_events stream_events = {
+	PW_VERSION_STREAM_EVENTS,
+	.process = on_process,
+};
+
+void main() {
+  struct pw_main_loop *loop;
+  struct pw_stream *stream;
+
+  // initialization is omitted...
+
+  pw_stream_add_listener(stream, hooks, stream_events, stream);
+  pw_stream_connect(stream, ...);
+  pw_main_loop_run(loop);
+
+  // cleanup is omitted...
+}</code></pre></div>
+    <p class='mb-3'>
+      The tone is played through the process event callback by performing the following actions:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Acquiring a buffer.
+        </li>
+      
+        <li>
+          Computing the buffer size in term of samples.
+        </li>
+      
+        <li>
+          Writing the sample values.
+        </li>
+      
+        <li>
+          Queuing the buffer.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The implementation looks like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='c language-c'>// The process event callback:
+static void on_process(struct pw_stream* stream) {
+  struct pw_buffer *buf;
+  int stride, size;
+
+  buf = pw_stream_dequeue_buffer(stream);
+
+  stride = sizeof(int16_t) * DEFAULT_CHANNELS
+  size = buf-&gt;buffer-&gt;datas[0].maxsize / stride;
+
+  // writting samples to the buffer is omitted...
+
+  pw_stream_queue_buffer(stream, buf);
+}</code></pre></div>
+    <p class='mb-3'>
+      The following sections show how to use the inline-c library to implement this example with Haskell.
+    </p>
+  
+    <h2 id='haskell-ffi' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Haskell FFI
+  
+  <a href='blog/haskell-inline-c-pipewire#haskell-ffi' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      Haskell’s FFI is used to call functions from other languages and for other languages to call Haskell functions. It primarily supports the C language application binary interface (ABI) and it is enabled with the <code class='py-0.5 px-0.5 bg-gray-100'>foreign</code> keyword. Implementing a FFI usually requires wrappers to convert the higher level domain into primitive types and memory pointers. These wrappers are often referred to as <em>bindings</em>.
+    </p>
+  
+    <p class='mb-3'>
+      The following sections leverage the inline-c library to seamlessly call C libraries without having to use <code class='py-0.5 px-0.5 bg-gray-100'>foreign</code> declarations.
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      I should note that the C ABI is not ideal for higher level languages. There is some work in progress to improve this status quo. For example, the <a href='https://github.com/rust-lang/rfcs/pull/3470' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>crABI</a> offers interoperability between high-level programming languages that have safe data types. Vanessa McHale also suggests that new designs could be “fruitful” in this article: <a href='http://blog.vmchale.com/article/ffi' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Functional Compilers That Stand Toe-to-toe With C’s Object Files: a Manifesto</a>.
+    </p>
+  
+    </blockquote>
+  
+    <h3 id='opaque-foreign-structure' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Opaque foreign structure
+  
+  <a href='blog/haskell-inline-c-pipewire#opaque-foreign-structure' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Inline-c leverages quasi-quotations to include C code directly in Haskell declarations. To handle custom types, such as the <code class='py-0.5 px-0.5 bg-gray-100'>struct pw_*</code>, inline-c provides a context to configure the desired mapping between C and Haskell. The context needs to be defined in a dedicated module like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>module Pipewire.CContext where
+
+import Data.Map.Strict qualified as Map
+import Language.C.Inline.Context (Context (..))
+import Language.C.Types (TypeSpecifier(Struct))
+
+data MainLoopStruct
+data StreamStruct
+data StreamEventsStruct
+data BufferStruct
+
+pwContext :: Context
+pwContext =
+    mempty
+        { ctxTypesTable =
+            Map.fromList
+                [ (Struct "pw_main_loop",     [t|MainLoopStruct|])
+                , (Struct "pw_stream",        [t|StreamStruct|])
+                , (Struct "pw_stream_events", [t|StreamEventsStruct|])
+                , (Struct "pw_buffer",        [t|BufferStruct|])
+                ]
+        }</code></pre></div>
+    <p class='mb-3'>
+      Then this context can be used like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>module Pipewire where
+
+import Control.Exception (bracket, finally)
+import Foreign (Ptr)
+import Foreign qualified
+import Language.C.Inline qualified as C
+
+import Pipewire.CContext
+
+C.context (C.baseCtx &lt;&gt; pwContext)
+C.include "&lt;pipewire/pipewire.h&gt;"</code></pre></div>
+    <h3 id='haskell-foreign-ptr' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Haskell Foreign Ptr
+  
+  <a href='blog/haskell-inline-c-pipewire#haskell-foreign-ptr' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      To handle foreign data, the Haskell base library provides a <code class='py-0.5 px-0.5 bg-gray-100'>Ptr</code> data to represent a typed memory pointer. Haskell also provides a <code class='py-0.5 px-0.5 bg-gray-100'>Storable</code> type class than can be used to read from the pointer and write data. Though, for this initial proof of concept, I did not implement any storable instances, instead I treated all the foreign data as opaque and I provided a dedicated API to read and write the necessary data. This is why the structure definitions in the context above don’t provide any constructors. We can use newtype wrappers to hide this implementation detail like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>newtype MainLoop = MainLoop (Ptr MainLoopStruct)
+newtype Stream = Stream (Ptr StreamStruct)
+newtype StreamEvents = StreamEvents (Ptr StreamEventsStruct)
+newtype Buffer = Buffer (Ptr BufferStruct)</code></pre></div>
+    <h3 id='initializing-the-main-loop' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Initializing the main loop
+  
+  <a href='blog/haskell-inline-c-pipewire#initializing-the-main-loop' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      To initialize the loop, we can call C functions using the <code class='py-0.5 px-0.5 bg-gray-100'>C.exp</code> quasi-quote:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Create the pw_main_loop.
+pw_main_loop_new :: IO MainLoop
+pw_main_loop_new =
+    MainLoop &lt;$&gt; dieOnNull "pw_main_loop_new"
+        [C.exp| struct pw_main_loop*{pw_main_loop_new(NULL)} |]
+
+-- | Helper to abort on null pointer
+dieOnNull :: String -&gt; IO (Ptr a) -&gt; IO (Ptr a)
+dieOnNull src action = do
+    ptr &lt;- action
+    if ptr == nullPtr
+        then ioError $ userError $ src &lt;&gt; " returned NULL"
+        else pure ptr</code></pre></div>
+    <p class='mb-3'>
+      Thanks to the context, inline-c is able to infer the Haskell type from the return value. We can capture Haskell variables using the <code class='py-0.5 px-0.5 bg-gray-100'>$(c-type variable-name)</code> syntax, for example to destroy the loop:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Destroy the pw_main_loop.
+pw_main_loop_destroy :: MainLoop -&gt; IO ()
+pw_main_loop_destroy (MainLoop mainLoop) =
+    [C.exp| void{pw_main_loop_destroy($(struct pw_main_loop* mainLoop))} |]</code></pre></div>
+    <p class='mb-3'>
+      Then we can provide an idiomatic wrapper using <code class='py-0.5 px-0.5 bg-gray-100'>bracket</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Create and destroy the pw_main_loop after use.
+withMainLoop :: (MainLoop -&gt; IO a) -&gt; IO a
+withMainLoop = bracket pw_main_loop_new pw_main_loop_destroy</code></pre></div>
+    <h3 id='allocating-the-events-listener' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Allocating the events listener
+  
+  <a href='blog/haskell-inline-c-pipewire#allocating-the-events-listener' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Most of the libpipewire structs are created by the library and they are given as pointers. Though, some structs, such as the <code class='py-0.5 px-0.5 bg-gray-100'>pw_stream_events</code>, need to be created by the library user. We can do this with the <code class='py-0.5 px-0.5 bg-gray-100'>allocaBytes</code> helper:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Create the StreamEvents
+withStreamEvents :: (StreamEvents -&gt; IO a) -&gt; IO a
+withStreamEvents cb = Foreign.allocaBytes
+    (fromIntegral [C.pure| size_t {sizeof (struct pw_stream_events)} |])
+    \ptr -&gt; cb (StreamEvents ptr)</code></pre></div>
+    <p class='mb-3'>
+      This uses the inline-c <code class='py-0.5 px-0.5 bg-gray-100'>C.pure</code> quasi-quote to get the size of the structure using the C <code class='py-0.5 px-0.5 bg-gray-100'>sizeof</code> function.
+    </p>
+  
+    <h3 id='registering-the-event-callback' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Registering the event callback
+  
+  <a href='blog/haskell-inline-c-pipewire#registering-the-event-callback' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      For the process event callback, we need to setup a pointer to create a <code class='py-0.5 px-0.5 bg-gray-100'>FunPtr</code> to make a Haskell function callable from foreign code. The inline-c library provides the <code class='py-0.5 px-0.5 bg-gray-100'>C.mkFunPtr</code> helper for that:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type ProcessHandler = IO ()
+
+withProcessHandler :: ProcessHandler -&gt; StreamEvents -&gt; IO a -&gt; IO a
+withProcessHandler processHandler (StreamEvents streamEvents) cb = do
+    processPtr &lt;- $(C.mkFunPtr [t|Ptr () -&gt; IO ()|]) processWrapper
+    [C.block| void{
+        struct pw_stream_events* pw_events = $(struct pw_stream_events* streamEvents);
+        pw_events-&gt;version = PW_VERSION_STREAM_EVENTS;
+        pw_events-&gt;process = $(void (*processPtr)(void*));
+    }|]
+    cb `finally` Foreign.freeHaskellFunPtr processPtr
+  where
+    -- ignore the user data pointer as the handler closure captures it
+    processWrapper _data = processHandler</code></pre></div>
+    <p class='mb-3'>
+      This uses the inline-c <code class='py-0.5 px-0.5 bg-gray-100'>C.block</code> quasi-quote to write the necessary fields in the StreamEvent structure.
+    </p>
+  
+    <p class='mb-3'>
+      With the above techniques, we can cover most of the libpipewire API. The next sections show more examples of how that works for this demo.
+    </p>
+  
+    <h3 id='reading-the-buffer-size' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Reading the buffer size
+  
+  <a href='blog/haskell-inline-c-pipewire#reading-the-buffer-size' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      To implement the process callback, we need to know how many samples are requested. We can integrate the C snippet to do that like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>newtype Channels = Channels Int
+
+-- | Return the requested samples buffer size.
+audioFrames :: Channels -&gt; Buffer -&gt; IO Int
+audioFrames (Channels (fromIntegral -&gt; chans)) (Buffer pwBuffer) =
+    fromIntegral
+        &lt;$&gt; [C.block| int{
+                struct pw_buffer* buf = $(struct pw_buffer* pwBuffer);
+                int stride = sizeof(int16_t) * $(int chans);
+                int n_frames = buf-&gt;buffer-&gt;datas[0].maxsize / stride;
+                if (buf-&gt;requested)
+                    n_frames = SPA_MIN(b-&gt;requested, n_frames);
+                return n_frames;
+            }|]</code></pre></div>
+    <p class='mb-3'>
+      Being able to seamlessly use C code in Haskell is a great capability to accelerate developments. Without this, we would have had to implement storable instances for each individual structure, in this case for <code class='py-0.5 px-0.5 bg-gray-100'>pw_buffer</code>, <code class='py-0.5 px-0.5 bg-gray-100'>spa_buffer</code> and <code class='py-0.5 px-0.5 bg-gray-100'>spa_data</code>. It can be quite laborious to handle all these details, when all we need is a small portion of the API. Therefor, inline-c lets us use complex systems by focusing on the higher level details.
+    </p>
+  
+    <p class='mb-3'>
+      To further illustrate this capability, here is the binding to configure the stream:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>connectAudioStream :: Channels -&gt; Stream -&gt; IO ()
+connectAudioStream (Channels (fromIntegral -&gt; chans)) (Stream pwStream) = do
+    [C.block| void{
+        const struct spa_pod *params[1];
+        uint8_t buffer[1024];
+        struct spa_pod_builder b = SPA_POD_BUILDER_INIT(buffer, sizeof(buffer));
+
+        params[0] = spa_format_audio_raw_build(&amp;b, SPA_PARAM_EnumFormat,
+            &amp;SPA_AUDIO_INFO_RAW_INIT(
+                .format = SPA_AUDIO_FORMAT_S16,
+                .channels = $(int chans),
+                .rate = 44100));
+
+        pw_stream_connect($(struct pw_stream* pwStream),
+            PW_DIRECTION_OUTPUT,
+            PW_ID_ANY,
+            PW_STREAM_FLAG_MAP_BUFFERS | PW_STREAM_FLAG_RT_PROCESS,
+            params, 1);
+    }|]</code></pre></div>
+    <p class='mb-3'>
+      This functions provides a simplified wrapper to call <code class='py-0.5 px-0.5 bg-gray-100'>pw_stream_connect</code> with the attributes that are necessary for playing audio. In particular, we are able to define the audio format using the existing spa macro facilities, without having to handle all the necessary interfaces up front.
+    </p>
+  
+    <p class='mb-3'>
+      This proved to be helpful to make rapid progress on this proof of concept.
+    </p>
+  
+    <p class='mb-3'>
+      The next section shows another example of this capability.
+    </p>
+  
+    <h3 id='reading-the-link-state' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Reading the link state
+  
+  <a href='blog/haskell-inline-c-pipewire#reading-the-link-state' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Similar to the buffer size, another interesting API to implement is the link state. It is defined in C like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='c language-c'>enum pw_link_state {
+    PW_LINK_STATE_ERROR = -2,
+    PW_LINK_STATE_UNLINKED = -1,
+    PW_LINK_STATE_INIT = 0,
+    PW_LINK_STATE_NEGOTIATING = 1,
+    // ...
+}
+
+struct pw_link_info {
+    uint32_t id;
+    enum pw_link_state state;
+    // an error reason if the state is error
+    const char *error;
+    struct spa_pod *format;
+    // ...
+}</code></pre></div>
+    <p class='mb-3'>
+      To bind the enum values, we can write a <code class='py-0.5 px-0.5 bg-gray-100'>Enum.hsc</code> file like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>{-# LANGUAGE CPP, PatternSynonyms #-}
+module Pipewire.Enum where
+
+import Foreign (Storable)
+
+#include &lt;pipewire/pipewire.h&gt;
+
+newtype LinkState = LinkState Int
+  deriving newtype (Storable, Show)
+  deriving stock (Eq)
+
+-- /* awk '/PW_LINK_STATE/ { print "pattern " $1 " = (#const " $1 ")" }' pipewire/*.h */
+pattern PW_LINK_STATE_ERROR = LinkState (#const PW_LINK_STATE_ERROR)
+pattern PW_LINK_STATE_UNLINKED = LinkState (#const PW_LINK_STATE_UNLINKED)
+pattern PW_LINK_STATE_INIT = LinkState (#const PW_LINK_STATE_INIT)
+pattern PW_LINK_STATE_NEGOTIATING = LinkState (#const PW_LINK_STATE_NEGOTIATING)</code></pre></div>
+    <p class='mb-3'>
+      This uses the CPP language extension to get the link state constants as Haskell values. Instead of creating an enum (sum type) in Haskell, we can keep the original integer representation, and use the PatternSynonyms language extension to constraint the available values.
+    </p>
+  
+    <p class='mb-3'>
+      That way we can write an idiomatic <code class='py-0.5 px-0.5 bg-gray-100'>getLinkState</code> like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>getLinkState :: LinkInfo -&gt; IO (Either Text LinkState)
+getLinkState (LinkInfo linkInfo) = do
+    state &lt;-
+        LinkState . fromIntegral
+            &lt;$&gt; [C.exp| int{$(struct pw_link_info* linkInfo)-&gt;state} |]
+    case state of
+        PW_LINK_STATE_ERROR -&gt; do
+            errC &lt;- [C.exp| const char*{$(struct pw_link_info* linkInfo)-&gt;error} |]
+            err &lt;- peekCString errC
+            pure $ Left err
+        _ -&gt; pure $ Right state</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      The <code class='py-0.5 px-0.5 bg-gray-100'>peekCString</code> can be found in this <a href='https://github.com/haskell/text/pull/599' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>text#599</a> PR.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      This takes care of reading the error message when the link state is error.
+    </p>
+  
+    <h3 id='writing-audio-samples' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Writing audio samples
+  
+  <a href='blog/haskell-inline-c-pipewire#writing-audio-samples' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Inline-c also provides facilities to capture Haskell vectors. By adding the <code class='py-0.5 px-0.5 bg-gray-100'>vecCtx</code> context, we can use the <code class='py-0.5 px-0.5 bg-gray-100'>$vec-</code> syntax to write the audio samples to the process buffer like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.Vector.Storable qualified as SV
+
+-- | Write the frame
+writeAudioFrame :: Buffer -&gt; SV.Vector Float -&gt; IO ()
+writeAudioFrame (Buffer pwBuffer) samples = do
+    [C.block| void {
+      struct pw_buffer* b = $(struct pw_buffer* pwBuffer);
+      float *src = $vec-ptr:(float *csamples);
+      int16_t *dst = b-&gt;buffer-&gt;datas[0].data;
+      for (int i = 0; i &lt; $vec-len:samples; i++)
+        dst[i] = src[i] * 32767.0; // scale f32 to i16
+    }|]
+  where
+    -- It is safe to convert from Float to CFloat
+    csamples = SV.unsafeCoerceVector samples</code></pre></div>
+    <p class='mb-3'>
+      And with this last example, we covered everything that is needed to implement a media player in Haskell with the libpipewire.
+    </p>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Conclusion
+  
+  <a href='blog/haskell-inline-c-pipewire#conclusion' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='status-of-the-library' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Status of the library
+  
+  <a href='blog/haskell-inline-c-pipewire#status-of-the-library' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      This post demonstrated how I used the inline-c library to quickly create a prototype binding for the libpipewire. To confirm that Haskell can be used effectively to interact with a Pipewire service, I covered enough of the C API to implement the following examples:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>pw-link</code> to list/create/delete links: <a href='https://github.com/TristanCacqueray/pipewire.hs/blob/main/pipewire/examples/PwLink.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PwLink.hs</a>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>video-src</code> to draw a video stream: <a href='https://github.com/TristanCacqueray/pipewire.hs/blob/main/pipewire/examples/VideoSrc.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>VideoSrc.hs</a>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>pw-play</code> to play an audio media file: <a href='https://github.com/TristanCacqueray/pipewire.hs/blob/main/pipewire/examples/PwPlay.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>PwPlay.hs</a>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The <code class='py-0.5 px-0.5 bg-gray-100'>video-src</code> revealed an extra challenge with regards to the resources allocation. In some situations, it is necessary to create resources during a callback. Such resources need to outlive the callback execution and we can’t use the <em>withResource</em> pattern. So I think we need to integrate the <a href='https://hackage.haskell.org/package/resourcet-1.3.0/docs/Control-Monad-Trans-Resource.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>resourcet</a> allocation system to provide a safer API.
+    </p>
+  
+    <p class='mb-3'>
+      I am now confident Pipewire can be used efficiently with Haskell.
+    </p>
+  
+    <h3 id='exploring-alternatives' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Exploring alternatives
+  
+  <a href='blog/haskell-inline-c-pipewire#exploring-alternatives' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      With regards to the actual binding, I would like to evaluate the other available options beside <a href='https://hackage.haskell.org/package/inline-c' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>inline-c</a>. In particular, I would like to compare the compilation speed, runtime overhead and usage complexity of the following alternatives:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/ffi.html#the-capi-calling-convention' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>CApiFFI</a>, a language extension to write foreign declaration.
+        </li>
+      
+        <li>
+          <a href='https://downloads.haskell.org/ghc/latest/docs/users_guide/utils.html#writing-haskell-interfaces-to-c-code-hsc2hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>hsc2hs</a>, a tool provided by Haskell to embed C definitions using a source pre-processor.
+        </li>
+      
+        <li>
+          <a href='https://github.com/haskell/c2hs/wiki/User-Guide' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>c2hs</a>, a tool to generate interface.
+        </li>
+      
+        <li>
+          A custom code generator, like it is done for <a href='https://github.com/expipiplus1/vulkan/tree/main/generate-new' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>vulkan</a> or <a href='https://github.com/haskell-game/dear-imgui.hs/blob/main/generator/DearImGui/Generator.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dear-imgui</a>.
+        </li>
+      
+    </ul>
+  
+    <h3 id='learning-experience' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Learning experience
+  
+  <a href='blog/haskell-inline-c-pipewire#learning-experience' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      I wrote a few bindings over the years, and each time I found that they were great learning experiences to discover different APIs design and implementation. Here are some examples:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://github.com/purescript-gjs/purescript-gjs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>purescript-gjs</a>: GNOME Javascript for Purescript.
+        </li>
+      
+        <li>
+          <a href='https://github.com/softwarefactory-project/re-patternfly' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>re-patternfly</a>: ReScript binding for Patternfly.
+        </li>
+      
+        <li>
+          <a href='https://github.com/TristanCacqueray/dhall-ansible' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dhall-ansible</a>: Ansible definitions with Dhall.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      For Pipewire I was even able to make a minor contribution to improve the C API: <a href='https://gitlab.freedesktop.org/pipewire/pipewire/-/merge_requests/2029/diffs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pipewire!2029</a>.
+    </p>
+  
+    <p class='mb-3'>
+      I am looking forward to developing the <a href='https://github.com/TristanCacqueray/pipewire.hs#readme' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>pipewire.hs</a> library, please let me know if you are interested. Thanks for your time!
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context'>
+              <a href='blog/haskell-inline-c-pipewire#context' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Playing a tone with the libpipewire'>
+              <a href='blog/haskell-inline-c-pipewire#playing-a-tone-with-the-libpipewire' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Playing a tone with the libpipewire
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Haskell FFI'>
+              <a href='blog/haskell-inline-c-pipewire#haskell-ffi' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Haskell FFI
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Opaque foreign structure'>
+              <a href='blog/haskell-inline-c-pipewire#opaque-foreign-structure' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Opaque foreign structure
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Haskell Foreign Ptr'>
+              <a href='blog/haskell-inline-c-pipewire#haskell-foreign-ptr' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Haskell Foreign Ptr
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Initializing the main loop'>
+              <a href='blog/haskell-inline-c-pipewire#initializing-the-main-loop' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Initializing the main loop
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Allocating the events listener'>
+              <a href='blog/haskell-inline-c-pipewire#allocating-the-events-listener' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Allocating the events listener
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Registering the event callback'>
+              <a href='blog/haskell-inline-c-pipewire#registering-the-event-callback' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Registering the event callback
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Reading the buffer size'>
+              <a href='blog/haskell-inline-c-pipewire#reading-the-buffer-size' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Reading the buffer size
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Reading the link state'>
+              <a href='blog/haskell-inline-c-pipewire#reading-the-link-state' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Reading the link state
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Writing audio samples'>
+              <a href='blog/haskell-inline-c-pipewire#writing-audio-samples' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Writing audio samples
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/haskell-inline-c-pipewire#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Status of the library'>
+              <a href='blog/haskell-inline-c-pipewire#status-of-the-library' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Status of the library
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Exploring alternatives'>
+              <a href='blog/haskell-inline-c-pipewire#exploring-alternatives' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Exploring alternatives
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Learning experience'>
+              <a href='blog/haskell-inline-c-pipewire#learning-experience' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Learning experience
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/ffi'>
+        <!-- DoNotFormat -->
+        #ffi
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/pipewire'>
+        <!-- DoNotFormat -->
+        #pipewire
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/haskell-inline-c-pipewire.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
+        </div>
+      
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.15.1'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
+
