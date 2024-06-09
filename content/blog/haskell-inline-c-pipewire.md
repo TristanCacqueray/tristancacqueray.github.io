@@ -11,6 +11,9 @@ The goal is to demonstrate how to implement a Pipewire client with Haskell.
 <img src="/static/pipewire-hs.svg" width=370 />
 :::
 
+:::{.hidden}
+![logo](static/pipewire-hs.svg)
+:::
 ---
 
 This post introduces the initial implementation of the [pipewire.hs][pipewire.hs] library,
