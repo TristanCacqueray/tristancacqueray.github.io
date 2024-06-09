@@ -214,7 +214,7 @@ pw_main_loop_new =
 dieOnNull :: String -> IO (Ptr a) -> IO (Ptr a)
 dieOnNull src action = do
     ptr <- action
-    if ptr == nullPtr
+    if ptr == Foreign.nullPtr
         then ioError $ userError $ src <> " returned NULL"
         else pure ptr
 ```
@@ -377,8 +377,7 @@ import Foreign (Storable)
 #include <pipewire/pipewire.h>
 
 newtype LinkState = LinkState Int
-  deriving newtype (Storable, Show)
-  deriving stock (Eq)
+  deriving newtype (Eq, Storable, Show)
 
 -- /* awk '/PW_LINK_STATE/ { print "pattern " $1 " = (#const " $1 ")" }' pipewire/*.h */
 pattern PW_LINK_STATE_ERROR = LinkState (#const PW_LINK_STATE_ERROR)
