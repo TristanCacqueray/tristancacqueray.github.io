@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=54c798d1-a1c7-47ec-9918-5bfe66f4bae0' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=9c1ab935-ff85-49b5-84a8-d3f6f53b74d6' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -768,7 +768,7 @@ pw_main_loop_new =
 dieOnNull :: String -&gt; IO (Ptr a) -&gt; IO (Ptr a)
 dieOnNull src action = do
     ptr &lt;- action
-    if ptr == nullPtr
+    if ptr == Foreign.nullPtr
         then ioError $ userError $ src &lt;&gt; " returned NULL"
         else pure ptr</code></pre></div>
     <p class='mb-3'>
@@ -962,8 +962,7 @@ import Foreign (Storable)
 #include &lt;pipewire/pipewire.h&gt;
 
 newtype LinkState = LinkState Int
-  deriving newtype (Storable, Show)
-  deriving stock (Eq)
+  deriving newtype (Eq, Storable, Show)
 
 -- /* awk '/PW_LINK_STATE/ { print "pattern " $1 " = (#const " $1 ")" }' pipewire/*.h */
 pattern PW_LINK_STATE_ERROR = LinkState (#const PW_LINK_STATE_ERROR)
