@@ -9,7 +9,7 @@ feed:
 My blog articles:
 
 ```query {.timeline}
-tag:blog
+path:blog/*
 ```
 
 ## Previous
