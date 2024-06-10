@@ -434,6 +434,8 @@ writeAudioFrame (Buffer pwBuffer) samples = do
 ```
 
 And with this last example, we covered everything that is needed to implement a media player in Haskell with the libpipewire.
+Checkout the [Tutorial4.hs](https://github.com/TristanCacqueray/pipewire.hs/blob/main/pipewire/examples/Tutorial4.hs)
+source code for the full demo.
 
 ## Conclusion
 
