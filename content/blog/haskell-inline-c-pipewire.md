@@ -12,7 +12,7 @@ The goal is to demonstrate how to implement a Pipewire client with Haskell.
 :::
 
 :::{.hidden}
-![logo](static/pipewire-hs.svg)
+![logo](static/pipewire-hs.png)
 :::
 ---
 
@@ -29,7 +29,7 @@ In four parts I present:
 > I welcome your feedback and I would appreciate the opportunity to fix any errors contained in this post.
 
 
-## Context
+## Introducing Pipewire
 
 [Pipewire][pipewire] is a multimedia framework that can be used to capture and play audio, midi and video streams with minimal latency.
 Pipewire provides an unified system to process multimedia in real-time and can replace services like [pulseaudio][pulseaudio] and [jack][jack].
@@ -137,7 +137,7 @@ The following sections leverage the inline-c library to seamlessly call C librar
 
 [crABI]: https://github.com/rust-lang/rfcs/pull/3470
 
-### Opaque foreign structure
+### Foreign C Types
 
 Inline-c leverages quasi-quotations to include C code directly in Haskell declarations.
 To handle custom types, such as the `struct pw_*`, inline-c provides a context to configure the desired mapping between C and Haskell.
