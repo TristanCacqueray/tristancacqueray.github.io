@@ -20,7 +20,7 @@
     
       <meta property='og:description' content='This post shows how I created a high level, proof of concept, Haskell binding for the libpipewire using inline-c. The goal is to demonstrate how to implement a Pipewire client with Haskell.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='https://tristancacqueray.github.io/static/pipewire-hs.svg' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/static/pipewire-hs.png' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Haskell inline-c Demo For Pipewire' />
       
@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=92b6ebbb-d857-492c-80d1-edabef8b863c' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=fd6e8c47-3b04-4d8d-84f8-4a97fc874c36' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -426,7 +426,7 @@ window.MathJax = {
       This post shows how I created a high level, proof of concept, Haskell binding for the <a href='https://docs.pipewire.org/page_api.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>libpipewire</a> using <a href='https://hackage.haskell.org/package/inline-c' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>inline-c</a>. The goal is to demonstrate how to implement a Pipewire client with Haskell.
     </p>
   <div class='flex items-center justify-center'><div xmlhtmlRaw><img src="/static/pipewire-hs.svg" width=370 />
-</div></div><div class='hidden'><span title='Link is broken'><s>![logo](static/pipewire-hs.svg)</s>❌</span></div>
+</div></div><div class='hidden'><span title='Link is broken'><s>![logo](static/pipewire-hs.png)</s>❌</span></div>
     <hr class='mb-3' />
   
     <p class='mb-3'>
@@ -461,11 +461,11 @@ window.MathJax = {
   
     </blockquote>
   
-    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h2 id='introducing-pipewire' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
-  Context
+  Introducing Pipewire
   
-  <a href='blog/haskell-inline-c-pipewire#context' class='--ema-anchor'>
+  <a href='blog/haskell-inline-c-pipewire#introducing-pipewire' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -667,11 +667,11 @@ static void on_process(struct pw_stream* stream) {
   
     </blockquote>
   
-    <h3 id='opaque-foreign-structure' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+    <h3 id='foreign-c-types' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
-  Opaque foreign structure
+  Foreign C Types
   
-  <a href='blog/haskell-inline-c-pipewire#opaque-foreign-structure' class='--ema-anchor'>
+  <a href='blog/haskell-inline-c-pipewire#foreign-c-types' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -1180,9 +1180,9 @@ writeAudioFrame (Buffer pwBuffer) samples = do
     
         <ul class='ml-2'>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Context'>
-              <a href='blog/haskell-inline-c-pipewire#context' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Context
+            <li class='whitespace-nowrap truncate mt-2' title='Introducing Pipewire'>
+              <a href='blog/haskell-inline-c-pipewire#introducing-pipewire' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Introducing Pipewire
               </a>
               
         <ul class='ml-2'>
@@ -1209,9 +1209,9 @@ writeAudioFrame (Buffer pwBuffer) samples = do
               
         <ul class='ml-2'>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Opaque foreign structure'>
-              <a href='blog/haskell-inline-c-pipewire#opaque-foreign-structure' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Opaque foreign structure
+            <li class='whitespace-nowrap truncate mt-2' title='Foreign C Types'>
+              <a href='blog/haskell-inline-c-pipewire#foreign-c-types' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Foreign C Types
               </a>
               
         <ul class='ml-2'>
