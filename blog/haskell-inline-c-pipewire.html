@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=fd6e8c47-3b04-4d8d-84f8-4a97fc874c36' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=49dcee09-bf2a-45c5-ac3a-26a6e3a8ea27' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -825,7 +825,7 @@ withStreamEvents cb = Foreign.allocaBytes
     </h3>
   
     <p class='mb-3'>
-      For the process event callback, we need to setup a pointer to create a <code class='py-0.5 px-0.5 bg-gray-100'>FunPtr</code> to make a Haskell function callable from foreign code. The inline-c library provides the <code class='py-0.5 px-0.5 bg-gray-100'>C.mkFunPtr</code> helper for that:
+      For the process event callback, we need to create a <code class='py-0.5 px-0.5 bg-gray-100'>FunPtr</code> to make a Haskell function callable from foreign code. The inline-c library provides the <code class='py-0.5 px-0.5 bg-gray-100'>C.mkFunPtr</code> helper for that:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>type ProcessHandler = IO ()
 
