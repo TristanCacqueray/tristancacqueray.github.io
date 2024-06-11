@@ -256,7 +256,7 @@ This uses the inline-c `C.pure` quasi-quote to get the size of the structure usi
 
 ### Registering the event callback
 
-For the process event callback, we need to setup a pointer to create a `FunPtr` to make a Haskell function callable from foreign code.
+For the process event callback, we need to create a `FunPtr` to make a Haskell function callable from foreign code.
 The inline-c library provides the `C.mkFunPtr` helper for that:
 
 ```haskell
@@ -500,5 +500,5 @@ Thanks for your time!
 [vulkan]: https://github.com/expipiplus1/vulkan/tree/main/generate-new
 [dear-imgui]: https://github.com/haskell-game/dear-imgui.hs/blob/main/generator/DearImGui/Generator.hs
 [purescript-gjs]: https://github.com/purescript-gjs/purescript-gjs
-[dhall-ansible]: https://github.com/TristanCacqueray/dhall-ansible
+[dhall-ansible]: https://github.com/softwarefactory-project/dhall-ansible
 [re-patternfly]: https://github.com/softwarefactory-project/re-patternfly
