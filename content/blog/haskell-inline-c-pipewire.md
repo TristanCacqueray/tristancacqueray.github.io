@@ -12,7 +12,7 @@ The goal is to demonstrate how to implement a Pipewire client with Haskell.
 :::
 
 :::{.hidden}
-![logo](static/pipewire-hs.png)
+![logo](/static/pipewire-hs.png)
 :::
 ---
 
