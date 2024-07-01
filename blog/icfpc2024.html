@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    ICFP Contest 2024 - Pure Laziness Report – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='The International Conference on Functional Programming (ICFP) Programming Contest is a three days annual event. This post is my participation report.' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='https://tristancacqueray.github.io/blog/media/icfpc2024-logo.png' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='ICFP Contest 2024 - Pure Laziness Report' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
+    
+    
+      <base href='/' />
+      <link href='/static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
+
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  
+  <link href='tailwind.css?instanceId=9548757f-066c-4d01-8697-2f2f0410cc6a' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"] {
+      padding-right: 24px;
+    }
+    a[data-linkicon="external"]::after {
+      margin-right: -24px;
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script id='emanote-stork' data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        indexIsStale: false,
+        toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
+          }
+        }
+
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto w-[67rem] mt-2 md:mt-4  '>
+      
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Blog
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Tristan de Cacqueray
+    </div>
+  </a>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+      
+
+      
+
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+    </a>
+  </div>
+
+          <!-- Main body column -->
+          <div class='flex-1 w-full bg-white'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    ICFP Contest 2024 - Pure Laziness Report
+  </a>
+</h1>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+
+
+
+
+
+
+    <p class='mb-3'>
+      The International Conference on Functional Programming (<a href='https://icfp23.sigplan.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ICFP</a>) Programming Contest is a three days annual event. This post is my participation report.
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/icfpc2024-logo.png' alt='icfpc2024-logo' style='width: inherit;' /></div>
+    <hr class='mb-3' />
+  
+    <p class='mb-3'>
+      In three parts I present how I worked on the contest:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Alien programming language interpretation.
+        </li>
+      
+        <li>
+          Spaceship operation.
+        </li>
+      
+        <li>
+          String compression.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I include many code samples for the curious reader, but feel free to skip over them or checkout the <a href='https://github.com/TristanCacqueray/icfpc2024' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>repository</a>.
+    </p>
+  
+    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Context
+  
+  <a href='blog/icfpc2024#context' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      A month before the event started, I posted a <a href='https://discourse.haskell.org/t/team-jkrt-participation-to-the-icfp-programming-contest-2024-june-29th/9454' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>call for participants</a> on the Haskell forum and created a chat room on matrix. Three members of the community joined, but on the day of the event, only <a href='https://github.com/kindaro/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>@kindaro</a> was available. As for myself, I needed some rest and was thinking about calling it off.
+    </p>
+  
+    <p class='mb-3'>
+      Nevertheless, on Friday 28 June 2024 at 12:00 UTC, the event started with the following setup: A forgotten society called the <em>Cult of the Bound variable</em> was recently observed in space. The researchers created a communication gateway to send and receive messages through HTTP requests. The people of this society conversed through a programming language called Interstellar Communication Functional Programs (ICFP term).
+    </p>
+  
+    <p class='mb-3'>
+      The organizer provided a <a href='https://icfpcontest2024.github.io/icfp.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>specification</a> for the language and suggested we start by sending the following program: <code class='py-0.5 px-0.5 bg-gray-100'>S'%4}).$%8</code>. After interpreting the response, we were introduced to the School of the Bound Variable which offered several courses that needed to be completed.
+    </p>
+  
+    <p class='mb-3'>
+      Even though we were unprepared, this looked reasonable and we decided to give it a shot. The following sections present the main work I did over the weekend.
+    </p>
+  
+    <h2 id='alien-language' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Alien Language
+  
+  <a href='blog/icfpc2024#alien-language' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      In order to participate, we had to read and write ICFP terms. In this first part I introduce the term semantic and how I implemented a parser and evaluator for the alien language.
+    </p>
+  
+    <h3 id='hello-world' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Hello World
+  
+  <a href='blog/icfpc2024#hello-world' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      As suggested by the organizer, here is how the communication channel looked like:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>$ curl -XPOST https://boundvariable.space/communicate -d"S'%4}).$%8"
+SB%,,/}!.$}7%,#/-%}4/}4(%}M#(//,}/&}4(%}&lt;/5.$}P!2)!",%_~~&lt;%&/2...</code></pre></div>
+    <p class='mb-3'>
+      The response is a program that needs to be interpreted.
+    </p>
+  
+    <h3 id='icfp-term' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  ICFP term
+  
+  <a href='blog/icfpc2024#icfp-term' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      The <a href='https://icfpcontest2024.github.io/icfp.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>specification</a> page described the language. It looked like a lambda calculus with extra operators and values. Thus, I wrote the simplest data type to represent the term expression:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>data Expr
+  = EBool Bool
+  | EInt Natural
+  | EStr Text
+  | EUnary Char Expr
+  | EBinary Char Expr Expr
+  | EIf Expr Expr Expr
+  | ELam Natural Expr
+  | EVar Natural
+  deriving (Show, Eq, Ord)</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Function applications are implemented with the ‘$’ binary operator.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      The terms are encoded using a space separated list of instruction which looked like this: <code class='py-0.5 px-0.5 bg-gray-100'>B$ B$ L# L$ v# B. SB%,,/ S}Q/2,$_ IK</code>. The next section introduce a parser for this language.
+    </p>
+  
+    <h3 id='parser' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Parser
+  
+  <a href='blog/icfpc2024#parser' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      I recently used <a href='https://hackage.haskell.org/package/attoparsec-0.14.4/docs/Data-Attoparsec-Text.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>attoparsec</a> for processing Pipewire properties, and I did the same for decoding ICFP terms:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.Attoparsec.Text qualified as P
+
+parseExpr :: Text -&gt; Either String Expr
+parseExpr = P.parseOnly (exprP &lt;* P.endOfInput)</code></pre></div>
+    <p class='mb-3'>
+      The main parser looked like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>exprP :: P.Parser Expr
+exprP = P.skipSpace &gt;&gt; p
+ where
+  p =     taggedP 'T' EBool (pure True)
+      &lt;|&gt; taggedP 'F' EBool (pure False)
+      &lt;|&gt; taggedP 'I' EInt intP
+      &lt;|&gt; taggedP 'S' EStr stringP
+      &lt;|&gt; taggedP 'v' EVar natP
+      &lt;|&gt; (P.char 'U' *&gt; unaryP)
+      &lt;|&gt; (P.char 'B' *&gt; binaryP)
+      &lt;|&gt; (P.char '?' *&gt; ifP)
+      &lt;|&gt; (P.char 'L' *&gt; lambdaP)
+
+  taggedP :: Char -&gt; (a -&gt; b) -&gt; P.Parser a -&gt; P.Parser b
+  taggedP c tag parser = P.char c *&gt; (tag &lt;$&gt; parser)</code></pre></div>
+    <p class='mb-3'>
+      The string used an ASCII like encoding but with a different order:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Parse a list of printable characters
+asciiP :: P.Parser Text
+asciiP = P.takeWhile (\c -&gt; c &gt;= '!' && c &lt;= '~')
+
+-- | Parse and decode ICFP string
+stringP :: P.Parser Text
+stringP = fmap decodeString asciiP
+
+-- | Remap from ASCII to ICFP order
+decodeString :: Text -&gt; Text
+decodeString = T.map convertChars
+ where
+  convertChars c = charOrder !! (fromEnum c - 33)
+
+charOrder :: String
+charOrder = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;&lt;=&gt;?@[\\]^_`|~ \n"</code></pre></div>
+    <p class='mb-3'>
+      The integer were encoded in base 96:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>intP :: P.Parser Natural
+intP = str2int &lt;$&gt; asciiP
+
+str2int :: Text -&gt; Natural
+str2int = T.foldl' go 0
+ where
+  go acc c = acc * 94 + (fromIntegral (fromEnum c) - 33)</code></pre></div>
+    <p class='mb-3'>
+      Parsing the remaining terms was trivial:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>lambdaP :: P.Parser Expr
+lambdaP = ELam &lt;$&gt; natP &lt;*&gt; exprP
+
+ifP :: P.Parser Expr
+ifP = EIf &lt;$&gt; exprP &lt;*&gt; exprP &lt;*&gt; exprP
+
+unaryP :: P.Parser Expr
+unaryP = EUnary &lt;$&gt; P.anyChar &lt;*&gt; exprP
+
+binaryP :: P.Parser Expr
+binaryP = EBinary &lt;$&gt; P.anyChar &lt;*&gt; exprP &lt;*&gt; exprP</code></pre></div>
+    <p class='mb-3'>
+      That’s all it took to decode the ICFP terms (checkout the full <a href='https://github.com/TristanCacqueray/icfpc2024/blob/main/src/ProgCon/Parser.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Parser.hs</a> module). Here is how the example expression looked like once decoded:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>λ&gt; parseExpr "B$ B$ L# L$ v# B. SB%,,/ S}Q/2,$_ IK"
+Right
+    ( EBinary '$'
+        ( EBinary '$'
+            ( ELam 2
+                ( ELam 3
+                    ( EVar 2 )
+                )
+            )
+            ( EBinary '.'
+                ( EStr "Hello" )
+                ( EStr " World!" )
+            )
+        )
+        ( EInt 42 )
+    )</code></pre></div>
+    <p class='mb-3'>
+      Lovely, the next step was to implement an evaluator.
+    </p>
+  
+    <h3 id='call-by-name' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Call By Name
+  
+  <a href='blog/icfpc2024#call-by-name' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      The language used a call by name semantic, here is what I wrote to interpret the terms:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>evalExpr :: Expr -&gt; Either String Expr
+evalExpr expr = case expr of
+  EUnary '-' e | Right (EInt x)  &lt;- evalExpr e -&gt; pure $ EInt (negate x)
+  EUnary '-' _ -&gt; Left "Expected a int"
+  EUnary '!' e | Right (EBool x) &lt;- evalExpr e -&gt; pure $ EBool (not x)
+  -- Function application:
+  EBinary '$' e1 e2 | Right (ELam var body) &lt;- evalExpr e1 -&gt; evalExpr $ subst var e2 body
+  EBinary '.' e1 e2
+    | Right (EStr s1) &lt;- evalExpr e1
+    , Right (EStr s2) &lt;- evalExpr e2 -&gt; pure $ EStr (s1 &lt;&gt; s2)
+  -- other binary operator omited
+  EVar v -&gt; Left $ "Unbound var: " &lt;&gt; show v
+  e -&gt; pure e</code></pre></div>
+    <p class='mb-3'>
+      In case you are not familiar with this syntax, the pattern guards let you match further expressions using <code class='py-0.5 px-0.5 bg-gray-100'>| pattern &lt;- value -&gt; result</code>. This is useful to avoid nesting case expressions. For example, The first match above is equivalent to:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>evalExpr expr = case expr of
+  EUnary '-' e -&gt; case evalExpr e of
+    Right (EInt n) -&gt; Right $ EInt $ negate n
+    _ -&gt; Left "Expected a int"</code></pre></div>
+    <p class='mb-3'>
+      At first I forgot to handle variables substitution, and even though the original implementation worked in most cases, some terms were diverging. We needed to use the following function:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Replace the variables matching the given name
+subst :: Natural -&gt; Expr -&gt; Expr -&gt; Expr
+subst name expr = \case
+  EUnary o e -&gt; EUnary o (doSub e)
+  EBinary o e1 e2 -&gt; EBinary o (doSub e1) (doSub e2)
+  EVar v
+    | -- Substitute the variable
+      v == name -&gt; expr
+    | otherwise -&gt; EVar v
+  EIf e1 e2 e3 -&gt; EIf (doSub e1) (doSub e2) (doSub e3)
+  ELam v b
+    | -- The variable is shadowed, stop here
+      v == name -&gt; ELam v b
+    | otherwise -&gt; ELam v (doSub b)
+  e -&gt; e
+ where
+  doSub = subst name expr</code></pre></div>
+    <p class='mb-3'>
+      With the above evaluator (checkout the full <a href='https://github.com/TristanCacqueray/icfpc2024/blob/main/src/ProgCon/Eval.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Eval.hs</a> module), we could now interpret programs, for example:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>λ&gt; evalExpr =&lt;&lt; parseExpr "B$ B$ L# L$ v# B. SB%,,/ S}Q/2,$_ IK"
+Right (EStr "Hello World!")</code></pre></div>
+    <p class='mb-3'>
+      Thanks to Haskell, it only took us a couple of hours to read and interpret this new language. My teammate worked on property testings and implemented a printer so that we could transmit messages. Then I implemented a little <code class='py-0.5 px-0.5 bg-gray-100'>communicate</code> helper to send messages and decode responses, for example, to send the first message:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>λ&gt; communicate "S'%4}).$%8"
+Sending...   (EStr "get index")
+Receiving... (EStr "Hello and welcome to the School of the Bound Variable!...")</code></pre></div>
+    <p class='mb-3'>
+      The response contained instructions to enroll and complete the different courses. The next section presents how I solved the <em>spaceship</em> course.
+    </p>
+  
+    <h2 id='spaceship-course' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Spaceship Course
+  
+  <a href='blog/icfpc2024#spaceship-course' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      The goal of this course was to operate a spaceship to reach a list of destinations. For each step, we could adjust the velocity using a numeric pad. To complete the course, we needed to provide the list of inputs for creating a path that visits every destination.
+    </p>
+  
+    <p class='mb-3'>
+      For example, submitting <code class='py-0.5 px-0.5 bg-gray-100'>236659</code> makes the spaceship visit the following locations: <code class='py-0.5 px-0.5 bg-gray-100'>(0,0) (0,-1) (1,-3) (3,-5) (6,-7) (9,-9) (13,-10)</code>.
+    </p>
+  
+    <h3 id='levels-input' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Levels input
+  
+  <a href='blog/icfpc2024#levels-input' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      The course contained 25 levels defined by the list of destinations coordinates. For example, here is how the level 20 looked like:
+    </p>
+  <img class='inline mb-3' src='blog/media/icfp2024-spaceship20-points.png' alt='icfp2024-spaceship20-points' style='width: inherit;' />
+    <h3 id='first-solver' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  First solver
+  
+  <a href='blog/icfpc2024#first-solver' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Our first solution consisted of the following procedure, for each destination:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Accelerate once toward the destination.
+        </li>
+      
+        <li>
+          Cruise by pressing ‘5’ until we reached the destination.
+        </li>
+      
+        <li>
+          Decelerate.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This procedure can be applied for each axis independently. The core implementation looked like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | A basic one dimension thrust generator
+genThrust :: Int32 -&gt; Int32 -&gt; Int32 -&gt; Int32
+genThrust velocity start end
+  | -- start moving
+    velocity == 0 = signum (end - start)
+  | -- stop moving once the destination is reached
+    start == end = negate velocity
+  | -- just cruise
+    otherwise = 0</code></pre></div>
+    <p class='mb-3'>
+      Here is the rest of the supporting code for reference:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Compute the thrust to apply for reaching a destination.
+genShipThrust :: Ship -&gt; Destination -&gt; IVec2
+genShipThrust ship destination =
+  ivec2
+    (genThrust ship.vel.x ship.pos.x destination.x)
+    (genThrust ship.vel.y ship.pos.y destination.y)
+
+-- | Compute the thrust String for reaching a destination.
+genThrusts :: Ship -&gt; Destination -&gt; (String, Ship)
+genThrusts iship destination = go "" iship
+ where
+  go :: String -&gt; Ship -&gt; (String, Ship)
+  go acc ship
+    | -- we reached the destination, stop now
+      ship.pos == destination = (reverse newAcc, newShip)
+    | otherwise = go newAcc newShip
+   where
+    thrust = genShipThrust ship destination
+    newShip = applyThrust thrust ship
+    newAcc = thrustChar thrust : acc
+
+-- | Compute the full thrust String for reaching all the destinations.
+solve :: [Destination] -&gt; String
+solve = go [] initialShip
+ where
+  go acc _ship [] = concat (reverse acc)
+  go acc ship (destination : rest) = go (thrusts : acc) newShip rest
+   where
+    (thrusts, newShip) = genThrusts ship destination
+
+-- | Update the ship based on a new thrust
+applyThrust :: IVec2 -&gt; Ship -&gt; Ship
+applyThrust thrust ship = Ship {vel, pos}
+ where
+  vel = ship.vel + thrust
+  pos = ship.pos + vel
+
+data Ship = Ship {pos :: IVec2, vel :: IVec2}
+type Destination = IVec2
+
+initialShip :: Ship
+initialShip = Ship 0 0
+
+thrustChar :: IVec2 -&gt; Char
+thrustChar thrust =
+  case (thrust.x, thrust.y) of
+    (1, 1) -&gt; '9'
+    (0, 1) -&gt; '8'
+    (-1, 1) -&gt; '7'
+    (1, 0) -&gt; '6'
+    (0, 0) -&gt; '5'
+    (-1, 0) -&gt; '4'
+    (1, -1) -&gt; '3'
+    (0, -1) -&gt; '2'
+    (-1, -1) -&gt; '1'
+    _ -&gt; 'X'</code></pre></div>
+    <p class='mb-3'>
+      Ten hours into the contest, this solution worked for some of the levels, and we reached position <code class='py-0.5 px-0.5 bg-gray-100'>#74</code> out of 160 participating teams. This procedure produced impractical solutions for some of the levels when the destinations were too far apart. In the next sections, I present a couple of improvements.
+    </p>
+  
+    <h3 id='traveling-salesman' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Traveling Salesman
+  
+  <a href='blog/icfpc2024#traveling-salesman' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      The first major improvement was to sort the positions to minimize the travel distance. This meant solving the traveling salesman problem.
+    </p>
+  
+    <p class='mb-3'>
+      Here is what the problem 20 looked like after drawing a line between consecutive destinations:
+    </p>
+  <img class='inline mb-3' src='blog/media/icfp2024-spaceship20-unordered.png' alt='icfp2024-spaceship20-unordered' style='width: inherit;' />
+    <p class='mb-3'>
+      Obviously, this is not a good travel plan. To improve it, I implemented the following function to arrange the destination by proximity:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>optimizeOrder :: [Destination] -&gt; [Destination]
+optimizeOrder = go [] 0
+ where
+  -- Order by repeatedly finding the closest destination from the previous location 'pos'
+  go acc _pos [] = reverse acc
+  go acc pos (x : xs) =
+    let
+      -- Get the new closest pos and the list of remaining destinations
+      ((_, closestPos), others) = foldl' (go' pos) ((idist pos x, x), []) xs
+    in
+      go (closestPos : acc) closestPos others
+
+  -- Separate the closest position from the rest
+  go' pos (prev@(prevClosestDistance, prevClosestPos), others) destination
+    | -- The current destination is the new closest
+      destinationDist &lt; prevClosestDistance =
+        ((destinationDist, destination), prevClosestPos : others)
+    | -- otherwise keep the previous closest
+      otherwise = (prev, destination : others)
+   where
+    destinationDist = withIVec2 (abs (pos - destination)) (+)</code></pre></div>
+    <p class='mb-3'>
+      … which resulted in this arrangement: <img src='blog/media/icfp2024-spaceship20-ordered.png' alt='icfp2024-spaceship20-ordered' />
+    </p>
+  
+    <p class='mb-3'>
+      It’s not the best solution, but it was good enough to pass most levels. This was Saturday morning, and we reached position <code class='py-0.5 px-0.5 bg-gray-100'>#42</code>.
+    </p>
+  
+    <h3 id='faster-travel' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Faster travel
+  
+  <a href='blog/icfpc2024#faster-travel' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      To solve the really big levels, we had to increase the ship’s velocity. This was surprisingly hard to implement. My teammate suggested an analytical solution and showed some derivative formulas, but I was not able to implement it.
+    </p>
+  
+    <p class='mb-3'>
+      Instead, I replaced the original iterative approach by implementing a straightforward strategy:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Compute the braking distance to kill the velocity.
+        </li>
+      
+        <li>
+          If this distance is smaller than the destination, then accelerate.
+        </li>
+      
+        <li>
+          Otherwise, start decelerating.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Here is the new <em>genThrust</em> implementation:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>calcBrakingDistance :: Int32 -&gt; Int32
+calcBrakingDistance x = x * (x + 1) `div` 2
+
+genThrust :: Int32 -&gt; Int32 -&gt; Int32 -&gt; Int32
+genThrust velocity start end
+  | -- stop
+    start == end = if abs velocity &gt; 1 then error "Going too fast!" else negate velocity
+  | -- decelerate
+    distance &lt; brakingDistance = negate accelThrust
+  | -- accelerate
+    distance &gt;= nextBrakingDistance = accelThrust
+  | -- cruise
+    otherwise = 0
+ where
+  distance = abs (start - end)
+  accelThrust = signum (end - start)
+  brakingDistance = calcBrakingDistance (abs velocity)
+  nextBrakingDistance = calcBrakingDistance (abs velocity + 1)</code></pre></div>
+    <p class='mb-3'>
+      By the end of Saturday we fell to position <code class='py-0.5 px-0.5 bg-gray-100'>#82</code>, and by applying this new strategy we climbed back to position <code class='py-0.5 px-0.5 bg-gray-100'>#41</code>.
+    </p>
+  
+    <p class='mb-3'>
+      The competition kept on going and toward the end we were <code class='py-0.5 px-0.5 bg-gray-100'>#65</code>. Fortunately, kindaro was able to significantly improve the solver by:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          avoiding a full stop at each destination when the next one is on the path, and,
+        </li>
+      
+        <li>
+          using a better destination order.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Our last position was <code class='py-0.5 px-0.5 bg-gray-100'>#51</code> (out of 160). Not bad!
+    </p>
+  
+    <h2 id='string-packer' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  String Packer
+  
+  <a href='blog/icfpc2024#string-packer' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      There were 3 other courses:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Lambda-Man, a sort of pac-man where the goal is to eat all the pills in a rectangular grid.
+        </li>
+      
+        <li>
+          Efficiency, an interpreter challenge to evaluate custom programs.
+        </li>
+      
+        <li>
+          3d, a time-travel-oriented programming language using a 2D grid of cells.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      We skipped the last two and my teammate worked on the Lambda-Man. In the next section, I show how I was able to improve our score.
+    </p>
+  
+    <h3 id='compressing-common-substring' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Compressing Common Substring
+  
+  <a href='blog/icfpc2024#compressing-common-substring' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      This course was evaluated by the size of the solution, thus, I investigated how to compress ICFP terms.
+    </p>
+  
+    <p class='mb-3'>
+      The idea was to find the longest repeated substring and replace them using lambda variables. I used the <a href='https://hackage.haskell.org/package/string-similarity' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>string-similarity</a> package to implement the follow code generator:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.Text qualified as T
+import Data.List.CommonSubstring (longestSubstring)
+
+pack :: Text -&gt; Expr
+pack = toTerm . splitLongest
+
+toTerm :: SplitResult -&gt; Expr
+toTerm res = case res.repeatSplit of
+  Nothing -&gt; rawStr
+  Just (longest, xs) -&gt;
+    let packedExpr = EBinary '$' (ELam 1 (mkBody xs)) (EStr longest)
+    in  if T.length (printer packedExpr) &lt; T.length res.original
+          then packedExpr
+          else rawStr
+ where
+  rawStr = EStr res.original
+  mkBody [] = error "empty body!"
+  mkBody [i] = itemTerm i
+  mkBody (i : is) = EBinary '.' (itemTerm i) (mkBody is)
+
+  itemTerm = \case
+    Nothing -&gt; EVar 1
+    Just txt -&gt; EStr txt
+
+data SplitResult = SplitResult
+  { original :: Text
+  , repeatSplit :: Maybe (Text, [Maybe Text])
+  }
+
+splitLongest :: Text -&gt; SplitResult
+splitLongest txt = SplitResult txt repeatSplit
+ where
+  repeatSplit
+    | T.length longest &gt; 3 = Just (longest, removeLongest [] txt)
+    | otherwise = Nothing
+  (T.unpack -&gt; x, T.unpack -&gt; y) = T.splitAt (T.length txt `div` 2) txt
+  longest = T.pack $ longestSubstring x y
+
+  removeLongest acc rest = case T.breakOn longest rest of
+    ("", "") -&gt; reverse acc
+    (last', "") -&gt; reverse (Just last' : acc)
+    (last', matched) -&gt; case T.splitAt (T.length longest) matched of
+      (_, remaining) -&gt; case last' of
+        "" -&gt; removeLongest (Nothing : acc) remaining
+        _ -&gt; removeLongest (Nothing : Just last' : acc) remaining</code></pre></div>
+    <p class='mb-3'>
+      Here is an example output:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>λ&gt; pack "96 5555 97 5555 end"
+EBinary '$' (ELam 1 (EBinary '.' (EStr "96") (EBinary '.' (EVar 1) (EBinary '.' (EStr "97") (EBinary '.' (EVar 1) (EStr "end")))))) (EStr " 5555 ")</code></pre></div>
+    <p class='mb-3'>
+      This provided a slight improvement to some solutions but more work was needed to really improve the output. The main problem is that string-similarity works by comparing two strings, thus, I had to split the input in half. What we really needed was a method to find the longest repeated substring inside a single string.
+    </p>
+  
+    <h3 id='suffix-tree' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Suffix Tree
+  
+  <a href='blog/icfpc2024#suffix-tree' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Looking at the Wikipedia page on this subject <a href='https://en.wikipedia.org/wiki/Longest_repeated_substring_problem' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Longest repeated substring problem</a>, I learned about suffix tree. Using the <a href='https://hackage.haskell.org/package/suffixtree' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>sufixtree</a> package I implemented the following solution:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.SuffixTree qualified as ST
+
+-- | Return the longest repeated substring:
+-- &gt;&gt;&gt; longestRepeatedSubstring "solve lambda abc is abc is the end"
+-- " abc is "
+--
+-- &gt;&gt;&gt; longestRepeatedSubstring "UDLLLDURRRRRURR" -- should be URR
+-- "RRRR"
+longestRepeatedSubstring :: String -&gt; String
+longestRepeatedSubstring = getLongest . ST.construct
+
+-- | Return the longest shared string.
+-- Q: How to get the most shared, not necessarly the longest?
+getLongest :: ST.STree Char -&gt; String
+getLongest = go ""
+ where
+  go acc = \case
+    -- the deepest internal node in the tree with more than one child
+    ST.Node xs@(_ : _ : _) -&gt; case maximumBy (compare `on` length) $ map (goNode acc) xs of
+      [] -&gt; acc
+      nested -&gt; nested
+    _ -&gt; []
+  goNode acc (p, n) = go (acc &lt;&gt; ST.prefix p) n</code></pre></div>
+    <p class='mb-3'>
+      However, as explained in the doctest, this doesn’t handle overlapping substring. I eventually ran out of time and couldn’t figure out a satisfactory implementation. This looks like an interesting problem and I was surprised to not be able to find a readily available implementation.
+    </p>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Conclusion
+  
+  <a href='blog/icfpc2024#conclusion' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      We had a great time participating in this contest. I didn’t knew my teammate before the event, and it was a lot of fun to discuss the challenge and share some code. The subject was fascinating, and I wished we had more energy and brain power to reach a better score.
+    </p>
+  
+    <p class='mb-3'>
+      In this article, I shared the code I wrote in the past three days, checkout the <a href='https://github.com/TristanCacqueray/icfpc2024/tree/main/src' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>repo</a> to get the full picture. It’s not the fanciest Haskell, after-all this was written in a hurry. Note that Haskell enables much more advanced solution, for example:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <a href='https://hackage.haskell.org/package/lens-5.3.2/docs/Control-Lens-Plated.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Control.Lens.Plated</a> to traverse the Expr data, see <a href='https://www.haskellforall.com/2021/09/optics-are-monoids.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Optics are monoids</a>.
+        </li>
+      
+        <li>
+          <a href='https://hackage.haskell.org/package/unification-fd' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>unification-fd</a> to implement a type checker.
+        </li>
+      
+        <li>
+          <a href='https://hackage.haskell.org/package/recursion-schemes' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>recursion-schemes</a> to traverse any data.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Using a simpler solution has benefits too, and I hope you were able to follow the implementation.
+    </p>
+  
+    <p class='mb-3'>
+      I am looking forward attending the contest next year, hopefully by being more prepared. If you would like to join our team next time, please let me know! Thanks for your time!
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context'>
+              <a href='blog/icfpc2024#context' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Alien Language'>
+              <a href='blog/icfpc2024#alien-language' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Alien Language
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Hello World'>
+              <a href='blog/icfpc2024#hello-world' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Hello World
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='ICFP term'>
+              <a href='blog/icfpc2024#icfp-term' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                ICFP term
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Parser'>
+              <a href='blog/icfpc2024#parser' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Parser
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Call By Name'>
+              <a href='blog/icfpc2024#call-by-name' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Call By Name
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Spaceship Course'>
+              <a href='blog/icfpc2024#spaceship-course' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Spaceship Course
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Levels input'>
+              <a href='blog/icfpc2024#levels-input' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Levels input
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='First solver'>
+              <a href='blog/icfpc2024#first-solver' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                First solver
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Traveling Salesman'>
+              <a href='blog/icfpc2024#traveling-salesman' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Traveling Salesman
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Faster travel'>
+              <a href='blog/icfpc2024#faster-travel' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Faster travel
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='String Packer'>
+              <a href='blog/icfpc2024#string-packer' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                String Packer
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Compressing Common Substring'>
+              <a href='blog/icfpc2024#compressing-common-substring' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Compressing Common Substring
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Suffix Tree'>
+              <a href='blog/icfpc2024#suffix-tree' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Suffix Tree
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/icfpc2024#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/icfp'>
+        <!-- DoNotFormat -->
+        #icfp
+        <!-- DoNotFormat -->
+      </a>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/icfpc2024.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
+        </div>
+      
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.17.1'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
+
