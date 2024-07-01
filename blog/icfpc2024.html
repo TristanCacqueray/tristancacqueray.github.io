@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=9548757f-066c-4d01-8697-2f2f0410cc6a' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=1307e1f9-25e9-44ce-9c04-a17f37e152c5' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -933,7 +933,12 @@ optimizeOrder = go [] 0
     | -- otherwise keep the previous closest
       otherwise = (prev, destination : others)
    where
-    destinationDist = withIVec2 (abs (pos - destination)) (+)</code></pre></div>
+    destinationDist = idist pos destination
+
+idist :: IVec2 -&gt; IVec2 -&gt; Int32
+idist p t = dist.x + dist.y
+ where
+  dist = abs (p - t)</code></pre></div>
     <p class='mb-3'>
       … which resulted in this arrangement: <img src='blog/media/icfp2024-spaceship20-ordered.png' alt='icfp2024-spaceship20-ordered' />
     </p>
@@ -1082,7 +1087,7 @@ genThrust velocity start end
     </p>
   
     <p class='mb-3'>
-      The idea was to find the longest repeated substring and replace them using lambda variables. I used the <a href='https://hackage.haskell.org/package/string-similarity' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>string-similarity</a> package to implement the follow code generator:
+      The idea was to find the longest repeated substrings and replace them using lambda variables. I used the <a href='https://hackage.haskell.org/package/string-similarity' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>string-similarity</a> package to implement the following code generator:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Data.Text qualified as T
 import Data.List.CommonSubstring (longestSubstring)
