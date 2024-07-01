@@ -407,7 +407,12 @@ optimizeOrder = go [] 0
     | -- otherwise keep the previous closest
       otherwise = (prev, destination : others)
    where
-    destinationDist = withIVec2 (abs (pos - destination)) (+)
+    destinationDist = idist pos destination
+
+idist :: IVec2 -> IVec2 -> Int32
+idist p t = dist.x + dist.y
+ where
+  dist = abs (p - t)
 ```
 
 … which resulted in this arrangement:
@@ -477,9 +482,9 @@ In the next section, I show how I was able to improve our score.
 
 This course was evaluated by the size of the solution, thus, I investigated how to compress ICFP terms.
 
-The idea was to find the longest repeated substring and replace them using lambda variables.
+The idea was to find the longest repeated substrings and replace them using lambda variables.
 I used the [string-similarity](https://hackage.haskell.org/package/string-similarity) package
-to implement the follow code generator:
+to implement the following code generator:
 
 ```haskell
 import Data.Text qualified as T
