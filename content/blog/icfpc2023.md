@@ -1,9 +1,9 @@
 ---
-title: ICFP Contest 2023 - JKRT report
+title: ICFP Contest 2023 - JKRT Report
 date: 2023-07-12
 tags:
   - haskell
-  - blog
+  - icfp
 ---
 
 The International Conference on Functional Programming ([ICFP][icfp]) Programming Contest is an annual programming contest.
