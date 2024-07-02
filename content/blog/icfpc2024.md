@@ -592,8 +592,8 @@ It's not the fanciest Haskell, after-all this was written in a hurry.
 Note that Haskell enables much more advanced solution, for example:
 
 - [Control.Lens.Plated][plated] to traverse the Expr data, see [Optics are monoids](https://www.haskellforall.com/2021/09/optics-are-monoids.html).
+- [recursion-schemes][recursion-schemes] to handle recursive data with higher order functions.
 - [unification-fd][unification-fd] to implement a type checker.
-- [recursion-schemes][recursion-schemes] to traverse any data.
 
 Using a simpler solution has benefits too, and I hope you were able to follow the implementation.
 
