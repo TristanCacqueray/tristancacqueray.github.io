@@ -14,15 +14,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    tiny-game.hs – Tristan's Zettelkasten
+    game – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='I contributed 7 games to the 2023 February Haskell Tiny Game Jam.' />
+      <meta property='og:description' content />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='https://tristancacqueray.github.io/project/../static/pure-doors.png' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='tiny-game.hs' />
+      <meta property='og:title' content='game' />
       
         <meta name='twitter:card' content='summary_large_image' />
       
@@ -357,9 +357,9 @@ window.MathJax = {
           
             <li>
 
-  <a href='project'>
+  <a href='zettle'>
     <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
-      Projects
+      Zettelkasten
     </div>
   </a>
 
@@ -407,7 +407,7 @@ window.MathJax = {
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    tiny-game.hs
+    game
   </a>
 </h1>
     
@@ -419,146 +419,30 @@ window.MathJax = {
 
 
 
-
-    <p class='mb-3'>
-      I contributed 7 games to the 2023 February <a href='https://github.com/haskell-game/tiny-games-hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Haskell Tiny Game Jam</a>.
-    </p>
-  
-    <p class='mb-3'>
-      I also investigated how to run the game online with: <a href='https://github.com/TristanCacqueray/tiny-game-haskell-wasm' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/tiny-game-haskell-wasm</a> and <a href='https://github.com/TristanCacqueray/tiny-game-server/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/tiny-game-server/</a>
-    </p>
-  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
-    <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/prelude/pure-doors' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>prelude-10-80/pure-doors</a>
-    </p>
-  </div><img class='inline mb-3' src='static/pure-doors.png' alt='pure-doors' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>#!/usr/bin/env runhaskell
-main = interact (go (-1) (map (\n -&gt; (5, mod n 8)) nums) 3)
-draw c mid pos = "|" &lt;&gt; r pos c &lt;&gt; mid &lt;&gt; r (7 - pos) c &lt;&gt; "|\n"
-(r, t, nums) = (replicate, draw ' ' " " 7, 1 : 2 : zipWith (+) nums (tail nums))
-s 5 (0,d) p x c = if d /= p then "Crash!" &lt;&gt; c [] else s 5 (head x) p (tail x) c
-s 5 (l,d) p x c = draw ' ' "^" p &lt;&gt; "[jkl]&gt; " &lt;&gt; c ((l - 1, d) : x)
-s n e@(l,d) p x c = (if (n==5-l) then draw '-' " " d else t) &lt;&gt; s (n+1) e p x c
-go x m p i = "\ESCcpure-doors\n" &lt;&gt; s 0 (head m) p (tail m) (\m -&gt; case (m,i) of
- (_:_, c:'\n':xs) | c &gt; 'h' && c &lt; 'n' -&gt; go (x+1) m (p + fromEnum c - 107) xs
- _ -&gt; (if x&gt;5 then " GG, your score is: " &lt;&gt; show (div x 5) else "") &lt;&gt; "\n")</code></pre></div>
-    <p class='mb-3'>
-      An adventure game. I like this project because it uses lazyness to achieve a pure <code class='py-0.5 px-0.5 bg-gray-100'>String -&gt; String</code> implementation.
-    </p>
+<nav>
+  <div class='mb-8'>
+    <header data-nosnippet class='pb-2 mb-2 font-semibold text-gray-600'>
+      Pages matching path './*'
+    </header>
+    <ul>
+      
+        <li>
+          <div class='flex flex-wrap my-2'>
+            
+              <span data-nosnippet class='mr-2 text-right text-gray-600'>
+              </span>
+            
+            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/game/baduk'>
+              baduk
+            </a>
+          </div>
+        </li>
+      
+    </ul>
   </div>
-    <hr class='mb-3' />
-  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
+</nav><div class='text-gray-400 border-t-2 inline-block pt-0.5'>
     <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/prelude/tiny-brot' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>prelude-10-80/tiny-brot</a>
-    </p>
-  </div><img class='inline mb-3' src='static/tiny-brot.gif' alt='tiny-brot' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>#!/usr/bin/env runhaskell
-w=80;h=24;z2 (cx,cy) (x,y) = (cx +(x*x-y*y), cy +2*x*y)
-r=(-0.5);p=[(x,y)|y&lt;-[0..h],x&lt;-[0..w+1]];mb=(-1.4844,0)
-main = interact (foldMap go . zip [00..] . mappend "g")
-dot (x,y) = let l=abs(x*y) in if isNaN l then 42 else l
-coord z (c,d)(x,y) = (c+z*(x-w/2)/w, (d+z*(y-h/2)/h)*r)
-brot c p = dot . last . take c . iterate (z2 p) $ (0,0)
-zoom x = 4.18-4.179*(1-cos(x/10)**8); d _ (81,_) = "\n"
-d z c = if brot 150 (coord z mb c)&gt;20 then " " else "λ"
-go (x,_)="\ESCctiny-brot\n" &lt;&gt; concatMap (d (zoom x)) p
--- ^10 ----------------------------------------- 55&gt; --</code></pre></div>
-    <p class='mb-3'>
-      I like this one because it manages to show self-similarity.
-    </p>
-  </div>
-    <hr class='mb-3' />
-  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
-    <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/hackage/lazy-march' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>hackage-10-80/lazy-march</a>
-    </p>
-  </div><img class='inline mb-3' src='static/lazy-march.gif' alt='lazy-march' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>#!/usr/bin/env -S stack script --resolver lts-20 --package ansi-terminal-game
-import Terminal.Game;w=80;h=20;go t=foldr (m (t/10) 0)(blankPlane (i w) (i h)) p
-p=[(i x, i y, (x/w*2-1, (y/h*2-1)*0.2, -10)) | y&lt;-[0..h], x&lt;-[0..w]];s=sin;c=cos
-main=playGame (Game 13 0 (\_ t _-&gt;t+1) (const go) (const False));i=round
-l3 (x,y,z)=sqrt(x*x+y*y+z*z);m3 (x,y,z)=(max x 0, max y 0, max z 0)
-sdBox h w (x,y,z)=l3(m3(abs x-w,abs y-h,abs z-0.03));o(x,y,z)=(x+0.05, y-0.4, z)
-scene p=min (sdBox 0.8 0.05 (rot 1 p)) (sdBox 0.4 0.04 (o (rot (-1) p)))
-rot t (x,y,z)=(x*cos t - y*sin t, x*sin t + y*cos t, z);m _ 10 _ = id
-m t n (ix,iy,(x,y,z))=let a=x*cos(t)-z*sin t;c=x*sin(t)+z*cos t;d=scene(a,y,c)in
-  if d &lt;= 0.01 then (iy,ix) % cell '%' else m t (n+1) (ix,iy,(x,y,z+d))</code></pre></div>
-    <p class='mb-3'>
-      A 3d render demo using a ray-marcher.
-    </p>
-  </div>
-    <hr class='mb-3' />
-  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
-    <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/default/tsp' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>default-10-80/tsp</a>
-    </p>
-  </div><img class='inline mb-3' src='static/tsp.gif' alt='tsp' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import System.IO; import Control.Concurrent; import Data.ByteString(elemIndices,
- hGetNonBlocking,hPut); import Data.ByteString.Char8(pack); q=hPut stdout . pack
-main=hSetBuffering stdin NoBuffering&gt;&gt;hSetEcho stdin False&gt;&gt;go i; o=True; m=max;
-i=(-30,0,0,0,' ');s v|v&gt;=0="&gt;"|o="&lt;";c t|t&lt;0=show (t`div`10)|o="";l=2900;d="--,"
-p 0(_,p,v,_,_)="VEL "++show v++" | ALT "++show p;p 1_=d++[' '|_&lt;-[0..69]]++"~|~"
-p 2(t,p,v,_,f)=[' '|_&lt;-[0..floor(p/40)]]++f:s v++c t;z t v|v&gt;(-50)=print t|o=q""
-r s=q$"\ESCc=&lt;&lt; TSP &gt;&gt;=   | "++(unlines$map(flip p s)[0..2]);y=flip elemIndices;
-go s=r s&gt;&gt;threadDelay 100000&gt;&gt;(hGetNonBlocking stdin 42&gt;&gt;=e s);e(t,p,v,h,_)i=let
- j=(/=[]).y i;f=j 102;r=j 114;g|f='*'|r='['|o=' ';n|f=5|r=(-5)|o=0;q=m 0(p+v-1);
- c|t&lt;0=0|o=1;in if (q==0&&amp;h&gt;l) then z t v else go(t+1, c*q, c*(v+n-1), m h p, g)</code></pre></div><div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>You are a rocket pilot flying for the Tiny Space Agency (TSA).
-Your goal is to deliver curry to the Tiny Space Station (TSS).
-There is no time to loose, you need to go as fast as possible.
-The world record, by Simon Kerman Jones, is under 9.9 seconds.</code></pre></div></div>
-    <hr class='mb-3' />
-  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
-    <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/base/flower-seeds' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>base-10-80/flower-seeds</a>
-    </p>
-  </div><img class='inline mb-3' src='static/flower-seeds.png' alt='flower-seeds' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import System.IO;import Control.Concurrent;import System.Environment;o=True
-r w=putStrLn("\^[cflower-seeds "++show w)&gt;&gt;traverse p(map c(g w));a[]=go i
-a(b:_)=go(read b);c(a,d)=(z$60+d*cos a,z$0.5*(50+d*sin a));z=round;j=(-1)
-i=(29.6,3,400);g(a,d,n)=take n$iterate(\(b,e)-&gt;(b+pi*a/90,e+d/30))(0,0)
-p (x,y)=threadDelay 1000&gt;&gt;putStrLn("\^[["++show y++";"++show x++"f❤")
-main = hSetBuffering stdin NoBuffering &gt;&gt; (getArgs &gt;&gt;= a); e(a,d,n)i=let
- b|i=='j'=j|i=='l'=1|o=0;e|i=='k'=j|i=='i'=1|o=0;m|i=='c'=(-1)|i=='v'=1|o=0
- in go (a+b/20,max 0.1(d+e/10),max 1(n+m*17));go w=r w &gt;&gt; (getChar &gt;&gt;= e w)</code></pre></div>
-    <p class='mb-3'>
-      Use this game to draw a flower for your Valentine.
-    </p>
-  </div>
-    <hr class='mb-3' />
-  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
-    <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/base/lambda-ray' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>base-10-80/lambda-ray</a>
-    </p>
-  </div><img class='inline mb-3' src='static/lambda-ray.gif' alt='lambda-ray' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>import Control.Concurrent; import System.Posix.Internals;w=100;q=0.4;n=min;c=cos
-p=[(x/w*2-1,(y/20*2-1)*0.2)| y&lt;-[0..20], x&lt;-[0..w+1]];t=max 0;o=True;a=abs;s=sin
-main=go 0;r t (x,y,z)=(x*c t - y*s t, x*s t + y*c t, z);v=sqrt;u _(1.02,_)= '\n'
-u t(x,y)=m t 0(10*x,10*y,-5);b h w(x,y,z)=v(t(a x-w)**2+t(a y-h)**2+t(a z-q)**2)
-go n=puts("\^[c\n"++map(u(n/6.3))p)&gt;&gt;threadDelay 100000&gt;&gt;go(n+1);h p@(x,y,z)=let
- a=b 5q;l=(x+3,y,z);i|y&gt;=0=a(r(-1)l)|o=9;j|y&lt;0=a(r 1l)|o=9;k=a(r 1p)
- c|y&gt;0=a(r(-1)p)|o=9;m=b 5 2(r 1(x-6,y,z));g s=b 6 0.2 (r(pi/2)(x-1,y+s*q,z))
- e=max m(n(g 1)(g(-1))) in n(n i j)(n e(n k c));m _ 20 _=' ';m t n(x,y,z)=let
- a=x*c(t)-z*s t;b=x*s t+z*c t;nz=h(a,y,b+q)-h(a,y,b-q);ny=h(a,y+q,b)-h(a,y-q,b)
- d=h(a,y,b);g|nz&lt;0='o'|ny&lt;0='&gt;'|o='.';r|d&lt;0.01=g|o=m t(n+1)(x,y,z+d);q=0.001in r</code></pre></div>
-    <p class='mb-3'>
-      This demo renders a rotating Haskell logo in 3D.
-    </p>
-  </div>
-    <hr class='mb-3' />
-  <div class='flex flex-col items-center justify-center place-content-center'><div class='w-full text-center'>
-    <p class='mb-3'>
-      <a href='https://github.com/haskell-game/tiny-games-hs/tree/main/prelude/quine' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>prelude-10-80/quine</a>
-    </p>
-  </div><img class='inline mb-3' src='static/quine.png' alt='quine' style='width: inherit;' /><div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>#!/usr/bin/env runghc
-q=t 34;e=t 92;n=t 10;d='-';t=toEnum;z="-- ^10 ";b('#':'!':y)=q:'#':'!':b y
-b[]=q:c;b(x:y)|x==n=e:'n':e:n:e:b y|x==q=e:q:b y|o=x:b y;l="SPDX: CC0-1.0"
-s=n:z++[d|_&lt;-[0..66]]++" 80&gt; --"++n:"{- prelude-10-80/quine (tristanC)"
-o=True;c=n:s++n:l++n:"-}";main=putStrLn(s++b s)where s="#!/usr/bin/env runghc\n\
-\q=t 34;e=t 92;n=t 10;d='-';t=toEnum;z=\"-- ^10 \";b('#':'!':y)=q:'#':'!':b y\n\
-\b[]=q:c;b(x:y)|x==n=e:'n':e:n:e:b y|x==q=e:q:b y|o=x:b y;l=\"SPDX: CC0-1.0\"\n\
-\s=n:z++[d|_&lt;-[0..66]]++\" 80&gt; --\"++n:\"{- prelude-10-80/quine (tristanC)\"\n\
-\o=True;c=n:s++n:l++n:\"-}\";main=putStrLn(s++b s)where s="
-
--- ^10 ------------------------------------------------------------------- 80&gt; --
-{- prelude-10-80/quine (tristanC)
-SPDX: CC0-1.0
--}</code></pre></div>
-    <p class='mb-3'>
-      A self replicating demo
+      Note: To override the auto-generated content here, create a file named one of: <span class='font-mono text-sm'>zettle/game.md, zettle/game.org</span>
     </p>
   </div>
   <!-- What goes in this file will appear below the note body-->
@@ -571,27 +455,9 @@ SPDX: CC0-1.0
     
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
-      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
-        Perhaps Emanote should inject tagMetas with urls.
-      -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
-        <!-- DoNotFormat -->
-        #haskell
-        <!-- DoNotFormat -->
-      </a>
-    
-      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
-        Perhaps Emanote should inject tagMetas with urls.
-      -->
-      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/game'>
-        <!-- DoNotFormat -->
-        #game
-        <!-- DoNotFormat -->
-      </a>
-    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/project/feb-23-tiny-game.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/zettle/game.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
