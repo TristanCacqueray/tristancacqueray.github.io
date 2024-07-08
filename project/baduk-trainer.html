@@ -18,7 +18,7 @@
   </title>
   
     
-      <meta property='og:description' content='A web application to learn the game of baduk.' />
+      <meta property='og:description' content='A web application to learn the game of [[baduk]].' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content='https://tristancacqueray.github.io/' />
       <meta property='og:type' content='website' />
@@ -60,7 +60,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=31a4196e-c898-42f5-9333-321e9ca159cb' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b754dbfe-b20e-4ccd-b460-0fd21364e284' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -421,7 +421,7 @@ window.MathJax = {
 
 
     <p class='mb-3'>
-      A web application to learn the game of baduk.
+      A web application to learn the game of <a href='zettle/game/baduk' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkBranch'>Game of Go</a>.
     </p>
   
     <p class='mb-3'>
@@ -457,6 +457,15 @@ window.MathJax = {
       <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/game'>
         <!-- DoNotFormat -->
         #game
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/baduk'>
+        <!-- DoNotFormat -->
+        #baduk
         <!-- DoNotFormat -->
       </a>
     
