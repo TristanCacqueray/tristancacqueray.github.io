@@ -6,6 +6,13 @@ page:
     <with var="js">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${value:highlightjs-ver}/languages/lisp.min.js"></script>
     </with>
+    <script src="/static/godiag.js"></script>
+    <style>
+    code.baduk {
+      background-color: white;
+      color: black;
+    }
+    </style>
     <snippet var="js.mermaid" />
     <script>
     window.MathJax = {
@@ -15,7 +22,6 @@ page:
     };
     </script>
     <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
 
 template:
   uptree:

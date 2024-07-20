@@ -1,7 +1,7 @@
 ---
-title: Game of Go
+title: Initiation to the Game of Go
 tags:
-  - baduk
+  - weiqi
 ---
 
 Initiation instructions pulled from [Comment transmettre sa passion aux débutants](https://www.youtube.com/watch?v=4uRUuZNVvqM)
