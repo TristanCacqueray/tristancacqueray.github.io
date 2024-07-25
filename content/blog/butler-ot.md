@@ -158,7 +158,7 @@ flowchart LR
     end
 ```
 
-The ot.js uses the same API so it was easy to integrate.
+The [ot.js][ot.js] uses the same API so it was easy to integrate.
 The first step is to initialize the state and setups the callbacks:
 
 ```javascript
@@ -215,7 +215,7 @@ Fortunately, this is a known problem that can be solved with operational transfo
 I found a suitable server and client implementation that works well inside #[[butler]] architecture.
 
 The Haskell version helped me figure out how to use OT and I found that the code was well thought out, with
-many property tests. The author also wrote a formalization in Coq, a theorem prover, to provide a formal
+many property tests. The author also wrote a [formalization in Coq][ot.v], a theorem prover, to provide a formal
 proof that the algorithm is sound.
 
 My integration seems to work well, and I'm looking forward to adding new features, such as
@@ -223,6 +223,8 @@ supporting rich text and providing a revision system.
 Thanks for your time!
 
 [ot.hs]: https://github.com/Operational-Transformation/ot.hs
+[ot.js]: https://github.com/Operational-Transformation/ot.js
+[ot.v]: https://github.com/Operational-Transformation/ot.v
 [quill]: https://quilljs.com/
 [quill-cursors]: https://www.npmjs.com/package/quill-cursors
 [butler]: https://github.com/ButlerOS/haskell-butler
