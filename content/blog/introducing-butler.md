@@ -7,7 +7,7 @@ tags:
   - butler
 ---
 
-This post introduces [haskell-butler][butler], a virtual operating system that runs multi-players applications on the web.
+This post introduces #[[butler]], a virtual operating system that runs multi-players applications on the web.
 In two parts, I present:
 
 - The project's overview, and,
