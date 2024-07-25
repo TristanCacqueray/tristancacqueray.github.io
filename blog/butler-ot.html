@@ -14,15 +14,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Programing Languages – Tristan's Zettelkasten
+    Adding Operational Transformation To Butler – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content='Language paradigms includes:' />
+      <meta property='og:description' content='Butler is a web-based multiplayer virtual operating system that features collaborative applications. This post shows how I integrated Operational Transformation (OT) to enable users to simultaneously edit a text document in Butler.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='https://tristancacqueray.github.io/' />
+      <meta property='og:image' content='https://tristancacqueray.github.io/blog/media/ot-wiki.png' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Programing Languages' />
+      <meta property='og:title' content='Adding Operational Transformation To Butler' />
       
         <meta name='twitter:card' content='summary_large_image' />
       
@@ -357,9 +357,20 @@ window.MathJax = {
           
             <li>
 
-  <a href='zettle'>
+  <a href='project/butler'>
     <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
-      Zettelkasten
+      ButlerOS
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href='project'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Projects
     </div>
   </a>
 
@@ -378,6 +389,21 @@ window.MathJax = {
 </li>
       
     </ul>
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+            <li>
+
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Blog
+    </div>
+  </a>
+
   
 </li>
           
@@ -407,7 +433,7 @@ window.MathJax = {
   <main class='px-4 py-4'>
     <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Programing Languages
+    Adding Operational Transformation To Butler
   </a>
 </h1>
     
@@ -422,33 +448,43 @@ window.MathJax = {
 
 
 
-    <h2 id='references' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
-      
-  References
+    <p class='mb-3'>
+      <a href='https://github.com/ButlerOS/haskell-butler' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Butler</a> is a web-based multiplayer virtual operating system that features collaborative applications. This post shows how I integrated Operational Transformation (OT) to enable users to simultaneously edit a text document in Butler.
+    </p>
   
-  <a href='zettle/programing-languages#references' class='--ema-anchor'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
+    <p class='mb-3'>
+      In three parts, I present:
+    </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          <a href='https://www.cs.cmu.edu/~crary/819-f09/Landin66.pdf' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>The Next 700 Programming Languages</a>, a thoughtful paper from the 60s. Eric Normand read and comment it in <a href='https://lispcast.com/the-next-700-programming-languages/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>this lispcast podcast</a>.
+          The flaw in my initial implementation.
+        </li>
+      
+        <li>
+          How to use the <a href='https://github.com/Operational-Transformation/ot.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>ot.hs</a> library.
+        </li>
+      
+        <li>
+          An integration with the <a href='https://quilljs.com/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>quill</a> editor.
         </li>
       
     </ul>
-  
-    <h2 id='paradigms' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+  <div class='flex items-center justify-center'><span title='Link is broken'><s>![logo](media/ot-wiki.png)</s>❌</span></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
       
-  Paradigms
+    <p class='mb-3'>
+      Image by <a href='https://commons.wikimedia.org/w/index.php?curid=7123571' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Nusnus - Own work, CC BY-SA 3.0</a>
+    </p>
   
-  <a href='zettle/programing-languages#paradigms' class='--ema-anchor'>
+    </blockquote>
+  
+    <h2 id='context-and-problem-statement' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Context and problem statement
+  
+  <a href='blog/butler-ot#context-and-problem-statement' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -459,38 +495,76 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      Language paradigms includes:
+      Butler’s text editor, Noter, is the default document editing application. Each user has their own cursor, and can simultaneously update the document. The initial implementation simply broadcasted the users’ events without considering potential conflicts.
     </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          <a href='zettle/programing-languages/structured-programing' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Structured Programing</a>
-        </li>
-      
-        <li>
-          <a href='zettle/programing-languages/modular-programing' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Modular Pograming</a>
-        </li>
-      
-        <li>
-          <a href='zettle/programing-languages/imperative-programing' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Imperative Programing</a>
-        </li>
-      
-        <li>
-          <a href='zettle/programing-languages/declarative-programing' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Declarative Programing</a>
-        </li>
-      
-    </ul>
   
     <p class='mb-3'>
-      Language may feature a <a href='zettle/programing-languages/type-system' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Type System</a>.
+      The events were composed of a line and column position along with an insert or delete operation. This worked well, as long as concurrent edits happened on different lines, and no lines were added nor removed above another cursor.
     </p>
   
-    <h2 id='language-list' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
-      
-  Language list
+    <p class='mb-3'>
+      Unfortunately, as demonstrated by the following scenario, there was a risk of desynchronization:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='mermaid language-mermaid'>sequenceDiagram
+    actor Alice
+    participant Server
+    actor Bob
+
+    activate Alice
+    Note left of Alice: first
+    Alice-&gt;&gt;Server: Insert "first" at line 1
+    deactivate Alice
+    Note over Server: first
+
+    Server-&gt;&gt;Bob  : Insert "first" at line 1
+    Note right of Bob: first
+
+    par Acceptable Concurrent Edits
+        activate Bob
+        Note right of Bob: first&lt;br /&gt;second
+        Bob-&gt;&gt;Server  : Insert "second" at line 2
+        deactivate Bob
+        Note over Server: first&lt;br /&gt;second
+
+        activate Alice
+        Note left of Alice: first item
+        Alice-&gt;&gt;Server: Insert "item" at line 1
+        deactivate Alice
+        Note over Server: first item&lt;br /&gt;second
+
+        Server-&gt;&gt;Alice: Insert "second" at line 2
+        Server-&gt;&gt;Bob:   Insert "item" at line 1
+        Note left of Alice: first item&lt;br /&gt;second
+        Note right of Bob: first item&lt;br /&gt;second
+    end
+
+    critical Broken Edits
+        activate Alice
+        Note left of Alice: first item&lt;br /&gt;new line&lt;br /&gt;second
+        Alice-&gt;&gt;Server: Insert "\nnew line" at line 1
+        deactivate Alice
+        Note over Server: first item&lt;br /&gt;new line&lt;br /&gt;second
+
+        activate Bob
+        Note right of Bob: first item&lt;br /&gt;second item
+        Bob-&gt;&gt;Server  : Insert "item" at line 2
+        deactivate Bob
+        Note over Server: first item&lt;br /&gt;new line item&lt;br /&gt;second
+
+        Server-&gt;&gt;Bob: Insert "\nnew line" at line 1
+        Server-&gt;&gt;Alice: Insert "item" at line 2
+        Note left of Alice: first item&lt;br /&gt;new line item&lt;br /&gt;second
+        Note right of Bob: first item&lt;br /&gt;new line&lt;br /&gt;second item
+    end</code></pre></div>
+    <p class='mb-3'>
+      In this case, the last edits from Bob happened at the wrong line, and the documents are no longer synchronized. I tried to manually take into account the previous events, before quickly realizing that this is a hard problem with many edge cases. Fortunately, I discovered the OT algorithm which nicely solves this issue.
+    </p>
   
-  <a href='zettle/programing-languages#language-list' class='--ema-anchor'>
+    <h2 id='ot-with-haskell' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  OT with Haskell
+  
+  <a href='blog/butler-ot#ot-with-haskell' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -499,328 +573,150 @@ window.MathJax = {
 
 
     </h2>
-  <nav>
-  <div class='mb-8'>
-    <header data-nosnippet class='pb-2 mb-2 font-semibold text-gray-600'>
-      Pages tagged #pl
-    </header>
-    <ul>
+  
+    <p class='mb-3'>
+      OT’s core idea is to transform and compose operations to maintain the document consistency. Tim Baumann, the creator of the Operational-Transformation GitHub group implemented OT with Haskell.
+    </p>
+  
+    <p class='mb-3'>
+      The API defines a text operation with a list of actions:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>newtype Operation = Operation [Action]
+data Action = Retain Int | Insert Text | Delete Int</code></pre></div>
+    <p class='mb-3'>
+      To perform the transformations, the API features the following functions to manage the server and clients states:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='haskell language-haskell'>-- | Text editor produces a new operation.
+-- Return wheter to send the operation to the server.
+applyClient :: ClientState -&gt; Operation -&gt; (Bool, ClientState)
+
+-- | Server receives the operation.
+-- Return the operation to be broadcasted to all clients.
+applyOperation :: ServerState -&gt; Revision -&gt; Operation -&gt; (Operation, ServerState)
+
+-- | Emiting editor acknowledge the edit.
+-- Return an optional operation that must be sent to the server.
+serverAck :: ClientState -&gt; Maybe (Maybe Operation, ClientState)
+
+-- | Other editors receive the server operation.
+-- Return the transformed operation that must be applied to the local doc.
+applyServer :: ClientState -&gt; Operation -&gt; (Operation, ClientState)</code></pre></div>
+    <p class='mb-3'>
+      The state can be created with the <code class='py-0.5 px-0.5 bg-gray-100'>initialState</code> helpers, and the revision is just a number that the client must increment each time it receives a server event. That’s all it takes to integrate OT with Haskell.
+    </p>
+  
+    <p class='mb-3'>
+      For the end-user text edition, I found the <a href='https://quilljs.com/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>quill</a> project which conveniently provides text change events as delta objects that are suitable for OT. So I put together a simple demo in this <a href='https://github.com/TristanCacqueray/haskell-xstatic/commit/204fbda0aeb36a26b518ea418516efd55d0a1b40' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>commit</a>. Unfortunately, it didn’t work well because the <code class='py-0.5 px-0.5 bg-gray-100'>ClientState</code> can’t be managed on the server side. I tried to fiddle with the web-socket protocol to roundtrip the events and ensure consistency, but this became unusable on high latency connections.
+    </p>
+  
+    <p class='mb-3'>
+      Thankfully, Tim also implemented a JavaScript implementation for OT, as well as a formalization in Coq. The next section explains my final implementation.
+    </p>
+  
+    <h2 id='integration-with-quill' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/context-free-art'>
-              Context Free
-            </a>
-          </div>
-        </li>
+  Integration with Quill
+  
+  <a href='blog/butler-ot#integration-with-quill' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      To make this work, the server must only be in charge of applying operations and broadcasting the events to the connected clients. Therefore, it is necessary to perform client transformations in the user’s browser so that the client state is synchronized with their local document.
+    </p>
+  
+    <p class='mb-3'>
+      Here is the final architecture I used:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='mermaid language-mermaid'>flowchart LR
+    subgraph Haskell Server
+      SW[Servant WebSocket] --&gt; S[ot.hs applyOperation]
+    end
+    subgraph JavaScript Client 2
+      AS[ot.js applyServer] --&gt; Q2[Quill]
+      S --&gt; AS
+    end
+    subgraph JavaScript Client 1
+      Q1[Quill] --&gt; AC[ot.js applyClient]
+      SA[ot.js serverAck] --&gt; SW
+      AC --&gt; SW
+      S --&gt; SA
+    end</code></pre></div>
+    <p class='mb-3'>
+      The ot.js uses the same API so it was easy to integrate. The first step is to initialize the state and setups the callbacks:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>// Local client state (from ot.js)
+const client = new ot.Client(0)
+
+// How to send operation to the server
+client.sendOperation = (rev, op) =&gt; {
+  webSocket.send(JSON.stringify([rev, op]))
+}
+
+// How to apply operation to the local document
+client.applyOperation = (op) =&gt; {
+  quill.updateContents({ops: op.ops.map(decodeDelta)}, "api")
+}</code></pre></div>
+    <p class='mb-3'>
+      Here is the web-socket connection to the central server:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>const webSocket = new WebSocket("ws://" + window.location.host + "/ws");
+webSocket.onmessage = (event) =&gt; {
+  const op = JSON.parse(event.data)
+  if (op === null) {
+    client.serverAck()
+  } else {
+    // Update the local state with server operation
+    client.applyServer(ot.TextOperation.fromJSON(op))
+  }
+}</code></pre></div>
+    <p class='mb-3'>
+      Finally, the quill editor is configured like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='javascript language-javascript'>const quill = new Quill('#editor')
+quill.on('text-change', (delta, oldDelta, source) =&gt; {
+  if (source === "user") {
+    const op = ot.TextOperation.fromJSON(delta.ops.map(encodeDelta))
+    // Update the local state with local operation
+    client.applyClient(op)
+  }
+})</code></pre></div>
+    <p class='mb-3'>
+      Checkout the <a href='https://github.com/TristanCacqueray/haskell-xstatic/blob/quill-ot/demo-quill-ot/Server.hs' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Server.hs</a> module to see the full implementation. Note that this version is completely standalone, and it also implements users’ selection with <a href='https://www.npmjs.com/package/quill-cursors' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>quill-cursors</a>.
+    </p>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/ML'>
-              ML
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/agda'>
-              Agda
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/ats'>
-              ATS
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/c'>
-              C
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/clean'>
-              clean
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/coq'>
-              Coq
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/dhall'>
-              Dhall
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/elixir'>
-              Elixir
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/elm'>
-              Elm
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/emacs-lisp'>
-              Emacs Lisp
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/gleam'>
-              Gleam
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/glsl'>
-              GLSL
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/haskell'>
-              Haskell
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/hy'>
-              Hy
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/idris'>
-              Idris
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/javascript'>
-              JavaScript
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/lean'>
-              Lean4
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/nix'>
-              Nix
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/ocaml'>
-              OCaml
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/purescript'>
-              Purescript
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/python'>
-              Python
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/reason'>
-              Reason
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/rescript'>
-              ReScript
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/rust'>
-              Rust
-            </a>
-          </div>
-        </li>
-      
-        <li>
-          <div class='flex flex-wrap my-2'>
-            
-              <span data-nosnippet class='mr-2 text-right text-gray-600'>
-              </span>
-            
-            <a class='flex-1 text-blue-600 mavenLinkBold border-l-2 pl-2 hover:underline' href='zettle/programing-languages/scheme'>
-              Scheme
-            </a>
-          </div>
-        </li>
-      
-    </ul>
-  </div>
-</nav>
+  Conclusion
+  
+  <a href='blog/butler-ot#conclusion' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      My initial text editor implementation had a serious flaw when multiple users simultaneously edited a document resulted in desynchronization. Fortunately, this is a known problem that can be solved with operational transformation (OT), and I found a suitable server and client implementation that works well inside <a href='project/butler' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkTag'>ButlerOS</a> architecture.
+    </p>
+  
+    <p class='mb-3'>
+      The Haskell version helped me figure out how to use OT and I found that the code was well thought out, with many property tests. The author also wrote a formalization in Coq, a theorem prover, to provide a formal proof that the algorithm is sound.
+    </p>
+  
+    <p class='mb-3'>
+      My integration seems to work well, and I’m looking forward to adding new features, such as supporting rich text and providing a revision system. Thanks for your time!
+    </p>
+  
   <!-- What goes in this file will appear below the note body-->
 </article>
         </div>
@@ -830,9 +726,9 @@ window.MathJax = {
     
         <ul class='ml-2'>
           
-            <li class='whitespace-nowrap truncate mt-2' title='References'>
-              <a href='zettle/programing-languages#references' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                References
+            <li class='whitespace-nowrap truncate mt-2' title='Context and problem statement'>
+              <a href='blog/butler-ot#context-and-problem-statement' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context and problem statement
               </a>
               
         <ul class='ml-2'>
@@ -841,9 +737,9 @@ window.MathJax = {
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Paradigms'>
-              <a href='zettle/programing-languages#paradigms' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Paradigms
+            <li class='whitespace-nowrap truncate mt-2' title='OT with Haskell'>
+              <a href='blog/butler-ot#ot-with-haskell' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                OT with Haskell
               </a>
               
         <ul class='ml-2'>
@@ -852,9 +748,20 @@ window.MathJax = {
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Language list'>
-              <a href='zettle/programing-languages#language-list' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Language list
+            <li class='whitespace-nowrap truncate mt-2' title='Integration with Quill'>
+              <a href='blog/butler-ot#integration-with-quill' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Integration with Quill
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/butler-ot#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
               </a>
               
         <ul class='ml-2'>
@@ -926,95 +833,31 @@ window.MathJax = {
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
-  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
-    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
-    <ul class='space-y-1'>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='project/devenv'>
-            devenv
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>Provide the best in class developer experience for <a href='zettle/programing-languages' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Programing Languages</a> enthusiast.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href=''>
-            Tristan de Cacqueray
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>I am passionate about <a href='zettle/free-software' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Free Software</a>, <a href='zettle/programing-languages' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Programing Languages</a>, <a href='zettle/computer-graphics' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Computer Graphics</a> and <a href='zettle/music' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Music</a>. Check out my <a href='blog' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Blog</a>, <a href='project' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Projects</a> and <a href='contributions' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Contributions</a>.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='zettle/programing-languages/structured-programing'>
-            Structured Programing
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>A <a href='zettle/programing-languages' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Programing Languages</a> paradigm emerged in the late 1950s with ALGOL, this paradigm introduced:</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='zettle/programing-languages/imperative-programing'>
-            Imperative Programing
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>A <a href='zettle/programing-languages' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Programing Languages</a> paradigm that uses statements to change a program’s state. Contrast with <a href='zettle/programing-languages/declarative-programing' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Declarative Programing</a>.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-        <li>
-          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href='zettle/programing-languages/declarative-programing'>
-            Declarative Programing
-          </a>
-          
-            <div class='mb-4 overflow-auto text-sm text-gray-500'>
-  
-    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
-      <div><p>A <a href='zettle/programing-languages' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Programing Languages</a> paradigm that expresses the logic of a computation without describing its control flow. Contrast with <a href='zettle/programing-languages/imperative-programing' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Imperative Programing</a>.</p></div>
-    </div>
-  
-</div>
-          
-        </li>
-      
-    </ul>
-  </div>
-
     </div>
     
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/haskell'>
+        <!-- DoNotFormat -->
+        #haskell
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/ot'>
+        <!-- DoNotFormat -->
+        #ot
+        <!-- DoNotFormat -->
+      </a>
+    
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/zettle/programing-languages.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/butler-ot.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
