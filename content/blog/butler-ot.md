@@ -228,4 +228,4 @@ Thanks for your time!
 [quill]: https://quilljs.com/
 [quill-cursors]: https://www.npmjs.com/package/quill-cursors
 [butler]: https://github.com/ButlerOS/haskell-butler
-[Server.hs]: https://github.com/TristanCacqueray/haskell-xstatic/blob/quill-ot/demo-quill-ot/Server.hs
+[Server.hs]: https://github.com/TristanCacqueray/haskell-xstatic/blob/main/demo-quill-ot/Server.hs
