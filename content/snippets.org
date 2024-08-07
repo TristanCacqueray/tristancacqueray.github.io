@@ -145,6 +145,14 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 #+END_SRC
 
 
+* pdf
+
+split in half a double-page scanned PDF in a single pass:
+
+#+begin_src bash
+mutool poster -r -x 2 in.pdf out.pdf
+#+end_src
+
 * gnuplot
 ** nice looking charts from CSV
 From https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html
