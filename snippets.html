@@ -39,6 +39,13 @@
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
 
+<script src='/static/godiag.js'></script>
+<style>
+code.baduk {
+  background-color: white;
+  color: black;
+}
+</style>
 <!-- mermaid.js --><script type='module'>
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: false });
@@ -56,7 +63,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=3478a325-5d90-414d-b3a6-9ec941ab5483' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=2ed4c65b-54c2-427e-9e85-f931442db8d7' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -775,6 +782,25 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     </h3>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>// Use imagemagick to test that your image is what you want
 'compare -metric RMSE actual.png expected.png',
+</code></pre></div>
+    <h1 id='pdf' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  pdf
+  
+  <a href='snippets#pdf'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <p class='mb-3'>
+      split in half a double-page scanned PDF in a single pass:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>mutool poster -r -x 2 in.pdf out.pdf
 </code></pre></div>
     <h1 id='gnuplot' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
       
