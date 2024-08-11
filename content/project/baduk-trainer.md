@@ -7,7 +7,7 @@ tags:
   - baduk
 ---
 
-A web application to learn the game of [[baduk]]#.
+A web application to learn the game of [[weiqi]].
 
 It is written with [[purescript]] and halogen. It integrate a gnugo built for [[wasm]].
 

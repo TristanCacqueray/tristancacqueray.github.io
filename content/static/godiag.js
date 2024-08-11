@@ -215,7 +215,7 @@ if (typeof window.GoDiagram === 'undefined') {
       } else this.leftborder = 0
 
       // right border
-      this.endcol = this.rows[this.startrow].length - 2
+      this.endcol = this.rows[this.startrow].length - 1
       if (this.rows[this.endrow][this.endcol] == "%") {
         this.endcol--
         this.rightborder = 1
@@ -261,7 +261,7 @@ if (typeof window.GoDiagram === 'undefined') {
     this.content = this.inputDiagram.split("\n")
     // Parse the parameters of the first line
 
-    let match = this.content[0].trim().match(/^\$\$([WB])?(c)?(d+)?(.*)/)
+    let match = this.content[0].trim().match(/^\$\$([WB])?(c)?(\d+)?(.*)/)
     if (match === null) {
       this.failureErrorMessage = "Parsing of ASCII diagram failed"
       return
@@ -889,7 +889,7 @@ if (typeof window.GoDiagram === 'undefined') {
     var leftX = 6 + this.fontSize["w"]
     var img_y =
       12 + this.fontSize["h"] + 2 + this.radius - this.fontSize["h"] / 2
-    for (var y = 0; y <= this.endrow - this.startrow - 1; y++) {
+    for (var y = 0; y < this.endrow - this.startrow - 1; y++) {
       var Xoffset = coordY >= 10 ? this.fontSize["w"] : this.fontSize["w"] / 2
       svgElem =
         '<text x="' +
@@ -913,7 +913,7 @@ if (typeof window.GoDiagram === 'undefined') {
     var topY = 18
     var img_x =
       2 + this.fontSize["w"] * 2 + 4 + this.radius - this.fontSize["w"] / 2
-    for (var x = 0; x <= this.endcol - this.startcol; x++) {
+    for (var x = 0; x < this.endcol - this.startcol; x++) {
       svgElem =
         '<text x="' +
         img_x +
