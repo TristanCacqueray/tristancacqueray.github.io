@@ -487,6 +487,15 @@ if (typeof window.GoDiagram === 'undefined') {
             this.offset_x
           // Get the character
           var curchar = this.rows[ypos][xpos]
+          var mark = null
+          if (curchar) {
+            mark = curchar.match(/.(\d+)/)
+            if (mark !== null) {
+               curchar = curchar[0]
+               mark = mark[1]
+               console.log("MATCHED", curchar, mark[1])
+            }
+          }
 
           // FIXME: TODO
           /** Is this a linked area? if so,
@@ -640,6 +649,33 @@ if (typeof window.GoDiagram === 'undefined') {
                 "</text>\n"
               break
           } // end of switch curchar
+          if (mark !== null) {
+              var xOffset =
+                parseInt(mark) >= 10
+                  ? this.fontSize["w"]
+                  : this.fontSize["w"] / 2
+              var yOffset = this.fontSize["h"] / 2 - 12.5
+            var fill = "white"
+            if (curchar == "O") {
+               fill = "black"
+            }
+            const svgMark =
+                '<text x="' +
+                (elementX - xOffset).toString() +
+                '" y="' +
+                (elementY - yOffset).toString() +
+                '" fill="' +
+                fill +
+                '" class="' +
+                markupClass +
+                '" ' +
+                svgMarkupTextSize +
+                ">" +
+                mark +
+                "</text>\n";
+            console.log("Drawing", svgMark)
+            svgItem += svgMark
+          }
           imgSvg["svgDiagram"] += svgItem
         } // end of xpos loop
       } // end of ypos loop

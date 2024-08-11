@@ -1,4 +1,6 @@
-# Go Proverbs
+# Learn Go
+
+This page is a work in progress.
 
 - "Tenuki is always an option" [sensei](https://senseis.xmp.net/?TenukiIsAlwaysAnOption)
 

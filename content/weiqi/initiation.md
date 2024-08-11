@@ -4,31 +4,32 @@ tags:
   - weiqi
 ---
 
-Initiation instructions pulled from [Comment transmettre sa passion aux débutants](https://www.youtube.com/watch?v=4uRUuZNVvqM)
+This document contains instructions to introduce the game, according to [Comment transmettre sa passion aux débutants](https://www.youtube.com/watch?v=4uRUuZNVvqM).
+An experienced player can follow this procedure to teach the game to a complete beginner.
 
 ## Atarigo
 
-- Give basic instructions:
-  - Black start, then white, then black, etc...
-  - Once placed, stones never move,
-  - But you can capture.
+Start by playing atarigo. Give basic instructions:
+- Black start, then white, then black, etc...
+- Once placed, stones never move,
+- But you can capture by surrounding your opponent stones.
 
-> Games starts with `good game`, and ends with `thanks for the game`.
-
-- Explain how to capture
+Explain how to capture:
 
 ```baduk
-$$ 9 How many stones to capture?
+$$ How many white stones to capture black?
 $$ | - - - - - -
 $$ | . . . . . .
 $$ | . . X X . .
 $$ | . . . . . .
 ```
 
-- You can start to play, let's do atarigo: first capture win.
+You can start to play atarigo: first player who capture win the game.
+
+> Games starts with `good game`, and ends with `thanks for the game`.
 
 ```baduk
-$$c9 Starting board with panda
+$$c9 Initial atarigo starting stones: the panda shape
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . . . . . . . . . |
@@ -44,30 +45,44 @@ $$ | - - - - - - - - - |
 
 ## Combat
 
-- Teach combat techniques:
-  - Atari
-  - Double atari
-  - Shicho
-  - Death row
+During the games, explain combat techniques:
+- Atari
+- Double atari
+- Shicho
+- Death row
 
+For example:
+```baduk
+$$ Black in a makes atari on white
+$$ | - - - - - -
+$$ | . . . . . .
+$$ | . . . a . .
+$$ | . . X O . .
+$$ | . . . X . .
+```
+
+If the situation doesn't happen, setup the following boards.
 
 ### Double atari
 
+
 ```baduk
-$$ Black to capture
+$$ Black in a creates a double atari
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . . . . . . . . . |
-$$ | . . . . O X . . . |
+$$ | . . . a O X . . . |
 $$ | . . . O X . . . . |
 $$ | . . O X . . . . . |
 $$ | . . . . . . . . . |
 ```
 
+> You win atarigo after performing a double atari
+
 ### Shicho
 
 ```baduk
-$$ Play a or b to trigger shicho on c
+$$ Black play a or b to threaten a shicho on c
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . . . c X . . . . |
@@ -80,7 +95,7 @@ $$ | . . . . . . . . . |
 ### Death row
 
 ```baduk
-$$ Death on the row
+$$ Black capture with a
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . a X . . . . . . |
@@ -95,39 +110,42 @@ $$ | . . . . . . . . . |
 
 ### Atari
 
+Check understanding of atari:
+
 ```baduk
-$$ How many stone to capture?
+$$ How many stones to capture 1 or 2?
 $$ | - - - - - - - - - |
-$$ | X . . . . . X . . |
+$$ | . . . 1 . . . . X2 |
 $$ | . . . . . . . . . |
 ```
 
 ### Shicho explained
 
-Show a defensive move and do mimetism.
+Show a defensive move `1` and mimetism with `2`.
 
 ```baduk
-$$ White to capture
+$$ Black capture with a
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . . . . . . . . . |
-$$ | . . . . . X . . . |
-$$ | . . . . O X . . . |
+$$ | . . . . . 1 . . . |
+$$ | . . . a O X . . . |
 $$ | . . . . X O . . . |
-$$ | . . . . . O . . . |
+$$ | . . . . . 2 . . . |
 $$ | . . . . . . . . . |
 ```
 
-> Keep the oponent at 2 liberties. Memotechnique: white goes out in a direction, black block
+> Shicho keeps the oponent at 2 liberties. Mnemonic: white goes out in a direction, black block.
 
-With shicho, you can win all atarigo game!
+Like double atari, finding a shicho is a winning move in atarigo.
 
 ## Territory
 
-- In go, we use the territory, the goal is divide the goban.
+In go, the goal is to get territory by dividing the goban.
+Play a regular game, using starting stones:
 
 ```baduk
-$$ Teach yose
+$$ Initial 9x9 game
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . . . . . . . . . |
@@ -141,21 +159,24 @@ $$ | . . . . . . . . . |
 $$ | - - - - - - - - - |
 ```
 
-- Explain that playing dead stone is forbidden.
+- Explain that playing dead stones is forbidden.
 
-Once the game done, explain that you can pass. Show how to arrange the stones to count the score.
+- Once the game done, explain that you can pass.
 
-- Maybe explain the komi? (7.5 points for black)
+- Show how to arrange the stones to count the score.
 
-Repeat by removig stone, e.g. without the middle columns.
+- Maybe explain the komi (7.5 points for black).
+
+Play more games by removig starting stones, e.g. without the middle columns.
 
 > Explain the niggiri to decide who starts.
 
+## Immortality
 
-- The last technique to learn is immortality. You need 2 eyes:
+The last technique to learn is immortality. A group needs 2 eyes:
 
 ```baduk
-$$ Learn immortality
+$$ Can white play a? Is left dead? Can white capture right?
 $$ | - - - - - - - - - |
 $$ | . O X a X O . . . |
 $$ | . O X X X O . . . |
@@ -169,18 +190,15 @@ $$ | O O O . . . O O O |
 $$ | - - - - - - - - - |
 ```
 
- -- Question: can you play `A`?
-
- -- Show that left group is dead.
-
- -- Question: can you capture right group?
-
 > Immortality requires 2 free distinct intersections.
 
 ### Handicap
 
+The teacher might want to try this handicap setup,
+Black is likely to win:
+
 ```baduk
-$$ Jean Paul Gachignard handicap:
+$$ Jean Paul Gachignard handicaps
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . . . . . . . . . |
@@ -194,7 +212,18 @@ $$ | . . . . . . . . . |
 $$ | - - - - - - - - - |
 ```
 
+Try again by removing one stone.
+
+## Ko
+
+Explain the last rules: board position must not be repeated, to avoid infinit capture loop.
+At that point, the training is completed.
+
+See [[learn]] to learn more
+
 ## Tools
 
-- goquest
+Try these tools to play alone:
+
+- goquest app
 - online-go.com
