@@ -4,7 +4,7 @@ tags:
   - weiqi
 ---
 
-This document contains instructions to introduce the game, according to [Comment transmettre sa passion aux débutants](https://www.youtube.com/watch?v=4uRUuZNVvqM).
+This document contains instructions to introduce the game, according to [Comment transmettre sa passion aux débutants](https://www.youtube.com/watch?v=4uRUuZNVvqM) by MDZ.
 An experienced player can follow this procedure to teach the game to a complete beginner.
 
 ## Atarigo
@@ -219,7 +219,7 @@ Try again by removing one stone.
 Explain the last rules: board position must not be repeated, to avoid infinit capture loop.
 At that point, the training is completed.
 
-See [[learn]] to learn more
+See [[learn]] for more.
 
 ## Tools
 

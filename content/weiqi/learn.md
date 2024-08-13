@@ -1,13 +1,8 @@
 # Learn Go
 
-This page is a work in progress.
+> This page is a work in progress.
 
 - "Tenuki is always an option" [sensei](https://senseis.xmp.net/?TenukiIsAlwaysAnOption)
-
-## L'usage de la force (from [sits](https://www.youtube.com/watch?v=OAi29u1AAYc))
-
-- "Jouer loin de la force"
-- "Priviligier un coup urgent avant un grand coup"
 
 ## Shape Up!
 
@@ -19,6 +14,32 @@ This page is a work in progress.
 - "Sur la tête tu ne te cogneras pas"
 - "La connexion du pas d'éléphant perd de sa valeur quand ses points vitaux sont occupés par l'adversaire"
 - "Ne pas jouer atari pour ensuite connecter"
+
+## In the Beginning - Elementary Go Series
+
+- Leave room for two spaces extension when extending toward a shimari:
+
+```baduk
+$$
+$$ | - - - - - - - -
+$$ | . . . . . . . .
+$$ | . . . . . . . .
+$$ | . . . . X . . .
+$$ | . . X . . . . .
+$$ | . . . . . . . .
+$$ | . . a . . . . .
+$$ | . . . . . . . .
+$$ | . . . . . . . .
+$$ | . . O1 . . . . .
+$$ | . . . . . . . .
+$$ | . . . . . . . .
+
+```
+
+## L'usage de la force (from [sits](https://www.youtube.com/watch?v=OAi29u1AAYc))
+
+- "Jouer loin de la force"
+- "Priviligier un coup urgent avant un grand coup"
 
 ## 15 - Kiu (from [game](https://online-go.com/game/66142760))
 
@@ -81,3 +102,20 @@ This page is a work in progress.
 - Shimari: corner enclosure
 - Tobi: jump
 - Tsuke: Attachment
+
+## Semai (from [youtube](https://www.youtube.com/watch?v=x4mQ3I-JVU8))
+
+| Shape | Liberties | Mnemo |
+|-------|-----------|-------|
+| 3     | 3         |       |
+| 4     | 5         | (+2)  |
+| 5     | 8         | (+3)  |
+| 6     | 12        | (+4)  |
+
+## Katrain tips by MDZ
+
+- Play regular game and give up to complete the game. Note where the jigo is lost, and try to stay a bit longer.
+
+- Play with max handicap stones, remove one after a few win.
+
+- Once you reach min handicap, remove 2 and play rengo (press enter let katago play every two of your moves).
