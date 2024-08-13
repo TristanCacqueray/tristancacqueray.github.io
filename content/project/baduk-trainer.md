@@ -4,7 +4,7 @@ date: 2020-07-06
 tags:
   - purescript
   - game
-  - baduk
+  - weiqi
 ---
 
 A web application to learn the game of [[weiqi]].

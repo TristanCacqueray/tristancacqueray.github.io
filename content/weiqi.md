@@ -15,17 +15,8 @@ Even though this game has the simplest rules, it is the most profound.
 
 I recommend taking the time to look over fundamental concept resources such as [[weiqi]] or [[lambda-calculus]].
 
-## Links
-
-Here are my notes:
-
 ```query
-path:weiqi/*
+tag:weiqi
 ```
-
-I wrote a demo game to play with GnuGO:
-
-[[baduk-trainer]]#
-
 
 > Image by [Dilaudid, CC BY-SA 3.0](https://commons.wikimedia.org/wiki/File:Go_board_part.jpg)

@@ -1,4 +1,8 @@
-# Learn Go
+---
+title: Learn Go
+tags:
+  - weiqi
+---
 
 > This page is a work in progress.
 
@@ -114,8 +118,8 @@ $$ | . . . . . . . .
 
 ## Katrain tips by MDZ
 
-- Play regular game and give up to complete the game. Note where the jigo is lost, and try to stay a bit longer.
+- Play regular game and give up to complete the game. Note where the jigo is lost, and try keep it a bit longer.
 
-- Play with max handicap stones, remove one after a few win.
+- Play with max handicap stones, remove one after a few wins.
 
-- Once you reach min handicap, remove 2 and play rengo (press enter let katago play every two of your moves).
+- Once you reach min handicap, remove 2 stones and play rengo with one katago on your side (press enter let the robot play every two of your moves).
