@@ -217,9 +217,9 @@ Try again by removing one stone.
 ## Ko
 
 Explain the last rules: board position must not be repeated, to avoid infinit capture loop.
-At that point, the training is completed.
 
-See [[learn]] for more.
+At that point, the training is completed.
+See [[glossary]] and [[learn]] for more.
 
 ## Tools
 

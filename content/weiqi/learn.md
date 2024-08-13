@@ -64,49 +64,6 @@ $$ | . . . . . . . .
 - Don't always respond to attachments.
 - Black - attach to white influence and back off.
 
-## Glossary
-
-- Atari: being hit
-- Jōseki: standard local play
-- Komi: compensation
-- Kō: repetitive capture
-- Miai: two roughly equal alternative plays, such that, if one player takes one, the other player can take the other.
-- Seki: mutual life
-- Tenuki: playing somewhere else
-- Tsumego: life and death problem
-
-## Play
-
-- Gote: losing the initiative, playing last
-- Sente: playing first
-
-## Stages
-
-- Fuseki: opening
-- Chūban: middle game
-- Yose: endgame
-
-## Opening
-
-- Sanrensei: three star points opening
-
-## Positions
-
-- Sansan: the 3-3 point
-- Takamoku: 5-4 Point
-- Tengen: the center point (Origin of heaven)
-
-## Shape
-
-- Hane: a move to reach around
-- Hasami: pincer
-- Keima: knight move
-- Ponnuki: flower shape
-- Shichō: ladder
-- Shimari: corner enclosure
-- Tobi: jump
-- Tsuke: Attachment
-
 ## Semai (from [youtube](https://www.youtube.com/watch?v=x4mQ3I-JVU8))
 
 | Shape | Liberties | Mnemo |
