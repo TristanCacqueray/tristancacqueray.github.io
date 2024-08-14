@@ -198,7 +198,7 @@ The teacher might want to try this handicap setup,
 Black is likely to win:
 
 ```baduk
-$$ Jean Paul Gachignard handicaps
+$$ Jean-Paul Gaschignard handicaps
 $$ | - - - - - - - - - |
 $$ | . . . . . . . . . |
 $$ | . . . . . . . . . |
