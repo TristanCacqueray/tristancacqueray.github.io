@@ -40,6 +40,10 @@ $$ | . . . . . . . .
 
 ```
 
+## Attack & Defense - Elementary Go Series
+
+- "Don't touch what you are attacking"
+
 ## L'usage de la force (from [sits](https://www.youtube.com/watch?v=OAi29u1AAYc))
 
 - "Jouer loin de la force"
@@ -63,6 +67,20 @@ $$ | . . . . . . . .
 - Fast and loses vs solid.
 - Don't always respond to attachments.
 - Black - attach to white influence and back off.
+
+## Life & Death
+
+Attack:
+
+- "Surround before trying to kill"
+- "Play a hane to reduce"
+- "Find the vital point", it's usually the one that save the group after reduction, so try it before.
+
+Defend:
+
+- "Escape if you can"
+- "Expand the eye shape"
+- "Find the vital point and take it"
 
 ## Semai (from [youtube](https://www.youtube.com/watch?v=x4mQ3I-JVU8))
 
