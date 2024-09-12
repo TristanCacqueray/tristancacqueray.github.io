@@ -190,7 +190,7 @@ TZ=Asia/Seoul ical2orgpy cal.ics gcal.org
 * notmuch
 ** Delete mails matching query
 #+BEGIN_SRC bash
-notmuch search --output=files --exclude=false tag:monit | xargs -L1000 rm
+notmuch search --format=text0 --output=files --exclude=false tag:monit | xargs -0 --no-run-if-empty rm
 #+END_SRC
 
 * ZooKeeper
@@ -282,3 +282,7 @@ openstack image set --public centos-7
 openstack security group rule create --ingress default
 openstack security group rule create --protocol icmp --ingress default
 #+end_src
+
+* Gephi
+
+See: https://github.com/TristanCacqueray/cabal-audit/?tab=readme-ov-file#analyze-with-gephi
