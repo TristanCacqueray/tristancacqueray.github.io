@@ -63,7 +63,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=c915198e-b76b-4111-9f49-5eb14b22d3c9' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=9a8d34cb-776c-4cce-a87c-1d0d38aa6547' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -375,7 +375,7 @@ window.MathJax = {
               <div class='grid grid-cols-12'>
                 <aside class='bg-indigo-50 col-span-3 px-2 py-1 -mt-4'>
                   <div class='sticky top-0'>
-                    <ul><li><a href='snippets#ghc'>ghc</a></li><li><a href='snippets#perf'>perf</a></li><li><a href='snippets#git'>git</a></li><li><a href='snippets#ffmpeg'>ffmpeg</a></li><li><a href='snippets#gnome'>gnome</a></li><li><a href='snippets#rpm'>rpm</a></li><li><a href='snippets#wayland'>wayland</a></li><li><a href='snippets#x11'>x11</a></li><li><a href='snippets#gpg'>gpg</a></li><li><a href='snippets#gnuplot'>gnuplot</a></li><li><a href='snippets#notmuch'>notmuch</a></li><li><a href='snippets#zookeeper'>ZooKeeper</a></li><li><a href='snippets#openstack'>OpenStack</a></li></ul>
+                    <ul><li><a href='snippets#ghc'>ghc</a></li><li><a href='snippets#perf'>perf</a></li><li><a href='snippets#git'>git</a></li><li><a href='snippets#ffmpeg'>ffmpeg</a></li><li><a href='snippets#gnome'>gnome</a></li><li><a href='snippets#rpm'>rpm</a></li><li><a href='snippets#wayland'>wayland</a></li><li><a href='snippets#x11'>x11</a></li><li><a href='snippets#gpg'>gpg</a></li><li><a href='snippets#pdf'>pdf</a></li><li><a href='snippets#gnuplot'>gnuplot</a></li><li><a href='snippets#notmuch'>notmuch</a></li><li><a href='snippets#zookeeper'>ZooKeeper</a></li><li><a href='snippets#openstack'>OpenStack</a></li><li><a href='snippets#gephi'>Gephi</a></li></ul>
                   </div>
                 </aside>
                 <article class='overflow-auto col-span-9 mx-2'>
@@ -915,7 +915,7 @@ plot filename using 1:2 with lines ls 101, '' using 1:3 with lines ls 102, '' us
 
 
     </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>notmuch search --output=files --exclude=false tag:monit | xargs -L1000 rm
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>notmuch search --format=text0 --output=files --exclude=false tag:monit | xargs -0 --no-run-if-empty rm
 </code></pre></div>
     <h1 id='zookeeper' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
       
@@ -1052,6 +1052,24 @@ openstack image set --public centos-7
 openstack security group rule create --ingress default
 openstack security group rule create --protocol icmp --ingress default
 </code></pre></div>
+    <h1 id='gephi' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+      
+  Gephi
+  
+  <a href='snippets#gephi'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h1>
+  
+    <p class='mb-3'>
+      See: <a href='https://github.com/TristanCacqueray/cabal-audit/?tab=readme-ov-file#analyze-with-gephi' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/cabal-audit/?tab=readme-ov-file#analyze-with-gephi</a>
+    </p>
+  
 
                 </article>
               </div>
