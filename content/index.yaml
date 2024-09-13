@@ -5,6 +5,8 @@ page:
     <snippet var="js.highlightjs" />
     <with var="js">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${value:highlightjs-ver}/languages/lisp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${value:highlightjs-ver}/languages/scheme.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${value:highlightjs-ver}/languages/glsl.min.js"></script>
     </with>
     <script src="/static/godiag.js"></script>
     <style>
