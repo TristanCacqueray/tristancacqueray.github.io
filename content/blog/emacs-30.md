@@ -183,7 +183,8 @@ with my [project-shell.el][project-shell.el] package.
 
 ### Magit
 
-Magit is a Git porcelain. It is such a major package I won't introduce it here.
+Magit is a Git porcelain. It is such a major package I won't introduce it here,
+checkout its website: <https://magit.vc/>.
 However, I would like to describe a key workflow for me:
 
 - In a diff, pressing enter visit the *thing-at-point*.
@@ -192,35 +193,16 @@ However, I would like to describe a key workflow for me:
 
 Magit allows you to explore Git history effortlessly, handling the complex details transparently and seamlessly.
 
-### undo-tree
+### Org mode
 
-Emacs undo system allows you to recover any past state of a buffer.
-The undo-tree package enhances this functionality by building a tree
-from the change history, allowing you to navigate and recover from undo/redo mistakes.
+Org is a powerful, outline-based notes management and organizer tool.
+If you're not familiar with it yet, checkout its website for more details: <https://orgmode.org/>.
 
-Although I've only needed it a few time, it's not exactly a vital mode for me,
-it showcases the power of Emacs, and it's documentation contains
-delightful diagrams such as this one:
-
-```raw
-     (trying to get   o                          x  (finally got there!)
-      to this state)  |                          |
-                      |                          |
-                      o  o     o     o     o     o
-                      |  |\    |\    |\    |\    |
-                      |  | \   | \   | \   | \   |
-                      o  o  |  |  o  o  |  |  o  o
-                      | /   |  |  | /   |  |  | /
-                      |/    |  |  |/    |  |  |/
-     (already undid   o     |  |  o<.   |  |  o
-      to this state)        | /     :   | /
-                            |/      :   |/
-                            o       :   o
-                                    :
-                            (got this far, but
-                             broke the undo chain)
-```
-
+Combined with `org-capture` and `org-agenda`, it provides a fast
+and effective plain text system for getting things done.
+I previously introduced a project management system in this [[no-frills-daily-project-management-with-org-mode|post]],
+and recently, I developed the [gnome-org-next-schedule](https://github.com/TristanCacqueray/gnome-org-next-schedule/)
+extension to display my next scheduled task.
 
 
 ### Notmuch
@@ -281,7 +263,7 @@ For instance, I wouldn't mind using:
 ## Conclusion
 
 In this post I focused on the core features of Emacs that I rely on for my work.
-I had to skip some of the additional functionalities you might expect from a text editor, such as: spell checkers, abbreviations, Dired, Info and Org mode.
+I had to skip some of the additional functionalities you might expect from a text editor, such as: spell checkers, abbreviations, Dired, Info.
 
 My goal is to inspire you to give Emacs a try. If you decide to dive in, here are some tips to enhance your keyboard ergonomics:
 
