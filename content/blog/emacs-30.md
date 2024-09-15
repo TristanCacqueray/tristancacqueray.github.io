@@ -37,7 +37,7 @@ In this section I present the main features I get with Emacs.
 ### Completion framework
 
 This key capability enhances the process of finding an element within a list.
-Emacs includes `ido` by default, but there are more advanced package available, such as `ivy` or `helm`.
+Emacs includes `ido` by default, but there are more advanced package available, such as `vertico` or `ivy`.
 
 The concept is to use fuzzy matching to efficiently narrow down a list of elements.
 For instance, typing `butler .hs` will match entries containing both `butler` and `.hs` regardless of their order.
