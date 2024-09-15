@@ -109,7 +109,7 @@ server inside a nix shell when a flake is available:
 (add-to-list 'eglot-server-programs '(haskell-mode . start-hls))
 ```
 
-Here is how I insert the latest screen capture into a markdown file:
+Here is how I insert my latest screen capture into a markdown file:
 
 ```scheme
 (defun get-newest-file-from-dir  (path)
