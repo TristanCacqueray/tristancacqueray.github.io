@@ -263,7 +263,7 @@ For instance, I wouldn't mind using:
 ## Conclusion
 
 In this post I focused on the core features of Emacs that I rely on for my work.
-I had to skip some of the additional functionalities you might expect from a text editor, such as: spell checkers, abbreviations, Dired, Info.
+I had to skip some of the additional functionalities you might expect from a text editor, such as: spell checkers, abbreviations, Dired, Info and Tramp.
 
 My goal is to inspire you to give Emacs a try. If you decide to dive in, here are some tips to enhance your keyboard ergonomics:
 
