@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=7700b883-1ac2-44fd-b599-070506210cdc' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=a2fba10a-2574-4701-9fae-252fe3bac1dc' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -787,7 +787,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Magit is a Git porcelain. It is such a major package I won’t introduce it here. However, I would like to describe a key workflow for me:
+      Magit is a Git porcelain. It is such a major package I won’t introduce it here, checkout its website: <a href='https://magit.vc/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://magit.vc/</a>. However, I would like to describe a key workflow for me:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
@@ -810,11 +810,11 @@ window.MathJax = {
       Magit allows you to explore Git history effortlessly, handling the complex details transparently and seamlessly.
     </p>
   
-    <h3 id='undo-tree' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+    <h3 id='org-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
-  undo-tree
+  Org mode
   
-  <a href='blog/emacs-30#undo-tree' class='--ema-anchor'>
+  <a href='blog/emacs-30#org-mode' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -825,28 +825,13 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Emacs undo system allows you to recover any past state of a buffer. The undo-tree package enhances this functionality by building a tree from the change history, allowing you to navigate and recover from undo/redo mistakes.
+      Org is a powerful, outline-based notes management and organizer tool. If you’re not familiar with it yet, checkout its website for more details: <a href='https://orgmode.org/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://orgmode.org/</a>.
     </p>
   
     <p class='mb-3'>
-      Although I’ve only needed it a few time, it’s not exactly a vital mode for me, it showcases the power of Emacs, and it’s documentation contains delightful diagrams such as this one:
+      Combined with <code class='py-0.5 px-0.5 bg-gray-100'>org-capture</code> and <code class='py-0.5 px-0.5 bg-gray-100'>org-agenda</code>, it provides a fast and effective plain text system for getting things done. I previously introduced a project management system in this <a href='blog/no-frills-daily-project-management-with-org-mode' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>post</a>, and recently, I developed the <a href='https://github.com/TristanCacqueray/gnome-org-next-schedule/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>gnome-org-next-schedule</a> extension to display my next scheduled task.
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='raw language-raw'>     (trying to get   o                          x  (finally got there!)
-      to this state)  |                          |
-                      |                          |
-                      o  o     o     o     o     o
-                      |  |\    |\    |\    |\    |
-                      |  | \   | \   | \   | \   |
-                      o  o  |  |  o  o  |  |  o  o
-                      | /   |  |  | /   |  |  | /
-                      |/    |  |  |/    |  |  |/
-     (already undid   o     |  |  o&lt;.   |  |  o
-      to this state)        | /     :   | /
-                            |/      :   |/
-                            o       :   o
-                                    :
-                            (got this far, but
-                             broke the undo chain)</code></pre></div>
+  
     <h3 id='notmuch' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Notmuch
@@ -993,7 +978,7 @@ make && sudo make install</code></pre></div>
     </h2>
   
     <p class='mb-3'>
-      In this post I focused on the core features of Emacs that I rely on for my work. I had to skip some of the additional functionalities you might expect from a text editor, such as: spell checkers, abbreviations, Dired, Info and Org mode.
+      In this post I focused on the core features of Emacs that I rely on for my work. I had to skip some of the additional functionalities you might expect from a text editor, such as: spell checkers, abbreviations, Dired, Info.
     </p>
   
     <p class='mb-3'>
@@ -1139,9 +1124,9 @@ make && sudo make install</code></pre></div>
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='undo-tree'>
-              <a href='blog/emacs-30#undo-tree' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                undo-tree
+            <li class='whitespace-nowrap truncate mt-2' title='Org mode'>
+              <a href='blog/emacs-30#org-mode' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Org mode
               </a>
               
         <ul class='ml-2'>
