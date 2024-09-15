@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
+
+
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1' />
+  <title>
+    Why Emacs Is the Best: 10 Key Advantages – Tristan's Zettelkasten
+  </title>
+  
+    
+      <meta property='og:description' content='In this post I explain why I believe Emacs is the greatest text editor.' />
+      <meta property='og:site_name' content="Tristan's Zettelkasten" />
+      <meta property='og:image' content='https://tristancacqueray.github.io/blog/media/emacs-30.png' />
+      <meta property='og:type' content='website' />
+      <meta property='og:title' content='Why Emacs Is the Best: 10 Key Advantages' />
+      
+        <meta name='twitter:card' content='summary_large_image' />
+      
+    
+    
+      <base href='/' />
+      <link href='/static/favicon.jpeg' rel='icon' />
+    
+    <!-- highlight.js -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/hybrid.min.css' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js'></script>
+<!-- Include languages that Emanote itself uses -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/haskell.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/nix.min.js'></script>
+<script>hljs.highlightAll();</script>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/lisp.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/scheme.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/languages/glsl.min.js'></script>
+
+<script src='/static/godiag.js'></script>
+<style>
+code.baduk {
+  background-color: white;
+  color: black;
+}
+</style>
+<!-- mermaid.js --><script type='module'>
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: false });
+  mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+</script>
+
+<script>
+window.MathJax = {
+  startup: {
+    ready: () => {MathJax.startup.defaultReady();}
+  }
+};
+</script>
+<script async id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
+
+  
+  
+  <link href='tailwind.css?instanceId=7700b883-1ac2-44fd-b599-070506210cdc' rel='stylesheet' type='text/css' />
+
+  <style>
+    /* Heist error element */
+    strong.error {
+      color: lightcoral;
+      font-size: 90%;
+      font-family: monospace;
+    }
+
+    /* Callouts */
+    div.callout {
+      background-color: #f5f5f5;
+      padding: 1em 1em 0.5em;
+      border-radius: 0.5em;
+      margin-bottom: 1em;
+    }
+
+    .callout[data-callout="note"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="info"] {
+      --callout-color: 8, 109, 221;
+    }
+
+    .callout[data-callout="tip"] {
+      --callout-color: 8, 191, 188;
+    }
+
+    .callout[data-callout="warning"] {
+      --callout-color: 236, 117, 0;
+    }
+
+    .callout[data-callout="failure"] {
+      --callout-color: 233, 49, 71;
+    }
+
+    div.callout {
+      background-color: rgba(var(--callout-color), 0.1);
+    }
+
+    .callout .callout-title {
+      color: rgb(var(--callout-color));
+    }
+
+    div.callout-title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5em;
+      font-variation-settings: 'wght' 600;
+    }
+
+    div.callout-title div.callout-title-inner {
+      margin-left: 0.5em;
+    }
+
+    a.--ema-toc:not(.toc-item-active) {
+      background-color: #ffffff !important;
+    }
+
+    /* External link icon */
+    a[data-linkicon=""]::after {
+      content: ""
+    }
+
+    a[data-linkicon=none]::after {
+      content: ""
+    }
+
+    a[data-linkicon="external"] {
+      padding-right: 24px;
+    }
+    a[data-linkicon="external"]::after {
+      margin-right: -24px;
+      content: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg" height="0.7em" viewBox="0 0 20 20"> \
+        <g style="stroke:gray;stroke-width:1"> \
+          <line x1="5" y1="5" x2="5" y2="14" /> \
+          <line x1="14" y1="9" x2="14" y2="14" /> \
+          <line x1="5" y1="14" x2="14" y2="14" /> \
+          <line x1="5" y1="5" x2="9" y2="5"  /> \
+          <line x1="10" y1="2" x2="17" y2="2"  /> \
+          <line x1="17" y1="2" x2="17" y2="9" /> \
+          <line x1="10" y1="9" x2="17" y2="2" style="stroke-width:1.0" /> \
+        </g> \
+      </svg>');
+    }
+
+    a[data-linkicon="external"][href^="mailto:"]::after {
+      content: url('data:image/svg+xml,\
+        <svg \
+          xmlns="http://www.w3.org/2000/svg" \
+          height="0.7em" \
+          fill="none" \
+          viewBox="0 0 24 24" \
+          stroke="gray" \
+          stroke-width="2"> \
+          <path \
+            stroke-linecap="round" \
+            stroke-linejoin="round" \
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> \
+        </svg>');
+    }
+  </style>
+  <!-- What goes in this file will appear on near the end of <head>--><link rel='preload' href='_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' as='font' type='font/ttf' crossorigin />
+
+<style>
+  @font-face {
+    font-family: 'WorkSans';
+    /* FIXME: This ought to be: ${ema:emanoteStaticLayerUrl}/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf */
+    src: url(_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf) format("truetype");
+    font-display: swap;
+  }
+
+  body {
+    font-family: 'WorkSans', sans-serif;
+    font-variation-settings: 'wght' 350;
+  }
+
+  a.mavenLinkBold {
+    font-variation-settings: 'wght' 400;
+  }
+
+  strong {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  header,
+  .header-font {
+    font-family: 'WorkSans', sans-serif;
+  }
+
+  h1 {
+    font-variation-settings: 'wght' 500;
+  }
+
+  h2 {
+    font-variation-settings: 'wght' 400;
+  }
+
+  h3 {
+    font-variation-settings: 'wght' 300;
+  }
+</style>
+
+
+  
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
+  
+  <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
+<!-- Custom Stork-search styling for Emanote -->
+<style>
+  #stork-search-container {
+    z-index: 1000;
+    background-color: rgb(15 23 42/.8);
+  }
+
+  .stork-overflow-hidden-important {
+    overflow: hidden !important;
+  }
+</style>
+
+
+<script src='_emanote-static/stork/stork.js'></script>
+
+  
+    <script id='emanote-stork' data-emanote-base-url='/'>
+      window.emanote = {};
+      window.emanote.stork = {
+        searchShown: false,
+        indexIsStale: false,
+        toggleSearch: function () {
+          window.emanote.stork.refreshIndex();
+          document.getElementById('stork-search-container').classList.toggle('hidden');
+          window.emanote.stork.searchShown = document.body.classList.toggle('stork-overflow-hidden-important');
+          if (window.emanote.stork.searchShown) {
+            document.getElementById('stork-search-input').focus();
+          }
+        },
+        clearSearch: function () {
+          document.getElementById('stork-search-container').classList.add('hidden');
+          document.body.classList.remove('stork-overflow-hidden-important');
+          window.emanote.stork.searchShown = false;
+        },
+
+        getBaseUrl: function () {
+          const baseUrl = document.getElementById("emanote-stork").getAttribute('data-emanote-base-url') || '/';
+          return baseUrl;
+        },
+
+        registerIndex: function (options) {
+          const indexName = 'emanote-search'; // used to match input[data-stork] attribute value
+          const indexUrl = window.emanote.stork.getBaseUrl() + '-/stork.st';
+          stork.register(
+            indexName,
+            indexUrl,
+            options);
+        },
+
+        init: function () {
+          if (document.readyState !== 'complete') {
+            window.addEventListener('load', function () {
+              stork.initialize(window.emanote.stork.getBaseUrl() + '_emanote-static/stork/stork.wasm');
+              window.emanote.stork.registerIndex();
+            });
+
+            document.addEventListener('keydown', event => {
+              if (window.emanote.stork.searchShown && event.key === 'Escape') {
+                window.emanote.stork.clearSearch();
+                event.preventDefault();
+              } else if ((event.key == 'k' || event.key == 'K') && (event.ctrlKey || event.metaKey)) {
+                window.emanote.stork.toggleSearch();
+                event.preventDefault();
+              }
+            });
+          } else {
+            // This section is called during Ema's hot reload.
+            // 
+            // Mark the current index as stale, and refresh it *only when* the
+            // user actually invokes search.
+            // 
+            // We do not refresh the index *right away*, as that will cause
+            // memory leaks in the browser. See
+            // https://github.com/srid/emanote/issues/411#issuecomment-1402056235
+            console.log("stork: Marking index as stale");
+            window.emanote.stork.markIndexAsStale();
+          }
+        },
+
+        markIndexAsStale: function () {
+          window.emanote.stork.indexIsStale = true;
+        },
+
+        refreshIndex: function () {
+          if (window.emanote.stork.indexIsStale) {
+            console.log("stork: Reloading index");
+            window.emanote.stork.indexIsStale = false;
+            // NOTE: This will leak memory. See the comment above.
+            window.emanote.stork.registerIndex({ forceOverwrite: true });
+          }
+        }
+
+      };
+
+      window.emanote.stork.init();
+    </script>
+  
+
+</head>
+
+<!-- DoNotFormat -->
+
+
+
+<!-- DoNotFormat -->
+
+<body class='bg-gray-400 overflow-y-scroll'>
+  
+    <div class='container mx-auto sm:w-[67rem] mt-2 md:mt-4  '>
+      
+        <!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+<nav id='uptree' class='flipped tree' style='transform-origin: 50%;'>
+  <ul class='root'>
+    <li>
+      
+        <ul>
+          
+            <li>
+
+  <a href='blog'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Blog
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href=''>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Tristan de Cacqueray
+    </div>
+  </a>
+
+  
+</li>
+      
+    </ul>
+  
+</li>
+          
+        </ul>
+      
+    </li>
+  </ul>
+</nav>
+      
+
+      
+
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+ fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+  <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
+</svg>
+    </a>
+  </div>
+
+          <!-- Main body column -->
+          <div class='flex-1 w-full bg-white'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    Why Emacs Is the Best: 10 Key Advantages
+  </a>
+</h1>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
+
+
+
+
+
+
+    <p class='mb-3'>
+      In this post I explain why I believe Emacs is the greatest text editor.
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/emacs-30.png' alt='emacs-30' style='width: inherit;' /></div>
+    <hr class='mb-3' />
+  
+    <p class='mb-3'>
+      You can find my configuration here: <a href='https://github.com/TristanCacqueray/dot-files/blob/master/home/.emacs.el' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>emacs.el</a>. It is a light standalone file that setups a minimal developer environment with auto completion, projects management, language server and some quality of life improvements.
+    </p>
+  
+    <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Context
+  
+  <a href='blog/emacs-30#context' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      I recently setup a new developer environment from scratch. I started with the emacs-nox package, which is the lightweight terminal edition without the graphic libraries. Then, I progressively setup the configurations I needed. Before activating a new setting, I read through the documentation and the source code to refresh my memory. In a couple of days, I got Emacs working exactly as I wanted, and I was blown away by how far it has come.
+    </p>
+  
+    <p class='mb-3'>
+      Emacs is my main tool to create projects, contribute code, run experiments, read mail, and perform basically any text based activity. I would say it is my most valuable tool because over time I built a custom workflow that would be hard to replace with another tool. In the following section, I present how I use Emacs.
+    </p>
+  
+    <h2 id='features' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Features
+  
+  <a href='blog/emacs-30#features' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      In this section I present the main features I get with Emacs.
+    </p>
+  
+    <h3 id='completion-framework' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Completion framework
+  
+  <a href='blog/emacs-30#completion-framework' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      This key capability enhances the process of finding an element within a list. Emacs includes <code class='py-0.5 px-0.5 bg-gray-100'>ido</code> by default, but there are more advanced package available, such as <code class='py-0.5 px-0.5 bg-gray-100'>ivy</code> or <code class='py-0.5 px-0.5 bg-gray-100'>helm</code>.
+    </p>
+  
+    <p class='mb-3'>
+      The concept is to use fuzzy matching to efficiently narrow down a list of elements. For instance, typing <code class='py-0.5 px-0.5 bg-gray-100'>butler .hs</code> will match entries containing both <code class='py-0.5 px-0.5 bg-gray-100'>butler</code> and <code class='py-0.5 px-0.5 bg-gray-100'>.hs</code> regardless of their order. Adding further keywords, like <code class='py-0.5 px-0.5 bg-gray-100'>parser</code>, further refines the list to only include entries with <code class='py-0.5 px-0.5 bg-gray-100'>parser</code>.
+    </p>
+  
+    <p class='mb-3'>
+      Emacs’s completion framework is pervasive and integrated into many systems, such as:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Finding a file,
+        </li>
+      
+        <li>
+          Selecting a remote reference,
+        </li>
+      
+        <li>
+          Executing a command.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Once you become accustomed to a robust completion system, it’s hard to go back.
+    </p>
+  
+    <h3 id='buffers' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Buffers
+  
+  <a href='blog/emacs-30#buffers' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Emacs manages window content through objects called <em>buffers</em>, and switching between these buffers is a command I use frequently. Combined with <code class='py-0.5 px-0.5 bg-gray-100'>recentf</code> to track visited files and <code class='py-0.5 px-0.5 bg-gray-100'>saveplace</code> to restore the last cursor position, Emacs offers a fast and efficient system for recalling files.
+    </p>
+  
+    <p class='mb-3'>
+      When working on distributed systems with multiple projects, I often need to switch contexts, for example to alternate between a frontend application and a configuration management system. Over time I’ve accumulated over a thousand checkouts, and with just a few keystrokes, I can quickly access any project’s files:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>project-switch-project</code> loads a project from the list of checkout.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>project-find-file</code> selects a file within the current project.
+        </li>
+      
+    </ul>
+  
+    <h3 id='company' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Company
+  
+  <a href='blog/emacs-30#company' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Company is a modular text completion framework that provides basic auto-completion for local paths, keywords, and abbreviations. It can be extended by other packages to enable custom completion, such as those provided by a language server.
+    </p>
+  
+    <p class='mb-3'>
+      Company is incredibly lightweight and operates seamlessly in the background. Its presence is so unobtrusive that I only notice it when it’s not there.
+    </p>
+  
+    <h3 id='elisp' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Elisp
+  
+  <a href='blog/emacs-30#elisp' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Emacs is highly extensible through Lisp, a powerful and intriguing programming language. At a minimum, you only need to understand how to set variables and call functions to customize your environment:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(setq recentf-max-saved-items 1024)
+(recentf-mode)</code></pre></div>
+    <p class='mb-3'>
+      From the editor, you can access the documentation and the sources of everything through the <code class='py-0.5 px-0.5 bg-gray-100'>describe-*</code> family of commands.
+    </p>
+  
+    <p class='mb-3'>
+      Then you can implement any kind of customization, for example, here is how to start a language server inside a nix shell when a flake is available:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(defun start-hls (_mode)
+  "Start HLS by trying to wrap in nix develop."
+  (if (file-exists-p "flake.nix")
+    (progn
+      (message "Running HLS with flake")
+      (list "nix" "develop" "--command" "haskell-language-server-wrapper" "--lsp"))
+    (progn
+      (message "Running HLS from host")
+      (list "haskell-language-server-wrapper" "--lsp"))))
+
+(add-to-list 'eglot-server-programs '(haskell-mode . start-hls))</code></pre></div>
+    <p class='mb-3'>
+      Here is how I insert the latest screen capture into a markdown file:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(defun get-newest-file-from-dir  (path)
+  "Return the latest file in PATH."
+  (car (directory-files path 'full nil #'file-newer-than-file-p)))
+
+(defun copy-screenshot-markdown (name)
+  "Move the latest screenshot and insert markdown link with NAME."
+  (interactive "Mname: ")
+  (let* ((infile (expand-file-name (get-newest-file-from-dir "~/Pictures/Screenshots")))
+         (outdir (concat (file-name-directory (buffer-file-name)) "/media"))
+         (outfile (expand-file-name (concat name ".png") outdir)))
+    (unless (file-directory-p outdir) (make-directory outdir t))
+    (rename-file infile outfile)
+    (insert (concat "![" name "](media/" (file-name-nondirectory outfile) ")"))
+    (newline)
+    (newline)))</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      If you have never used Lisp, do yourself a favor and give it try, for example through this <a href='https://github.com/chrisdone-archive/elisp-guide' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>elisp-guide</a>.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      While Lisp isn’t my favorite language, I find it quite enjoyable to use, especially within the integrated environment that Emacs provides. I believe Lisp is a crucial factor in Emacs’s success and versatility.
+    </p>
+  
+    <h3 id='compilation' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Compilation
+  
+  <a href='blog/emacs-30#compilation' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Emacs comes with a simple, yet powerful compilation mode that works like this:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>compile</code>, starts the build process by selecting a command like <code class='py-0.5 px-0.5 bg-gray-100'>make</code>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>next-error</code>, jumps to the location of the next error according to <code class='py-0.5 px-0.5 bg-gray-100'>compilation-error-regexp</code>.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>recompile</code>, restarts the compilation process.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      This workflow provides the ideal feedback loop to fix compilation errors.
+    </p>
+  
+    <h3 id='eglot' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Eglot
+  
+  <a href='blog/emacs-30#eglot' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Emacs comes with a language server client called eglot that works like this:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>eglot</code>, start the language server.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>eglot-shutdown</code>, kill the server.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>eglot-code-actions</code>, execute server actions.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>flymake-show-project-diagnostics</code>, show the annotations.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>xref-find-definitions</code>, find definition.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>xref-find-references</code>, find call sites.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Eglot works seamlessly right out of the box, requiring no additional configuration or external packages. It’s impressive how it integrates with existing Emacs features like Flymake and Xref, which can also work without a language server, such as when using a standalone linter or TAGS.
+    </p>
+  
+    <h3 id='shell' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Shell
+  
+  <a href='blog/emacs-30#shell' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Emacs can interact with inferior commands through a regular buffer. This works like a standard terminal but with the added benefit of text manipulation features. The main difference is that, instead of using the up arrow to scroll through shell history, you use <code class='py-0.5 px-0.5 bg-gray-100'>M-p</code> to access previous commands. It takes a little time to adjust to this, but the advantages of integrating a terminal within a text editor are significant:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          You can select and copy output as you would with regular text using standard commands.
+        </li>
+      
+        <li>
+          The buffer can be edited, allowing you to correct mistakes and create a polished transcript.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      By running shells within Emacs, I can also implement a per project command history with my <a href='https://github.com/TristanCacqueray/emacs-toolbox/blob/main/project-shell.el' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>project-shell.el</a> package.
+    </p>
+  
+    <h3 id='magit' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Magit
+  
+  <a href='blog/emacs-30#magit' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Magit is a Git porcelain. It is such a major package I won’t introduce it here. However, I would like to describe a key workflow for me:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          In a diff, pressing enter visit the <em>thing-at-point</em>.
+        </li>
+      
+        <li>
+          When the cursor is on a removed chunk, magit creates a temporary buffer to show the file’s previous version.
+        </li>
+      
+        <li>
+          This temporary buffer works with other magit command like <code class='py-0.5 px-0.5 bg-gray-100'>magit-blame</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Magit allows you to explore Git history effortlessly, handling the complex details transparently and seamlessly.
+    </p>
+  
+    <h3 id='undo-tree' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  undo-tree
+  
+  <a href='blog/emacs-30#undo-tree' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Emacs undo system allows you to recover any past state of a buffer. The undo-tree package enhances this functionality by building a tree from the change history, allowing you to navigate and recover from undo/redo mistakes.
+    </p>
+  
+    <p class='mb-3'>
+      Although I’ve only needed it a few time, it’s not exactly a vital mode for me, it showcases the power of Emacs, and it’s documentation contains delightful diagrams such as this one:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='raw language-raw'>     (trying to get   o                          x  (finally got there!)
+      to this state)  |                          |
+                      |                          |
+                      o  o     o     o     o     o
+                      |  |\    |\    |\    |\    |
+                      |  | \   | \   | \   | \   |
+                      o  o  |  |  o  o  |  |  o  o
+                      | /   |  |  | /   |  |  | /
+                      |/    |  |  |/    |  |  |/
+     (already undid   o     |  |  o&lt;.   |  |  o
+      to this state)        | /     :   | /
+                            |/      :   |/
+                            o       :   o
+                                    :
+                            (got this far, but
+                             broke the undo chain)</code></pre></div>
+    <h3 id='notmuch' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Notmuch
+  
+  <a href='blog/emacs-30#notmuch' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Notmuch is a fast, tag-based email system with powerful global search capabilities. It leverages the Xapian search engine library and features a user-friendly Emacs client. Notmuch handles millions of mails effortlessly, making it particularly well-suited for high-traffic development mailing lists. I’ve developed a custom workflow using thread tags such as <code class='py-0.5 px-0.5 bg-gray-100'>unseen</code>, <code class='py-0.5 px-0.5 bg-gray-100'>ignored</code> and <code class='py-0.5 px-0.5 bg-gray-100'>watched</code>, which has served me well for many years.
+    </p>
+  
+    <p class='mb-3'>
+      I run an external synchronization script to send and receive mails with the following tools: <em>msmtp</em>, <em>mbsync</em>, <em>sieve-filter</em> and <em>notmuch new</em>. I then read, tag and compose mails directly within Emacs.
+    </p>
+  
+    <h2 id='upgrading-to-emacs-30' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Upgrading to Emacs 30
+  
+  <a href='blog/emacs-30#upgrading-to-emacs-30' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      For my latest setup I upgraded to the upcoming Emacs 30. I wanted to explore the new defaults, which includes enhanced tree-sitter modes and a new <code class='py-0.5 px-0.5 bg-gray-100'>project--remember-dir</code> function for dynamically recording new projects.
+    </p>
+  
+    <p class='mb-3'>
+      Here is how I built Emacs from source:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='ShellSession language-ShellSession'>dnf config-manager --enable codeready-builder-for-rhel-9-x86_64-rpms
+dnf install -y texinfo zlib-devel libgccjit-devel ncurses-devel gnutls-devel
+git clone --depth 1 -b emacs-30 https://git.savannah.gnu.org/git/emacs.git && cd emacs
+./autogen.sh
+./configure --prefix=/usr/local/emacs --without-all --with-x-toolkit=no --with-native-compilation --with-gpm --with-zlib --enable-link-time-optimization --with-gnutls
+make && sudo make install</code></pre></div>
+    <p class='mb-3'>
+      During this transition, I encountered a couple of issues with my config, something that’s to be expected with unreleased software:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Ivy completion in shell mode drops the previous path segment: <a href='https://github.com/abo-abo/swiper/pull/3051' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>swiper#3051</a>.
+    </p>
+  
+        </li>
+      
+        <li>
+          
+    <p class='mb-3'>
+      Org element may now be lazy, causing my <code class='py-0.5 px-0.5 bg-gray-100'>org-next-schedule</code> to require manual forcing of headlines: <a href='https://github.com/alphapapa/org-ql/issues/364#issuecomment-2340384162' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-ql#364</a>.
+    </p>
+  
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      While these errors were somewhat frustrating, I was able to quickly identify the root cause and implement workarounds. Given that Emacs is 40 years old, it’s impressive how well Elisp code has stood the test of time.
+    </p>
+  
+    <h2 id='alternatives' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Alternatives
+  
+  <a href='blog/emacs-30#alternatives' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      I find Emacs to be significantly ahead of the competition, particularly when evaluated against the following criteria:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Is it a free software that I can modify?
+        </li>
+      
+        <li>
+          Is it portable and lightweight?
+        </li>
+      
+        <li>
+          Is it stable?
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      While I appreciate alternatives like Vim or Acme, I find Emacs to be simpler and more integrated. However, I also believe that a fully integrated system can be preferable in certain scenarios. For instance, I wouldn’t mind using:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Pharo for Smalltalk.
+        </li>
+      
+        <li>
+          Eclipse for Java.
+        </li>
+      
+        <li>
+          Visual studio for Windows.
+        </li>
+      
+    </ul>
+  
+    <h2 id='conclusion' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Conclusion
+  
+  <a href='blog/emacs-30#conclusion' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      In this post I focused on the core features of Emacs that I rely on for my work. I had to skip some of the additional functionalities you might expect from a text editor, such as: spell checkers, abbreviations, Dired, Info and Org mode.
+    </p>
+  
+    <p class='mb-3'>
+      My goal is to inspire you to give Emacs a try. If you decide to dive in, here are some tips to enhance your keyboard ergonomics:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Adopt the default keybindings, perhaps with an home row mod to reduce strain on your pinkies.
+        </li>
+      
+        <li>
+          Consider the evil package to get the vim modal editing.
+        </li>
+      
+        <li>
+          Explore alternatives like <em>meow</em> or <em>boon</em> for different keybinding schemes.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Lastly, Emacs is perfectly suited for integrating AI workflow, and you’ll be able to implement the fanciest demo if you are into that sort of things. One of my colleagues even wrote the <a href='https://github.com/atgreen/emacs-allow-lists-for-ai-services/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>allow-lists-for-ai-services</a> package to prevent leaking private data, and as far I can tell, this only exists in Emacs. I personally don’t use AI services out of ethical concern and I’m satisfied with good old-fashioned local completion that doesn’t boil the ocean.
+    </p>
+  
+    <p class='mb-3'>
+      Thanks for your time!
+    </p>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context'>
+              <a href='blog/emacs-30#context' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Features'>
+              <a href='blog/emacs-30#features' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Features
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Completion framework'>
+              <a href='blog/emacs-30#completion-framework' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Completion framework
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Buffers'>
+              <a href='blog/emacs-30#buffers' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Buffers
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Company'>
+              <a href='blog/emacs-30#company' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Company
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Elisp'>
+              <a href='blog/emacs-30#elisp' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Elisp
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Compilation'>
+              <a href='blog/emacs-30#compilation' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Compilation
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Eglot'>
+              <a href='blog/emacs-30#eglot' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Eglot
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Shell'>
+              <a href='blog/emacs-30#shell' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Shell
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Magit'>
+              <a href='blog/emacs-30#magit' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Magit
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='undo-tree'>
+              <a href='blog/emacs-30#undo-tree' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                undo-tree
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Notmuch'>
+              <a href='blog/emacs-30#notmuch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Notmuch
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Upgrading to Emacs 30'>
+              <a href='blog/emacs-30#upgrading-to-emacs-30' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Upgrading to Emacs 30
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Alternatives'>
+              <a href='blog/emacs-30#alternatives' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Alternatives
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/emacs-30#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
+  <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
+    
+  </section>
+  <div class='flex items-center justify-center mt-2'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/blog/emacs-30.md'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
+      </svg>
+    </a>
+    <p class='text-sm text-gray-600 mx-2'>
+      This work is licensed under a <a class='hover:underline' href='http://creativecommons.org/licenses/by/4.0/'>Creative Commons Attribution 4.0 International License</a>
+    </p>
+  </div>
+
+
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
+        </div>
+      
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+  
+  <div>
+    <a href='' title='Go to Home page'>
+      <svg xmlns='http://www.w3.org/2000/svg' class='w-6 h-6 hover:text-blue-700' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'></path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/all' title='View Index'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='-/tags' title='View tags'>
+      <svg class='w-6 h-6 hover:text-blue-700' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'>
+        </path>
+      </svg>
+    </a>
+  </div>
+  <div>
+    <a href='https://emanote.srid.ca' target='_blank' title='Generated by Emanote 1.3.17.1'>
+      <img class='w-6 h-6 hover:text-blue-700' src='_emanote-static/emanote-logo.svg' />
+    </a>
+  </div>
+</footer>
+
+    </div>
+  
+  <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
+  <div class='fixed w-screen h-screen inset-0' onclick='window.emanote.stork.toggleSearch()'></div>
+
+  <div class='container mx-auto p-10 mt-10'>
+    <div class='stork-wrapper-flat container mx-auto'>
+      <input id='stork-search-input' data-stork='emanote-search' class='stork-input' placeholder='Search (Ctrl+K) ...' />
+      <div data-stork='emanote-search-output' class='stork-output'></div>
+    </div>
+  </div>
+</div>
+  
+    
+  
+</body>
+
+</html>
+
