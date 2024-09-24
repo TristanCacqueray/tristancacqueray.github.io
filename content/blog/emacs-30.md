@@ -1,7 +1,7 @@
 ---
 title: "Why Emacs Is the Best: 10 Key Advantages"
 date: 2024-09-15
-tag: [emacs]
+tags: [emacs]
 ---
 
 In this post I explain why I believe Emacs is the greatest text editor.

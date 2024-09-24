@@ -1,7 +1,7 @@
 {
   inputs = {
     emanote.url =
-      "github:srid/emanote/32666807bc2966c796eb95364716dfb08c50cefe";
+      "github:srid/emanote/6110f0967f6a6708406f3f925ca98b5c02831564";
     nixpkgs.url =
       "github:NixOS/nixpkgs/3665c429d349fbda46b0651e554cca8434452748";
   };
