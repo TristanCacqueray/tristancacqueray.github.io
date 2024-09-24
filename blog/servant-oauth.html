@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=d550c4ae-db7c-4098-8596-ddc71cd0f4d0' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=38adca3d-a4fd-4a37-9aaa-965ec40ade59' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -396,7 +396,6 @@ window.MathJax = {
   </ul>
 </nav>
       
-
       
 
       
@@ -414,17 +413,16 @@ window.MathJax = {
           <!-- Main body column -->
           <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
-    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
-  <a class='z-40 tracking-tighter '>
-    Adding OAuth middleware to Servant application
-  </a>
-</h1>
-    
-      <div class='md:grid md:gap-4 md:grid-cols-8'>
-        <div class='md:col-span-6'>
-          <article class='overflow-auto'>
-  <!-- What goes in this file will appear on top of note body-->
-  
+    <h1 class='flex flex-col justify-center mb-1 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+      <a class='z-40 tracking-tighter text-center'>
+        Adding OAuth middleware to Servant application
+      </a>
+    </h1>
+    <time class='text-sm text-right font-mono text-gray-600 block mb-2'>
+      2021-06-12
+    </time>
+    <article class='overflow-auto'>
+      
 
 
 
@@ -598,130 +596,7 @@ authWhoAmI vault = const $ pure response
   
     </blockquote>
   
-  <!-- What goes in this file will appear below the note body-->
-</article>
-        </div>
-        <div class='hidden md:block md:col-span-2 md:border-l'>
-          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
-  <div class='text-gray-600 text-sm -mt-2'>
-    
-        <ul class='ml-2'>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Workflow'>
-              <a href='blog/servant-oauth#workflow' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Workflow
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='OAuth configuration'>
-              <a href='blog/servant-oauth#oauth-configuration' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                OAuth configuration
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Dispatching the requests'>
-              <a href='blog/servant-oauth#dispatching-the-requests' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Dispatching the requests
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Creating the middleware'>
-              <a href='blog/servant-oauth#creating-the-middleware' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Creating the middleware
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Updating the route'>
-              <a href='blog/servant-oauth#updating-the-route' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Updating the route
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-        </ul>
-      
-  </div>
-  <script>
-    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
-    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
-    function highlightTOC() {
-      // Grab the toc links
-      const links = document.querySelectorAll("ul > li > a.--ema-toc");
-
-      // Find the matching anchors in the document body
-      const sections = [];
-      links.forEach((link) => {
-        let found = {};
-        for (section of document.querySelectorAll("a.--ema-anchor")) {
-          if (link.href == section.href) {
-            found = section;
-            break;
-          }
-        }
-        sections.push(found);
-      });
-
-      // Current toc link is marked with the following class
-      const mark = "toc-item-active";
-
-      // Set window scroll handler to update the toc mark.
-      window.onscroll = () => {
-        // Remove previous mark
-        links.forEach((link) => {
-          link.classList.remove(mark);
-        });
-
-        // Mark the link of the section that is in view, starting from the end
-        let marked = false;
-        for (var i = sections.length - 1; i >= 0; i--) {
-          if (window.scrollY > sections[i].offsetTop - 80) {
-            links[i].classList.add(mark);
-            marked = true;
-            break;
-          }
-        }
-
-        // Special case for the first and last section which might not reach the top
-        if (!marked && window.scrollY > 0) {
-          let i = 0;
-          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
-            // We are at the bottom
-            i = links.length - 1
-          }
-          links[i].classList.add(mark);
-        }
-      };
-    }
-    highlightTOC();
-  </script>
-</nav>
-        </div>
-      </div>
-      
+    </article>
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -754,6 +629,7 @@ authWhoAmI vault = const $ pure response
     <!-- What goes in this file will at the very end of the main div -->
   </main>
 </div>
+
         </div>
       
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>

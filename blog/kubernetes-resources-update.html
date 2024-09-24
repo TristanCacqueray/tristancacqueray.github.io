@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=d550c4ae-db7c-4098-8596-ddc71cd0f4d0' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=38adca3d-a4fd-4a37-9aaa-965ec40ade59' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -396,7 +396,6 @@ window.MathJax = {
   </ul>
 </nav>
       
-
       
 
       
@@ -414,17 +413,16 @@ window.MathJax = {
           <!-- Main body column -->
           <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
-    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
-  <a class='z-40 tracking-tighter '>
-    How to manually update Kubernetes Resources
-  </a>
-</h1>
-    
-      <div class='md:grid md:gap-4 md:grid-cols-8'>
-        <div class='md:col-span-6'>
-          <article class='overflow-auto'>
-  <!-- What goes in this file will appear on top of note body-->
-  
+    <h1 class='flex flex-col justify-center mb-1 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+      <a class='z-40 tracking-tighter text-center'>
+        How to manually update Kubernetes Resources
+      </a>
+    </h1>
+    <time class='text-sm text-right font-mono text-gray-600 block mb-2'>
+      2022-07-15
+    </time>
+    <article class='overflow-auto'>
+      
 
 
 
@@ -837,251 +835,7 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
       The controller-runtime provides a convenient Update method to use the replace strategy: <a href='https://pkg.go.dev/sigs.k8s.io/controller-runtime/pkg/client#example-Client-Update' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Example Client Update</a>. This pattern works great in the context of an operator where the state of the resources is usually known before making creation or update request.
     </p>
   
-  <!-- What goes in this file will appear below the note body-->
-</article>
-        </div>
-        <div class='hidden md:block md:col-span-2 md:border-l'>
-          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
-  <div class='text-gray-600 text-sm -mt-2'>
-    
-        <ul class='ml-2'>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Context and Problem Statement'>
-              <a href='blog/kubernetes-resources-update#context-and-problem-statement' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Context and Problem Statement
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Resource Version'>
-              <a href='blog/kubernetes-resources-update#resource-version' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Resource Version
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='JSON Patch'>
-              <a href='blog/kubernetes-resources-update#json-patch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                JSON Patch
-              </a>
-              
-        <ul class='ml-2'>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Add a container'>
-              <a href='blog/kubernetes-resources-update#add-a-container' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Add a container
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Remove a container'>
-              <a href='blog/kubernetes-resources-update#remove-a-container' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Remove a container
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Change the image'>
-              <a href='blog/kubernetes-resources-update#change-the-image' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Change the image
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Test'>
-              <a href='blog/kubernetes-resources-update#test' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Test
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='JSON Merge Patch'>
-              <a href='blog/kubernetes-resources-update#json-merge-patch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                JSON Merge Patch
-              </a>
-              
-        <ul class='ml-2'>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Change containers'>
-              <a href='blog/kubernetes-resources-update#change-containers' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Change containers
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Change replica count'>
-              <a href='blog/kubernetes-resources-update#change-replica-count' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Change replica count
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Strategic Merge Patch'>
-              <a href='blog/kubernetes-resources-update#strategic-merge-patch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Strategic Merge Patch
-              </a>
-              
-        <ul class='ml-2'>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Add a container'>
-              <a href='blog/kubernetes-resources-update#add-a-container-1' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Add a container
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Server Side Apply'>
-              <a href='blog/kubernetes-resources-update#server-side-apply' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Server Side Apply
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Replace'>
-              <a href='blog/kubernetes-resources-update#replace' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Replace
-              </a>
-              
-        <ul class='ml-2'>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Get and replace'>
-              <a href='blog/kubernetes-resources-update#get-and-replace' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Get and replace
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
-              <a href='blog/kubernetes-resources-update#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Conclusion
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-        </ul>
-      
-  </div>
-  <script>
-    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
-    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
-    function highlightTOC() {
-      // Grab the toc links
-      const links = document.querySelectorAll("ul > li > a.--ema-toc");
-
-      // Find the matching anchors in the document body
-      const sections = [];
-      links.forEach((link) => {
-        let found = {};
-        for (section of document.querySelectorAll("a.--ema-anchor")) {
-          if (link.href == section.href) {
-            found = section;
-            break;
-          }
-        }
-        sections.push(found);
-      });
-
-      // Current toc link is marked with the following class
-      const mark = "toc-item-active";
-
-      // Set window scroll handler to update the toc mark.
-      window.onscroll = () => {
-        // Remove previous mark
-        links.forEach((link) => {
-          link.classList.remove(mark);
-        });
-
-        // Mark the link of the section that is in view, starting from the end
-        let marked = false;
-        for (var i = sections.length - 1; i >= 0; i--) {
-          if (window.scrollY > sections[i].offsetTop - 80) {
-            links[i].classList.add(mark);
-            marked = true;
-            break;
-          }
-        }
-
-        // Special case for the first and last section which might not reach the top
-        if (!marked && window.scrollY > 0) {
-          let i = 0;
-          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
-            // We are at the bottom
-            i = links.length - 1
-          }
-          links[i].classList.add(mark);
-        }
-      };
-    }
-    highlightTOC();
-  </script>
-</nav>
-        </div>
-      </div>
-      
+    </article>
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -1123,6 +877,7 @@ curl -XPUT -H "Content-Type: application/json" http://localhost:8080/apis/apps/v
     <!-- What goes in this file will at the very end of the main div -->
   </main>
 </div>
+
         </div>
       
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>

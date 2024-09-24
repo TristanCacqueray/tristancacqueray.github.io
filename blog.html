@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   <link href='/blog.xml' rel='alternate' type='application/atom+xml' title='Atom Feed' />
-  <link href='tailwind.css?instanceId=d550c4ae-db7c-4098-8596-ddc71cd0f4d0' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=38adca3d-a4fd-4a37-9aaa-965ec40ade59' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -381,7 +381,6 @@ window.MathJax = {
   </ul>
 </nav>
       
-
       
 
       
@@ -399,15 +398,16 @@ window.MathJax = {
           <!-- Main body column -->
           <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
-    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
-  <a class='z-40 tracking-tighter '>
-    Blog
-  </a>
-</h1>
-    
-      <article class='overflow-auto'>
-  <!-- What goes in this file will appear on top of note body-->
-  
+    <h1 class='flex flex-col justify-center mb-1 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+      <a class='z-40 tracking-tighter text-center'>
+        Blog
+      </a>
+    </h1>
+    <time class='text-sm text-right font-mono text-gray-600 block mb-2'>
+      <ema:note:date></ema:note:date>
+    </time>
+    <article class='overflow-auto'>
+      
 
 
 
@@ -1054,9 +1054,7 @@ window.MathJax = {
       
     </ul>
   
-  <!-- What goes in this file will appear below the note body-->
-</article>
-    
+    </article>
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
@@ -1117,6 +1115,7 @@ window.MathJax = {
     <!-- What goes in this file will at the very end of the main div -->
   </main>
 </div>
+
         </div>
       
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
