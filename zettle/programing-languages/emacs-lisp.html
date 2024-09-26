@@ -20,7 +20,7 @@
     
       <meta property='og:description' content='Emacs Lisp is a dialect of the [[LISP]] programming language family used as a scripting language by [[emacs]].' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
-      <meta property='og:image' content='https://tristancacqueray.github.io/' />
+      <meta property='og:image' content='https://midirus.com/' />
       <meta property='og:type' content='website' />
       <meta property='og:title' content='Emacs Lisp' />
       
@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=86265430-1f24-4285-b8bb-4511f448abaa' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=8068341d-3a7f-4140-8e65-c329e056fc06' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -475,65 +475,9 @@ window.MathJax = {
     </p>
   
     <p class='mb-3'>
-      I wrote a few functions in my <a href='https://github.com/TristanCacqueray/dot-files/blob/master/emacs.el' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>dot-files/emacs.el</a>.
+      I wrote a few functions in my <a href='https://github.com/TristanCacqueray/emacs-toolbox' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>emacs-toolbox</a>
     </p>
   
-    <h2 id='interactive-functions' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
-      
-  Interactive functions
-  
-  <a href='zettle/programing-languages/emacs-lisp#interactive-functions' class='--ema-anchor'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  
-    <p class='mb-3'>
-      The <code class='py-0.5 px-0.5 bg-gray-100'>git-clone</code> function does:
-    </p>
-  
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          Clone the project to a fully qualified directory (e.g. ~/src/github.com/org/project)
-        </li>
-      
-        <li>
-          Open the directory with <code class='py-0.5 px-0.5 bg-gray-100'>dired</code>
-        </li>
-      
-    </ul>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='lisp language-lisp'>(defun giturl-to-dir (url)
-  "Convert a git URL to a local path."
-  (let ((home (getenv "HOME"))
-        (inf (url-generic-parse-url url)))
-    (concat
-     home "/src/" (url-host inf)
-     (replace-regexp-in-string
-      "/r/" "/"
-      (replace-regexp-in-string
-       ".git$" "" (url-filename inf))))))
-
-(defun git-clone-url (url dir)
-  (message "clonning %s to %s" url dir)
-  (mkdir dir t)
-  (call-process
-    "git" nil (get-buffer-create "*git-clone-log*") nil "clone" url dir))
-
-(defun f-git? (path)
-  (f-directory? (concat path "/.git")))
-
-(defun git-clone (url)
-  "Create directory, clone and open project"
-  (interactive "Murl: ")
-  (let ((d (giturl-to-dir url)))
-    (unless (f-git? d)
-      (git-clone-url url d))
-    (dired d)))</code></pre></div>
   <!-- What goes in this file will appear below the note body-->
 </article>
     
@@ -581,6 +525,15 @@ window.MathJax = {
       <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/lisp'>
         <!-- DoNotFormat -->
         #lisp
+        <!-- DoNotFormat -->
+      </a>
+    
+      <!-- FIXME: The use of -/tags is wrong, because we should use routeUrl using Ema's encoder
+        Perhaps Emanote should inject tagMetas with urls.
+      -->
+      <a title='Tag' class='px-1 bg-gray-100 rounded hover:bg-gray-50 hover:text-blue-500' href='-/tags/emacs'>
+        <!-- DoNotFormat -->
+        #emacs
         <!-- DoNotFormat -->
       </a>
     
