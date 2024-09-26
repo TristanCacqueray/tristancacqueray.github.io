@@ -132,4 +132,4 @@ To add:
 ## Archive
 
 > Do yourself a favor, make a local copy by running:
-> `podenv youtube-dl --audio-format best $(curl https://raw.githubusercontent.com/TristanCacqueray/TristanCacqueray.github.io/main/content/zettle/music/playlists.md | grep -- " YT:[^[]" | tr '.' '-' | sed 's#.*YT:\([^ ]*\).*#https://www.youtube.com/watch?v=\1#')`
+> `podenv youtube-dl --audio-format best $(curl https://raw.githubusercontent.com/TristanCacqueray/midirus.com/main/content/zettle/music/playlists.md | grep -- " YT:[^[]" | tr '.' '-' | sed 's#.*YT:\([^ ]*\).*#https://www.youtube.com/watch?v=\1#')`

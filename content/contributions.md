@@ -293,7 +293,6 @@ I made contributions to:
 - [TristanCacqueray/simple-haskell-minifier](https://github.com/TristanCacqueray/simple-haskell-minifier)
 - [TristanCacqueray/tiny-game-haskell-wasm](https://github.com/TristanCacqueray/tiny-game-haskell-wasm)
 - [TristanCacqueray/tiny-game-server](https://github.com/TristanCacqueray/tiny-game-server)
-- [TristanCacqueray/TristanCacqueray.github.io](https://github.com/TristanCacqueray/TristanCacqueray.github.io)
 - [TristanCacqueray/zmk-config](https://github.com/TristanCacqueray/zmk-config)
 - [typeddjango/awesome-python-typing](https://github.com/typeddjango/awesome-python-typing)
 - [typeractivexyz/documentation](https://github.com/typeractivexyz/documentation)

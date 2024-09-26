@@ -1,5 +1,5 @@
 page:
-  siteUrl: https://tristancacqueray.github.io
+  siteUrl: https://midirus.com
   siteTitle: Tristan's Zettelkasten
   headHtml: |
     <snippet var="js.highlightjs" />
