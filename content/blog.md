@@ -6,7 +6,7 @@ feed:
 
 # Blog
 
-My blog articles:
+My blog articles ([rss feed](blog.xml)):
 
 ```query {.timeline}
 path:blog/*
