@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=cf6cfebe-25ea-49f9-8b57-2a19bb6b2668' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=3e57d436-a4c2-486e-bc91-747d666fc119' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -418,11 +418,12 @@ window.MathJax = {
         Beautiful Haskell
       </a>
     </h1>
-    <time class='text-sm text-right font-mono text-gray-600 block mb-2'>
-      2023-08-27
-    </time>
-    <article class='overflow-auto'>
-      
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
 
 
 
@@ -853,7 +854,155 @@ go (x:rest) = ...</code></pre></div>
       
     </div>
   
-    </article>
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <time class='text-sm text-right font-mono text-gray-600 block -mt-6 rounded px-1 mb-2 bg-blue-100'>
+            2023-08-27
+          </time>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Beautiful Functional Programming'>
+              <a href='blog/beautiful-haskell#beautiful-functional-programming' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Beautiful Functional Programming
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='The nested-map-reduce-traversal challenge'>
+              <a href='blog/beautiful-haskell#the-nested-map-reduce-traversal-challenge' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                The nested-map-reduce-traversal challenge
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='My solution'>
+              <a href='blog/beautiful-haskell#my-solution' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                My solution
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Haskell 2021 Syntax'>
+              <a href='blog/beautiful-haskell#haskell-2021-syntax' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Haskell 2021 Syntax
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Comparison with Python'>
+              <a href='blog/beautiful-haskell#comparison-with-python' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Comparison with Python
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Haskell Core Language'>
+              <a href='blog/beautiful-haskell#haskell-core-language' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Haskell Core Language
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/beautiful-haskell#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       

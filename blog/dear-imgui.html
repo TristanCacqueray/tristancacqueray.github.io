@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=cf6cfebe-25ea-49f9-8b57-2a19bb6b2668' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=3e57d436-a4c2-486e-bc91-747d666fc119' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -418,11 +418,12 @@ window.MathJax = {
         Incredibly Magic Graphics User Interface
       </a>
     </h1>
-    <time class='text-sm text-right font-mono text-gray-600 block mb-2'>
-      2022-11-28
-    </time>
-    <article class='overflow-auto'>
-      
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
 
 
 
@@ -756,7 +757,166 @@ mainLoop window doDrawGUI = unlessQuit do
   
     </blockquote>
   
-    </article>
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <time class='text-sm text-right font-mono text-gray-600 block -mt-6 rounded px-1 mb-2 bg-blue-100'>
+            2022-11-28
+          </time>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context'>
+              <a href='blog/dear-imgui#context' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='How it works'>
+              <a href='blog/dear-imgui#how-it-works' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                How it works
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Layout'>
+              <a href='blog/dear-imgui#layout' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Layout
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Button handler'>
+              <a href='blog/dear-imgui#button-handler' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Button handler
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Dear ID'>
+              <a href='blog/dear-imgui#dear-id' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Dear ID
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='List selector'>
+              <a href='blog/dear-imgui#list-selector' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                List selector
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Run the GUI'>
+              <a href='blog/dear-imgui#run-the-gui' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Run the GUI
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/dear-imgui#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       

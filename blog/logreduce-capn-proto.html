@@ -69,7 +69,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=cf6cfebe-25ea-49f9-8b57-2a19bb6b2668' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=3e57d436-a4c2-486e-bc91-747d666fc119' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -418,11 +418,12 @@ window.MathJax = {
         Leveraging Cap'n Proto For Logreduce Reports
       </a>
     </h1>
-    <time class='text-sm text-right font-mono text-gray-600 block mb-2'>
-      2023-10-23
-    </time>
-    <article class='overflow-auto'>
-      
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
+  
 
 
 
@@ -1293,7 +1294,265 @@ $ du -b capnp/*.wasm bincode/*.wasm
       In conclusion, replacing bincode with Cap’n Proto future proofs logreduce reports. This format adds some negligible storage and processing costs, in exchange for a backward compatible schema and more efficient data access. Flatbuffers is also worth considering as it has a lower storage cost, but it requires more work to verify that the data is safe to be processed.
     </p>
   
-    </article>
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <time class='text-sm text-right font-mono text-gray-600 block -mt-6 rounded px-1 mb-2 bg-blue-100'>
+            2023-10-23
+          </time>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Context and problem statement'>
+              <a href='blog/logreduce-capn-proto#context-and-problem-statement' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Context and problem statement
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Bincode versioning scheme'>
+              <a href='blog/logreduce-capn-proto#bincode-versioning-scheme' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Bincode versioning scheme
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Prepare the playground'>
+              <a href='blog/logreduce-capn-proto#prepare-the-playground' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Prepare the playground
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Create the initial report'>
+              <a href='blog/logreduce-capn-proto#create-the-initial-report' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Create the initial report
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Updating the schema'>
+              <a href='blog/logreduce-capn-proto#updating-the-schema' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Updating the schema
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Introducing Cap’n Proto'>
+              <a href='blog/logreduce-capn-proto#introducing-capn-proto' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Introducing Cap’n Proto
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Schema Language'>
+              <a href='blog/logreduce-capn-proto#schema-language' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Schema Language
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Code generation'>
+              <a href='blog/logreduce-capn-proto#code-generation' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Code generation
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Report Encoder/Decoder'>
+              <a href='blog/logreduce-capn-proto#report-encoderdecoder' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Report Encoder/Decoder
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Encode a report'>
+              <a href='blog/logreduce-capn-proto#encode-a-report' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Encode a report
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Decode a report'>
+              <a href='blog/logreduce-capn-proto#decode-a-report' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Decode a report
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Evolving the schema'>
+              <a href='blog/logreduce-capn-proto#evolving-the-schema' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Evolving the schema
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Benchmark'>
+              <a href='blog/logreduce-capn-proto#benchmark' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Benchmark
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='CPU usage'>
+              <a href='blog/logreduce-capn-proto#cpu-usage' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                CPU usage
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Report file size.'>
+              <a href='blog/logreduce-capn-proto#report-file-size' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Report file size.
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Client code size'>
+              <a href='blog/logreduce-capn-proto#client-code-size' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Client code size
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Conclusion'>
+              <a href='blog/logreduce-capn-proto#conclusion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Conclusion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
