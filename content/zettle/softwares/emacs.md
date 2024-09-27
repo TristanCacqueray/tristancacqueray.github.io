@@ -18,17 +18,6 @@ My configuration is mostly provided by [[devenv]] and customized in my [dot-file
 | C-h v   | check variable doc                         |
 | C-h m   | check mode doc                             |
 
-## Navigation
-
-| **key** | **info**                 |
-|---------|--------------------------|
-| C-x 1   | fullscreen frame         |
-| C-x 2   | split frame horizontally |
-| C-x 3   | split frame vertically   |
-| C-x 0   | close current frame      |
-| C-x o   | move between frame       |
-| C-x b   | switch buffer            |
-
 ## Commands
 
 | **key** | **info**             |
