@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!-- DoNotFormat -->
+<!-- DoNotFormat -->
+
+
 
 
 <!-- DoNotFormat -->
@@ -10,7 +14,7 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Snippets – Tristan's Zettelkasten
+    feeds – Tristan's Zettelkasten
   </title>
   
     
@@ -18,7 +22,7 @@
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content='https://midirus.com/' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Snippets' />
+      <meta property='og:title' content='feeds' />
       
         <meta name='twitter:card' content='summary_large_image' />
       
@@ -233,7 +237,26 @@ window.MathJax = {
 
 
   
-    <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    <style>
+      /* For use in sidebar.tpl, as we cannot achieve this in tailwind itself! */
+      /* md:min-w-48  */
+      @media (min-width: 768px) {
+        #sidebar {
+          min-width: 12rem;
+        }
+      }
+
+      /* xl:min-w-64  */
+      @media (min-width: 1280px) {
+        #sidebar {
+          min-width: 16rem;
+        }
+      }
+    </style>
+
+    
+      <link rel='stylesheet' href='_emanote-static/inverted-tree.css' />
+    
   
   <link rel='stylesheet' href='_emanote-static/stork/flat.css' />
 <!-- Custom Stork-search styling for Emanote -->
@@ -344,8 +367,8 @@ window.MathJax = {
 
 <body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto max-w-screen-lg'>
-      <div class='mt-2 md:mt-4'>
+    <div class='container mx-auto sm:w-[67rem] mt-2 md:mt-4  '>
+      
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
 
@@ -357,6 +380,17 @@ window.MathJax = {
           
             <li>
 
+  <a href='zettle'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Zettelkasten
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
   <a href=''>
     <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
@@ -365,52 +399,57 @@ window.MathJax = {
 
   
 </li>
+      
+    </ul>
+  
+</li>
           
         </ul>
       
     </li>
   </ul>
 </nav>
+      
 
-        <div class='relative md:shadow-2xl md:mb-8'>
-          <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
-            <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
-              <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
+      
+
+      
+        <div id='container' class='relative md:shadow-2xl md:mb-8'>
+          
+  <div class='absolute -top-6 right-1 md:right-0 flex flex-row items-center justify-center'>
+    <a title='Search (Ctrl+K)' class='cursor-pointer' onclick='window.emanote.stork.toggleSearch()'>
+      <svg xmlns='http://www.w3.org/2000/svg' style='width: 1rem;' class='hover:text-blue-700' f
  fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
   <path stroke-linecap='round' stroke-linejoin='round' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'></path>
 </svg>
-            </a>
-          </div>
-          <div class='flex-1 w-full overflow-x-auto bg-white'>
-            <main class='px-4 py-4'>
-              <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+    </a>
+  </div>
+
+          <!-- Main body column -->
+          <div class='flex-1 w-full bg-white'>
+  <main class='px-4 py-4'>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
-    Snippets
+    feeds
   </a>
 </h1>
-              <div class='grid grid-cols-12'>
-                <aside class='bg-indigo-50 col-span-3 px-2 py-1 -mt-4'>
-                  <div class='sticky top-0'>
-                    <ul><li><a href='snippets#ghc'>ghc</a></li><li><a href='snippets#perf'>perf</a></li><li><a href='snippets#git'>git</a></li><li><a href='snippets#ffmpeg'>ffmpeg</a></li><li><a href='snippets#gnome'>gnome</a></li><li><a href='snippets#rpm'>rpm</a></li><li><a href='snippets#wayland'>wayland</a></li><li><a href='snippets#x11'>x11</a></li><li><a href='snippets#gpg'>gpg</a></li><li><a href='snippets#pdf'>pdf</a></li><li><a href='snippets#gnuplot'>gnuplot</a></li><li><a href='snippets#notmuch'>notmuch</a></li><li><a href='snippets#zookeeper'>ZooKeeper</a></li><li><a href='snippets#openstack'>OpenStack</a></li><li><a href='snippets#gephi'>Gephi</a></li></ul>
-                  </div>
-                </aside>
-                <article class='overflow-auto col-span-9 mx-2'>
-                  
-
-
-
-
-
-
-    <p class='mb-3'>
-      These are code snippets for one-off task.
-    </p>
+    
+      <div class='md:grid md:gap-4 md:grid-cols-8'>
+        <div class='md:col-span-6'>
+          <article class='overflow-auto'>
+  <!-- What goes in this file will appear on top of note body-->
   
-    <h1 id='ghc' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+
+
+
+
+
+
+    <h1 id='a-list-of-rss' class='group mt-6 mb-4 font-bold text-gray-700 text-5xl'>
       
-  ghc
+  A list of RSS <span class='tag' tag-name='elfeed'>elfeed</span>
   
-  <a href='snippets#ghc'>
+  <a href='zettle/feeds#a-list-of-rss' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -419,311 +458,16 @@ window.MathJax = {
 
 
     </h1>
-  
-    <h2 id='compare-core-output' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  compare core output
-  
-  <a href='snippets#compare-core-output'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># Bump with core output
-cabal clean && cabal build --ghc-options="-ddump-simpl -ddump-to-file -dsuppress-uniques" lib:simple-dsp
-# Save output
-cp ./dist-newstyle/build/x86_64-linux/ghc-9.6.1/simple-dsp-0.1/build/src/SimpleDSP/IIR.dump-simpl .
-# Make change, rebuild and compare diff
-...
-</code></pre></div>
-    <h2 id='runtime-profile' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  runtime profile
-  
-  <a href='snippets#runtime-profile'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
   
     <p class='mb-3'>
-      With `cabal.project.local`:
+      Here is a list of RSS feed to get news directly in your terminal! Checkout the raw file <a href='https://raw.githubusercontent.com/TristanCacqueray/tristancacqueray.github.io/refs/heads/main/content/zettle/feeds.org' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>here</a>
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='cabal language-cabal'>ignore-project: False
-library-profiling: True
-executable-profiling: True
-tests: True
-benchmarks: True
-profiling: True
-</code></pre></div>
-    <p class='mb-3'>
-      Run:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># Build/run the project with profiling options
-cabal run -O2 --enable-library-profiling --enable-profiling --ghc-options="-fprof-late-inline" exe:my-exe -- +RTS -p -hy -l-au -RTS
-# Render report
-nix shell nixpkgs#haskellPackages.eventlog2html eventlog2html my-exe.eventlog
-</code></pre></div>
-    <h1 id='perf' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+  
+    <h2 id='my-feed' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
-  perf
+  My feed <span class='tag' tag-name='tristan'>tristan</span>
   
-  <a href='snippets#perf'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='create-a-flamegraph' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  create a flamegraph
-  
-  <a href='snippets#create-a-flamegraph'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># Record perf data
-sudo perf record -a -g -- ma-command
-# Generate flame graph
-sudo perf script | ~/src/github.com/brendangregg/FlameGraph/stackcollapse-perf.pl --all | ~/src/github.com/brendangregg/FlameGraph/flamegraph.pl &gt; perfjuicer.svg
-</code></pre></div>
-    <h1 id='git' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  git
-  
-  <a href='snippets#git'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='delete-merged-branch' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  delete merged branch
-  
-  <a href='snippets#delete-merged-branch'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
-</code></pre></div>
-    <h1 id='ffmpeg' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  ffmpeg
-  
-  <a href='snippets#ffmpeg'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='encode-mp3-with-pochette-for-youtube' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Encode mp3 with pochette for youtube
-  
-  <a href='snippets#encode-mp3-with-pochette-for-youtube'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortest -c:v libx264 opFreak-album.mp4
-</code></pre></div>
-    <h1 id='gnome' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  gnome
-  
-  <a href='snippets#gnome'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='show-wifi-passwords' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Show wifi passwords
-  
-  <a href='snippets#show-wifi-passwords'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>nmcli -s connection show $SSID | grep -i psk
-</code></pre></div>
-    <h1 id='rpm' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  rpm
-  
-  <a href='snippets#rpm'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='list-installed-by-size' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  List installed by size
-  
-  <a href='snippets#list-installed-by-size'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># rpm -qia|awk '$1=="Name" {n=$3} $1=="Size" {s=$3} $1=="Description" {print s " " n }' | sort -n
-rpm -qa --queryformat '%{SIZE} %{NAME}\n'
-</code></pre></div>
-    <h1 id='wayland' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  wayland
-  
-  <a href='snippets#wayland'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='disable-input' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Disable input
-  
-  <a href='snippets#disable-input'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>sudo libinput list-devices
-# grab the input path and run:
-sudo nix run nixpkgs#evtest --grab /dev/input/event3
-</code></pre></div>
-    <h1 id='x11' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  x11
-  
-  <a href='snippets#x11'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='mouse-speeds' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  mouse speeds
-  
-  <a href='snippets#mouse-speeds'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>xinputs -&gt; get the mouse id
-xinputs list-props -&gt; get the matrix prop id
-xinput set-prop $MID $PID 3.0, 0.0, 0.0, 0.0, 3.0, 0.0, 0.0, 0.0, 1.0
-</code></pre></div>
-    <h1 id='gpg' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  gpg
-  
-  <a href='snippets#gpg'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='update-expired-keys' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Update expired keys
-  
-  <a href='snippets#update-expired-keys'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ gpg --edit-key EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
-gpg&gt; expire
-...
-gpg&gt; key 1
-gpg&gt; expire
-...
-gpg&gt; save
-$ gpg  --send-keys  EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
-</code></pre></div>
-    <h2 id='add-ssh-key' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Add ssh key
-  
-  <a href='snippets#add-ssh-key'>
+  <a href='zettle/feeds#my-feed' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -733,61 +477,11 @@ $ gpg  --send-keys  EB103DE8B5E69E631C6FF17922B9A05C925CC5D8
 
     </h2>
   
-    <p class='mb-3'>
-      From <a href='https://opensource.com/article/19/4/gpg-subkeys-ssh' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://opensource.com/article/19/4/gpg-subkeys-ssh</a>
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>$ gpg2 --expert --edit-key &lt;KEY ID&gt;
-gpg&gt; addkey
-   (8) RSA (set your own capabilities)
-Your selection? 8
-
-Possible actions for a RSA key: Sign Encrypt Authenticate
-Current allowed actions: Authenticate
-
-   (Q) Finished
-
-Your selection? q
-Is this correct? (y/N) y
-Really create? (y/N) y
-gpg&gt; quit
-Save changes? (y/N) y
-</code></pre></div>
-    <p class='mb-3'>
-      In gpg.conf
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>enable-ssh-support
-</code></pre></div>
-    <p class='mb-3'>
-      Auto add key to agent
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>gpg2 -K --with-keygrip
-echo ID &gt;&gt; ~/.gnupg/sshcontrol
-</code></pre></div>
-    <p class='mb-3'>
-      Then in .xinitrc
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>gpg-agent --daemon --keep-display
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-</code></pre></div>
-    <h1 id='image-magic' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
+    <h3 id='httpsmidirus.comblog.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
-  image magic
+  <a href='https://midirus.com/blog.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://midirus.com/blog.xml</a>
   
-  <a href='snippets#image-magic'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h3 id='compare-test' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
-      
-  Compare test
-  
-  <a href='snippets#compare-test'>
+  <a href='zettle/feeds#httpsmidirus.comblog.xml' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -796,14 +490,12 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 
     </h3>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>// Use imagemagick to test that your image is what you want
-'compare -metric RMSE actual.png expected.png',
-</code></pre></div>
-    <h1 id='pdf' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  pdf
   
-  <a href='snippets#pdf'>
+    <h2 id='protesilaos' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Protesilaos <span class='tag' tag-name='prot'>prot</span>
+  
+  <a href='zettle/feeds#protesilaos' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -811,290 +503,735 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   </a>
 
 
-    </h1>
+    </h2>
+  
+    <h3 id='httpsprotesilaos.comcodelog.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://protesilaos.com/codelog.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://protesilaos.com/codelog.xml</a>
+  
+  <a href='zettle/feeds#httpsprotesilaos.comcodelog.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpsprotesilaos.comkeeb.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://protesilaos.com/keeb.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://protesilaos.com/keeb.xml</a>
+  
+  <a href='zettle/feeds#httpsprotesilaos.comkeeb.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpsprotesilaos.comnews.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://protesilaos.com/news.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://protesilaos.com/news.xml</a>
+  
+  <a href='zettle/feeds#httpsprotesilaos.comnews.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='developers' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Developers <span class='tag' tag-name='dev'>dev</span>
+  
+  <a href='zettle/feeds#developers' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='skeeto' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://nullprogram.com/feed/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>skeeto</a>
+  
+  <a href='zettle/feeds#skeeto' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='bartosz' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://bartoszmilewski.com/feed/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Bartosz</a>
+  
+  <a href='zettle/feeds#bartosz' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpsfasterthanli.meindex.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://fasterthanli.me/index.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://fasterthanli.me/index.xml</a>
+  
+  <a href='zettle/feeds#httpsfasterthanli.meindex.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpsmatklad.github.iofeed.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://matklad.github.io/feed.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://matklad.github.io/feed.xml</a>
+  
+  <a href='zettle/feeds#httpsmatklad.github.iofeed.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpsjvns.caatom.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://jvns.ca/atom.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://jvns.ca/atom.xml</a>
+  
+  <a href='zettle/feeds#httpsjvns.caatom.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpswww.jonashietala.sefeed.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://www.jonashietala.se/feed.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.jonashietala.se/feed.xml</a>
+  
+  <a href='zettle/feeds#httpswww.jonashietala.sefeed.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpsariis.itstaticstreamrss.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://ariis.it/static/stream/rss.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://ariis.it/static/stream/rss.xml</a>
+  
+  <a href='zettle/feeds#httpsariis.itstaticstreamrss.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpsdrewdevault.comblogindex.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://drewdevault.com/blog/index.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://drewdevault.com/blog/index.xml</a>
+  
+  <a href='zettle/feeds#httpsdrewdevault.comblogindex.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='programming' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Programming <span class='tag' tag-name='plt'>plt</span>
+  
+  <a href='zettle/feeds#programming' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='httpsplanet.haskell.orgrss20.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://planet.haskell.org/rss20.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://planet.haskell.org/rss20.xml</a>
+  
+  <a href='zettle/feeds#httpsplanet.haskell.orgrss20.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='internet' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Internet
+  
+  <a href='zettle/feeds#internet' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='httpspluralistic.netfeed' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://pluralistic.net/feed/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://pluralistic.net/feed/</a>
+  
+  <a href='zettle/feeds#httpspluralistic.netfeed' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='httpswww.schneier.comblogatom.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://www.schneier.com/blog/atom.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.schneier.com/blog/atom.xml</a>
+  
+  <a href='zettle/feeds#httpswww.schneier.comblogatom.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='news' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  News <span class='tag' tag-name='news'>news</span>
+  
+  <a href='zettle/feeds#news' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='httpslobste.rsthaskellemacsaudiolispplt.rss' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://lobste.rs/t/haskell,emacs,audio,lisp,plt.rss' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://lobste.rs/t/haskell,emacs,audio,lisp,plt.rss</a>
+  
+  <a href='zettle/feeds#httpslobste.rsthaskellemacsaudiolispplt.rss' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='videos' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Videos <span class='tag' tag-name='video'>video</span>
+  
+  <a href='zettle/feeds#videos' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='httpsvideo.monsieurbidouille.frfeedsvideos.xml' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://video.monsieurbidouille.fr/feeds/videos.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://video.monsieurbidouille.fr/feeds/videos.xml</a>
+  
+  <a href='zettle/feeds#httpsvideo.monsieurbidouille.frfeedsvideos.xml' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='weather-alerts' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Weather alerts <span class='tag' tag-name='weather'>weather</span>
+  
+  <a href='zettle/feeds#weather-alerts' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='montreal' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  <a href='https://weather.gc.ca/rss/battleboard/qcrm2_e.xml' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Montreal</a>
+  
+  <a href='zettle/feeds#montreal' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
   
     <p class='mb-3'>
-      split in half a double-page scanned PDF in a single pass:
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>mutool poster -r -x 2 in.pdf out.pdf
-</code></pre></div>
-    <h1 id='gnuplot' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  gnuplot
-  
-  <a href='snippets#gnuplot'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='nice-looking-charts-from-csv' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  nice looking charts from CSV
-  
-  <a href='snippets#nice-looking-charts-from-csv'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  
-    <p class='mb-3'>
-      From <a href='https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://raymii.org/s/tutorials/GNUplot_tips_for_nice_looking_charts_from_a_CSV_file.html</a>
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>set datafile separator ','
-set xdata time
-set timefmt "%Y-%m-%dT%H:%M:%S"
-set key autotitle columnhead
-set ylabel "First Y Units"
-set xlabel 'Time'
-set y2tics
-set ytics nomirror
-set y2label "Second Y Axis Value"
-set style line 100 lt 1 lc rgb "grey" lw 0.5
-set grid ls 100
-set ytics 0.5
-set xtics 1
-set style line 101 lw 3 lt rgb "#f62aa0"
-set style line 102 lw 3 lt rgb "#26dfd0"
-set style line 103 lw 4 lt rgb "#b8ee30"
-
-set xtics rotate # rotate labels on the x axis
-set key right center # legend placement
-
-plot filename using 1:2 with lines ls 101, '' using 1:3 with lines ls 102, '' using 1:4 with lines axis x1y2 ls 103
-</code></pre></div>
-    <h1 id='google-calendar' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  google calendar
-  
-  <a href='snippets#google-calendar'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='export-to-org-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Export to org mode:
-  
-  <a href='snippets#export-to-org-mode'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  
-    <p class='mb-3'>
-      Download archive from <a href='https://calendar.google.com/calendar/r/settings/export' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://calendar.google.com/calendar/r/settings/export</a>, then
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>TZ=Asia/Seoul ical2orgpy cal.ics gcal.org
-</code></pre></div>
-    <h1 id='notmuch' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  notmuch
-  
-  <a href='snippets#notmuch'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='delete-mails-matching-query' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Delete mails matching query
-  
-  <a href='snippets#delete-mails-matching-query'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>notmuch search --format=text0 --output=files --exclude=false tag:monit | xargs -0 --no-run-if-empty rm
-</code></pre></div>
-    <h1 id='zookeeper' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  ZooKeeper
-  
-  <a href='snippets#zookeeper'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='connect-with-kazoo' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Connect with kazoo
-  
-  <a href='snippets#connect-with-kazoo'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='python language-python'>import json
-import kazoo.client
-client = kazoo.client.KazooClient(hosts="zookeeper")
-client.start()
-def load_node(path, node, x):
-    d = {}
-    try:
-      d = json.loads(node[0].decode('utf-8'))
-      d['node_path'] = path + x
-    except:
-      print("error: ", x, node)
-    return d
-
-
-nodes = list(map(lambda x: load_node(client.get("/nodepool/nodes/" + x), x), client.get_children("/nodepool/nodes")))
-
-# delete provider node
-for node in nodes:
-    if node.get('cloud') == 'rdo-cloud':
-        print("deleting ", node.get('node_path'))
-        client.delete(node['node_path'], recursive=True)
-
-node = json.loads(client.get("/nodepool/nodes/" + nodes[0])[0].decode('utf-8'))
-</code></pre></div>
-    <h1 id='openstack' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  OpenStack
-  
-  <a href='snippets#openstack'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <h2 id='deploy-local-instance' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
-      
-  Deploy local instance
-  
-  <a href='snippets#deploy-local-instance'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>yum install openstack-nova openstack-neutron libvirt openstack-glance openstack-cinder openstack-heat-api openstack-heat-common openstack-heat-engine openstack-keystone openstack-nova-scheduler qemu-img-ev rabbitmq-server libvirt-daemon-kvm galera mariadb-server-galera memcached container-selinux openstack-selinux sos openstack-neutron-ml2 targetcli openvswitch
-# resize hdd
-fdisk /dev/vda
-resize2fs /dev/vda
-
-packstack --answer-file=basic
-
-# Create cirros
-curl -OL https://trunk.rdoproject.org/cirros-0.3.4-x86_64-disk.img
-openstack image create --file cirros-0.3.4-x86_64-disk.img --disk-format qcow2 cirros2
-
-# Remove router1
-neutron router-gateway-clear router1
-neutron router-port-list router1
-neutron router-interface-delete router1 03916f57-a7a5-417d-b7d9-528b2fb4f993
-neutron router-delete router1
-
-# Remove public_subnet
-neutron subnet-delete public_subnet
-
-# Set br-ex network
-/etc/sysconfig/network-scripts/ifcfg-br-ex
-DEVICE=br-ex
-DEVICETYPE=ovs
-TYPE=OVSBridge
-BOOTPROTO=static
-IPADDR=192.168.100.2
-NETMASK=255.255.255.0
-GATEWAY=192.168.100.1
-DNS1=192.168.42.1
-ONBOOT=yes
-
-/etc/sysconfig/network-scripts/ifcfg-eth0
-DEVICE=eth0
-TYPE=OVSPort
-DEVICETYPE=ovs
-OVS_BRIDGE=br-ex
-ONBOOT=yes
-
-systemctl restart network
-
-# Create public_subnet
-neutron subnet-create --name public_subnet --enable_dhcp=True --allocation-pool=start=192.168.100.200,end=192.168.100.250  --gateway=192.168.100.1 public 192.168.100.0/24
-# Create router1
-neutron router-create router1
-neutron router-gateway-set router1 public
-neutron router-interface-add router1 private_subnet
-
-# Create keypair
-openstack keypair create --public-key kp id_rsa
-
-openstack image set --public centos-7
-
-# Enable ingress
-openstack security group rule create --ingress default
-openstack security group rule create --protocol icmp --ingress default
-</code></pre></div>
-    <h1 id='gephi' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl border-b-2'>
-      
-  Gephi
-  
-  <a href='snippets#gephi'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h1>
-  
-    <p class='mb-3'>
-      See: <a href='https://github.com/TristanCacqueray/cabal-audit/?tab=readme-ov-file#analyze-with-gephi' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/TristanCacqueray/cabal-audit/?tab=readme-ov-file#analyze-with-gephi</a>
+      From <a href='https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weatheroffice-online-services/data-services.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weatheroffice-online-services/data-services.html</a>
     </p>
   
+    <h2 id='remove-tag-rendering-in-emanote' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  <span class='todo TODO'>TODO</span> remove tag rendering in emanote
+  
+  <a href='zettle/feeds#remove-tag-rendering-in-emanote' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
 
-                </article>
-              </div>
+
+    </h2>
+  
+  <!-- What goes in this file will appear below the note body-->
+</article>
+        </div>
+        <div class='hidden md:block md:col-span-2 md:border-l'>
+          <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
+  <div class='text-gray-600 text-sm -mt-2'>
+    
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='A list of RSS elfeed'>
+              <a href='zettle/feeds#a-list-of-rss' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                A list of RSS elfeed
+              </a>
               
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='My feed tristan'>
+              <a href='zettle/feeds#my-feed' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                My feed tristan
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://midirus.com/blog.xml'>
+              <a href='zettle/feeds#httpsmidirus.comblog.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://midirus.com/blog.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Protesilaos prot'>
+              <a href='zettle/feeds#protesilaos' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Protesilaos prot
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://protesilaos.com/codelog.xml'>
+              <a href='zettle/feeds#httpsprotesilaos.comcodelog.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://protesilaos.com/codelog.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://protesilaos.com/keeb.xml'>
+              <a href='zettle/feeds#httpsprotesilaos.comkeeb.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://protesilaos.com/keeb.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://protesilaos.com/news.xml'>
+              <a href='zettle/feeds#httpsprotesilaos.comnews.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://protesilaos.com/news.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Developers dev'>
+              <a href='zettle/feeds#developers' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Developers dev
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='skeeto'>
+              <a href='zettle/feeds#skeeto' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                skeeto
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Bartosz'>
+              <a href='zettle/feeds#bartosz' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Bartosz
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://fasterthanli.me/index.xml'>
+              <a href='zettle/feeds#httpsfasterthanli.meindex.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://fasterthanli.me/index.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://matklad.github.io/feed.xml'>
+              <a href='zettle/feeds#httpsmatklad.github.iofeed.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://matklad.github.io/feed.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://jvns.ca/atom.xml'>
+              <a href='zettle/feeds#httpsjvns.caatom.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://jvns.ca/atom.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://www.jonashietala.se/feed.xml'>
+              <a href='zettle/feeds#httpswww.jonashietala.sefeed.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://www.jonashietala.se/feed.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://ariis.it/static/stream/rss.xml'>
+              <a href='zettle/feeds#httpsariis.itstaticstreamrss.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://ariis.it/static/stream/rss.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://drewdevault.com/blog/index.xml'>
+              <a href='zettle/feeds#httpsdrewdevault.comblogindex.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://drewdevault.com/blog/index.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Programming plt'>
+              <a href='zettle/feeds#programming' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Programming plt
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://planet.haskell.org/rss20.xml'>
+              <a href='zettle/feeds#httpsplanet.haskell.orgrss20.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://planet.haskell.org/rss20.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Internet'>
+              <a href='zettle/feeds#internet' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Internet
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://pluralistic.net/feed/'>
+              <a href='zettle/feeds#httpspluralistic.netfeed' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://pluralistic.net/feed/
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://www.schneier.com/blog/atom.xml'>
+              <a href='zettle/feeds#httpswww.schneier.comblogatom.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://www.schneier.com/blog/atom.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='News news'>
+              <a href='zettle/feeds#news' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                News news
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://lobste.rs/t/haskell,emacs,audio,lisp,plt.rss'>
+              <a href='zettle/feeds#httpslobste.rsthaskellemacsaudiolispplt.rss' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://lobste.rs/t/haskell,emacs,audio,lisp,plt.rss
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Videos video'>
+              <a href='zettle/feeds#videos' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Videos video
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='https://video.monsieurbidouille.fr/feeds/videos.xml'>
+              <a href='zettle/feeds#httpsvideo.monsieurbidouille.frfeedsvideos.xml' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                https://video.monsieurbidouille.fr/feeds/videos.xml
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Weather alerts weather'>
+              <a href='zettle/feeds#weather-alerts' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Weather alerts weather
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Montreal'>
+              <a href='zettle/feeds#montreal' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Montreal
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='TODO remove tag rendering in emanote'>
+              <a href='zettle/feeds#remove-tag-rendering-in-emanote' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                TODO remove tag rendering in emanote
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+  </div>
+  <script>
+    // Highlight the TOC, based from https://stackoverflow.com/a/75346369
+    // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
+    function highlightTOC() {
+      // Grab the toc links
+      const links = document.querySelectorAll("ul > li > a.--ema-toc");
+
+      // Find the matching anchors in the document body
+      const sections = [];
+      links.forEach((link) => {
+        let found = {};
+        for (section of document.querySelectorAll("a.--ema-anchor")) {
+          if (link.href == section.href) {
+            found = section;
+            break;
+          }
+        }
+        sections.push(found);
+      });
+
+      // Current toc link is marked with the following class
+      const mark = "toc-item-active";
+
+      // Set window scroll handler to update the toc mark.
+      window.onscroll = () => {
+        // Remove previous mark
+        links.forEach((link) => {
+          link.classList.remove(mark);
+        });
+
+        // Mark the link of the section that is in view, starting from the end
+        let marked = false;
+        for (var i = sections.length - 1; i >= 0; i--) {
+          if (window.scrollY > sections[i].offsetTop - 80) {
+            links[i].classList.add(mark);
+            marked = true;
+            break;
+          }
+        }
+
+        // Special case for the first and last section which might not reach the top
+        if (!marked && window.scrollY > 0) {
+          let i = 0;
+          if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            // We are at the bottom
+            i = links.length - 1
+          }
+          links[i].classList.add(mark);
+        }
+      };
+    }
+    highlightTOC();
+  </script>
+</nav>
+        </div>
+      </div>
+      
+    <div class='flex flex-col lg:flex-row lg:space-x-2'>
+      
+      
+    </div>
+    
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/snippets.org'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/zettle/feeds.org'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
@@ -1105,11 +1242,12 @@ openstack security group rule create --protocol icmp --ingress default
   </div>
 
 
-              <!-- What goes in this file will at the very end of the main div -->
-            </main>
-          </div>
+    <!-- What goes in this file will at the very end of the main div -->
+  </main>
+</div>
         </div>
-        <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
+      
+      <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
   
   <div>
     <a href='' title='Go to Home page'>
@@ -1141,7 +1279,6 @@ openstack security group rule create --protocol icmp --ingress default
   </div>
 </footer>
 
-      </div>
     </div>
   
   <div id='stork-search-container' class='hidden fixed w-screen h-screen inset-0 backdrop-filter backdrop-blur-sm'>
