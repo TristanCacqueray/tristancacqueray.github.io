@@ -1,0 +1,37 @@
+* A list of RSS                                                      :elfeed:
+
+Here is a list of RSS feed to get news directly in your terminal!
+Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/tristancacqueray.github.io/refs/heads/main/content/zettle/feeds.org][here]]
+
+** My feed                                                               :tristan:
+*** https://midirus.com/blog.xml
+** Protesilaos                                                         :prot:
+*** https://protesilaos.com/codelog.xml
+*** https://protesilaos.com/keeb.xml
+*** https://protesilaos.com/news.xml
+** Developers                                                           :dev:
+*** https://xenodium.com/rss.xml
+*** [[https://nullprogram.com/feed/][skeeto]]
+*** [[https://bartoszmilewski.com/feed/][Bartosz]]
+*** https://fasterthanli.me/index.xml
+*** https://matklad.github.io/feed.xml
+*** https://jvns.ca/atom.xml
+*** https://www.jonashietala.se/feed.xml
+*** https://ariis.it/static/stream/rss.xml
+*** https://drewdevault.com/blog/index.xml
+** Programming                                                           :plt:
+*** https://planet.haskell.org/rss20.xml
+** Internet
+*** https://pluralistic.net/feed/
+*** https://www.schneier.com/blog/atom.xml
+** News                                                                :news:
+*** https://lobste.rs/t/haskell,emacs,audio,lisp,plt.rss
+
+** Videos                                                             :video:
+*** https://video.monsieurbidouille.fr/feeds/videos.xml
+
+** Weather alerts                                                   :weather:
+*** [[https://weather.gc.ca/rss/battleboard/qcrm2_e.xml][Montreal]]
+From https://www.canada.ca/en/environment-climate-change/services/weather-general-tools-resources/weatheroffice-online-services/data-services.html
+
+** TODO remove tag rendering in emanote
