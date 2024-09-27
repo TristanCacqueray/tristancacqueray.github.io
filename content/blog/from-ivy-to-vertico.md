@@ -65,7 +65,7 @@ First, activate *vertico*:
 (vertico-mode)
 ```
 
-Now, pressing `M-x`, or any command using completion like `switch-to-buffer`, shows a vertical list of candidates:
+Now, pressing <kbd>ALT</kbd>+<kbd>x</kbd>, or any command using completion like `switch-to-buffer`, shows a vertical list of candidates:
 
 :::{.flex .items-center .justify-center}
 ![vertico-mode](media/vertico-mode.png)
@@ -112,7 +112,7 @@ Fortunately, it is well documented, and here is how to change the keybindings:
 
 ### Vertico Directory
 
-When completing file paths, Ivy removes the current directory name when pressing DEL.
+When completing file paths, Ivy removes the current directory name when pressing <kbd>DEL</kbd>.
 That is, instead of peeling the last letter, it goes straight to the logical parent entry, which is what I want most of the time. This can be implemented using `vertico-directory`:
 
 ```scheme
