@@ -47,6 +47,20 @@
 
 <script src='/static/godiag.js'></script>
 <style>
+.kbd {
+    display: inline-block;
+    padding: 0.25rem;
+    font: 11px mono;
+    line-height: 10px;
+    color: #1f2328;
+    vertical-align: middle;
+    background-color: rgb(246, 248, 250);
+    border: solid 1px #1f232826;
+    border-bottom-color: rgba(209, 217, 224, 0.7);
+    border-radius: 6px;
+    box-shadow: inset 0 -1px 0 #d1d9e0b3;
+  }
+}
 code.baduk {
   background-color: white;
   color: black;
@@ -69,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=3e57d436-a4c2-486e-bc91-747d666fc119' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=2163246f-8da9-439d-8481-5b3444a9e21d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -573,7 +587,7 @@ window.MathJax = {
 ;; Press F5 to capture a task (same key as quicksave in KSP)
 (define-key global-map (kbd "&lt;f5&gt;") 'tc/org-capture-todo)</code></pre></div>
     <p class='mb-3'>
-      Now pressing <span xmlhtmlRaw><kbd></span>F5<span xmlhtmlRaw></kbd></span> create the following window:
+      Now pressing <span class='kbd'>F5</span> create the following window:
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-capture.png' alt='nano-capture' style='width: inherit;' /></div>
     <p class='mb-3'>
@@ -615,11 +629,11 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      Use <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-refile</code> to move a task, and press <span xmlhtmlRaw><kbd></span>tab<span xmlhtmlRaw></kbd></span> to get a list of destination:
+      Use <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-refile</code> to move a task, and press <span class='kbd'>tab</span> to get a list of destination:
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/nano-org-refile.png' alt='nano-org-refile' style='width: inherit;' /></div>
     <p class='mb-3'>
-      For example, pressing <span xmlhtmlRaw><kbd></span>M<span xmlhtmlRaw></kbd></span> <span xmlhtmlRaw><kbd></span>tab<span xmlhtmlRaw></kbd></span> <span xmlhtmlRaw><kbd></span>enter<span xmlhtmlRaw></kbd></span> moves the task to the monocle project.
+      For example, pressing <span class='kbd'>M</span> <span class='kbd'>tab</span> <span class='kbd'>enter</span> moves the task to the monocle project.
     </p>
   
     <p class='mb-3'>

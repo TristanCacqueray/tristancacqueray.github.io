@@ -47,6 +47,20 @@
 
 <script src='/static/godiag.js'></script>
 <style>
+.kbd {
+    display: inline-block;
+    padding: 0.25rem;
+    font: 11px mono;
+    line-height: 10px;
+    color: #1f2328;
+    vertical-align: middle;
+    background-color: rgb(246, 248, 250);
+    border: solid 1px #1f232826;
+    border-bottom-color: rgba(209, 217, 224, 0.7);
+    border-radius: 6px;
+    box-shadow: inset 0 -1px 0 #d1d9e0b3;
+  }
+}
 code.baduk {
   background-color: white;
   color: black;
@@ -69,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=3e57d436-a4c2-486e-bc91-747d666fc119' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=2163246f-8da9-439d-8481-5b3444a9e21d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -565,7 +579,7 @@ window.MathJax = {
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(vertico-mode)</code></pre></div>
     <p class='mb-3'>
-      Now, pressing <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code>, or any command using completion like <code class='py-0.5 px-0.5 bg-gray-100'>switch-to-buffer</code>, shows a vertical list of candidates:
+      Now, pressing <span class='kbd'>ALT</span>+<span class='kbd'>x</span>, or any command using completion like <code class='py-0.5 px-0.5 bg-gray-100'>switch-to-buffer</code>, shows a vertical list of candidates:
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='blog/media/vertico-mode.png' alt='vertico-mode' style='width: inherit;' /></div>
     <p class='mb-3'>
@@ -660,7 +674,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      When completing file paths, Ivy removes the current directory name when pressing DEL. That is, instead of peeling the last letter, it goes straight to the logical parent entry, which is what I want most of the time. This can be implemented using <code class='py-0.5 px-0.5 bg-gray-100'>vertico-directory</code>:
+      When completing file paths, Ivy removes the current directory name when pressing <span class='kbd'>DEL</span>. That is, instead of peeling the last letter, it goes straight to the logical parent entry, which is what I want most of the time. This can be implemented using <code class='py-0.5 px-0.5 bg-gray-100'>vertico-directory</code>:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(require 'vertico-directory)
 (keymap-set vertico-map "DEL" 'vertico-directory-delete-char)</code></pre></div>
