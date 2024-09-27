@@ -278,5 +278,5 @@ I personally don't use AI services out of ethical concern and I'm satisfied with
 
 Thanks for your time!
 
-[my-emacs]: https://github.com/TristanCacqueray/dot-files/blob/master/home/.emacs.el
+[my-emacs]: https://github.com/TristanCacqueray/dot-files/blob/master/home/.config/emacs/init.el
 [project-shell.el]: https://github.com/TristanCacqueray/emacs-toolbox/blob/main/project-shell.el
