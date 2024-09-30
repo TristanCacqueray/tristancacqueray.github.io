@@ -1,6 +1,6 @@
 # cfdg - freecontext
 
-Here are my first music videos made with [Context Free Art](https://www.contextfreeart.org/) and my [cfdg](https://github.com/TristanCacqueray/pycf) tool:
+Here are my first music videos made with [Context Free Art](https://www.contextfreeart.org/) and my [pycf](https://github.com/TristanCacqueray/pycf) tool:
 
 ---
 

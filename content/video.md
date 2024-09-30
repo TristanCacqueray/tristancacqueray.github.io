@@ -6,7 +6,7 @@ feed:
 
 # Videos
 
-My video ([rss feed](video.xml)):
+My videos ([rss feed](video.xml)):
 
 ```query {.timeline}
 path:video/*
