@@ -24,6 +24,7 @@
         p.servant
         p.servant-websockets
         p.servant
+        p.with-utf8
         p.lucid
         p.servant-lucid
         p.websockets

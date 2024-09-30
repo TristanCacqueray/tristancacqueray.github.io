@@ -4,7 +4,7 @@ feed:
   title: Tristan's videos
 ---
 
-# Video
+# Videos
 
 My video ([rss feed](video.xml)):
 

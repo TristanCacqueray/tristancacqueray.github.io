@@ -22,6 +22,11 @@
         </div>
       </div>
       <else />
+        <time
+          class="text-sm text-right font-mono text-gray-600 block -mt-6 rounded px-1 mb-6 bg-${theme}-100"
+        >
+          <ema:note:date />
+        </time>
       <apply template="note-body" />
     </ema:has:toc>
     <div class="flex flex-col lg:flex-row lg:space-x-2">

@@ -1,4 +1,4 @@
-# Strudel Shader
+# Strudel Shader (live)
 
 My piano phase with #strudel :)
 I missed a few transitions and I forgot to pan the patterns, but this is my first performance using this system and I hope you'll like it!
