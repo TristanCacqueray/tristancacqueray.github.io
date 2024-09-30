@@ -64,3 +64,5 @@ pandoc:
 
 emanote:
   folder-folgezettel: true
+
+date: ""
