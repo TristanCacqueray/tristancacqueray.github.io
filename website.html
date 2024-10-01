@@ -14,15 +14,15 @@
   <meta charset='UTF-8' />
   <meta name='viewport' content='width=device-width, initial-scale=1' />
   <title>
-    Midirus - rokano (reversed) – Tristan's Zettelkasten
+    midirus.com – Tristan's Zettelkasten
   </title>
   
     
-      <meta property='og:description' content />
+      <meta property='og:description' content='This is my website. It started as a [[zettle]], and I am now using it for publication. I really like the idea of linking notes to form a web of pages organically.' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content='https://midirus.com/' />
       <meta property='og:type' content='website' />
-      <meta property='og:title' content='Midirus - rokano (reversed)' />
+      <meta property='og:title' content='midirus.com' />
       
         <meta name='twitter:card' content='summary_large_image' />
       
@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=bbbe659a-7677-4dc9-9dfd-48910520b86c' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=b4185784-41d2-4eae-b1d1-76749fc01af6' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -380,27 +380,12 @@ window.MathJax = {
           
             <li>
 
-  <a href='video'>
-    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
-      Videos
-    </div>
-  </a>
-
-  
-    <ul>
-      
-        <li>
-
   <a href=''>
     <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
       Tristan de Cacqueray
     </div>
   </a>
 
-  
-</li>
-      
-    </ul>
   
 </li>
           
@@ -410,6 +395,7 @@ window.MathJax = {
   </ul>
 </nav>
       
+
       
 
       
@@ -427,15 +413,18 @@ window.MathJax = {
           <!-- Main body column -->
           <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
-    <h1 class='flex flex-col justify-center mb-1 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
-      <a class='z-40 tracking-tighter text-center'>
-        Midirus - rokano (reversed)
-      </a>
-    </h1>
+    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+  <a class='z-40 tracking-tighter '>
+    midirus.com
+  </a>
+</h1>
+
+  <span class='text-sm text-right font-mono text-gray-600 block -mt-9 rounded px-1 mb-7 min-h-5'>
     
-        <time class='text-sm text-right font-mono text-gray-600 block -mt-6 rounded px-1 mb-6 bg-blue-100'>
-          2018-06-18
-        </time>
+  </span>
+
+
+    
       <article class='overflow-auto'>
   <!-- What goes in this file will appear on top of note body-->
   
@@ -444,26 +433,126 @@ window.MathJax = {
 
 
 
-<div class='py-0.5 mb-3 text-sm'><pre><code class='language-none'>Mandelbrot set: z = z*z + c
-Base C: -0.8628850479105111-0.23190711123472404j
-Zoom: 7.74e-12
 
-Super sampling: x2
-Render time: 74 minutes</code></pre></div><div class='flex items-center justify-center'><div xmlhtmlRaw><iframe width="560" height="315" src="https://www.youtube.com/embed/xT0Qd-YKi0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div></div>
+    <p class='mb-3'>
+      This is my website. It started as a <a href='zettle' class='text-blue-600 mavenLinkBold hover:underline' data-wikilink-type='WikiLinkNormal'>Zettelkasten</a>, and I am now using it for publication. I really like the idea of linking notes to form a web of pages organically.
+    </p>
+  
+    <p class='mb-3'>
+      Here are the main features:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The content is in <strong>plain text</strong>, either in markdown or org-mode.
+        </li>
+      
+        <li>
+          <strong>RSS</strong> feeds can be added to any tree.
+        </li>
+      
+        <li>
+          <strong>Backlinks</strong> are displayed at the bottom.
+        </li>
+      
+        <li>
+          <strong>Full-Text</strong> search is available client side with <span class='kbd'>ctrl</span>+<span class='kbd'>k</span>.
+        </li>
+      
+        <li>
+          <strong>Table of Content</strong> is automatically generated.
+        </li>
+      
+        <li>
+          <strong>Heading anchors</strong> are available to link sections.
+        </li>
+      
+        <li>
+          <strong>Tags</strong> can be written inlined with the <code class='py-0.5 px-0.5 bg-gray-100'>#name</code> syntax.
+        </li>
+      
+        <li>
+          <strong>Tree</strong> links displayed at the top can be made using the <code class='py-0.5 px-0.5 bg-gray-100'>#[]</code> or <code class='py-0.5 px-0.5 bg-gray-100'>[]#</code> syntax.
+        </li>
+      
+        <li>
+          <strong>Styling</strong> with tailwind can be added with the <code class='py-0.5 px-0.5 bg-gray-100'>:::</code> syntax.
+        </li>
+      
+        <li>
+          <strong>Templates</strong> can be used to customize every aspect of the pages.
+        </li>
+      
+        <li>
+          <strong>Hot reload</strong> development server patches the page on save.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I get all these features with <a href='https://emanote.srid.ca/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>emanote</a>, and I am working on the following improvements:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Fix relative location of <code class='py-0.5 px-0.5 bg-gray-100'>og:image</code>: <a href='https://github.com/srid/emanote/pull/537' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/srid/emanote/pull/537</a>
+        </li>
+      
+        <li>
+          Add support for custom tags like <code class='py-0.5 px-0.5 bg-gray-100'>&lt;kbd&gt;</code>: <a href='https://github.com/srid/emanote/pull/554' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/srid/emanote/pull/554</a>
+        </li>
+      
+        <li>
+          Add prev/next links: <a href='https://github.com/srid/emanote/pull/553' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/srid/emanote/pull/553</a>
+        </li>
+      
+        <li>
+          Support denote: <a href='https://github.com/srid/emanote/discussions/551' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/srid/emanote/discussions/551</a>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      I am tempted to use something more simple like <a href='https://github.com/matklad/matklad.github.io' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>matklad.github.io</a>. But this would be a lot of work, and I’m happy to contribute to a general purpose solution like <a href='https://emanote.srid.ca/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>emanote</a>. If you know a solution with the same set of feature, please let me know!
+    </p>
+  
   <!-- What goes in this file will appear below the note body-->
 </article>
     
     <div class='flex flex-col lg:flex-row lg:space-x-2'>
       
       
+  <div class='flex-1 p-4 mt-8 bg-gray-100 rounded'>
+    <header class='mb-2 text-xl font-semibold text-gray-500'>Links to this page</header>
+    <ul class='space-y-1'>
+      
+        <li>
+          <a class='text-blue-600 mavenLinkBold hover:bg-blue-50' href=''>
+            Tristan de Cacqueray
+          </a>
+          
+            <div class='mb-4 overflow-auto text-sm text-gray-500'>
+  
+    <div class='pl-2 mt-2 border-l-2 border-blue-200 hover:border-blue-500'>
+      <div><p>Welcome to my <a href='website' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>website</a>. I am a software engineer working for Red Hat on OpenStack cloud <a href='zettle/continuous-integration' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Continuous Integration</a> and the <a href='zettle/software-factory' class='text-gray-600 font-bold hover:bg-gray-50' data-wikilink-type='WikiLinkNormal'>Software Factory Project</a>.</p></div>
+    </div>
+  
+</div>
+          
+        </li>
+      
+    </ul>
+  </div>
+
     </div>
     
   <section class='flex flex-wrap items-end justify-center my-4 space-x-2 space-y-2 font-mono text-sm'>
     
   </section>
   <div class='flex items-center justify-center mt-2'>
-    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/video/2018-06-18-rokano.md'>
+    <a class='text-gray-300 hover:text-blue-600 text-sm' title='Edit this page on GitHub' href='https://github.com/TristanCacqueray/TristanCacqueray.github.io/edit/main/content/website.md'>
       <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
         <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'></path>
       </svg>
@@ -477,7 +566,6 @@ Render time: 74 minutes</code></pre></div><div class='flex items-center justify-
     <!-- What goes in this file will at the very end of the main div -->
   </main>
 </div>
-
         </div>
       
       <footer class='flex items-center justify-center mt-2 mb-8 space-x-4 text-center text-gray-800'>
