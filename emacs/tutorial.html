@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=e5a32d49-752c-42fa-91a8-8e9755f4d84a' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=e45660a8-07cf-4b49-873e-dc162508a788' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -781,38 +781,30 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x package-install</code> to install the following packages:
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x package-install</code> to install modes for custom syntax, for example install:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>vertico</code>
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>orderless</code>
-        </li>
-      
-        <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>magit</code>
-        </li>
-      
-        <li>
           <code class='py-0.5 px-0.5 bg-gray-100'>markdown-mode</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>haskell-mode</code>
         </li>
       
     </ul>
   
     <p class='mb-3'>
-      Add other modes like <code class='py-0.5 px-0.5 bg-gray-100'>haskell-mode</code>, <code class='py-0.5 px-0.5 bg-gray-100'>yaml-mode</code>, <code class='py-0.5 px-0.5 bg-gray-100'>go-mode</code> depending on your usage.
+      Add other modes like <code class='py-0.5 px-0.5 bg-gray-100'>yaml-mode</code>, <code class='py-0.5 px-0.5 bg-gray-100'>go-mode</code> depending on your usage.
     </p>
   
-    <h2 id='configuration' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h2 id='development' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
-  Configuration
+  Development
   
-  <a href='emacs/tutorial#configuration' class='--ema-anchor'>
+  <a href='emacs/tutorial#development' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -823,29 +815,10 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      In this section I introduce how to persist configuration to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs.el</code> file.
-    </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Do not ask for permission to kill a buffer
-(global-set-key (kbd "C-x k") 'kill-current-buffer)</code></pre></div>
-    <h2 id='package' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
-      
-  Package
-  
-  <a href='emacs/tutorial#package' class='--ema-anchor'>
-    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
-        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
-        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
-      </svg></span>
-  </a>
-
-
-    </h2>
-  
-    <p class='mb-3'>
-      In this section I introduce how to install packages.
+      In this session we learn how to write software with Emacs
     </p>
   
-    <h2 id='language-server' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h3 id='language-server' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Language server
   
@@ -857,13 +830,13 @@ window.MathJax = {
   </a>
 
 
-    </h2>
+    </h3>
   
     <p class='mb-3'>
       In this section I introduce how to use a language server.
     </p>
   
-    <h2 id='magit' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h3 id='magit' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Magit
   
@@ -875,7 +848,7 @@ window.MathJax = {
   </a>
 
 
-    </h2>
+    </h3>
   
     <p class='mb-3'>
       In this section I introduce how to git.
@@ -1022,27 +995,12 @@ window.MathJax = {
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Configuration'>
-              <a href='emacs/tutorial#configuration' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Configuration
+            <li class='whitespace-nowrap truncate mt-2' title='Development'>
+              <a href='emacs/tutorial#development' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Development
               </a>
               
         <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
-          
-            <li class='whitespace-nowrap truncate mt-2' title='Package'>
-              <a href='emacs/tutorial#package' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Package
-              </a>
-              
-        <ul class='ml-2'>
-          
-        </ul>
-      
-            </li>
           
             <li class='whitespace-nowrap truncate mt-2' title='Language server'>
               <a href='emacs/tutorial#language-server' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
@@ -1061,6 +1019,10 @@ window.MathJax = {
               </a>
               
         <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
           
         </ul>
       
