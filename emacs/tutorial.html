@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=fe41bbbf-9dae-4456-b5e5-5fef500fc480' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=d74ed69b-f0da-4dac-bd3a-ecfc2baa0699' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -692,6 +692,48 @@ window.MathJax = {
       In this second session we learn how to customize Emacs behaviors and setup some quality of life.
     </p>
   
+    <h3 id='load-theme' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  load-theme
+  
+  <a href='emacs/tutorial#load-theme' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Setup color theme with <code class='py-0.5 px-0.5 bg-gray-100'>M-x load-theme</code>:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>modus-vivendi</code> for dark.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>modus-operandi</code> for light.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      These are highly accessible themes by @protesilaos, conforming with the highest standard for colour contrast between background and foreground values (WCAG AAA).
+    </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      If the colors are off, make sure to set the TERM variable, for example start emacs with <code class='py-0.5 px-0.5 bg-gray-100'>TERM=xterm-256color emacs</code> in tmux
+    </p>
+  
+    </blockquote>
+  
     <h3 id='global-set-key' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   global-set-key
@@ -787,7 +829,10 @@ window.MathJax = {
     <p class='mb-3'>
       Add the following to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code> file to ensure the settings persist accross restart:
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Use shift+arrow to change window
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Setup theme
+(load-theme 'modus-vivendi)
+
+;; Use shift+arrow to change window
 (windmove-default-keybindings)
 
 ;; Records window configuration and enable `M-x winner-undo` command to revert change
@@ -1051,6 +1096,17 @@ window.MathJax = {
               </a>
               
         <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='load-theme'>
+              <a href='emacs/tutorial#load-theme' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                load-theme
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
           
             <li class='whitespace-nowrap truncate mt-2' title='global-set-key'>
               <a href='emacs/tutorial#global-set-key' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
