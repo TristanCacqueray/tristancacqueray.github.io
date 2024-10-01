@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=f6616b5b-cbc9-40d8-a808-6135d345899f' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=e5a32d49-752c-42fa-91a8-8e9755f4d84a' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -478,7 +478,25 @@ window.MathJax = {
       To put things into perspective, Emacs started in 1976 as a set of macros for the Tape Editor and Corrector (TECO). GNU Emacs began in 1984 as a true Lisp interpreter, and it is among the oldest free and open source projects still under development.
     </p>
   
-    <h2 id='start' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h2 id='first-contact' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  First contact
+  
+  <a href='emacs/tutorial#first-contact' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      In this first session you learn the most basic usage.
+    </p>
+  
+    <h3 id='start' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Start
   
@@ -490,7 +508,7 @@ window.MathJax = {
   </a>
 
 
-    </h2>
+    </h3>
   
     <p class='mb-3'>
       Start Emacs in the terminal like this: <code class='py-0.5 px-0.5 bg-gray-100'>emacs -nw [file]</code>. You can ensure a clean start using the <code class='py-0.5 px-0.5 bg-gray-100'>-Q</code> option.
@@ -528,7 +546,7 @@ window.MathJax = {
       At the bottom you now have a helpful quick help window that shows you the essential commands. Once you are comfortable, close the help window by running the same command again.
     </p>
   
-    <h2 id='cursor-movements' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h3 id='cursor-movements' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Cursor movements
   
@@ -540,18 +558,18 @@ window.MathJax = {
   </a>
 
 
-    </h2>
+    </h3>
   
     <p class='mb-3'>
       In this section I introduce how to move the cursor, also called <em>point</em>.
     </p>
   
     <p class='mb-3'>
-      You can use the arrow keys <span class='kbd'>←</span> <span class='kbd'>↑</span> <span class='kbd'>↓</span> <span class='kbd'>→</span> and <span class='kbd'>HOME</span> <span class='kbd'>END</span> <span class='kbd'>PageUp</span> <span class='kbd'>PageDown</span>.
+      While you can use the arrow keys <span class='kbd'>←</span> <span class='kbd'>↑</span> <span class='kbd'>↓</span> <span class='kbd'>→</span> and <span class='kbd'>HOME</span> <span class='kbd'>END</span> <span class='kbd'>PageUp</span> <span class='kbd'>PageDown</span>, I recommend learning faster motions like <code class='py-0.5 px-0.5 bg-gray-100'>forward-paragraph</code> to move more efficiently.
     </p>
   
     <p class='mb-3'>
-      Here is how to move the cursor:
+      Here are the main cursor movements:
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-a</code> or <span class='kbd'>HOME</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>move-beginning-of-line</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move point to visible beginning of current logical line.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-e</code> or <span class='kbd'>END</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>move-end-of-line</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move point to end of current line as displayed.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-f</code> or <span class='kbd'>→</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>forward-char</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move forward to the next character.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-f</code> or <span class='kbd'>ctrl</span>+<span class='kbd'>→</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>forward-word</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move forward to the next word.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-b</code> or <span class='kbd'>←</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>backward-char</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move backward to the previous character.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-b</code> or <span class='kbd'>ctrl</span>+<span class='kbd'>←</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>backward-word</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move backward to the previous word.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-p</code> or <span class='kbd'>↑</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>previous-line</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move vertically up</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-{</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>backward-paragraph</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move backward to start of paragraph.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-n</code> or <span class='kbd'>↓</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>next-line</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move vertically down</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-}</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>forward-paragraph</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move forward to end of paragraph.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-&gt;</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>end-of-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move point to the end of the buffer.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-&lt;</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>beginning-of-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move point to the beginning of the buffer.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-v</code> or <span class='kbd'>PageDown</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>scroll-up-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Scroll text of selected window upward.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-v</code> or <span class='kbd'>PageUp</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>scroll-down-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Scroll text of selected window down.</td></tr></tbody></table>
     <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
@@ -563,14 +581,14 @@ window.MathJax = {
     </blockquote>
   
     <p class='mb-3'>
-      That covers 99% of my cursor movement needs, and with a little practice it’s easy to get used to. In particular, notice how <span class='kbd'>ctrl</span> is used for short movement while <span class='kbd'>alt</span> makes longer movement.
+      This covers most cursor movements, and with little practices you can memorize the commands. Notice how <span class='kbd'>ctrl</span> is used for short movement while <span class='kbd'>alt</span> makes longer movement.
     </p>
   
     <p class='mb-3'>
       Checkout the <code class='py-0.5 px-0.5 bg-gray-100'>M-x help-with-tutorial</code> to get some practice.
     </p>
   
-    <h2 id='window-navigation' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h3 id='window-navigation' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Window navigation
   
@@ -582,7 +600,7 @@ window.MathJax = {
   </a>
 
 
-    </h2>
+    </h3>
   
     <p class='mb-3'>
       In this section I introduce how to manage the window layout.
@@ -592,7 +610,7 @@ window.MathJax = {
       To move between windows, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x windmove-default-keybindings</code> to use <span class='kbd'>shift</span>+<span class='kbd'>arrows</span> for moving the cursor to another window.
     </p>
   
-    <h2 id='file' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+    <h3 id='file' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   File
   
@@ -604,12 +622,58 @@ window.MathJax = {
   </a>
 
 
-    </h2>
+    </h3>
   
     <p class='mb-3'>
       In this section I introduce how to open and save a file.
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-x C-f</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>find-file</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Edit file FILENAME.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-x C-s</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>save-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Save current buffer in visited file if modified.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-x k</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>kill-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Kill the buffer specified by BUFFER.</td></tr></tbody></table>
+    <h3 id='edition' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Edition
+  
+  <a href='emacs/tutorial#edition' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      In this section I introduce how to edit buffers.
+    </p>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-SPC</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>set-mark-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Set the mark where point is, and activate it.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-w</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>kill-ring-save</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Save (“copy”) text between point and mark.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-w</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>kill-region</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Kill (“cut”) text between point and mark.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-k</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>kill-line</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Kill the rest of the current line.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-DEL</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>backward-kill-word</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Kill previous word.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-y</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>yank</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Reinsert (“paste”) the last stretch of killed text.</td></tr></tbody></table>
+    <p class='mb-3'>
+      To replace text:
+    </p>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-%</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>query-replace</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Replace some STRING occurrences.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-M-%</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>query-replace-regexp</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Replace some things after point matching REGEXP.</td></tr></tbody></table>
+    <p class='mb-3'>
+      Once Emacs find a match, press:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <span class='kbd'>y</span> to replace
+        </li>
+      
+        <li>
+          <span class='kbd'>n</span> to skip
+        </li>
+      
+        <li>
+          <span class='kbd'>!</span> to do all replacement without asking.
+        </li>
+      
+        <li>
+          <span class='kbd'>ctrl</span>+<span class='kbd'>g</span> to cancel.
+        </li>
+      
+    </ul>
+  
     <h2 id='customization' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Customization
@@ -625,7 +689,123 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      In this section I introduce how to customize behaviors.
+      In this second session we learn how to customize Emacs behaviors and setup some quality of life.
+    </p>
+  
+    <h3 id='winner-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  winner-mode
+  
+  <a href='emacs/tutorial#winner-mode' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x winner-mode</code> to records the changes in window configuration so that you can revert any layout mistake with <code class='py-0.5 px-0.5 bg-gray-100'>M-x winner-undo</code>, for example after running <code class='py-0.5 px-0.5 bg-gray-100'>delete-other-windows</code> by mistake.
+    </p>
+  
+    <h3 id='savehist-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  savehist-mode
+  
+  <a href='emacs/tutorial#savehist-mode' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x savehist-mode</code> to save the minibuffer history. That way, pressing <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code> shows the last used commands.
+    </p>
+  
+    <h3 id='dot-emacs' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  dot emacs
+  
+  <a href='emacs/tutorial#dot-emacs' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Add the following to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code> file to ensure the settings persist accross restart:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Use shift+arrow to change window
+(windmove-default-keybindings)
+
+;; Records window configuration and enable `M-x winner-undo` command to revert change
+(winner-mode)
+
+;; Keep track of useful commands
+(savehist-mode)
+
+;; backup into one flat dir
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
+
+;; store custom variable to ~/.emacs.d/custom.el
+(setq custom-file (locate-user-emacs-file "custom.el"))
+
+;; Do not ask for permission to kill a buffer
+(global-set-key (kbd "C-x k") 'kill-current-buffer)</code></pre></div>
+    <p class='mb-3'>
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x eval-buffer</code> to apply the settings now.
+    </p>
+  
+    <h3 id='package-install' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  package-install
+  
+  <a href='emacs/tutorial#package-install' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x package-install</code> to install the following packages:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>vertico</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>orderless</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>magit</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>markdown-mode</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Add other modes like <code class='py-0.5 px-0.5 bg-gray-100'>haskell-mode</code>, <code class='py-0.5 px-0.5 bg-gray-100'>yaml-mode</code>, <code class='py-0.5 px-0.5 bg-gray-100'>go-mode</code> depending on your usage.
     </p>
   
     <h2 id='configuration' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
@@ -721,6 +901,13 @@ window.MathJax = {
       
             </li>
           
+            <li class='whitespace-nowrap truncate mt-2' title='First contact'>
+              <a href='emacs/tutorial#first-contact' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                First contact
+              </a>
+              
+        <ul class='ml-2'>
+          
             <li class='whitespace-nowrap truncate mt-2' title='Start'>
               <a href='emacs/tutorial#start' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 Start
@@ -765,12 +952,71 @@ window.MathJax = {
       
             </li>
           
+            <li class='whitespace-nowrap truncate mt-2' title='Edition'>
+              <a href='emacs/tutorial#edition' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Edition
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
             <li class='whitespace-nowrap truncate mt-2' title='Customization'>
               <a href='emacs/tutorial#customization' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 Customization
               </a>
               
         <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='winner-mode'>
+              <a href='emacs/tutorial#winner-mode' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                winner-mode
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='savehist-mode'>
+              <a href='emacs/tutorial#savehist-mode' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                savehist-mode
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='dot emacs'>
+              <a href='emacs/tutorial#dot-emacs' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                dot emacs
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='package-install'>
+              <a href='emacs/tutorial#package-install' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                package-install
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
           
         </ul>
       
