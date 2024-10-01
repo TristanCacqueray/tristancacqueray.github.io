@@ -96,6 +96,11 @@
       content: ""
     }
 
+    /* missing from tailwind generated css */
+    .min-h-5 {
+      min-height: 1.25rem;
+    }
+
     a[data-linkicon=none]::after {
       content: ""
     }
