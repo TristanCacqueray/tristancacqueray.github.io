@@ -6,6 +6,6 @@ tags: [nix]
 
 Provide the best in class developer experience for [[programing-languages]] enthusiast.
 
-It integrates an [[softwares/emacs]] distribution.
+It integrates an [[emacs]] distribution.
 
 Source: https://github.com/podenv/devenv

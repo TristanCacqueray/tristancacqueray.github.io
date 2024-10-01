@@ -4,15 +4,25 @@ tags: [emacs]
 ---
 
 There are many tutorials, but this one is mine.
+My goal is to explain how to displace VSCode from the ground up.
+Then I show how to use Emacs for a whole integrated computing experience,
+for example, to read news, send mails, play medias and more!
+
+> This is work in progress
+
 
 ## History
 
 To put things into perspective, Emacs started in 1976 as a set of macros for the Tape Editor and Corrector (TECO).
 GNU Emacs began in 1984 as a true Lisp interpreter, and it is among the oldest free and open source projects still under development.
 
-## Start
+## First contact
 
-Start Emacs in the terminal like this: `emacs -nw [file]`.
+In this first session you learn the most basic usage.
+
+### Start
+
+Start Emacs in the terminal like this: `emacs -nw`.
 You can ensure a clean start using the `-Q` option.
 
 Emacs keybindings use the <kbd>alt</kbd> and <kbd>ctrl</kbd> modifiers like this:
@@ -31,13 +41,14 @@ After starting Emacs, run the `help-quick` command by pressing `C-h C-q`, your t
 At the bottom you now have a helpful quick help window that shows you the essential commands.
 Once you are comfortable, close the help window by running the same command again.
 
-## Cursor movements
+### Cursor movements
 
 In this section I introduce how to move the cursor, also called *point*.
 
-You can use the arrow keys <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> and <kbd>HOME</kbd> <kbd>END</kbd> <kbd>PageUp</kbd> <kbd>PageDown</kbd>.
+While you can use the arrow keys <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> and <kbd>HOME</kbd> <kbd>END</kbd> <kbd>PageUp</kbd> <kbd>PageDown</kbd>,
+I recommend learning faster motions like `forward-paragraph` to move more efficiently.
 
-Here is how to move the cursor:
+Here are the main cursor movements:
 
 | *Key*                                 | *Command*              | *Description*                                            |
 |---------------------------------------|------------------------|----------------------------------------------------------|
@@ -58,12 +69,12 @@ Here is how to move the cursor:
 
 > Note that these keys mostly work by default with readline (e.g. in bash).
 
-That covers 99% of my cursor movement needs, and with a little practice it's easy to get used to.
-In particular, notice how <kbd>ctrl</kbd> is used for short movement while <kbd>alt</kbd> makes longer movement.
+This covers most cursor movements, and with little practices you can memorize the commands.
+Notice how <kbd>ctrl</kbd> is used for short movement while <kbd>alt</kbd> makes longer movement.
 
 Checkout the `M-x help-with-tutorial` to get some practice.
 
-## Window navigation
+### Window navigation
 
 In this section I introduce how to manage the window layout.
 
@@ -78,7 +89,15 @@ In this section I introduce how to manage the window layout.
 
 To move between windows, run `M-x windmove-default-keybindings` to use <kbd>shift</kbd>+<kbd>arrows</kbd> for moving the cursor to another window.
 
-## File
+| *Key*                         | *Command*      | *Description*          |
+|-------------------------------|----------------|------------------------|
+| <kbd>shift</kbd>+<kbd>←</kbd> | windmove-left  | Move to the left WINDOW.  |
+| <kbd>shift</kbd>+<kbd>↑</kbd> | windmove-up    | Move to the up WINDOW.    |
+| <kbd>shift</kbd>+<kbd>↓</kbd> | windmove-down  | Move to the down WINDOW.  |
+| <kbd>shift</kbd>+<kbd>→</kbd> | windmove-right | Move to the right WINDOW. |
+
+
+### File
 
 In this section I introduce how to open and save a file.
 
@@ -88,27 +107,207 @@ In this section I introduce how to open and save a file.
 | `C-x C-s` | save-buffer | Save current buffer in visited file if modified. |
 | `C-x k`   | kill-buffer | Kill the buffer specified by BUFFER.             |
 
+### Edition
+
+In this section I introduce how to edit buffers.
+
+| *Key*   | *Command*          | *Description*                                       |
+|---------|--------------------|-----------------------------------------------------|
+| `C-SPC` | set-mark-command   | Set the mark where point is, and activate it.       |
+| `M-w`   | kill-ring-save     | Save ("copy") text between point and mark.          |
+| `C-w`   | kill-region        | Kill ("cut") text between point and mark.           |
+| `C-k`   | kill-line          | Kill the rest of the current line.                  |
+| `M-DEL` | backward-kill-word | Kill previous word.                                 |
+| `C-y`   | yank               | Reinsert ("paste") the last stretch of killed text. |
+|         |                    |                                                     |
+| `C-_`   | undo               | Undo some previous changes.                         |
+| `C-M-_` | undo-redo          | Undo the last undo.                                 |
+
+
+To replace text:
+
+| *Key*   | *Command*            | *Description*                                    |
+|---------|----------------------|--------------------------------------------------|
+| `M-%`   | query-replace        | Replace some STRING occurrences.                 |
+| `C-M-%` | query-replace-regexp | Replace some things after point matching REGEXP. |
+
+Once Emacs finds a match, press:
+
+- <kbd>y</kbd> to replace
+- <kbd>n</kbd> to skip
+- <kbd>!</kbd> to do all replacement without asking.
+- <kbd>ctrl</kbd>+<kbd>g</kbd> to cancel.
+
+
 ## Customization
 
-In this section I introduce how to customize behaviors.
+In this second session we learn how to customize Emacs behaviors and setup some quality of life.
 
-## Configuration
+### load-theme
 
-In this section I introduce how to persist configuration to your `~/.emacs.el` file.
+Setup color theme with `M-x load-theme`:
+
+- `modus-vivendi` for dark.
+- `modus-operandi` for light.
+
+These are highly accessible themes by @protesilaos, conforming with the highest standard for colour contrast between background and foreground values (WCAG AAA).
+
+> If the colors are off, make sure to set the TERM variable, for example start emacs with `TERM=xterm-256color emacs` in tmux
+
+### global-set-key
+
+To change a key binding, use `M-x global-set-key`. For example, to bind `M-u` to *undo* (this key is bound to `upcase-word` by default):
+
+- Type `M-x global-set-key` then <kbd>enter</kbd>.
+- Press <kbd>alt</kbd>+<kbd>u</kbd>.
+- Complete `Set key M-u to command: ` with `undo`.
+
+Remember, press `C-g` (<kbd>ctrl</kbd>+<kbd>g</kbd>) at anytime to cancel the operation.
+
+A commom key change is to replace `C-x b` with `kill-current-buffer`. The default command
+asks to enter the buffer name, but that is not necessary most of the time.
+
+
+### winner-mode
+
+Run `M-x winner-mode` to records the changes in window configuration so that you can revert any layout mistake with `M-x winner-undo`, for example after running `delete-other-windows` by mistake.
+
+### savehist-mode
+
+Run `M-x savehist-mode` to save the minibuffer history. That way, pressing `M-x` shows the last used commands.
+
+### dot emacs
+
+Add the following to your `~/.emacs` file to ensure the settings persist accross restart:
 
 ```scheme
+;; Setup theme
+(load-theme 'modus-vivendi)
+
+;; Use shift+arrow to change window
+(windmove-default-keybindings)
+
+;; Records window configuration and enable `M-x winner-undo` command to revert change
+(winner-mode)
+
+;; Keep track of useful commands
+(savehist-mode)
+
+;; Keep auto-save and backup files into one flat dir (instead of next to the files)
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups/")))
+
+;; Store custom variables to ~/.emacs.d/custom.el (instead of ~/.emacs)
+(setq custom-file (locate-user-emacs-file "custom.el"))
+
+;; Easier undo/redo
+(global-set-key (kbd "M-u")   'undo)
+(global-set-key (kbd "C-M-u") 'undo-redo)
+
 ;; Do not ask for permission to kill a buffer
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 ```
 
-## Package
+Run `M-x eval-buffer` to apply the settings now.
 
-In this section I introduce how to install packages.
+### package-install
 
-## Language server
+Run `M-x package-install` to install modes for custom syntax, for example install:
 
-In this section I introduce how to use a language server.
+- `markdown-mode`
+- `haskell-mode`
 
-## Magit
+Add other modes like `yaml-mode`, `go-mode` depending on your usage.
 
-In this section I introduce how to git.
+### Vert&co
+
+Setup completion framework by running the following command:
+
+- `M-x package-install` <kbd>ret</kbd> `vertico`
+- `M-x vertico-mode`
+- `M-x package-install` <kbd>ret</kbd> `orderless`
+- `M-x eval-expression` <kbd>ret</kbd> `(setq completion-styles '(orderless basic))`
+
+This enables two key features:
+
+- Prompts show available choice in a vertical buffer.
+- Completion is now fuzzy, for example typing `file find` will select `find-file`.
+
+Add the following to your `~/.emacs`:
+
+```scheme
+(vertico-mode)
+(setq completion-styles '(orderless basic))
+```
+
+## Learn
+
+### Describe
+
+| *Key*   | *Command* | *Description* |
+|---------|-----------|---------------|
+| `C-h f` |           |               |
+| `C-h v` |           |               |
+| `C-h m` |           |               |
+| `C-h b` |           |               |
+
+### Which keys
+
+### Info
+
+### Man
+
+## Development
+
+In this session we learn how to write software with Emacs
+
+### Compile
+
+### Corfu
+
+### Language server
+
+### Magit
+
+### Shell
+
+## Advanced
+
+### use-package
+
+
+### Multi cursors
+
+```scheme
+(use-package multiple-cursors
+  :bind
+  (("C->" . 'mc/mark-next-like-this)
+   ("C-<" . 'mc/mark-previous-like-this)))
+```
+
+Press <kbd>ctrl</kbd>+<kbd>></kbd> to create multiple cursors. Then edit as usual and complete with <kbd>ctrl</kbd>+<kbd>g</kbd>
+
+### Templates
+
+
+## Extra
+
+### org mode
+
+### notmuch
+
+### dired
+
+### elfeed
+
+### eww
+
+### ready-player
+
+### tramp
+
+## Next
+
+Here are further resources to continue your journey:
+
+- Checkout a professional config: https://github.com/purcell/emacs.d
+- Emacs philosophie: https://youtu.be/qTncc2lI6OI
