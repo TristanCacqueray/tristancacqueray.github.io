@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=d6dbe1ba-a793-4cae-8359-17ff6b7983cc' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=f6616b5b-cbc9-40d8-a808-6135d345899f' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -147,6 +147,11 @@ window.MathJax = {
     /* External link icon */
     a[data-linkicon=""]::after {
       content: ""
+    }
+
+    /* missing from tailwind generated css */
+    .min-h-5 {
+      min-height: 1.25rem;
     }
 
     a[data-linkicon=none]::after {
