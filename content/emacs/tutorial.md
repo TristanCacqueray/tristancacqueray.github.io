@@ -268,6 +268,112 @@ In this session we learn how to write software with Emacs
 
 ### Magit
 
+Magit is the user interface for the git revision control system.
+
+#### Setup
+
+Magit is not available on the default elpa package registry, so to install it
+you need to setup the melpa registry. Add to your `~/.emacs`:
+
+```scheme
+;; add melpa registry for magit
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+```
+
+> After inserting the above snippet, run `M-x eval-buffer`, or simply `C-x C-e` to set the `package-archives` value.
+
+Then run the following commands:
+
+- `M-x package-refresh-contents RET`
+- `M-x package-install RET magit RET`
+
+Finally add the following to your `~/.emacs` to bind the main command:
+
+```scheme
+;; quick access to Magit
+(global-set-key (kbd "C-x g") 'magit-status)
+```
+
+#### Intro
+
+Inside a repository, run `M-x magit-status` to get the magit interface.
+Here are the main keys:
+
+- <kbd>TAB</kbd> to expand/collapse a section.
+- <kbd>RET</kbd> to visit a thing. When the cursor is on a diff, this creates a temporary buffers (<kbd>q</kbd> to close it), press <kbd>ctrl</kbd>+<kbd>j</kbd> visits the real file.
+- <kbd>j</kbd> for jumping to a section.
+- <kbd>?</kbd> to see the command list.
+- <kbd>$</kbd> to see the real commands that magit is performing.
+
+To prepare a commit, on a chunk or a file press:
+
+- <kbd>s</kbd> to stage
+- <kbd>u</kbd> to unstage
+- <kbd>k</kbd> to trash
+
+Here are the main git commands:
+
+- <kbd>b</kbd>: branch
+- <kbd>c</kbd>: commit
+- <kbd>P</kbd>: push
+- <kbd>f</kbd>: fetch
+- <kbd>F</kbd>: pull
+- <kbd>l</kbd>: log
+- <kbd>M</kbd>: remote
+- <kbd>A</kbd>: cherry-pick
+
+> Magit interface don't use modifiers like ctrl or alt.
+
+#### Example git commands
+
+After picking a command, a new buffer pops to let you toggle options.
+The argument can be set vertabim, for example by pressing <kbd>-</kbd> then the flag, like <kbd>v</kbd>.
+
+Here are some example workflow:
+
+- Push with lease: <kbd>P</kbd> -> <kbd>-</kbd><kbd>f</kbd> -> <kbd>u</kbd>
+- Commit amend and reset the author: <kbd>c</kbd> -> <kbd>-</kbd><kbd>R</kbd> -> <kbd>a</kbd>
+
+#### Rewrite history
+
+To start a local rebase, put the cursor on a commit, either in the status page or in the log view, and press <kbd>r</kbd> then <kbd>i</kbd>.
+A rebase buffer will appears with the list of commits:
+
+- <kbd>alt</kbd>+<kbd>p</kbd>/<kbd>n</kbd>: re-order a commit.
+- <kbd>ctrl</kbd>+<kbd>k</kbd>: drop a commit.
+- <kbd>e</kbd>: edit a commit.
+- <kbd>r</kbd>: edit a commit message.
+- <kbd>s</kbd>/<kbd>f</kbd>: squash or fixup a commit.
+
+Once you are done, `C-c C-c` to make it happens, or `C-c C-k` to cancel.
+
+#### Handle conflicts
+
+When there is a conflict, press <kbd>e</kbd> to start an ediff session.
+In graphic mode, the control window pops in a new frame which is not convenient.
+Set the following setting to pack the ediff control inside your existing frame:
+
+```scheme
+;; show the ediff control window inside the current frame, don't create a new window
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+```
+
+Here are the commands to handle conflicts:
+
+- <kbd>n</kbd>/<kbd>p</kbd>: go to the next/previous conflict.
+- <kbd>a</kbd>/<kbd>b</kbd>: pick the left or right change.
+- <kbd>q</kbd>: to quit ediff and apply the resolution.
+
+
+#### Blame
+
+When viewing a file, run `M-x magit-blame` then <kbd>b</kbd>:
+- Press <kbd>RET</kbd> to open a commit.
+- `C-c C-q` to quit the blame mode (or just re-run `M-x magit-blame` then <kbd>q</kbd>)
+
+
+Checkout the documentation to learn more: <https://magit.vc/>
+
 ### Shell
 
 ## Advanced
@@ -310,4 +416,4 @@ Press <kbd>ctrl</kbd>+<kbd>></kbd> to create multiple cursors. Then edit as usua
 Here are further resources to continue your journey:
 
 - Checkout a professional config: https://github.com/purcell/emacs.d
-- Emacs philosophie: https://youtu.be/qTncc2lI6OI
+- Emacs philosophie: https://protesilaos.com/codelog/2021-09-22-live-stream-emacs-unix/
