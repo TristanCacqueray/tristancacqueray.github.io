@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=717741de-316a-4161-8274-234e4549cc9c' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=c2570f5e-f4e9-4bf7-868d-75857a262604' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -1405,12 +1405,12 @@ window.MathJax = {
     </h4>
   
     <p class='mb-3'>
-      When there is a conflict, press <span class='kbd'>e</span> to start an ediff session. In graphic mode, a new control window might appears, to make it part of your main window set the following settings:
+      When there is a conflict, press <span class='kbd'>e</span> to start an ediff session. In graphic mode, the control window pops in a new frame which is not convenient. Set the following setting to pack the ediff control inside your existing frame:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; show the ediff control window inside the current frame, don't create a new window
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)</code></pre></div>
     <p class='mb-3'>
-      Here are the command to handle conflicts:
+      Here are the commands to handle conflicts:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
@@ -1444,7 +1444,7 @@ window.MathJax = {
     </h4>
   
     <p class='mb-3'>
-      When viewing a file, or a temporary buffer, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x magit-blame</code> then <span class='kbd'>b</span>:
+      When viewing a file, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x magit-blame</code> then <span class='kbd'>b</span>:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
