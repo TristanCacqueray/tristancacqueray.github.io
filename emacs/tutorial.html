@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=439f4c5f-7977-4a48-8f11-903c59d2bede' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=2b04e216-02bd-4d5b-9807-3daf5dcb0119' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -1132,6 +1132,304 @@ window.MathJax = {
 
     </h3>
   
+    <p class='mb-3'>
+      Magit is the user interface for the git revision control system.
+    </p>
+  
+    <h4 id='setup' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Setup
+  
+  <a href='emacs/tutorial#setup' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      Magit is not available on the default elpa package registry, so to install it you need to setup the melpa registry. Add to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; set package sources
+(setq package-archives
+  '(("gnu" . "https://elpa.gnu.org/packages/")
+    ;; add melpa for magit
+    ("melpa" . "https://melpa.org/packages/")))</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      After inserting the above snippet, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x eval-buffer</code>, or simply <code class='py-0.5 px-0.5 bg-gray-100'>C-x C-e</code> to set the <code class='py-0.5 px-0.5 bg-gray-100'>package-archives</code> value.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      Then run the following commands:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>M-x package-refresh-contents RET</code>
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>M-x package-install RET magit RET</code>
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Finally add the following to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code> to bind the main command:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; quick access to Magit
+(global-set-key (kbd "C-x g") 'magit-status)</code></pre></div>
+    <h4 id='intro' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Intro
+  
+  <a href='emacs/tutorial#intro' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      Inside a repository, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x magit-status</code> to get the magit interface. Here is how to use it:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Press <span class='kbd'>TAB</span> to expand/collapse a section.
+        </li>
+      
+        <li>
+          Press <span class='kbd'>RET</span> to visit a thing. When the cursor is on a diff, this creates a temporary buffers (<span class='kbd'>q</span> to close it), press <span class='kbd'>ctrl</span>+<span class='kbd'>j</span> visits the real file.
+        </li>
+      
+        <li>
+          Press <span class='kbd'>j</span> for jumping to a section.
+        </li>
+      
+        <li>
+          Press <span class='kbd'>?</span> to see the command list.
+        </li>
+      
+        <li>
+          Press <span class='kbd'>$</span> to see the real commands that magit is performing.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Here is how the git command are mapped:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <span class='kbd'>b</span>: branch
+        </li>
+      
+        <li>
+          <span class='kbd'>c</span>: commit
+        </li>
+      
+        <li>
+          <span class='kbd'>P</span>: push
+        </li>
+      
+        <li>
+          <span class='kbd'>f</span>: fetch
+        </li>
+      
+        <li>
+          <span class='kbd'>F</span>: pull
+        </li>
+      
+        <li>
+          <span class='kbd'>l</span>: log
+        </li>
+      
+        <li>
+          <span class='kbd'>M</span>: remote
+        </li>
+      
+        <li>
+          <span class='kbd'>A</span>: cherry-pick
+        </li>
+      
+    </ul>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Magit interface don’t use modifiers like ctrl or alt.
+    </p>
+  
+    </blockquote>
+  
+    <h4 id='example-git-commands' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Example git commands
+  
+  <a href='emacs/tutorial#example-git-commands' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      After picking a command, a new buffer pops to let you toggle options. The argument can be set vertabim, for example by pressing <span class='kbd'>-</span> then the flag, like <span class='kbd'>v</span>.
+    </p>
+  
+    <p class='mb-3'>
+      Here are some example workflow:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Push with lease: <span class='kbd'>P</span> -&gt; <span class='kbd'>-</span><span class='kbd'>f</span> -&gt; <span class='kbd'>u</span>
+        </li>
+      
+        <li>
+          Commit amend and reset the author: <span class='kbd'>c</span> -&gt; <span class='kbd'>-</span><span class='kbd'>R</span> -&gt; <span class='kbd'>a</span>
+        </li>
+      
+    </ul>
+  
+    <h4 id='rewrite-history' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Rewrite history
+  
+  <a href='emacs/tutorial#rewrite-history' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      To start a local rebase, put the cursor on a commit, either in the status page or in the log view, and press <span class='kbd'>r</span> then <span class='kbd'>i</span>. A rebase buffer will appears with the list of commits:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <span class='kbd'>alt</span>+<span class='kbd'>p</span>/<span class='kbd'>n</span>: re-order a commit.
+        </li>
+      
+        <li>
+          <span class='kbd'>ctrl</span>+<span class='kbd'>k</span>: drop a commit.
+        </li>
+      
+        <li>
+          <span class='kbd'>e</span>: edit a commit.
+        </li>
+      
+        <li>
+          <span class='kbd'>r</span>: edit a commit message.
+        </li>
+      
+        <li>
+          <span class='kbd'>s</span>/<span class='kbd'>f</span>: squash or fixup a commit.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Once you are done, <code class='py-0.5 px-0.5 bg-gray-100'>C-c C-c</code> to make it happens, or <code class='py-0.5 px-0.5 bg-gray-100'>C-c C-k</code> to cancel.
+    </p>
+  
+    <h4 id='handle-conflicts' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Handle conflicts
+  
+  <a href='emacs/tutorial#handle-conflicts' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      When there is a conflict, press <span class='kbd'>e</span> to start an ediff session. In graphic mode, a new control window might appears, to make it part of your main window set the following settings:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; show the ediff control window inside the current frame, don't create a new window
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)</code></pre></div>
+    <p class='mb-3'>
+      Here are the command to handle conflicts:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <span class='kbd'>n</span>/<span class='kbd'>p</span>: go to the next/previous conflict.
+        </li>
+      
+        <li>
+          <span class='kbd'>a</span>/<span class='kbd'>b</span>: pick the left or right change.
+        </li>
+      
+        <li>
+          <span class='kbd'>q</span>: to quit ediff and apply the resolution.
+        </li>
+      
+    </ul>
+  
+    <h4 id='blame' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Blame
+  
+  <a href='emacs/tutorial#blame' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      When viewing a file, or a temporary buffer, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x magit-blame</code> then <span class='kbd'>b</span>:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Press <span class='kbd'>RET</span> to open a commit.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>C-c C-q</code> to quit the blame mode (or just re-run <code class='py-0.5 px-0.5 bg-gray-100'>M-x magit-blame</code> then <span class='kbd'>q</span>)
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Checkout the documentation to learn more: <a href='https://magit.vc/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://magit.vc/</a>
+    </p>
+  
     <h3 id='shell' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Shell
@@ -1346,7 +1644,7 @@ window.MathJax = {
         </li>
       
         <li>
-          Emacs philosophie: <a href='https://youtu.be/qTncc2lI6OI' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://youtu.be/qTncc2lI6OI</a>
+          Emacs philosophie: <a href='https://protesilaos.com/codelog/2021-09-22-live-stream-emacs-unix/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://protesilaos.com/codelog/2021-09-22-live-stream-emacs-unix/</a>
         </li>
       
     </ul>
@@ -1626,6 +1924,72 @@ window.MathJax = {
               </a>
               
         <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Setup'>
+              <a href='emacs/tutorial#setup' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Setup
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Intro'>
+              <a href='emacs/tutorial#intro' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Intro
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Example git commands'>
+              <a href='emacs/tutorial#example-git-commands' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Example git commands
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Rewrite history'>
+              <a href='emacs/tutorial#rewrite-history' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Rewrite history
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Handle conflicts'>
+              <a href='emacs/tutorial#handle-conflicts' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Handle conflicts
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Blame'>
+              <a href='emacs/tutorial#blame' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Blame
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
           
         </ul>
       
