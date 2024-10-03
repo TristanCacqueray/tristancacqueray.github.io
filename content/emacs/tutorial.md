@@ -5,7 +5,7 @@ tags: [emacs]
 
 There are many tutorials, but this one is mine.
 My goal is to explain how to displace VSCode from the ground up.
-Then I show how to use Emacs for a whole integrated computing experience,
+Then I show how to use Emacs for a whole integrated computing environment,
 for example, to read news, send mails, play medias and more!
 
 > This is work in progress
@@ -35,7 +35,7 @@ Emacs keybindings use the <kbd>alt</kbd> and <kbd>ctrl</kbd> modifiers like this
 - `C-x 1` means press <kbd>ctrl</kbd>+<kbd>x</kbd>, release <kbd>ctrl</kbd> then press <kbd>1</kbd>.
 - `C-h C-q` means press <kbd>ctrl</kbd>+<kbd>h</kbd> then <kbd>ctrl</kbd>+<kbd>q</kbd>. You can also maintain <kbd>ctrl</kbd> while pressing <kbd>h</kbd> then <kbd>q</kbd>.
 
-When you are stuck, or if you want to exit a menu, hit `C-g` multiple times to stop what Emacs is doing.
+When you are stuck, or if you want to exit a menu, hit `C-g` repeatedly to stop what Emacs is doing.
 If you ever need to quit Emacs, hit `C-x C-c`, but you shouldn't do that :).
 
 After starting Emacs, run the `help-quick` command by pressing `C-h C-q`, your terminal will look like this:
@@ -73,6 +73,8 @@ Here are the main cursor movements:
 | `M-<`                                 | beginning-of-buffer    | Move point to the beginning of the buffer.               |
 | `C-v` or <kbd>PageDown</kbd>          | scroll-up-command      | Scroll text of selected window upward.                   |
 | `M-v` or <kbd>PageUp</kbd>            | scroll-down-command    | Scroll text of selected window down.                     |
+| `M-g g`                               | goto-line              | Go to LINE                                               |
+| `M-g c`                               | goto-char              | Go to POSITION                                           |
 
 > Note that these keys mostly work by default with readline (e.g. in bash).
 
@@ -108,28 +110,30 @@ To move between windows, run `M-x windmove-default-keybindings` to use <kbd>shif
 
 In this section I introduce how to open and save a file.
 
-| *Key*     | *Command*   | *Description*                                    |
-|-----------|-------------|--------------------------------------------------|
-| `C-x C-f` | find-file   | Edit file FILENAME.                              |
-| `C-x C-s` | save-buffer | Save current buffer in visited file if modified. |
-| `C-x C-w` | write-file  | Write current buffer into file FILENAME.         |
-| `C-x k`   | kill-buffer | Kill the buffer specified by BUFFER.             |
+| *Key*     | *Command*      | *Description*                                    |
+|-----------|----------------|--------------------------------------------------|
+| `C-x C-f` | find-file      | Edit file FILENAME.                              |
+| `C-x C-s` | save-buffer    | Save current buffer in visited file if modified. |
+| `C-x C-w` | write-file     | Write current buffer into file FILENAME.         |
+| `C-x k`   | kill-buffer    | Kill the buffer specified by BUFFER.             |
+| `C-x C-q` | read-only-mode | Toggle RO mode.                                  |
 
 ### Edition
 
 In this section I introduce how to edit buffers.
 
-| *Key*   | *Command*          | *Description*                                       |
-|---------|--------------------|-----------------------------------------------------|
-| `C-SPC` | set-mark-command   | Set the mark where point is, and activate it.       |
-| `M-w`   | kill-ring-save     | Save ("copy") text between point and mark.          |
-| `C-w`   | kill-region        | Kill ("cut") text between point and mark.           |
-| `C-k`   | kill-line          | Kill the rest of the current line.                  |
-| `M-DEL` | backward-kill-word | Kill previous word.                                 |
-| `C-y`   | yank               | Reinsert ("paste") the last stretch of killed text. |
-|         |                    |                                                     |
-| `C-_`   | undo               | Undo some previous changes.                         |
-| `C-M-_` | undo-redo          | Undo the last undo.                                 |
+| *Key*          | *Command*          | *Description*                                        |
+|----------------|--------------------|------------------------------------------------------|
+| `C-SPC`        | set-mark-command   | Set the mark where point is, and activate it.        |
+| `M-w`          | kill-ring-save     | Save ("copy") text between point and mark.           |
+| `C-w`          | kill-region        | Kill ("cut") text between point and mark.            |
+| `C-y`          | yank               | Reinsert ("paste") the last stretch of killed text.  |
+| `C-k`          | kill-line          | Kill the rest of the current line.                   |
+| `M-DEL`        | backward-kill-word | Kill previous word.                                  |
+| `C-x h`        | mark-whole-buffer  | Make region contain the entire buffer ("Select all") |
+|                |                    |                                                      |
+| `C-/` or `C-_` | undo               | Undo some previous changes.                          |
+| `C-M-_`        | undo-redo          | Undo the last undo.                                  |
 
 
 To replace text:
@@ -257,6 +261,7 @@ Add the following to your `~/.emacs`:
 | `C-h v` |           |               |
 | `C-h m` |           |               |
 | `C-h b` |           |               |
+| `C-h k` |           |               |
 
 ### Which keys
 
@@ -423,6 +428,9 @@ Press <kbd>ctrl</kbd>+<kbd>></kbd> to create multiple cursors. Then edit as usua
 
 Here are further resources to continue your journey:
 
-- Checkout a professional config: https://github.com/purcell/emacs.d
+- Guided tour: https://www.gnu.org/software/emacs/tour/index.html
+- Beginner resources: https://sachachua.com/web/beginner-map.html
+- Light configs: https://quickelisp.dev/ and https://github.com/ebittleman/emacs-bedrock
+- Professional config: https://github.com/purcell/emacs.d
 - Emacs philosophie: https://protesilaos.com/codelog/2021-09-22-live-stream-emacs-unix/
 - Guide for writers: https://github.com/pprevos/emacs-writing-studio
