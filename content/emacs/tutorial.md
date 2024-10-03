@@ -10,6 +10,10 @@ for example, to read news, send mails, play medias and more!
 
 > This is work in progress
 
+I list all the commands, (default) key bindings and settings to provide a complete reference documentation for a power user.
+If you are new to Emacs, do not read this in one sitting, take your time and don't panic, you will be here long-term.
+Good luck!
+
 
 ## History
 
@@ -41,12 +45,15 @@ After starting Emacs, run the `help-quick` command by pressing `C-h C-q`, your t
 At the bottom you now have a helpful quick help window that shows you the essential commands.
 Once you are comfortable, close the help window by running the same command again.
 
+Here are the only keys you absolutely need to know:
+
+- `M-x`: (<kbd>alt</kbd>+<kbd>x</kbd>) to run a command, and
+- `C-g`: (<kbd>ctrl</kbd>+<kbd>g</kbd>) to cancel a command.
+
+
 ### Cursor movements
 
 In this section I introduce how to move the cursor, also called *point*.
-
-While you can use the arrow keys <kbd>←</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>→</kbd> and <kbd>HOME</kbd> <kbd>END</kbd> <kbd>PageUp</kbd> <kbd>PageDown</kbd>,
-I recommend learning faster motions like `forward-paragraph` to move more efficiently.
 
 Here are the main cursor movements:
 
@@ -69,8 +76,8 @@ Here are the main cursor movements:
 
 > Note that these keys mostly work by default with readline (e.g. in bash).
 
-This covers most cursor movements, and with little practices you can memorize the commands.
-Notice how <kbd>ctrl</kbd> is used for short movement while <kbd>alt</kbd> makes longer movement.
+This covers most cursor movements, and with little practices you will memorize the commands.
+Notice how <kbd>ctrl</kbd> is used for short movements while <kbd>alt</kbd> makes longer movements.
 
 Checkout the `M-x help-with-tutorial` to get some practice.
 
@@ -87,10 +94,10 @@ In this section I introduce how to manage the window layout.
 | `C-x o` | other-window         | Select another window in cyclic ordering of windows. |
 | `C-x b` | switch-to-buffer     | Display buffer in the selected window.               |
 
-To move between windows, run `M-x windmove-default-keybindings` to use <kbd>shift</kbd>+<kbd>arrows</kbd> for moving the cursor to another window.
+To move between windows, run `M-x windmove-default-keybindings` to use <kbd>shift</kbd>+<kbd>arrows</kbd> for moving the cursor to another window:
 
-| *Key*                         | *Command*      | *Description*          |
-|-------------------------------|----------------|------------------------|
+| *Key*                         | *Command*      | *Description*             |
+|-------------------------------|----------------|---------------------------|
 | <kbd>shift</kbd>+<kbd>←</kbd> | windmove-left  | Move to the left WINDOW.  |
 | <kbd>shift</kbd>+<kbd>↑</kbd> | windmove-up    | Move to the up WINDOW.    |
 | <kbd>shift</kbd>+<kbd>↓</kbd> | windmove-down  | Move to the down WINDOW.  |
@@ -105,6 +112,7 @@ In this section I introduce how to open and save a file.
 |-----------|-------------|--------------------------------------------------|
 | `C-x C-f` | find-file   | Edit file FILENAME.                              |
 | `C-x C-s` | save-buffer | Save current buffer in visited file if modified. |
+| `C-x C-w` | write-file  | Write current buffer into file FILENAME.         |
 | `C-x k`   | kill-buffer | Kill the buffer specified by BUFFER.             |
 
 ### Edition
@@ -417,3 +425,4 @@ Here are further resources to continue your journey:
 
 - Checkout a professional config: https://github.com/purcell/emacs.d
 - Emacs philosophie: https://protesilaos.com/codelog/2021-09-22-live-stream-emacs-unix/
+- Guide for writers: https://github.com/pprevos/emacs-writing-studio
