@@ -18,7 +18,7 @@
   </title>
   
     
-      <meta property='og:description' content='There are many tutorials, but this one is mine.' />
+      <meta property='og:description' content='There are many tutorials, but this one is mine. My goal is to explain how to displace VSCode from the ground up. Then I show how to use Emacs for a whole integrated computing experience, for example, to read news, send mails, play medias and more!' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content='https://midirus.com/emacs/media/emacs-tut-quick-help.png' />
       <meta property='og:type' content='website' />
@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=d74ed69b-f0da-4dac-bd3a-ecfc2baa0699' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=439f4c5f-7977-4a48-8f11-903c59d2bede' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -387,7 +387,29 @@ window.MathJax = {
 
   <a href='emacs'>
     <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
-      emacs
+      Emacs
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href='zettle/free-software'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Free Software
+    </div>
+  </a>
+
+  
+    <ul>
+      
+        <li>
+
+  <a href='zettle'>
+    <div class='text-gray-900 hover:bg-blue-500 hover:text-white cursor-pointer forest-link'>
+      Zettelkasten
     </div>
   </a>
 
@@ -402,6 +424,14 @@ window.MathJax = {
     </div>
   </a>
 
+  
+</li>
+      
+    </ul>
+  
+</li>
+      
+    </ul>
   
 </li>
       
@@ -457,8 +487,16 @@ window.MathJax = {
 
 
     <p class='mb-3'>
-      There are many tutorials, but this one is mine.
+      There are many tutorials, but this one is mine. My goal is to explain how to displace VSCode from the ground up. Then I show how to use Emacs for a whole integrated computing experience, for example, to read news, send mails, play medias and more!
     </p>
+  
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      This is work in progress
+    </p>
+  
+    </blockquote>
   
     <h2 id='history' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
@@ -511,7 +549,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Start Emacs in the terminal like this: <code class='py-0.5 px-0.5 bg-gray-100'>emacs -nw [file]</code>. You can ensure a clean start using the <code class='py-0.5 px-0.5 bg-gray-100'>-Q</code> option.
+      Start Emacs in the terminal like this: <code class='py-0.5 px-0.5 bg-gray-100'>emacs -nw</code>. You can ensure a clean start using the <code class='py-0.5 px-0.5 bg-gray-100'>-Q</code> option.
     </p>
   
     <p class='mb-3'>
@@ -609,7 +647,7 @@ window.MathJax = {
     <p class='mb-3'>
       To move between windows, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x windmove-default-keybindings</code> to use <span class='kbd'>shift</span>+<span class='kbd'>arrows</span> for moving the cursor to another window.
     </p>
-  
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>shift</span>+<span class='kbd'>←</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>windmove-left</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move to the left WINDOW.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>shift</span>+<span class='kbd'>↑</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>windmove-up</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move to the up WINDOW.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>shift</span>+<span class='kbd'>↓</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>windmove-down</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move to the down WINDOW.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>shift</span>+<span class='kbd'>→</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>windmove-right</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move to the right WINDOW.</td></tr></tbody></table>
     <h3 id='file' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   File
@@ -950,6 +988,76 @@ window.MathJax = {
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(vertico-mode)
 (setq completion-styles '(orderless basic))</code></pre></div>
+    <h2 id='learn' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Learn
+  
+  <a href='emacs/tutorial#learn' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='describe' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Describe
+  
+  <a href='emacs/tutorial#describe' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h f</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h v</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h m</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h b</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr></tbody></table>
+    <h3 id='which-keys' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Which keys
+  
+  <a href='emacs/tutorial#which-keys' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='info' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Info
+  
+  <a href='emacs/tutorial#info' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='man' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Man
+  
+  <a href='emacs/tutorial#man' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <h2 id='development' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
   Development
@@ -968,6 +1076,34 @@ window.MathJax = {
       In this session we learn how to write software with Emacs
     </p>
   
+    <h3 id='compile' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Compile
+  
+  <a href='emacs/tutorial#compile' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='corfu' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Corfu
+  
+  <a href='emacs/tutorial#corfu' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
     <h3 id='language-server' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Language server
@@ -981,10 +1117,6 @@ window.MathJax = {
 
 
     </h3>
-  
-    <p class='mb-3'>
-      In this section I introduce how to use a language server.
-    </p>
   
     <h3 id='magit' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
@@ -1000,9 +1132,224 @@ window.MathJax = {
 
     </h3>
   
+    <h3 id='shell' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Shell
+  
+  <a href='emacs/tutorial#shell' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='advanced' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Advanced
+  
+  <a href='emacs/tutorial#advanced' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='use-package' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  use-package
+  
+  <a href='emacs/tutorial#use-package' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='multi-cursors' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Multi cursors
+  
+  <a href='emacs/tutorial#multi-cursors' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(use-package multiple-cursors
+  :bind
+  (("C-&gt;" . 'mc/mark-next-like-this)
+   ("C-&lt;" . 'mc/mark-previous-like-this)))</code></pre></div>
     <p class='mb-3'>
-      In this section I introduce how to git.
+      Press <span class='kbd'>ctrl</span>+<span class='kbd'>&gt;</span> to create multiple cursors. Then edit as usual and complete with <span class='kbd'>ctrl</span>+<span class='kbd'>g</span>
     </p>
+  
+    <h3 id='templates' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  Templates
+  
+  <a href='emacs/tutorial#templates' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='extra' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Extra
+  
+  <a href='emacs/tutorial#extra' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <h3 id='org-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  org mode
+  
+  <a href='emacs/tutorial#org-mode' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='notmuch' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  notmuch
+  
+  <a href='emacs/tutorial#notmuch' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='dired' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  dired
+  
+  <a href='emacs/tutorial#dired' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='elfeed' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  elfeed
+  
+  <a href='emacs/tutorial#elfeed' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='eww' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  eww
+  
+  <a href='emacs/tutorial#eww' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='ready-player' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  ready-player
+  
+  <a href='emacs/tutorial#ready-player' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='tramp' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  tramp
+  
+  <a href='emacs/tutorial#tramp' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h2 id='next' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
+      
+  Next
+  
+  <a href='emacs/tutorial#next' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h2>
+  
+    <p class='mb-3'>
+      Here are further resources to continue your journey:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Checkout a professional config: <a href='https://github.com/purcell/emacs.d' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://github.com/purcell/emacs.d</a>
+        </li>
+      
+        <li>
+          Emacs philosophie: <a href='https://youtu.be/qTncc2lI6OI' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>https://youtu.be/qTncc2lI6OI</a>
+        </li>
+      
+    </ul>
   
   <!-- What goes in this file will appear below the note body-->
 </article>
@@ -1178,12 +1525,89 @@ window.MathJax = {
       
             </li>
           
+            <li class='whitespace-nowrap truncate mt-2' title='Learn'>
+              <a href='emacs/tutorial#learn' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Learn
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Describe'>
+              <a href='emacs/tutorial#describe' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Describe
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Which keys'>
+              <a href='emacs/tutorial#which-keys' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Which keys
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Info'>
+              <a href='emacs/tutorial#info' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Info
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Man'>
+              <a href='emacs/tutorial#man' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Man
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
             <li class='whitespace-nowrap truncate mt-2' title='Development'>
               <a href='emacs/tutorial#development' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 Development
               </a>
               
         <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Compile'>
+              <a href='emacs/tutorial#compile' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Compile
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Corfu'>
+              <a href='emacs/tutorial#corfu' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Corfu
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
           
             <li class='whitespace-nowrap truncate mt-2' title='Language server'>
               <a href='emacs/tutorial#language-server' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
@@ -1206,6 +1630,160 @@ window.MathJax = {
         </ul>
       
             </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Shell'>
+              <a href='emacs/tutorial#shell' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Shell
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Advanced'>
+              <a href='emacs/tutorial#advanced' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Advanced
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='use-package'>
+              <a href='emacs/tutorial#use-package' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                use-package
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Multi cursors'>
+              <a href='emacs/tutorial#multi-cursors' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Multi cursors
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Templates'>
+              <a href='emacs/tutorial#templates' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Templates
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Extra'>
+              <a href='emacs/tutorial#extra' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Extra
+              </a>
+              
+        <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='org mode'>
+              <a href='emacs/tutorial#org-mode' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                org mode
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='notmuch'>
+              <a href='emacs/tutorial#notmuch' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                notmuch
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='dired'>
+              <a href='emacs/tutorial#dired' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                dired
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='elfeed'>
+              <a href='emacs/tutorial#elfeed' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                elfeed
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='eww'>
+              <a href='emacs/tutorial#eww' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                eww
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='ready-player'>
+              <a href='emacs/tutorial#ready-player' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                ready-player
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='tramp'>
+              <a href='emacs/tutorial#tramp' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                tramp
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Next'>
+              <a href='emacs/tutorial#next' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Next
+              </a>
+              
+        <ul class='ml-2'>
           
         </ul>
       
