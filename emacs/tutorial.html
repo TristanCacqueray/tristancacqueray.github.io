@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=2b04e216-02bd-4d5b-9807-3daf5dcb0119' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=9f9ff477-3871-40d4-be03-ebe471311be5' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -1202,35 +1202,55 @@ window.MathJax = {
     </h4>
   
     <p class='mb-3'>
-      Inside a repository, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x magit-status</code> to get the magit interface. Here is how to use it:
+      Inside a repository, run <code class='py-0.5 px-0.5 bg-gray-100'>M-x magit-status</code> to get the magit interface. Here are the main keys:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          Press <span class='kbd'>TAB</span> to expand/collapse a section.
+          <span class='kbd'>TAB</span> to expand/collapse a section.
         </li>
       
         <li>
-          Press <span class='kbd'>RET</span> to visit a thing. When the cursor is on a diff, this creates a temporary buffers (<span class='kbd'>q</span> to close it), press <span class='kbd'>ctrl</span>+<span class='kbd'>j</span> visits the real file.
+          <span class='kbd'>RET</span> to visit a thing. When the cursor is on a diff, this creates a temporary buffers (<span class='kbd'>q</span> to close it), press <span class='kbd'>ctrl</span>+<span class='kbd'>j</span> visits the real file.
         </li>
       
         <li>
-          Press <span class='kbd'>j</span> for jumping to a section.
+          <span class='kbd'>j</span> for jumping to a section.
         </li>
       
         <li>
-          Press <span class='kbd'>?</span> to see the command list.
+          <span class='kbd'>?</span> to see the command list.
         </li>
       
         <li>
-          Press <span class='kbd'>$</span> to see the real commands that magit is performing.
+          <span class='kbd'>$</span> to see the real commands that magit is performing.
         </li>
       
     </ul>
   
     <p class='mb-3'>
-      Here is how the git command are mapped:
+      To prepare a commit, on a chunk or a file press:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <span class='kbd'>s</span> to stage
+        </li>
+      
+        <li>
+          <span class='kbd'>u</span> to unstage
+        </li>
+      
+        <li>
+          <span class='kbd'>k</span> to trash
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Here are the main git commands:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
