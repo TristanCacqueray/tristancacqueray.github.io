@@ -21,6 +21,7 @@ allowing you to read news, send emails, play media, and much more!
 > This is a work in progress: my plan is to record a screencast that covers the entire content.
 > If you encounter any issues, please let me know; I'm committed to keeping this document updated.
 >
+> This [file][my-emacs-tut] is licensed under a free/libre copyleft license (GPL or CC BY-SA).
 >
 > **Changelog**
 > - 2024-10-05: added the *Development* section.
@@ -1141,3 +1142,5 @@ Here are further resources to continue your journey:
 - Emacs philosophie: https://protesilaos.com/codelog/2021-09-22-live-stream-emacs-unix/
 - Guide for writers: https://github.com/pprevos/emacs-writing-studio
 - [The Absolute Beginner’s Guide to Emacs - System Crafters](https://systemcrafters.net/emacs-essentials/absolute-beginners-guide-to-emacs/) - if you prefer videos
+
+[my-emacs-tut]: https://github.com/TristanCacqueray/tristancacqueray.github.io/blob/main/content/emacs/tutorial.md
