@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=aa45e3fa-e28a-41b6-aeec-c9dbc43a10b5' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=d37da020-189d-4004-a464-4569e17769c7' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -1614,11 +1614,11 @@ window.MathJax = {
       Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x list-processes</code> to list child processes and <code class='py-0.5 px-0.5 bg-gray-100'>M-x list-timers</code> to list scheduled tasks.
     </p>
   
-    <h3 id='shell-commands' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+    <h3 id='commands' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
-  Shell commands
+  Commands
   
-  <a href='emacs/tutorial#shell-commands' class='--ema-anchor'>
+  <a href='emacs/tutorial#commands' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -1633,7 +1633,7 @@ window.MathJax = {
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-!</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>shell-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute COMMAND in inferior shell</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-&</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>async-shell-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute COMMAND asynchronously in background.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-|</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>shell-command-on-region</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute COMMAND in inferior shell with region as input.</td></tr></tbody></table>
     <p class='mb-3'>
-      For example, run <code class='py-0.5 px-0.5 bg-gray-100'>M-!</code> <span class='kbd'>⏎</span> <code class='py-0.5 px-0.5 bg-gray-100'>uptime</code>, the output appears in the minibuffer and it is copied to the <strong>*Message*</strong> buffer.
+      For example, type <code class='py-0.5 px-0.5 bg-gray-100'>M-!</code> <span class='kbd'>⏎</span> <code class='py-0.5 px-0.5 bg-gray-100'>uptime</code> to display the age of your host in the minibuffer. The output is also copied to the <strong>*Message*</strong> buffer.
     </p>
   <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -1652,19 +1652,16 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Prefer async commands to avoid locking your session, for example, to start a web browser on a local dev server. The input/output are available in the <strong>*Async Shell Command*</strong> buffer.
+      Prefer async commands to avoid locking your session, for example, connect to a local server with: <code class='py-0.5 px-0.5 bg-gray-100'>M-&</code> <span class='kbd'>⏎</span> <code class='py-0.5 px-0.5 bg-gray-100'>xdg-open http://127.0.0.1:9001</code>. The input/output will be available in the <strong>*Async Shell Command*</strong> buffer.
     </p>
   
   </div>
 </div>
-    <ul class='my-3 ml-6 space-y-1 list-disc'>
-      
-        <li>
-          TODO: <code class='py-0.5 px-0.5 bg-gray-100'>setenv</code> and exec-path
-        </li>
-      
-    </ul>
-  
+    <p class='mb-3'>
+      You can adjust the process environment with the <code class='py-0.5 px-0.5 bg-gray-100'>M-x setenv</code> command. Note that Emacs uses the <code class='py-0.5 px-0.5 bg-gray-100'>exec-path</code> variable to discover commands, so you might want to add your own locations like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Ensure local scripts are available.
+(add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))</code></pre></div>
     <h3 id='shell' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Shell
@@ -1680,7 +1677,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Start a shell session with <code class='py-0.5 px-0.5 bg-gray-100'>M-x shell</code>. Press enter to send a command. Use <code class='py-0.5 px-0.5 bg-gray-100'>M-p</code> to access previous commands. This is a dumb terminal, don’t run ncurses commands like <code class='py-0.5 px-0.5 bg-gray-100'>top</code>. If needed, see the <code class='py-0.5 px-0.5 bg-gray-100'>vterm</code> package for a full terminal emulation.
+      Start a shell session with <code class='py-0.5 px-0.5 bg-gray-100'>M-x shell</code> to create a dumb terminal for running bash. This works almost like a regular terminal, but you have to press <code class='py-0.5 px-0.5 bg-gray-100'>M-p</code> to access previous commands. If needed, see the <code class='py-0.5 px-0.5 bg-gray-100'>vterm</code> package for a full terminal emulation.
     </p>
   <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -1699,7 +1696,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Use <code class='py-0.5 px-0.5 bg-gray-100'>C-u M-x shell</code> to start a secondary shell, this lets you name the buffer.
+      Use <code class='py-0.5 px-0.5 bg-gray-100'>C-u M-x shell</code> to start a secondary shell by using a different buffer name.
     </p>
   
   </div>
@@ -1802,15 +1799,11 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Corfu enhances in-buffer completion with a small completion popup. This feature is also provided by an older package named <code class='py-0.5 px-0.5 bg-gray-100'>company</code>, but since we are already using Vert&amp;co, <code class='py-0.5 px-0.5 bg-gray-100'>corfu</code> is a good choice as it is made by the same community.
+      Corfu enhances in-buffer completion with a small completion popup. This feature is also provided by an older package named <code class='py-0.5 px-0.5 bg-gray-100'>company</code>, but since we are already using Vert&amp;co, <code class='py-0.5 px-0.5 bg-gray-100'>corfu</code> is a good choice as it is made by the same community. Company provides a default completion backend for file paths, and this is available with the <code class='py-0.5 px-0.5 bg-gray-100'>cape</code> package, so we’ll use that too.
     </p>
   
     <p class='mb-3'>
-      Company provides a default completion backend for file path, and this is available with the <code class='py-0.5 px-0.5 bg-gray-100'>cape</code> package, so we’ll use that too.
-    </p>
-  
-    <p class='mb-3'>
-      Run the following command:
+      Run the following command to install Corfu:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
@@ -1835,32 +1828,127 @@ window.MathJax = {
   <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Enable indentation+completion using the TAB key.
 (setq tab-always-indent 'complete)
 
-;; auto-complete path
+;; Make the completion suggest file paths.
 (add-hook 'completion-at-point-functions #'cape-file)
 
-;; in buffer completion
+;; Activate in buffer completion everywhere.
 (global-corfu-mode)
-
-;; show completion automatically after a short delay
-(setq corfu-auto t)
 
 ;; enable corfu in terminal.
 ;; This is needed until child frame support for terminal Emacs arrives.
-(unless (display-graphic-p)
-  (corfu-terminal-mode +1))</code></pre></div>
+(unless (display-graphic-p) (corfu-terminal-mode +1))</code></pre></div>
     <p class='mb-3'>
-      To use orderless with corfu, we need a way to insert a match separator. Contrary to the minibuffer, <code class='py-0.5 px-0.5 bg-gray-100'>SPC</code> interupts corfu, therefore corfu provides a custom key for in-buffer separator, which is sets to <code class='py-0.5 px-0.5 bg-gray-100'>M-SPC</code> by default. Unfortunately this conflicts with the gnome-shell binding for window menu. Unless you need this gnome key, disable it with by running this shell command in bash:
+      Here is an example corfu usage to complete a path with orderless selection:
+    </p>
+  <div class='flex items-center justify-center'><img class='inline mb-3' src='emacs/media/emacs-tut-corfu.png' alt='emacs-tut-corfu' style='width: inherit;' /></div>
+    <p class='mb-3'>
+      Once the Corfu menu is open, you can:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Keep on typing to narrow the selection, and/or,
+        </li>
+      
+        <li>
+          Use the arrow keys or <code class='py-0.5 px-0.5 bg-gray-100'>M-n</code> to select an entry, then,
+        </li>
+      
+        <li>
+          Once a single choice is available, pressing <span class='kbd'>TAB</span> insert the completion.
+        </li>
+      
+        <li>
+          Pressing <code class='py-0.5 px-0.5 bg-gray-100'>C-g</code> anytime cancel the menu, as usual.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      The completion can happen in two ways: manual or automatic. I will describe the pros and cons of both solutions because they are equally good, but I think the manual setup is easier to get started.
+    </p>
+  
+    <h4 id='manual-completion' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Manual completion
+  
+  <a href='emacs/tutorial#manual-completion' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      Press <span class='kbd'>TAB</span> to manually trigger the completion. Then, in order to use <span class='kbd'>SPC</span> for separating multiple orderless patterns, as you do in the minibuffer, you need to configure this key binding:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; For manual corfu, use SPC to add orderless separator.
+(keymap-set corfu-map "SPC"  'corfu-insert-separator)</code></pre></div><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
+  <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+  </path>
+  <div class='callout-title'>
+    <div class='callout-icon'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-5 h-5'>
+        <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+</path>
+      </svg>
+    </div>
+    <div class='callout-title-inner'>
+      Tip
+    </div>
+  </div>
+  <div class='callout-content'>
+    
+    <p class='mb-3'>
+      Some modes might still inserts a <code class='py-0.5 px-0.5 bg-gray-100'>TAB</code> when trying to complete, in that case use <code class='py-0.5 px-0.5 bg-gray-100'>M-TAB</code>, which should always work.
+    </p>
+  
+  </div>
+</div>
+    <p class='mb-3'>
+      For reference, the example usage screenshot was produced by typing: <code class='py-0.5 px-0.5 bg-gray-100'>"./</code> <span class='kbd'>TAB</span> <code class='py-0.5 px-0.5 bg-gray-100'>log</code> <span class='kbd'>SPC</span> <code class='py-0.5 px-0.5 bg-gray-100'>pn</code>.
+    </p>
+  
+    <h4 id='automatic-completion' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Automatic completion
+  
+  <a href='emacs/tutorial#automatic-completion' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      You can make the completion menu appear automatically after a short delay with:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; show completion automatically after a short delay
+(setq corfu-auto t)</code></pre></div>
+    <p class='mb-3'>
+      In that situation, to use orderless with corfu, we need a way to insert a match separator. Contrary to the minibuffer, <code class='py-0.5 px-0.5 bg-gray-100'>SPC</code> interupts corfu to inhibit misfire, therefore corfu provides a custom key for in-buffer separator, which is sets to <code class='py-0.5 px-0.5 bg-gray-100'>M-SPC</code> by default.
+    </p>
+  
+    <p class='mb-3'>
+      For reference, the example usage screenshot was produced by typing: <code class='py-0.5 px-0.5 bg-gray-100'>"./</code> <em>pause</em> <code class='py-0.5 px-0.5 bg-gray-100'>log</code> <span class='kbd'>M-SPC</span> <code class='py-0.5 px-0.5 bg-gray-100'>pn</code>.
+    </p>
+  
+    <p class='mb-3'>
+      Unfortunately <code class='py-0.5 px-0.5 bg-gray-100'>M-SPC</code> conflicts with the gnome-shell binding for window menu. Unless you need this gnome key, disable it with by running this shell command in bash:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'># Disable alt-spc for corfu...
 gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code></pre></div>
     <p class='mb-3'>
-      Otherwise you can also bind a different key for the <code class='py-0.5 px-0.5 bg-gray-100'>corfu-insert-separator</code> command.
+      Otherwise you can also bind a different key for the <code class='py-0.5 px-0.5 bg-gray-100'>corfu-insert-separator</code> command. Or simply use the manual completion, which is less problematic overall.
     </p>
   
-    <p class='mb-3'>
-      Here is an example corfu completion for a simple file path where I typed <code class='py-0.5 px-0.5 bg-gray-100'>M-SPC</code> after <em>log</em> to hide a file named <code class='py-0.5 px-0.5 bg-gray-100'>logout</code>:
-    </p>
-  <div class='flex items-center justify-center'><img class='inline mb-3' src='emacs/media/emacs-tut-corfu.png' alt='emacs-tut-corfu' style='width: inherit;' /></div>
     <h3 id='prog-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   Prog Mode
@@ -1876,11 +1964,13 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
     </h3>
   
     <p class='mb-3'>
-      File mode for source code inherit from the <code class='py-0.5 px-0.5 bg-gray-100'>prog-mode</code> which can be used to define general behaviors.
+      Common modes for source code inherit from the <code class='py-0.5 px-0.5 bg-gray-100'>prog-mode</code> which can be used to define general behaviors. For example you can make the word motions handle camelCase boundaries by enabling the <code class='py-0.5 px-0.5 bg-gray-100'>subword-mode</code>:
     </p>
-  
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; This mode changes the definition of a word boundary so that word commands
+;; stop at "Gtk" and "Window" in "GtkWindow"
+(add-hook 'prog-mode-hook 'subword-mode)</code></pre></div>
     <p class='mb-3'>
-      Here are some use commands:
+      Here are some useful prog-mode commands:
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-x C-;</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>comment-line</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Comment or uncomment current line.</td></tr></tbody></table>
     <h3 id='flymake' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -1925,7 +2015,7 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Run flymake on your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code> to see the suggestions.
+      Run flymake on your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code> to see the suggestions. We’ll fix them in the <code class='py-0.5 px-0.5 bg-gray-100'>use-package</code> section below.
     </p>
   
   </div>
@@ -2456,6 +2546,28 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
       
     </ul>
   
+    <h3 id='server' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  server
+  
+  <a href='emacs/tutorial#server' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <p class='mb-3'>
+      Enable sub command like <code class='py-0.5 px-0.5 bg-gray-100'>git commit</code> or <code class='py-0.5 px-0.5 bg-gray-100'>kubectl edit</code> to open a new buffer with-in your existing session:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Allow this Emacs process to be a server for client processes.
+(server-start)
+
+;; Ensure child-process uses the main Emacs to edit files.
+(setenv "EDITOR" "emacsclient")</code></pre></div>
     <h3 id='use-package' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   use-package
@@ -2652,6 +2764,20 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
   eww
   
   <a href='emacs/tutorial#eww' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='erc' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  erc
+  
+  <a href='emacs/tutorial#erc' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -3044,9 +3170,9 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Shell commands'>
-              <a href='emacs/tutorial#shell-commands' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Shell commands
+            <li class='whitespace-nowrap truncate mt-2' title='Commands'>
+              <a href='emacs/tutorial#commands' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Commands
               </a>
               
         <ul class='ml-2'>
@@ -3105,6 +3231,28 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
               </a>
               
         <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Manual completion'>
+              <a href='emacs/tutorial#manual-completion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Manual completion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Automatic completion'>
+              <a href='emacs/tutorial#automatic-completion' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Automatic completion
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
           
         </ul>
       
@@ -3297,6 +3445,17 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
       
             </li>
           
+            <li class='whitespace-nowrap truncate mt-2' title='server'>
+              <a href='emacs/tutorial#server' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                server
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
             <li class='whitespace-nowrap truncate mt-2' title='use-package'>
               <a href='emacs/tutorial#use-package' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 use-package
@@ -3432,6 +3591,17 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
             <li class='whitespace-nowrap truncate mt-2' title='eww'>
               <a href='emacs/tutorial#eww' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 eww
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='erc'>
+              <a href='emacs/tutorial#erc' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                erc
               </a>
               
         <ul class='ml-2'>
