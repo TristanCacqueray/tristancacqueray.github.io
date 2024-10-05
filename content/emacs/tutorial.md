@@ -384,7 +384,7 @@ To change a key binding, use the `global-set-key` command, here is a safe change
 ### Uniquify
 
 When opening two files with the same name, like `package.json`, it can be confusing to tell their buffers apart.
-Use *uniquify* to disambiguate the buffer names by adding the parent directory when needed:
+Use *uniquify* to disambiguate the buffer names, it will rename the buffers with the parent directory when needed:
 
 ```scheme
 ;; Ensure buffer names are unique
