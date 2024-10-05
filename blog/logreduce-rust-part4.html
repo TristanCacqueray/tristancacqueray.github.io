@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=4ac9507b-7bfa-458e-812e-2a003bc6d56d' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=e217311c-95d2-4392-ae3d-ab013094890e' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -433,7 +433,7 @@ window.MathJax = {
           <!-- Main body column -->
           <div class='flex-1 w-full bg-white'>
   <main class='px-4 py-4'>
-    <h1 class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
+    <h1 id='ema-title' class='flex items-end justify-center mb-4 p-3 bg-blue-100 text-5xl font-extrabold text-black rounded'>
   <a class='z-40 tracking-tighter '>
     Completing the first release of logreduce-rust
   </a>
@@ -851,7 +851,8 @@ struct Report {
         </div>
         <div class='hidden md:block md:col-span-2 md:border-l'>
           <nav id='toc' class='hidden leading-relaxed md:block md:sticky md:top-0 md:max-h-screen md:overflow-y-auto'>
-  <div class='text-gray-600 text-sm -mt-2'>
+  <div class='text-gray-600 text-sm'>
+    <a class='ml-1 cursor-pointer p-0.5' title='Title' id='--ema-title-toc'>Title</a>
     
         <ul class='ml-2'>
           
@@ -917,6 +918,14 @@ struct Report {
     // Highlight the TOC, based from https://stackoverflow.com/a/75346369
     // TODO: We should get rid of JavaScript! See https://github.com/srid/emanote/issues/520
     function highlightTOC() {
+      // Setup title link
+      const titleToc = document.querySelectorAll("nav > div > a#--ema-title-toc");
+      if (titleToc.length) {
+        titleToc[0].onclick = () => {
+          document.querySelectorAll("h1#ema-title")[0].scrollIntoView({ behavior: "smooth"});
+          history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+      }
       // Grab the toc links
       const links = document.querySelectorAll("ul > li > a.--ema-toc");
 
@@ -946,7 +955,7 @@ struct Report {
         // Mark the link of the section that is in view, starting from the end
         let marked = false;
         for (var i = sections.length - 1; i >= 0; i--) {
-          if (window.scrollY > sections[i].offsetTop - 80) {
+          if (window.scrollY > sections[i].offsetTop - 20) {
             links[i].classList.add(mark);
             marked = true;
             break;
@@ -967,6 +976,7 @@ struct Report {
     highlightTOC();
   </script>
 </nav>
+
         </div>
       </div>
       
