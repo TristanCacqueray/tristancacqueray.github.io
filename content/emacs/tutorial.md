@@ -8,6 +8,11 @@ date: 2024-10-03
 
 There are many tutorials available but this one is mine where
 I cover sensible defaults to showcase the standard Emacs experience.
+
+:::{.hidden}
+![emacs-tut-corfu](media/emacs-tut-corfu.png)
+:::
+
 My goal is to guide you through setting up an IDE similar to VSCode from the ground up.
 I will also demonstrate how to use Emacs as a complete integrated computing environment,
 allowing you to read news, send emails, play media, and much more!
@@ -682,7 +687,7 @@ To use <kbd>SPC</kbd> for separating multiple orderless patterns
 > In that case, use `M-TAB`, that should always work.
 
 For reference, the example usage screenshot was produced by typing:\
-➡ `"./` <kbd>TAB</kbd> `log` <kbd>SPC</kbd> `pn`
+➡ `"./` <kbd>TAB</kbd> `png` <kbd>SPC</kbd> `logo`
 
 #### Automatic completion
 
@@ -701,7 +706,7 @@ Therefore, Corfu implements a custom key for in-buffer separator,
 which is set to `M-SPC` by default.
 
 For reference, the example usage screenshot was produced by typing:\
-➡ `"./` *pause* `log` <kbd>M-SPC</kbd> `pn`.
+➡ `"./` *pause* `png` <kbd>M-SPC</kbd> `logo`.
 
 Unfortunately, `M-SPC` conflicts with the GNOME Shell binding for window menu.
 Unless you need this GNOME key, you can disable it by running this
