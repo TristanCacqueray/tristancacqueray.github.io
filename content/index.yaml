@@ -47,7 +47,7 @@ template:
   breadcrumbs:
     enable: false
   base:
-    containerClass: container mx-auto sm:w-[67rem]
+    containerClass: lg:container mx-auto
 
   layout:
     base:
