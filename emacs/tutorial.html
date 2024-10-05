@@ -18,7 +18,7 @@
   </title>
   
     
-      <meta property='og:description' content='There are many tutorials, but this one is mine. My goal is to explain how to displace VSCode from the ground up. Then I show how to use Emacs for a whole integrated computing environment, for example, to read news, send mails, play medias and more!' />
+      <meta property='og:description' content='There are many tutorials, but this one is mine. My goal is to explain how to set up an IDE similar to VSCode from the ground up. Then I show how to use Emacs for a complete integrated computing environment, for example, to read news, send emails, play medias and more!' />
       <meta property='og:site_name' content="Tristan's Zettelkasten" />
       <meta property='og:image' content='https://midirus.com/emacs/media/emacs-tut-quick-help.png' />
       <meta property='og:type' content='website' />
@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=d37da020-189d-4004-a464-4569e17769c7' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=4ac9507b-7bfa-458e-812e-2a003bc6d56d' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -372,7 +372,7 @@ window.MathJax = {
 
 <body class='bg-gray-400 overflow-y-scroll'>
   
-    <div class='container mx-auto sm:w-[67rem] mt-2 md:mt-4  '>
+    <div class='lg:container mx-auto mt-2 md:mt-4  '>
       
         <!-- DoNotFormat -->
 <!-- DoNotFormat -->
@@ -485,9 +485,11 @@ window.MathJax = {
 
 
 
-
+<div xmlhtmlRaw><!-- Copyright © 2024 Tristan de Cacqueray -->
+</div><div xmlhtmlRaw><!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+</div>
     <p class='mb-3'>
-      There are many tutorials, but this one is mine. My goal is to explain how to displace VSCode from the ground up. Then I show how to use Emacs for a whole integrated computing environment, for example, to read news, send mails, play medias and more!
+      There are many tutorials, but this one is mine. My goal is to explain how to set up an IDE similar to VSCode from the ground up. Then I show how to use Emacs for a complete integrated computing environment, for example, to read news, send emails, play medias and more!
     </p>
   <div data-callout-metadata data-callout-fold data-callout='info' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -507,17 +509,17 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      This is work in progress: my plan is to record a video that goes through the whole content.
+      This is work in progress: my plan is to record a video that goes through the whole content. Please let me know if you have any issues, I’m looking forward keeping this document accurage.
     </p>
   
   </div>
 </div>
     <p class='mb-3'>
-      I list all the commands, key bindings and settings to provide a complete reference documentation for a power user. These instructions cover sensible defaults to demonstrates the standard Emacs experience. This tutorial is based on Emacs version <strong>29</strong>, which is a modern release that works great out of the box.
+      I will list all the commands, key bindings, and settings to provide complete reference documentation for a power user. These instructions cover sensible defaults to demonstrate the standard Emacs experience. This tutorial is based on Emacs version <strong>29</strong>, which is a modern release that works great out of the box.
     </p>
   
     <p class='mb-3'>
-      If you are new to Emacs, do not read this in one sitting, take your time and don’t panic, you will be here long-term. Feel free to modify the configuration to your liking. Good luck!
+      If you are new to Emacs, do not read this in one sitting; take your time and don’t panic; you will be here long-term. Feel free to modify the configuration to your liking. Good luck!
     </p>
   
     <h2 id='context' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
@@ -535,11 +537,11 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      To put things into perspective, Emacs started in 1976 as a set of macros for the Tape Editor and Corrector (TECO). GNU Emacs began in 1984 as a true Lisp interpreter, and it is among the oldest free and open source projects still under development.
+      To put things into perspective, Emacs started in 1976 as a set of macros for the Tape Editor and Corrector (TECO). GNU Emacs began in 1984 as a true Lisp interpreter, and it is among the oldest free and open-source projects still under development.
     </p>
   
     <p class='mb-3'>
-      Emacs helps you be productive by providing an integrated environment for many different kinds of tasks. This is a tool that has been tested and proven to work well.
+      Emacs helps you be productive by providing an integrated environment for many different kinds of tasks. This tool has been tested and proven to work well.
     </p>
   
     <h2 id='first-contact' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
@@ -557,7 +559,7 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      In this first session we learn the most basic usage.
+      In this first session, we will learn the most basic usage.
     </p>
   
     <h3 id='install' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -575,7 +577,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Emacs is available on every plateform. Get it with your package manager, for example, by running <code class='py-0.5 px-0.5 bg-gray-100'>dnf install -y emacs-nox</code>. This is the light terminal version, <code class='py-0.5 px-0.5 bg-gray-100'>nox</code> means no X, which used to be a display server name. Later we’ll use the full version for multi-medias.
+      Emacs is available on every plateform. Get it with your package manager, for example, by running <code class='py-0.5 px-0.5 bg-gray-100'>dnf install -y emacs-nox</code>. This is the lightweight terminal version; <code class='py-0.5 px-0.5 bg-gray-100'>nox</code> means no X, which used to be a display server name. Later, we’ll use the full version for multimedias.
     </p>
   
     <h3 id='start' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -621,11 +623,11 @@ window.MathJax = {
     </p>
   
     <p class='mb-3'>
-      After starting Emacs, run the <code class='py-0.5 px-0.5 bg-gray-100'>help-quick</code> command by pressing <code class='py-0.5 px-0.5 bg-gray-100'>C-h C-q</code>, your terminal will look like this:
+      After starting Emacs, run the <code class='py-0.5 px-0.5 bg-gray-100'>help-quick</code> command by pressing <code class='py-0.5 px-0.5 bg-gray-100'>C-h C-q</code>; your terminal will look like this:
     </p>
   <img class='inline mb-3' src='emacs/media/emacs-tut-quick-help.png' alt='emacs-tut-quick-help' style='width: inherit;' />
     <p class='mb-3'>
-      At the bottom you now have a helpful quick help window that shows you the essential commands. Once you are comfortable, close the help window by running the same command again.
+      At the bottom, you now have a helpful quick help window that shows you the essential commands. Once you are comfortable, close the help window by running the same command again.
     </p>
   
     <p class='mb-3'>
@@ -675,7 +677,7 @@ window.MathJax = {
     </blockquote>
   
     <p class='mb-3'>
-      This covers most cursor movements, and with little practices you will memorize the commands. Notice how <span class='kbd'>ctrl</span> is used for short movements while <span class='kbd'>alt</span> makes longer movements.
+      This covers most cursor movements, and with little practice, you will memorize the commands. Notice how <span class='kbd'>ctrl</span> is used for short movements while <span class='kbd'>alt</span> makes longer movements.
     </p>
   <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -694,7 +696,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      <code class='py-0.5 px-0.5 bg-gray-100'>C-M-b</code> (backward-sexp) is not restricted to paren <code class='py-0.5 px-0.5 bg-gray-100'>(</code>, use it to find matching <code class='py-0.5 px-0.5 bg-gray-100'>[</code>, <code class='py-0.5 px-0.5 bg-gray-100'>{</code> or <code class='py-0.5 px-0.5 bg-gray-100'>"</code> too.
+      <code class='py-0.5 px-0.5 bg-gray-100'>C-M-b</code> (backward-sexp) is not restricted to parenthesis <code class='py-0.5 px-0.5 bg-gray-100'>(</code>; use it to find matching <code class='py-0.5 px-0.5 bg-gray-100'>[</code>, <code class='py-0.5 px-0.5 bg-gray-100'>{</code> or <code class='py-0.5 px-0.5 bg-gray-100'>"</code> too.
     </p>
   
   </div>
@@ -784,7 +786,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      <strong>Dired</strong> is a powerful file manager introduced in more details below.
+      <strong>Dired</strong> is a powerful file manager, we’ll learn more about it later.
     </p>
   
   </div>
@@ -804,19 +806,15 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Every buffer is associated to a mode, which alters certain behaviors, key bindings, and text display in that buffer. The idea is to customize the appearance and features available based on the contents of the buffer.
+      Every buffer is associated with a mode, which alters certain behaviors, key bindings, and text display in that buffer. The idea is to customize the appearance and features available based on the contents of the buffer. The current modes are displayed at the bottom of the buffer in the modeline. Run the <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code> command named after the mode to manually toggle its usage.
     </p>
   
     <p class='mb-3'>
-      The current modes are displayed at the bottom of the buffer in the modeline. Run the <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code> command named after the mode to manually toggle their usage.
-    </p>
-  
-    <p class='mb-3'>
-      Emacs has built-in support for many file types, for example, if you open a <code class='py-0.5 px-0.5 bg-gray-100'>test.css</code> file and write: <code class='py-0.5 px-0.5 bg-gray-100'>color: pink</code>, then the buffer will look like this:
+      Emacs has built-in support for many file types, for example, if you open a <code class='py-0.5 px-0.5 bg-gray-100'>test.css</code> file and write <code class='py-0.5 px-0.5 bg-gray-100'>color: pink</code>, then the buffer will look like this:
     </p>
   <div class='flex items-center justify-center'><img class='inline mb-3' src='emacs/media/emacs-tut-css.png' alt='emacs-tut-css' style='width: inherit;' /></div>
     <p class='mb-3'>
-      The mode command lets you toggle the mode, for example you can disable the highlight with <code class='py-0.5 px-0.5 bg-gray-100'>M-x css-mode</code>. You can also remove every modes by activing <code class='py-0.5 px-0.5 bg-gray-100'>M-x fundamental-mode</code>.
+      The mode command lets you toggle the mode, for example you can disable the highlighting with <code class='py-0.5 px-0.5 bg-gray-100'>M-x css-mode</code>. You can also remove all modes by activating <code class='py-0.5 px-0.5 bg-gray-100'>M-x fundamental-mode</code>.
     </p>
   
     <h3 id='edition' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -834,7 +832,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Selection happens between a <em>mark</em> and the <em>point</em>. Here are the main edition keys:
+      Selection happens between a <em>mark</em> and the <em>point</em>. Here are the main editing keys:
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-SPC</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>set-mark-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Set the mark where point is, and activate it.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-w</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>kill-ring-save</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Save (“copy”) text between point and mark.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-w</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>kill-region</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Kill (“cut”) text between point and mark.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-y</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>yank</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Reinsert (“paste”) the last stretch of killed text.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-k</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>kill-line</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Kill the rest of the current line.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-DEL</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>backward-kill-word</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Kill previous word.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-h</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>mark-paragraph</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Put point at beginning of this paragraph, mark at end.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-x h</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>mark-whole-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Make region contain the entire buffer (“Select all”)</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-/</code> or <code class='py-0.5 px-0.5 bg-gray-100'>C-_</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>undo</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Undo some previous changes.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-M-_</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>undo-redo</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Undo the last undo.</td></tr></tbody></table><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -853,13 +851,13 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Use <code class='py-0.5 px-0.5 bg-gray-100'>M-x insert-char</code> to insert special character like emojis.
+      Use <code class='py-0.5 px-0.5 bg-gray-100'>M-x insert-char</code> to insert special characters like emojis.
     </p>
   
   </div>
 </div>
     <p class='mb-3'>
-      To search text:
+      To search for text:
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-s</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>isearch-forward</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Do incremental search forward.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-r</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>isearch-backward</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Do incremental search backward.</td></tr></tbody></table><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -886,7 +884,7 @@ window.MathJax = {
     <p class='mb-3'>
       To replace text:
     </p>
-  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-%</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>query-replace</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Replace some STRING occurrences.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-M-%</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>query-replace-regexp</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Replace some things after point matching REGEXP.</td></tr></tbody></table>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-%</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>query-replace</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Replace some occurrences of STRING.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-M-%</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>query-replace-regexp</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Replace some things after point matching REGEXP.</td></tr></tbody></table>
     <p class='mb-3'>
       Once Emacs finds a match, press:
     </p>
@@ -912,7 +910,7 @@ window.MathJax = {
     </ul>
   
     <p class='mb-3'>
-      At this point, your terminal may looks like this:
+      At this point, your terminal may look like this:
     </p>
   <img class='inline mb-3' src='emacs/media/emacs-tut-dired.png' alt='emacs-tut-dired' style='width: inherit;' />
     <h2 id='customization' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
@@ -930,7 +928,7 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      In this second session we learn how to customize Emacs behaviors and setup some quality of life.
+      In this second session we learn how to customize Emacs behaviors and set up some quality-of-life improvements.
     </p>
   
     <h3 id='theme' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -964,7 +962,7 @@ window.MathJax = {
     </ul>
   
     <p class='mb-3'>
-      These are highly accessible themes by @protesilaos, conforming with the highest standard for colour contrast between background and foreground values (WCAG AAA).
+      These are highly accessible themes by @protesilaos, conforming to the highest standards for colour contrast between background and foreground values (WCAG AAA).
     </p>
   <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -989,7 +987,7 @@ window.MathJax = {
   </div>
 </div>
     <p class='mb-3'>
-      For comparaison, Emacs now looks like this:
+      For comparison, Emacs now looks like this:
     </p>
   <img class='inline mb-3' src='emacs/media/emacs-tut-modus.png' alt='emacs-tut-modus' style='width: inherit;' />
     <h3 id='history' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -1013,11 +1011,11 @@ window.MathJax = {
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>M-x savehist-mode</code> saves the commands history. That way, pressing <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code> shows the last used commands.
+          <code class='py-0.5 px-0.5 bg-gray-100'>M-x savehist-mode</code> saves the command history. That way, pressing <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code> shows the last used commands.
         </li>
       
         <li>
-          <code class='py-0.5 px-0.5 bg-gray-100'>M-x save-place-mode</code> saves the location of the point when you kill a buffer and returns to it next time you visit the associated file.
+          <code class='py-0.5 px-0.5 bg-gray-100'>M-x save-place-mode</code> saves the location of the point when you kill a buffer and returns to it the next time you visit the associated file.
         </li>
       
         <li>
@@ -1045,17 +1043,17 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Emacs customization is written in the Lisp programing language. In fact, about 70% of Emacs is written in Lisp, only the bare interface for the operating system is written in C. Here is a primer for the basic syntax:
+      Emacs customization is written in the Lisp programing language. In fact, about 70% of Emacs is written in Lisp, only the bare interface for the operating system is written in C. Here is a primer on the basic syntax:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          Comments starts with: <code class='py-0.5 px-0.5 bg-gray-100'>;;</code>.
+          Comments start with: <code class='py-0.5 px-0.5 bg-gray-100'>;;</code>.
         </li>
       
         <li>
-          Call function (e.g. command) with: <code class='py-0.5 px-0.5 bg-gray-100'>(function-name arg1 arg2)</code>.
+          Call a function (e.g. command) with: <code class='py-0.5 px-0.5 bg-gray-100'>(function-name arg1 arg2)</code>.
         </li>
       
         <li>
@@ -1084,7 +1082,7 @@ window.MathJax = {
     <p class='mb-3'>
       Here are useful commands to work with Lisp:
     </p>
-  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-x C-e</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>eval-last-sexp</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Evaluate sexp before point.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-:</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>eval-expression</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Evaluate EXP and print value in the echo area.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>eval-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute the current buffer as Lisp code.</td></tr></tbody></table>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-x C-e</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>eval-last-sexp</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Evaluate sexp before point.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-:</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>eval-expression</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Evaluate EXP and print the value in the echo area.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>eval-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute the current buffer as Lisp code.</td></tr></tbody></table>
     <h3 id='dot-emacs' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   dot emacs
@@ -1100,23 +1098,24 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Add the following to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code> file to ensure the settings persist accross restart:
+      Add the following to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code> file to ensure the settings persist across restarts:
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Setup theme
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Setup a nice theme.
 (load-theme 'modus-vivendi)
 
-;; Use shift+arrow to change window
+;; Use shift + arrow keys to change window.
 (windmove-default-keybindings)
 
-;; Records window configuration and enable `M-x winner-undo` command to undo layout change
+;; Record window configuration and enable
+;; `M-x winner-undo` command to undo layout changes.
 (winner-mode)
 
-;; Remember commands and files for easy access
+;; Remember commands and files for easy access.
 (savehist-mode)
 (save-place-mode)
 (recentf-mode)</code></pre></div>
     <p class='mb-3'>
-      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x eval-buffer</code> to apply the settings now.
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x eval-buffer</code> to apply the settings immediately.
     </p>
   
     <h3 id='settings' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -1134,16 +1133,17 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Settings are defined as custom variables, checkout the <code class='py-0.5 px-0.5 bg-gray-100'>M-x customize</code> familly of commands to set the options interactively. Changes can be applied to the session, and saved to the custom file.
+      Settings are defined as custom variables, check out the <code class='py-0.5 px-0.5 bg-gray-100'>M-x customize</code> family of commands to set the options interactively. Changes can be applied to the session, and saved to the custom file.
     </p>
   
     <p class='mb-3'>
       To change a setting, use the <code class='py-0.5 px-0.5 bg-gray-100'>setq</code> command, here are a couple of better defaults:
     </p>
-  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Keep auto-save and backup files into one flat dir (instead of next to the files)
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Keep auto-save and backup files in one flat directory
+;; (instead of next to the original files)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups/")))
 
-;; Store custom variables to ~/.emacs.d/custom.el (instead of ~/.emacs)
+;; Store custom variables in ~/.emacs.d/custom.el (instead of ~/.emacs)
 (setq custom-file (locate-user-emacs-file "custom.el"))</code></pre></div><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
   </path>
@@ -1161,7 +1161,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Some settings might be overriden after the init, for example <em>indicate-buffer-boundaries</em> is reset, in that case try <code class='py-0.5 px-0.5 bg-gray-100'>setq-default</code> instead. <em>(Let me know if you have a better explanation or how to avoid that quirk)</em>
+      Some settings might be overridden after the init, for example <em>indicate-buffer-boundaries</em> can be reset. In that case, try <code class='py-0.5 px-0.5 bg-gray-100'>setq-default</code> instead. <em>(Let me know if you have a better explanation or how to avoid that quirk)</em>
     </p>
   
   </div>
@@ -1201,7 +1201,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Checkout the <a href='https://git.sr.ht/~technomancy/better-defaults/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>better-defaults</a> for other safe examples.
+      Check out the <a href='https://git.sr.ht/~technomancy/better-defaults/' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>better-defaults</a> for other safe examples.
     </p>
   
   </div>
@@ -1221,7 +1221,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      When opening two files with the same name, like <code class='py-0.5 px-0.5 bg-gray-100'>package.json</code>, it can be confusing to tell their buffer apart. Use the <em>uniquify</em> to disambiguate the buffer names by adding the parent directory when needed:
+      When opening two files with the same name, like <code class='py-0.5 px-0.5 bg-gray-100'>package.json</code>, it can be confusing to tell their buffers apart. Use <em>uniquify</em> to disambiguate the buffer names by adding the parent directory when needed:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Ensure buffer names are unique
 (require 'uniquify)
@@ -1241,7 +1241,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x package-install</code> to install plugins for languages syntax. The plugins are usually named <em>language-mode</em>, for example run:
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x package-install</code> to install plugins for languages syntax highlighting. The plugins are usually named <em>language-mode</em>, for example run:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
@@ -1271,7 +1271,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      In this section we setup a completion framework to drastically improve the <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code> and similar action. By default Emacs comes with <code class='py-0.5 px-0.5 bg-gray-100'>ido</code>, but we’ll use the modern implementation called Vert&amp;co. Get started with the following commands:
+      In this section, we set up a completion framework to drastically improve the <code class='py-0.5 px-0.5 bg-gray-100'>M-x</code> and similar actions. By default, Emacs comes with <code class='py-0.5 px-0.5 bg-gray-100'>ido</code>, but we’ll use the modern implementation called Vert&amp;co. Get started with the following commands:
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
@@ -1301,11 +1301,11 @@ window.MathJax = {
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
-          Prompts show available choice in a vertical buffer.
+          Prompts show available choices in a vertical buffer.
         </li>
       
         <li>
-          Completion is now fuzzy, for example typing <code class='py-0.5 px-0.5 bg-gray-100'>file find</code> will select <code class='py-0.5 px-0.5 bg-gray-100'>find-file</code>.
+          Completion is now fuzzy; for example, typing <code class='py-0.5 px-0.5 bg-gray-100'>file find</code> will select <code class='py-0.5 px-0.5 bg-gray-100'>find-file</code>.
         </li>
       
     </ul>
@@ -1349,7 +1349,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      With <em>vertico</em>, you might have to use <code class='py-0.5 px-0.5 bg-gray-100'>M-RET</code> to submit the minibuffer verbatim. This can be necessary because <code class='py-0.5 px-0.5 bg-gray-100'>RET</code> will picks the current selection, which prevents creating a new file matching an existing selection, for example to pick <code class='py-0.5 px-0.5 bg-gray-100'>tut.md</code> when there is a matching <code class='py-0.5 px-0.5 bg-gray-100'>tutorial.md</code>.
+      With <em>vertico</em>, you might have to use <code class='py-0.5 px-0.5 bg-gray-100'>M-RET</code> to submit the minibuffer verbatim. This can be necessary because <code class='py-0.5 px-0.5 bg-gray-100'>RET</code> will pick the current selection, which prevents creating a new file matching an existing selection, for example, to pick <code class='py-0.5 px-0.5 bg-gray-100'>tut.md</code> when there is a matching <code class='py-0.5 px-0.5 bg-gray-100'>tutorial.md</code>.
     </p>
   
   </div>
@@ -1388,7 +1388,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Bookmarks works with most modes, and as we’ll see later, they can also be used for remote tramp locations and eww web pages. <em>consult-buffer</em> offers bookmark access by default.
+      Bookmarks work with most modes, and as we’ll see later, they can also be used for remote tramp locations, and eww web pages. <em>consult-buffer</em> offers bookmark access by default.
     </p>
   
   </div>
@@ -1408,7 +1408,7 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      In this session we learn how to learn with-in Emacs.
+      In this session we learn how to learn within Emacs.
     </p>
   
     <h3 id='describe' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -1426,7 +1426,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Run the following commands to access the documentation and the source of every emacs features:
+      Run the following commands to access the documentation and the source of every Emacs feature:
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h f</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>describe-function</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Display the full documentation of FUNCTION (a symbol).</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h v</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>describe-variable</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Display the full documentation of VARIABLE (a symbol).</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h m</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>describe-mode</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Display documentation of current major mode and minor modes.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h b</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>describe-bindings</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Display a buffer showing a list of all defined keys.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>C-h k</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>describe-key</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Display documentation of the function invoked by KEY-LIST.</td></tr></tbody></table><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -1445,14 +1445,14 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Use <code class='py-0.5 px-0.5 bg-gray-100'>C-h f</code> to read a command documentation.
+      Use <code class='py-0.5 px-0.5 bg-gray-100'>C-h f</code> to read a command’s documentation.
     </p>
   
   </div>
 </div>
     <h3 id='which-keys' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
-  Which keys
+  Which Keys
   
   <a href='emacs/tutorial#which-keys' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
@@ -1481,7 +1481,7 @@ window.MathJax = {
     </ul>
   
     <p class='mb-3'>
-      Now try pressing <code class='py-0.5 px-0.5 bg-gray-100'>C-h</code>, after a short delay, the list of all the command available is displayed at the bottom.
+      Now try pressing <code class='py-0.5 px-0.5 bg-gray-100'>C-h</code>. After a short delay, the list of all available commands will be displayed at the bottom.
     </p>
   <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -1539,7 +1539,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x clone-buffer</code> to persist the buffers that gets auto-replaced like <em>Help</em> or <em>Describe</em>, that way you can accumulate multiple instances.
+      Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x clone-buffer</code> to persist the buffers that gets auto-replaced, like <em>Help</em> or <em>Describe</em>, that way you can accumulate multiple instances.
     </p>
   
   </div>
@@ -1589,7 +1589,7 @@ window.MathJax = {
     </h2>
   
     <p class='mb-3'>
-      In this session we learn how to do system tasks.
+      In this session we learn how to perform system tasks.
     </p>
   
     <h3 id='process' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
@@ -1609,7 +1609,7 @@ window.MathJax = {
     <p class='mb-3'>
       Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x proced</code> to list the system processes:
     </p>
-  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>s S</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-sort-interactive</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Sort Proced buffer.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>T</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-toggle-tree</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Toggle the display of the process listing as process tree.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>m</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-mark</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Mark a process.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>k</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-send-signal</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Send signals to marked processes.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>f</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-filter</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Filter process.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>F</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-format</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Change formating.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>g</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>revert-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Refresh the buffer.</td></tr></tbody></table>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>s S</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-sort-interactive</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Sort Proced buffer.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>T</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-toggle-tree</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Toggle the display of the process listing as process tree.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>m</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-mark</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Mark a process.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>k</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-send-signal</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Send signals to marked processes.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>f</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-filter</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Filter process.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>F</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>proced-format</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Change formatting.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>g</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>revert-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Refresh the buffer.</td></tr></tbody></table>
     <p class='mb-3'>
       Run <code class='py-0.5 px-0.5 bg-gray-100'>M-x list-processes</code> to list child processes and <code class='py-0.5 px-0.5 bg-gray-100'>M-x list-timers</code> to list scheduled tasks.
     </p>
@@ -1633,7 +1633,7 @@ window.MathJax = {
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-!</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>shell-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute COMMAND in inferior shell</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-&</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>async-shell-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute COMMAND asynchronously in background.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-|</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>shell-command-on-region</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Execute COMMAND in inferior shell with region as input.</td></tr></tbody></table>
     <p class='mb-3'>
-      For example, type <code class='py-0.5 px-0.5 bg-gray-100'>M-!</code> <span class='kbd'>⏎</span> <code class='py-0.5 px-0.5 bg-gray-100'>uptime</code> to display the age of your host in the minibuffer. The output is also copied to the <strong>*Message*</strong> buffer.
+      For example, type <code class='py-0.5 px-0.5 bg-gray-100'>M-!</code> <span class='kbd'>⏎</span> <code class='py-0.5 px-0.5 bg-gray-100'>uptime</code> to display the age of your host to the minibuffer. The output is also copied to the <strong>*Messages*</strong> buffer.
     </p>
   <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -1677,7 +1677,7 @@ window.MathJax = {
     </h3>
   
     <p class='mb-3'>
-      Start a shell session with <code class='py-0.5 px-0.5 bg-gray-100'>M-x shell</code> to create a dumb terminal for running bash. This works almost like a regular terminal, but you have to press <code class='py-0.5 px-0.5 bg-gray-100'>M-p</code> to access previous commands. If needed, see the <code class='py-0.5 px-0.5 bg-gray-100'>vterm</code> package for a full terminal emulation.
+      Start a shell session with <code class='py-0.5 px-0.5 bg-gray-100'>M-x shell</code> to create a dumb terminal for running bash. This works similar to a regular terminal, but you have to press <code class='py-0.5 px-0.5 bg-gray-100'>M-p</code> to access previous commands. If needed, see the <code class='py-0.5 px-0.5 bg-gray-100'>vterm</code> package for a full terminal emulation.
     </p>
   <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
@@ -1702,7 +1702,7 @@ window.MathJax = {
   </div>
 </div>
     <p class='mb-3'>
-      There is also <code class='py-0.5 px-0.5 bg-gray-100'>eshell</code>, which is an advanced mode that lets you run lisp command directly. Though I don’t use it.
+      There is also <code class='py-0.5 px-0.5 bg-gray-100'>eshell</code>, which is an advanced mode that lets you run lisp command directly. Though I don’t personally use <code class='py-0.5 px-0.5 bg-gray-100'>eshell</code>.
     </p>
   
     <h2 id='development' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
@@ -3126,9 +3126,9 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu ['']</code><
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='Which keys'>
+            <li class='whitespace-nowrap truncate mt-2' title='Which Keys'>
               <a href='emacs/tutorial#which-keys' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                Which keys
+                Which Keys
               </a>
               
         <ul class='ml-2'>
