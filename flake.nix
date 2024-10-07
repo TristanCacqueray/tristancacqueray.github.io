@@ -51,6 +51,7 @@
         '';
         installPhase = ''
           mv _out $out
+          cp ${inputs.self}/.htaccess $out
         '';
       };
       run = pkgs.writeScriptBin "run" ''

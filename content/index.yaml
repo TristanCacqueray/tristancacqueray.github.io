@@ -2,12 +2,13 @@ page:
   siteUrl: https://midirus.com
   siteTitle: Tristan's Zettelkasten
   headHtml: |
-    <snippet var="js.highlightjs" />
-    <with var="js">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${value:highlightjs-ver}/languages/lisp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${value:highlightjs-ver}/languages/scheme.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/${value:highlightjs-ver}/languages/glsl.min.js"></script>
-    </with>
+    <link rel="stylesheet" href="https://cdn.midirus.com/script/highlightjs@11/hybrid.min.css" integrity="sha384-hQMbcFx9Gwko5P0sCJ32kiMnKKb4rDh8mMsSkp3p5GRxiS33HQyalu+R0Xxa0Raa" crossorigin="anonymous">
+    <script src="https://cdn.midirus.com/script/highlightjs@11/highlight.min.js" integrity="sha384-F/bZzf7p3Joyp5psL90p/p89AZJsndkSoGwRpXcZhleCWhd8SnRuoYo4d0yirjJp" crossorigin="anonymous"></script>
+    <script src="https://cdn.midirus.com/script/highlightjs@11/haskell.min.js" integrity="sha384-EnLqy/LmA2yShypXJIP5cvUz0S3jJ5l3PnZcMRE6JQdpeNOttU97yyQAsdTusDbl" crossorigin="anonymous"></script>
+    <script src="https://cdn.midirus.com/script/highlightjs@11/nix.min.js" integrity="sha384-Cu93ZX4MeViuo8zGfs3i/Rbyj81UUFg0DLBKhn63FlLi/qoH39kOO++xzdoUJq/Y" crossorigin="anonymous"></script>
+    <script src="https://cdn.midirus.com/script/highlightjs@11/scheme.min.js" integrity="sha384-wDAOgnGx0t7X9tTKddfqp7kcfAYVDaQDRdfDD+47IukNBVuVGFldV80H4qDTHPOR" crossorigin="anonymous"></script>
+    <script>hljs.highlightAll();</script>
+
     <script src="/static/godiag.js"></script>
     <style>
     .kbd {
@@ -29,7 +30,13 @@ page:
       color: black;
     }
     </style>
-    <snippet var="js.mermaid" />
+
+    <script src="https://cdn.midirus.com/script/mermaid@11/mermaid.min.js" integrity="sha384-B2tp/GqmE6VfDRB3JPTsesr0+SXypThjLSvQEQH7iv3f3/PYKCm5Q4+SGPcitStz" crossorigin="anonymous"></script>
+    <script type="module">
+      mermaid.initialize({ startOnLoad: false });
+      mermaid.init(undefined,document.querySelectorAll(".mermaid"));
+    </script>
+
     <script>
     window.MathJax = {
       startup: {
@@ -37,7 +44,7 @@ page:
       }
     };
     </script>
-    <script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/javascript" id="MathJax-script" async src="https://cdn.midirus.com/script/mathjax@3/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"></script>
 
 template:
   uptree:
