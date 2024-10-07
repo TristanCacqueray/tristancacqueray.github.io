@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=df30a928-fae0-4335-b0e5-76fc351e1b54' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=01ebfa01-2f3c-429c-a101-05e3af1d0b5c' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -525,6 +525,10 @@ window.MathJax = {
     </p>
   
     <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          2024-10-07: explained the <em>Compile</em> workflow.
+        </li>
       
         <li>
           2024-10-05: added the <em>Development</em> section.
@@ -1835,7 +1839,18 @@ window.MathJax = {
     <p class='mb-3'>
       Emacs comes with a simple yet powerful compilation mode that operates as follows:
     </p>
-  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>compile</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>starts the build process by selecting a command like <code class='py-0.5 px-0.5 bg-gray-100'>make</code>.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>project-compile</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Run <code class='py-0.5 px-0.5 bg-gray-100'>compile</code> in the project root.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>next-error</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>jumps to the location of the next error according to <code class='py-0.5 px-0.5 bg-gray-100'>compilation-error-regexp</code>.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>recompile</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>restarts the compilation process.</td></tr></tbody></table><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>project-compile</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Run <code class='py-0.5 px-0.5 bg-gray-100'>compile</code> in the project root.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>project-recompile</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Restart the compilation process.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>next-error</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>jumps to the location of the next error.</td></tr></tbody></table>
+    <p class='mb-3'>
+      These commands are not bound by default, but you should set up a key binding for quick access. I configured mine like this:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Press F5 to start compilation.
+(global-set-key (kbd "&lt;f5&gt;") 'project-compile)
+
+;; Press F3 to jump to the next error.
+(global-set-key (kbd "&lt;f3&gt;") 'next-error)
+
+;; Then re-run the compilation with Shift + F5 (to skip the command prompt)
+(global-set-key (kbd "S-&lt;f5&gt;") 'project-recompile)</code></pre></div><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
   <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
   </path>
   <div class='callout-title'>
@@ -1852,7 +1867,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      The compile workflow is the ideal feedback loop for fixing compilation errors. You can also use it with any command that outputs file locations, for example to quickly fix a single file.
+      The compile workflow is the ideal feedback loop for fixing compilation errors. You can use it with any command that outputs file locations, such as <code class='py-0.5 px-0.5 bg-gray-100'>path:line: message</code>. Emacs will let you go through all the errors with ease.
     </p>
   
   </div>
@@ -3133,7 +3148,7 @@ markdown-mode
   
     <h3 id='tramp' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
-  tramp
+  Tramp
   
   <a href='emacs/tutorial#tramp' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
@@ -3144,6 +3159,16 @@ markdown-mode
 
 
     </h3>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Transparent Remote Access, Multiple Protocol
+(use-package tramp
+  :custom
+  ;; Ensure multi-hop stays verbatim, e.g. /ssh:user@host|sudo:host:/path
+  ;; Without this setting, the bookmark will be reduced to =/ssh:root@host/=, which doesn't work
+  ;; Q: is this worth reporting/fixing upstream?
+  (tramp-show-ad-hoc-proxies t))</code></pre></div>
+    <p class='mb-3'>
+      TODO: configure consult to disable remote file preview
+    </p>
   
     <h2 id='next' class='group mt-6 mb-4 font-bold text-gray-700 text-4xl'>
       
@@ -3993,9 +4018,9 @@ markdown-mode
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='tramp'>
+            <li class='whitespace-nowrap truncate mt-2' title='Tramp'>
               <a href='emacs/tutorial#tramp' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                tramp
+                Tramp
               </a>
               
         <ul class='ml-2'>
