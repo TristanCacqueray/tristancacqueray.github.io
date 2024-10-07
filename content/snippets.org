@@ -56,6 +56,14 @@ git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
 ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortest -c:v libx264 opFreak-album.mp4
 #+end_src
 
+** Encode video
+- =-movflags +faststart= for fast play in browser
+- =-crf= 0 is lossless (for 8 bit only, for 10 bit use -qp 0), 23 is the default, and 51 is worst quality possible. 17/18 is visually lossless
+- =-maxrate= ensure the bitstream is reasonable
+
+#+begin_src bash
+ffmpeg -i input-file -movflags +faststart -c:v libx264 -crf 23 -maxrate 1M -bufsize 2M -c:a copy 2021-12-22-opFreak.mp4
+#+end_src
 * gnome
 ** Show wifi passwords
 
