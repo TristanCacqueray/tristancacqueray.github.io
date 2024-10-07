@@ -140,6 +140,11 @@ This section introduces how to manage the window layout.
 | `C-x 0` | delete-window        | Delete WINDOW.                                       |
 | `C-x o` | other-window         | Select another window in cyclic ordering of windows. |
 | `C-x b` | switch-to-buffer     | Display buffer in the selected window.               |
+|         |                      |                                                      |
+| `C-x +` | balance-windows      | Balance the sizes of windows shown.                  |
+
+> [!tip]
+> Use `balance-window` when you have more than 2 splits.
 
 To move between windows, run `M-x windmove-default-keybindings` to use
 <kbd>shift</kbd>+<kbd>arrows</kbd> for moving the cursor to another window:
@@ -430,6 +435,7 @@ Then install consult for a better switch-to-buffer command:
 Add the following to your `~/.emacs`:
 
 ```scheme
+;; Setup completion framework
 (vertico-mode)
 (setq completion-styles '(orderless basic))
 (global-set-key (kbd "C-x b") 'consult-buffer)
@@ -1029,6 +1035,8 @@ stow -v --no-folding -d ~/src/my-dot-files -t ~ home
 
 Keep the general purpose settings in your home stow package,
 Then you can configure extra features like emails or feeds in dedicated packages.
+
+### Tab Bar
 
 ### Dired
 
