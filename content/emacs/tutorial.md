@@ -24,6 +24,7 @@ allowing you to read news, send emails, play media, and much more!
 > This [file][my-emacs-tut] is licensed under a free/libre copyleft license (GPL or CC BY-SA).
 >
 > **Changelog**
+> - 2024-10-07: explained the *Compile* workflow.
 > - 2024-10-05: added the *Development* section.
 
 In this tutorial, I will list all the commands, key bindings, and settings to provide
@@ -144,7 +145,7 @@ This section introduces how to manage the window layout.
 | `C-x +` | balance-windows      | Balance the sizes of windows shown.                  |
 
 > [!tip]
-> Use `balance-window` when you have more than 2 splits.
+> Use `balance-windows` when you have more than 2 splits.
 
 To move between windows, run `M-x windmove-default-keybindings` to use
 <kbd>shift</kbd>+<kbd>arrows</kbd> for moving the cursor to another window:
@@ -567,7 +568,7 @@ The output is also copied to the **\*Messages\*** buffer.
 > [!tip]
 > Prefer async commands to avoid locking your session, for example, connect to a local server with:
 >
->   `M-&` <kbd>⏎</kbd> `xdg-open http://127.0.0.1:9001`
+>   `M-& xdg-open http://127.0.0.1:9001`
 >
 > The input/output will be available in the **\*Async Shell Command\*** buffer.
 
@@ -616,17 +617,30 @@ Here are the project commands:
 
 Emacs comes with a simple yet powerful compilation mode that operates as follows:
 
-| *Command*       | *Description*                                                                    |
-|-----------------|----------------------------------------------------------------------------------|
-| compile         | starts the build process by selecting a command like `make`.                     |
-| project-compile | Run `compile` in the project root.                                               |
-| next-error      | jumps to the location of the next error according to `compilation-error-regexp`. |
-| recompile       | restarts the compilation process.                                                |
+| *Command*         | *Description*                            |
+|-------------------|------------------------------------------|
+| project-compile   | Run `compile` in the project root.       |
+| project-recompile | Restart the compilation process.         |
+| next-error        | jumps to the location of the next error. |
+
+These commands are not bound by default, but you should set up key bindings for quick access.
+I configured mine like this:
+
+```scheme
+;; Press F5 to start compilation.
+(global-set-key (kbd "<f5>") 'project-compile)
+
+;; Press F3 to jump to the next error.
+(global-set-key (kbd "<f3>") 'next-error)
+
+;; Then re-run the compilation with Shift + F5 (to skip the command prompt)
+(global-set-key (kbd "S-<f5>") 'project-recompile)
+```
 
 > [!tip]
 > The compile workflow is the ideal feedback loop for fixing compilation errors.
-> You can also use it with any command that outputs file locations, for example to
-> quickly fix a single file.
+> You can use it with any command that outputs file locations, such as `path:line: message`.
+> Emacs will let you go through all the errors with ease.
 
 ### Corfu
 
@@ -1137,7 +1151,19 @@ Emacs contains hundreds of microscopic quality of life features:
 
 ### vterm
 
-### tramp
+### Tramp
+
+```scheme
+;; Transparent Remote Access, Multiple Protocol
+(use-package tramp
+  :custom
+  ;; Ensure multi-hop stays verbatim, e.g. /ssh:user@host|sudo:host:/path
+  ;; Without this setting, the bookmark will be reduced to =/ssh:root@host/=, which doesn't work
+  ;; Q: is this worth reporting/fixing upstream?
+  (tramp-show-ad-hoc-proxies t))
+```
+
+TODO: configure consult to disable remote file preview
 
 ## Next
 
