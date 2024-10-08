@@ -24,6 +24,7 @@ allowing you to read news, send emails, play media, and much more!
 > This [file][my-emacs-tut] is licensed under a free/libre copyleft license (GPL or CC BY-SA).
 >
 > **Changelog**
+> - 2024-10-07: added the *Org Mode* section.
 > - 2024-10-07: explained the *Compile* workflow.
 > - 2024-10-05: added the *Development* section.
 
@@ -1136,7 +1137,309 @@ Emacs contains hundreds of microscopic quality of life features:
 
 ### ispell
 
-### org mode
+### Org Mode
+
+[org-mode][org-mode] is arguably the most advanced system for taking notes and organizing information.
+It is a free software that comes with Emacs.
+
+[org-mode]: https://orgmode.org/features.html
+
+In this section we will set up a simple, yet opinionated, Getting Things Done (GTD) workflow,
+as presented by Nicolas P. Rougier in his [Emacs GTD][emacs-gtd].
+This configuration has been proven to work, and I recommend using it as a starting point.
+Add the following to your `~/.emacs`:
+
+```scheme
+;; Adjust org-mode for GTD
+(use-package org
+  :config
+  ;; Define task sequence, `|` separates the completed statuses.
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c@/!)")))
+
+  ;; Record the task completion date.
+  (setq org-log-done 'time))
+```
+
+#### Modern Style
+
+Install a sleek-looking style with org-modern.
+The following configuration defines a custom color for the `NEXT`
+keyword that is used by GTD:
+
+```scheme
+;; Modern Org Style
+(use-package org-modern
+  :ensure t
+  :config
+  ;; Add styles for NEXT status
+  (setq org-modern-todo-faces
+        '(("NEXT" :foreground "purple" :weight bold :background "orange")))
+  ;; Activate org-modern
+  (global-org-modern-mode))
+```
+
+#### Your First File
+
+In this section, we will setup your first org file.
+Create a file named `~/org/projects.org` with the following content:
+
+```bash
+* Project name
+** A task
+** Another task
+
+* Another project
+** Yet another task
+```
+
+Here are the commands you can apply to the headings:
+
+| *Command*            | *Description*                      |
+|----------------------|------------------------------------|
+| org-set-property     | Assign a property like *CATEGORY*. |
+| org-set-tags-command | Set the tags.                      |
+| org-todo             | Change the TODO state of an item.  |
+
+
+Perform the following actions:
+
+- Set the **CATEGORY** property for the top headings with the project codename.
+- Optionally add tags, such as related technology names.
+- Set some task statuses with `C-c C-t` or `M-x org-todo`.
+
+Your buffer should look like this:
+
+![emacs-tut-org-file](media/emacs-tut-org-file.png)
+
+> [!note]
+> When a heading has no content, the ▶ indicator might get stuck in the open state: ▼.
+> If that bothers you, add an empty paragraph with a dash `-`; then pressing `TAB` will work as expected.
+
+
+#### Refile and Capture
+
+To move tasks, use the `org-refile` command (`C-x C-w`).
+Add the following settings to make your `projects.org` the default target.
+
+```scheme
+;; Allow moving task from anywhere into your projects:
+(setq org-refile-targets '(("~/org/projects.org" :maxlevel . 1)))
+
+;; Automatically save org files after refile
+(advice-add 'org-refile :after (lambda (&rest _) (org-save-all-org-buffers)))
+```
+
+To add tasks, use the `org-capture` command.
+Add the following settings:
+
+```scheme
+;; Setup capture template to write new tasks to ~/org/inbox.org
+(setq org-capture-templates
+      '(("t" "todo" entry (file "~/org/inbox.org")
+         "* TODO %?\n/Entered on/ %U\n")))
+
+;; Press F6 to capture a task
+(global-set-key (kbd "<f6>") 'org-capture)
+```
+
+> [!tip]
+> Capture tasks at any time by pressing <kbd>F6</kbd> <kbd>t</kbd>.
+> Avoid using refile right away, use org-capture to quikcly move tasks off your mind.
+
+
+#### Editing Org File
+
+Org leverages a few keys to help with editing an Org file:
+
+| *Key*                           | *Description*                     |
+|---------------------------------|-----------------------------------|
+| <kbd>TAB</kbd>                  | Cycle folding on current heading. |
+| <kbd>shift</kbd>+<kbd>TAB</kbd> | Cycle folding on the whole file.  |
+| <kbd>alt</kbd>+<kbd>↑</kbd>     | Move subtree up.                  |
+| <kbd>alt</kbd>+<kbd>↓</kbd>     | Move subtree down.                |
+| `M-g i`                         | Jump to a place in the buffer.    |
+| `M-RET`                         | Insert a new heading.             |
+
+
+#### Agenda
+
+In this section, we will set up the agenda view, which is the main user interface you
+will use to get things done.
+Add the following to your Emacs config:
+
+```scheme
+;; org-agenda provides the GTD dashboard
+(use-package org-agenda
+  :config
+  ;; The agenda pulls data from the following files:
+  (setq org-agenda-files '("~/org/projects.org" "~/org/inbox.org"))
+
+  ;; The GTD view
+  (setq-default org-agenda-custom-commands
+   '(("g" "Get Things Done (GTD)"
+      ((agenda ""
+         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+          (org-deadline-warning-days 0)))
+       (todo "NEXT"
+         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+          (org-agenda-prefix-format "  %i %-12:c [%e] ")
+          (org-agenda-overriding-header "\nTasks\n")))
+       (tags-todo "inbox"
+         ((org-agenda-prefix-format "  %?-12t% s")
+          (org-agenda-overriding-header "\nInbox\n")))
+       (tags "CLOSED>=\"<today>\""
+         ((org-agenda-overriding-header "\nCompleted today\n")))))))
+
+  ;; Press F4 to get things done!
+  (global-set-key (kbd "<f4>") (lambda () (interactive) (org-agenda nil "g"))))
+```
+
+> [!note]
+> We don't need to use `use-package` because org-agenda is built into Emacs, but
+> that helps keep your config nice and tidy.
+
+This setup is well documented in Nicolas's [Emacs GTD][emacs-gtd] paper,
+so I won't explain the settings in detail. What you need to know is that,
+pressing <kbd>F4</kbd> will display a dashboard with four sections:
+
+- The current week; see the next section for scheduling events.
+- The list of tasks marked as `NEXT`.
+- The list of tasks captured in the *inbox* that need to be refiled.
+- The list of tasks completed today.
+
+From that view, you can use the usual commands such as `org-todo` and `org-refile`.
+Press `RET` to visit the file.
+The view looks like this:
+
+![emacs-tut-org-agenda](media/emacs-tut-org-agenda.png)
+
+> [!note]
+> Add the following header at the top of your `~/org/inbox.org` to see the untriaged tasks:
+> ```bash
+> #+FILETAGS: inbox
+> ```
+
+> [!tip]
+> org-agenda is your main dashboard, it's not just an agenda.
+
+[emacs-gtd]: https://www.labri.fr/perso/nrougier/GTD/index.html
+
+#### Scheduling
+
+Schedule a task with `org-schedule` (`C-x C-s`): this command pops up the Emacs calendar to
+select a date. You can pick the date in the calendar by pressing `RET` on a day,
+or you can directly type a date delta like:
+
+- `+3h`: three hours from now.
+- `+1d`: tomorrow.
+- `+1w`: next week.
+- `+1m`: next month.
+- `Mon`: next Monday.
+- `12-25`: next Dec 25th.
+- `YY-MM-DD`: a fixed date.
+
+When a task has a scheduled property, it will appear in the calendar.
+If an open task is scheduled in the past, it appears as `Sched AGEx` in the current day,
+reminding you that you forgot to complete a scheduled task.
+
+You can make an event repeat with the following time syntax:
+
+- `<2024-11-01 Fri +1m -3d>` for paying the rent; the task is required every month.
+- `<2024-11-16 Sat .+2m>` for checking batteries; marking this DONE shifts the date to two months after today.
+- `<2008-02-10 Sun ++1w>` for calling your mom; marking this DONE shifts the date by at least one week
+
+For example, add the following headings to get started. Note that the first item is not a task, it's just a reminder for tri-weekly event:
+
+```bash
+* Work
+** Sprint review
+SCHEDULED: <2024-10-09 Wed 09:00 ++3w>
+
+* Home
+** TODO Pay rent
+SCHEDULED: <2024-11-01 Fri +1m -3d>
+
+** TODO Change toothbrush
+SCHEDULED: <2024-11-16 Sat .+2m>
+
+** TODO Call mum
+SCHEDULED: <2008-02-10 Sun ++1w>
+```
+
+> [!tip]
+> Schedule tasks with `C-c C-s` to put them at the top of your dashboard.
+
+
+Finally, add the following to record anniversary events:
+
+```bash
+* Anniversaries
+%%(diary-anniversary 3 20 1985) GNU Emacs was first released %d years ago
+%%(diary-anniversary 5 29 2012) Zuul was created %d years ago
+```
+
+#### Journaling
+
+You can write a journal with org-capture, add the following template:
+
+```scheme
+;; Add a new org-capture 'j' for journaling
+(add-to-list 'org-capture-templates
+  '("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+    "* %?\n")
+  t)
+```
+
+Press <kbd>F6</kbd> <kbd>j</kbd> to record an event. It will be written to
+your `~/org/journal.org` using date tree headings.
+
+> [!tip]
+> Use journal capture to keep track of what you are doing.
+> That's a good practice for daily standups and monthly reviews.
+
+#### Archive
+
+When a task or project is no longer relevant, use the `org-archive-subtree`
+to clean up your org file. This command moves the content to an
+archive file that you can use to research the past events.
+
+Here is a useful command to archive all completed tasks:
+
+```scheme
+;; From: https://stackoverflow.com/a/70131908
+;; With auto save disabled
+(defun org-archive-done-tasks ()
+  "Archive all tasks marked DONE in the file."
+  (interactive)
+  ;; Disable auto save to avoid repeated file write.
+  (setq org-archive-subtree-save-file-p nil)
+  ;; unwind-protext is like try/finally
+  (unwind-protect
+    ;; process the entry in reverse to avoid changes in positioning
+    (mapc (lambda(entry)
+            (goto-char entry)
+            (org-archive-subtree))
+          (reverse (org-map-entries (lambda () (point)) "TODO=\"DONE\"" 'file)))
+    ;; Enable auto save, even if an exception is raised.
+    (setq org-archive-subtree-save-file-p t))
+  (org-save-all-org-buffers))
+```
+
+---
+To summarize, here are the main actions to implement GTD with Emacs:
+- Add tasks with `org-capture`.
+- Sort your inbox with `org-refile`.
+- Groom your backlog with `org-todo`
+- Plan your projects with `org-schedule`.
+- Get things done with `org-agenda`.
+
+Note that Org Mode also provides many additional features, such as:
+- Time management with `org-clock`.
+- Document publication with `org-export`.
+- Literate source code editing with `org-babel`, which is similar to Jupyter notebooks.
+
+However, I am not familiar with these features because I only use basic Org for Getting Things Done.
 
 ### notmuch
 
@@ -1151,6 +1454,8 @@ Emacs contains hundreds of microscopic quality of life features:
 ### ready-player
 
 ### vterm
+
+### org-ql
 
 ### Tramp
 
