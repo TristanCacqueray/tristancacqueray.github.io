@@ -83,7 +83,7 @@ window.MathJax = {
 
   
   
-  <link href='tailwind.css?instanceId=01ebfa01-2f3c-429c-a101-05e3af1d0b5c' rel='stylesheet' type='text/css' />
+  <link href='tailwind.css?instanceId=35dbc7f9-f49e-4df0-9377-ae5c3aa4e0f9' rel='stylesheet' type='text/css' />
 
   <style>
     /* Heist error element */
@@ -527,6 +527,10 @@ window.MathJax = {
     <ul class='my-3 ml-6 space-y-1 list-disc'>
       
         <li>
+          2024-10-07: added the <em>Org Mode</em> section.
+        </li>
+      
+        <li>
           2024-10-07: explained the <em>Compile</em> workflow.
         </li>
       
@@ -784,7 +788,7 @@ window.MathJax = {
   <div class='callout-content'>
     
     <p class='mb-3'>
-      Use <code class='py-0.5 px-0.5 bg-gray-100'>balance-window</code> when you have more than 2 splits.
+      Use <code class='py-0.5 px-0.5 bg-gray-100'>balance-windows</code> when you have more than 2 splits.
     </p>
   
   </div>
@@ -1725,7 +1729,7 @@ window.MathJax = {
     </p>
   
     <p class='mb-3'>
-      <code class='py-0.5 px-0.5 bg-gray-100'>M-&</code> <span class='kbd'>⏎</span> <code class='py-0.5 px-0.5 bg-gray-100'>xdg-open http://127.0.0.1:9001</code>
+      <code class='py-0.5 px-0.5 bg-gray-100'>M-& xdg-open http://127.0.0.1:9001</code>
     </p>
   
     <p class='mb-3'>
@@ -1841,7 +1845,7 @@ window.MathJax = {
     </p>
   <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>project-compile</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Run <code class='py-0.5 px-0.5 bg-gray-100'>compile</code> in the project root.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>project-recompile</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Restart the compilation process.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>next-error</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>jumps to the location of the next error.</td></tr></tbody></table>
     <p class='mb-3'>
-      These commands are not bound by default, but you should set up a key binding for quick access. I configured mine like this:
+      These commands are not bound by default, but you should set up key bindings for quick access. I configured mine like this:
     </p>
   <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Press F5 to start compilation.
 (global-set-key (kbd "&lt;f5&gt;") 'project-compile)
@@ -3036,7 +3040,7 @@ markdown-mode
   
     <h3 id='org-mode' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
-  org mode
+  Org Mode
   
   <a href='emacs/tutorial#org-mode' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
@@ -3048,6 +3052,504 @@ markdown-mode
 
     </h3>
   
+    <p class='mb-3'>
+      <a href='https://orgmode.org/features.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>org-mode</a> is arguably the most advanced system for taking notes and organizing information. It is a free software that comes with Emacs.
+    </p>
+  
+    <p class='mb-3'>
+      In this section we will set up a simple, yet opinionated, Getting Things Done (GTD) workflow, as presented by Nicolas P. Rougier in his <a href='https://www.labri.fr/perso/nrougier/GTD/index.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Emacs GTD</a>. This configuration has been proven to work, and I recommend using it as a starting point. Add the following to your <code class='py-0.5 px-0.5 bg-gray-100'>~/.emacs</code>:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Adjust org-mode for GTD
+(use-package org
+  :config
+  ;; Define task sequence, `|` separates the completed statuses.
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c@/!)")))
+
+  ;; Record the task completion date.
+  (setq org-log-done 'time))</code></pre></div>
+    <h4 id='modern-style' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Modern Style
+  
+  <a href='emacs/tutorial#modern-style' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      Install a sleek-looking style with org-modern. The following configuration defines a custom color for the <code class='py-0.5 px-0.5 bg-gray-100'>NEXT</code> keyword that is used by GTD:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Modern Org Style
+(use-package org-modern
+  :ensure t
+  :config
+  ;; Add styles for NEXT status
+  (setq org-modern-todo-faces
+        '(("NEXT" :foreground "purple" :weight bold :background "orange")))
+  ;; Activate org-modern
+  (global-org-modern-mode))</code></pre></div>
+    <h4 id='your-first-file' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Your First File
+  
+  <a href='emacs/tutorial#your-first-file' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      In this section, we will setup your first org file. Create a file named <code class='py-0.5 px-0.5 bg-gray-100'>~/org/projects.org</code> with the following content:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>* Project name
+** A task
+** Another task
+
+* Another project
+** Yet another task</code></pre></div>
+    <p class='mb-3'>
+      Here are the commands you can apply to the headings:
+    </p>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>org-set-property</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Assign a property like <em>CATEGORY</em>.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>org-set-tags-command</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Set the tags.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>org-todo</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Change the TODO state of an item.</td></tr></tbody></table>
+    <p class='mb-3'>
+      Perform the following actions:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          Set the <strong>CATEGORY</strong> property for the top headings with the project codename.
+        </li>
+      
+        <li>
+          Optionally add tags, such as related technology names.
+        </li>
+      
+        <li>
+          Set some task statuses with <code class='py-0.5 px-0.5 bg-gray-100'>C-c C-t</code> or <code class='py-0.5 px-0.5 bg-gray-100'>M-x org-todo</code>.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      Your buffer should look like this:
+    </p>
+  <img class='inline mb-3' src='emacs/media/emacs-tut-org-file.png' alt='emacs-tut-org-file' style='width: inherit;' /><div data-callout-metadata data-callout-fold data-callout='note' class='callout bg-opacity-10' role='note'>
+  <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+  </path>
+  <div class='callout-title'>
+    <div class='callout-icon'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-5 h-5'>
+        <line x1='18' y1='2' x2='22' y2='6'></line>
+<path d='M7.5 20.5 19 9l-4-4L3.5 16.5 2 22z'></path>
+      </svg>
+    </div>
+    <div class='callout-title-inner'>
+      Note
+    </div>
+  </div>
+  <div class='callout-content'>
+    
+    <p class='mb-3'>
+      When a heading has no content, the ▶ indicator might get stuck in the open state: ▼. If that bothers you, add an empty paragraph with a dash <code class='py-0.5 px-0.5 bg-gray-100'>-</code>; then pressing <code class='py-0.5 px-0.5 bg-gray-100'>TAB</code> will work as expected.
+    </p>
+  
+  </div>
+</div>
+    <h4 id='refile-and-capture' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Refile and Capture
+  
+  <a href='emacs/tutorial#refile-and-capture' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      To move tasks, use the <code class='py-0.5 px-0.5 bg-gray-100'>org-refile</code> command (<code class='py-0.5 px-0.5 bg-gray-100'>C-x C-w</code>). Add the following settings to make your <code class='py-0.5 px-0.5 bg-gray-100'>projects.org</code> the default target.
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Allow moving task from anywhere into your projects:
+(setq org-refile-targets '(("~/org/projects.org" :maxlevel . 1)))
+
+;; Automatically save org files after refile
+(advice-add 'org-refile :after (lambda (&amp;rest _) (org-save-all-org-buffers)))</code></pre></div>
+    <p class='mb-3'>
+      To add tasks, use the <code class='py-0.5 px-0.5 bg-gray-100'>org-capture</code> command. Add the following settings:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Setup capture template to write new tasks to ~/org/inbox.org
+(setq org-capture-templates
+      '(("t" "todo" entry (file "~/org/inbox.org")
+         "* TODO %?\n/Entered on/ %U\n")))
+
+;; Press F6 to capture a task
+(global-set-key (kbd "&lt;f6&gt;") 'org-capture)</code></pre></div><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
+  <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+  </path>
+  <div class='callout-title'>
+    <div class='callout-icon'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-5 h-5'>
+        <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+</path>
+      </svg>
+    </div>
+    <div class='callout-title-inner'>
+      Tip
+    </div>
+  </div>
+  <div class='callout-content'>
+    
+    <p class='mb-3'>
+      Capture tasks at any time by pressing <span class='kbd'>F6</span> <span class='kbd'>t</span>. Avoid using refile right away, use org-capture to quikcly move tasks off your mind.
+    </p>
+  
+  </div>
+</div>
+    <h4 id='editing-org-file' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Editing Org File
+  
+  <a href='emacs/tutorial#editing-org-file' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      Org leverages a few keys to help with editing an Org file:
+    </p>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Key</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>TAB</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Cycle folding on current heading.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>shift</span>+<span class='kbd'>TAB</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Cycle folding on the whole file.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>alt</span>+<span class='kbd'>→</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Demote heading.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>alt</span>+<span class='kbd'>←</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Promote heading.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>alt</span>+<span class='kbd'>↓</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move subtree down.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><span class='kbd'>alt</span>+<span class='kbd'>↑</span></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Move subtree up.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-g i</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Jump to a place in the buffer.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><code class='py-0.5 px-0.5 bg-gray-100'>M-RET</code></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Insert a new heading.</td></tr></tbody></table>
+    <p class='mb-3'>
+      Here are a couple of useful commands you might need:
+    </p>
+  <table class='mb-3'><thead><tr class='border-b-2 border-t-2 border-gray-300'><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Command</em></th><th class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'><em>Description</em></th></tr></thead><tbody><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>org-toggle-link-display</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Show the literal links.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>org-tree-to-indirect-buffer</td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'>Focus on the current subtree in a dedicated buffer.</td></tr><tr class='border-b-2 border-t-2 border-gray-300'><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td><td class='py-2 px-2 align-top border-r-2 border-l-2 border-gray-300'></td></tr></tbody></table>
+    <h4 id='agenda' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Agenda
+  
+  <a href='emacs/tutorial#agenda' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      In this section, we will set up the agenda view, which is the main user interface you will use to get things done. Add the following to your Emacs config:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>(use-package org-agenda
+  :config
+  ;; The agenda pulls data from the following files:
+  (setq org-agenda-files '("~/org/projects.org" "~/org/inbox.org"))
+
+  ;; The GTD view
+  (setq-default org-agenda-custom-commands
+   '(("g" "Get Things Done (GTD)"
+      ((agenda ""
+         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+          (org-deadline-warning-days 0)))
+       (todo "NEXT"
+         ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
+          (org-agenda-prefix-format "  %i %-12:c [%e] ")
+          (org-agenda-overriding-header "\nTasks\n")))
+       (tags-todo "inbox"
+         ((org-agenda-prefix-format "  %?-12t% s")
+          (org-agenda-overriding-header "\nInbox\n")))
+       (tags "CLOSED&gt;=\"&lt;today&gt;\""
+         ((org-agenda-overriding-header "\nCompleted today\n")))))))
+
+  ;; Press F4 to get things done!
+  (global-set-key (kbd "&lt;f4&gt;") (lambda () (interactive) (org-agenda nil "g"))))</code></pre></div><div data-callout-metadata data-callout-fold data-callout='note' class='callout bg-opacity-10' role='note'>
+  <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+  </path>
+  <div class='callout-title'>
+    <div class='callout-icon'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-5 h-5'>
+        <line x1='18' y1='2' x2='22' y2='6'></line>
+<path d='M7.5 20.5 19 9l-4-4L3.5 16.5 2 22z'></path>
+      </svg>
+    </div>
+    <div class='callout-title-inner'>
+      Note
+    </div>
+  </div>
+  <div class='callout-content'>
+    
+    <p class='mb-3'>
+      We don’t need to use <code class='py-0.5 px-0.5 bg-gray-100'>use-package</code> because org-agenda is built into Emacs, but that helps keep your config nice and tidy.
+    </p>
+  
+  </div>
+</div>
+    <p class='mb-3'>
+      This setup is well documented in Nicolas’s <a href='https://www.labri.fr/perso/nrougier/GTD/index.html' class='text-blue-600 hover:underline' data-linkicon='external' target='_blank' rel='noopener'>Emacs GTD</a> paper, so I won’t explain the settings in detail. What you need to know is that, pressing <span class='kbd'>F4</span> will display a dashboard with four sections:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          The current week; see the next section for scheduling events.
+        </li>
+      
+        <li>
+          The list of tasks marked as <code class='py-0.5 px-0.5 bg-gray-100'>NEXT</code>.
+        </li>
+      
+        <li>
+          The list of tasks captured in the <em>inbox</em> that need to be refiled.
+        </li>
+      
+        <li>
+          The list of tasks completed today.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      From that view, you can use the usual commands such as <code class='py-0.5 px-0.5 bg-gray-100'>org-todo</code> and <code class='py-0.5 px-0.5 bg-gray-100'>org-refile</code>. Press <code class='py-0.5 px-0.5 bg-gray-100'>RET</code> to visit the file. The view looks like this:
+    </p>
+  <img class='inline mb-3' src='emacs/media/emacs-tut-org-agenda.png' alt='emacs-tut-org-agenda' style='width: inherit;' /><div data-callout-metadata data-callout-fold data-callout='note' class='callout bg-opacity-10' role='note'>
+  <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+  </path>
+  <div class='callout-title'>
+    <div class='callout-icon'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-5 h-5'>
+        <line x1='18' y1='2' x2='22' y2='6'></line>
+<path d='M7.5 20.5 19 9l-4-4L3.5 16.5 2 22z'></path>
+      </svg>
+    </div>
+    <div class='callout-title-inner'>
+      Note
+    </div>
+  </div>
+  <div class='callout-content'>
+    
+    <p class='mb-3'>
+      Add the following header at the top of your <code class='py-0.5 px-0.5 bg-gray-100'>~/org/inbox.org</code> to see the untriaged tasks:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>#+FILETAGS: inbox</code></pre></div>
+  </div>
+</div>
+    <h4 id='scheduling' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Scheduling
+  
+  <a href='emacs/tutorial#scheduling' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      Schedule a task with <code class='py-0.5 px-0.5 bg-gray-100'>org-schedule</code> (<code class='py-0.5 px-0.5 bg-gray-100'>C-x C-s</code>); this command pops up the Emacs calendar to select a date. You can pick the date in the calendar, or type a date selection like:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>+5h</code>: five hours from now.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>+1d</code>: tomorrow.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>+1w</code>: next week.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>+1m</code>: next month.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>Mon</code>: next Monday.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>20</code>: next 20th day of the month.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>12-25</code>: next Dec 25th.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>YY-MM-DD</code>: a fixed date.
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      When a task has a scheduled property, it will appear in the calendar. If an open task is scheduled in the past, it appears as <code class='py-0.5 px-0.5 bg-gray-100'>Sched</code> in the calendar, reminding you that you forgot to complete a scheduled task.
+    </p>
+  
+    <p class='mb-3'>
+      You can make an event repeat with the following time syntax:
+    </p>
+  
+    <ul class='my-3 ml-6 space-y-1 list-disc'>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>&lt;2024-11-01 Fri +1m -3d&gt;</code> for paying the rent; the task is required every month.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>&lt;2024-11-16 Sat .+2m&gt;</code> for changing toothbrush; marking this DONE shifts the date to one month after today.
+        </li>
+      
+        <li>
+          <code class='py-0.5 px-0.5 bg-gray-100'>&lt;2008-02-10 Sun ++1w&gt;</code> for calling your mom; marking this DONE shifts the date by at least one week
+        </li>
+      
+    </ul>
+  
+    <p class='mb-3'>
+      For example, add the following heading for a tri-weekly review:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>** Sprint review
+SCHEDULED: &lt;2024-10-09 Wed 09:00 ++3w&gt;</code></pre></div>
+    <blockquote class='py-0.5 px-4 mb-3 italic border-l-4 bg-gray-50 text-gray-600 border-gray-400 quote'>
+      
+    <p class='mb-3'>
+      Note that this is not a task, it’s just a reminder for your calendar view.
+    </p>
+  
+    </blockquote>
+  
+    <p class='mb-3'>
+      Finally, add the following to record anniversary events:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='bash language-bash'>* Anniversary
+%%(diary-anniversary 5 29 2012) Zuul was created %d years ago</code></pre></div><div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
+  <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+  </path>
+  <div class='callout-title'>
+    <div class='callout-icon'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-5 h-5'>
+        <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+</path>
+      </svg>
+    </div>
+    <div class='callout-title-inner'>
+      Tip
+    </div>
+  </div>
+  <div class='callout-content'>
+    
+    <p class='mb-3'>
+      Schedule tasks to put them at the top of your dashboard.
+    </p>
+  
+  </div>
+</div>
+    <h4 id='journaling' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Journaling
+  
+  <a href='emacs/tutorial#journaling' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      You can write a journal with org-capture, add the following template:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; Add a new org-capture 'j' for journaling
+(add-to-list 'org-capture-templates
+  '("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+    "* %?\n")
+  t)</code></pre></div>
+    <p class='mb-3'>
+      Press <span class='kbd'>F6</span> <span class='kbd'>j</span> to record an event. It will be written to your <code class='py-0.5 px-0.5 bg-gray-100'>~/org/journal.org</code> using date tree headings.
+    </p>
+  <div data-callout-metadata data-callout-fold data-callout='tip' class='callout bg-opacity-10' role='note'>
+  <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+  </path>
+  <div class='callout-title'>
+    <div class='callout-icon'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='w-5 h-5'>
+        <path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'>
+</path>
+      </svg>
+    </div>
+    <div class='callout-title-inner'>
+      Tip
+    </div>
+  </div>
+  <div class='callout-content'>
+    
+    <p class='mb-3'>
+      Use journal capture to keep track of what you are doing.
+    </p>
+  
+  </div>
+</div>
+    <h4 id='archive' class='group mt-6 mb-4 font-bold text-gray-700 text-2xl'>
+      
+  Archive
+  
+  <a href='emacs/tutorial#archive' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h4>
+  
+    <p class='mb-3'>
+      When a task or project is no longer relevant, use the <code class='py-0.5 px-0.5 bg-gray-100'>org-archive-subtree</code> to clean up your org file. This command moves the content to an archive file.
+    </p>
+  
+    <p class='mb-3'>
+      Here is a useful command to archive all completed tasks:
+    </p>
+  <div class='py-0.5 mb-3 text-sm'><pre><code class='scheme language-scheme'>;; From: https://stackoverflow.com/a/70131908
+;; With auto save disabled
+(defun org-archive-done-tasks ()
+  "Archive all tasks marked DONE in the file."
+  (interactive)
+  ;; Disable auto save
+  (setq org-archive-subtree-save-file-p nil)
+  (unwind-protect
+      (mapc (lambda(entry)
+              (goto-char entry)
+              (org-archive-subtree))
+            ;; process the entry in reverse to avoid changes in positioning
+            (reverse (org-map-entries (lambda () (point)) "TODO=\"DONE\"" 'file)))
+      (setq org-archive-subtree-save-file-p t)))</code></pre></div>
     <h3 id='notmuch' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
       
   notmuch
@@ -3137,6 +3639,20 @@ markdown-mode
   vterm
   
   <a href='emacs/tutorial#vterm' class='--ema-anchor'>
+    <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+        <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
+        <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
+      </svg></span>
+  </a>
+
+
+    </h3>
+  
+    <h3 id='org-ql' class='group mt-6 mb-4 font-bold text-gray-700 text-3xl'>
+      
+  org-ql
+  
+  <a href='emacs/tutorial#org-ql' class='--ema-anchor'>
     <span class='hover:text-blue-400 group-hover:visible invisible cursor-pointer text-sm align-middle' aria-label='Copy link'><svg class='inline w-4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
         <path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'></path>
         <path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'></path>
@@ -3930,12 +4446,100 @@ markdown-mode
       
             </li>
           
-            <li class='whitespace-nowrap truncate mt-2' title='org mode'>
+            <li class='whitespace-nowrap truncate mt-2' title='Org Mode'>
               <a href='emacs/tutorial#org-mode' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
-                org mode
+                Org Mode
               </a>
               
         <ul class='ml-2'>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Modern Style'>
+              <a href='emacs/tutorial#modern-style' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Modern Style
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Your First File'>
+              <a href='emacs/tutorial#your-first-file' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Your First File
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Refile and Capture'>
+              <a href='emacs/tutorial#refile-and-capture' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Refile and Capture
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Editing Org File'>
+              <a href='emacs/tutorial#editing-org-file' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Editing Org File
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Agenda'>
+              <a href='emacs/tutorial#agenda' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Agenda
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Scheduling'>
+              <a href='emacs/tutorial#scheduling' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Scheduling
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Journaling'>
+              <a href='emacs/tutorial#journaling' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Journaling
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='Archive'>
+              <a href='emacs/tutorial#archive' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                Archive
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
           
         </ul>
       
@@ -4010,6 +4614,17 @@ markdown-mode
             <li class='whitespace-nowrap truncate mt-2' title='vterm'>
               <a href='emacs/tutorial#vterm' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
                 vterm
+              </a>
+              
+        <ul class='ml-2'>
+          
+        </ul>
+      
+            </li>
+          
+            <li class='whitespace-nowrap truncate mt-2' title='org-ql'>
+              <a href='emacs/tutorial#org-ql' class='--ema-toc bg-blue-200 rounded-md p-0.5'>
+                org-ql
               </a>
               
         <ul class='ml-2'>
