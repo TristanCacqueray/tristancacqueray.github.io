@@ -19,6 +19,11 @@ Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/trist
 *** https://www.jonashietala.se/feed.xml
 *** https://ariis.it/static/stream/rss.xml
 *** https://drewdevault.com/blog/index.xml
+*** https://www.snoyman.com/rss.xml
+*** https://byorgey.github.io/blog/rss.xml
+*** Groups
+**** https://well-typed.com/blog/rss2.xml
+**** https://www.tweag.io/rss.xml
 ** Programming                                                           :plt:
 *** https://planet.haskell.org/rss20.xml
 ** Internet
