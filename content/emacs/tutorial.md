@@ -756,9 +756,10 @@ by enabling the `subword-mode`:
 
 Here are some useful prog-mode commands:
 
-| *Key*     | *Command*    | *Description*                      |
-|-----------|--------------|------------------------------------|
-| `C-x C-;` | comment-line | Comment or uncomment current line. |
+| *Key*     | *Command*     | *Description*                      |
+|-----------|---------------|------------------------------------|
+| `C-x C-;` | comment-line  | Comment or uncomment current line. |
+| `C-M-\`   | indent-region | Prettify the region.               |
 
 
 ### Flymake
