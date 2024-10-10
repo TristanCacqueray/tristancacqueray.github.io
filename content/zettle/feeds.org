@@ -21,6 +21,7 @@ Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/trist
 *** https://drewdevault.com/blog/index.xml
 *** https://www.snoyman.com/rss.xml
 *** https://byorgey.github.io/blog/rss.xml
+*** https://chrisdone.com/rss.xml
 *** Groups
 **** https://well-typed.com/blog/rss2.xml
 **** https://www.tweag.io/rss.xml
@@ -30,7 +31,7 @@ Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/trist
 *** https://pluralistic.net/feed/                                    :ignore:
 *** https://www.schneier.com/blog/atom.xml
 ** News                                                                :news:
-*** https://lobste.rs/t/haskell,emacs,audio,lisp,plt.rss
+*** https://lobste.rs/t/haskell,emacs,audio,lisp,plt.rss :ignore:
 
 ** Videos                                                             :video:
 *** https://video.monsieurbidouille.fr/feeds/videos.xml
