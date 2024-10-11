@@ -61,7 +61,7 @@ Vert&co, also known as the Minad stack, is composed of similar packages, but the
 In this section, I present a most minimal setup:
 
 First, activate *vertico*:
-```scheme
+```elisp
 (vertico-mode)
 ```
 
@@ -72,7 +72,7 @@ Now, pressing <kbd>ALT</kbd>+<kbd>x</kbd>, or any command using completion like 
 :::
 
 Then, activate *orderless* to enable fuzzy match filtering:
-```scheme
+```elisp
 (setq completion-styles '(orderless basic))
 ```
 
@@ -83,7 +83,7 @@ Now, you can efficiently search the list of entries:
 :::
 
 Finally, set up *consult*:
-```scheme
+```elisp
 (global-set-key (kbd "C-x b") 'consult-buffer)
 ```
 
@@ -103,7 +103,7 @@ Ivy being a full solution, it comes with some opinionated behaviors that I neede
 By default, Ivy lets you scroll the results with the pages keys, and to keep my muscle memory, I had to tweak the vertico keymap.
 Fortunately, it is well documented, and here is how to change the keybindings:
 
-```scheme
+```elisp
 (keymap-set vertico-map "<next>"  'vertico-scroll-up)
 (keymap-set vertico-map "<prior>" 'vertico-scroll-down)
 ```
@@ -115,7 +115,7 @@ Fortunately, it is well documented, and here is how to change the keybindings:
 When completing file paths, Ivy removes the current directory name when pressing <kbd>DEL</kbd>.
 That is, instead of peeling the last letter, it goes straight to the logical parent entry, which is what I want most of the time. This can be implemented using `vertico-directory`:
 
-```scheme
+```elisp
 (require 'vertico-directory)
 (keymap-set vertico-map "DEL" 'vertico-directory-delete-char)
 ```
@@ -128,7 +128,7 @@ To search through a project, I ran `M-x counsel-git-grep` command, typed what I 
 
 Vertico/consult doesn't recover the last search position like that; instead you can use Embark. First, you need to bind the `embark-act` command like that:
 
-```scheme
+```elisp
 (global-set-key (kbd "C-.") 'embark-act)
 ```
 
@@ -142,7 +142,7 @@ I was a bit overwhelmed by the number of packages needed by Vert&co, but I came 
 
 The authors put a lot of work into the documentation to explain how everything fits together, and I was able to use the Vert&co stack in no time. I also liked how they leverage the `use-package` facility to introduce modular customization. For completeness, here is my full configuration:
 
-```scheme
+```elisp
 (use-package vertico
   :custom
   (vertico-count 20)  ;; limit to a fixed size

@@ -299,7 +299,7 @@ Here is a primer on the basic syntax:
 
 In the scratch buffer, write:
 
-```scheme
+```elisp
 ;; Obligatory hello world
 (message "Hello %s" 'emacs)
 ```
@@ -317,7 +317,7 @@ Here are useful commands to work with Lisp:
 
 Add the following to your `~/.emacs` file to ensure the settings persist across restarts:
 
-```scheme
+```elisp
 ;; Setup a nice theme.
 (load-theme 'modus-vivendi)
 
@@ -343,7 +343,7 @@ commands to set the options interactively.
 
 To change a setting, use the `setq` command, here are a couple of better defaults:
 
-```scheme
+```elisp
 ;; Keep auto-save and backup files in one flat directory
 ;; (instead of next to the original files)
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups/")))
@@ -362,7 +362,7 @@ When using the interactive `M-x customize-variable` command,
 clicking `Save` will store the value into `~/.emacs.d/custom.el`
 using this special syntax:
 
-```scheme
+```elisp
 (custom-set-variables
  '(require-final-newline t)
  '(load-prefer-newer t)
@@ -371,7 +371,7 @@ using this special syntax:
 
 To move the customization into your `~/.emacs`, convert the file like this:
 
-```scheme
+```elisp
 (setq require-final-newline t)
 (setq load-prefer-newer t)
 (setq tab-width 4)
@@ -381,7 +381,7 @@ To move the customization into your `~/.emacs`, convert the file like this:
 
 To change a key binding, use the `global-set-key` command, here is a safe change:
 
-```scheme
+```elisp
 ;; Do not ask for permission to kill a buffer (unless it is modified)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 ```
@@ -393,7 +393,7 @@ To change a key binding, use the `global-set-key` command, here is a safe change
 When opening two files with the same name, like `package.json`, it can be confusing to tell their buffers apart.
 Use *uniquify* to disambiguate the buffer names, it will rename the buffers with the parent directory when needed:
 
-```scheme
+```elisp
 ;; Ensure buffer names are unique
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -436,7 +436,7 @@ Then install consult for a better switch-to-buffer command:
 
 Add the following to your `~/.emacs`:
 
-```scheme
+```elisp
 ;; Setup completion framework
 (vertico-mode)
 (setq completion-styles '(orderless basic))
@@ -577,7 +577,7 @@ You can adjust the process environment variables with the `M-x setenv` command.
 Note that Emacs uses the `exec-path` variable to discover commands, so you
 might want to add your own program locations like this:
 
-```scheme
+```elisp
 ;; Ensure local scripts are available.
 (add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
 ```
@@ -627,7 +627,7 @@ Emacs comes with a simple yet powerful compilation mode that operates as follows
 These commands are not bound by default, but you should set up key bindings for quick access.
 I configured mine like this:
 
-```scheme
+```elisp
 ;; Press F5 to start compilation.
 (global-set-key (kbd "<f5>") 'project-compile)
 
@@ -659,7 +659,7 @@ To install Corfu, run the following commands:
 
 Next, add the following to your `~/.emacs`:
 
-```scheme
+```elisp
 ;; Enable indentation and completion using the TAB key.
 (setq tab-always-indent 'complete)
 
@@ -699,7 +699,7 @@ Press <kbd>TAB</kbd> to manually trigger the completion.
 To use <kbd>SPC</kbd> for separating multiple orderless patterns
 (as you do in the minibuffer), you need to configure this key binding:
 
-```scheme
+```elisp
 ;; For manual corfu, use SPC to add orderless separator.
 (keymap-set corfu-map "SPC"  'corfu-insert-separator)
 ```
@@ -716,7 +716,7 @@ For reference, the example usage screenshot was produced by typing:\
 You can make the completion menu appear automatically
 after a short delay with:
 
-```scheme
+```elisp
 ;; show completion automatically after a short delay
 (setq corfu-auto t)
 ```
@@ -749,7 +749,7 @@ to define general behaviors.
 For example, you can make the word motions handle camelCase boundaries
 by enabling the `subword-mode`:
 
-```scheme
+```elisp
 ;; This mode changes the definition of a word boundary so that word commands
 ;; stop at "Gtk" and "Window" in "GtkWindow"
 (add-hook 'prog-mode-hook 'subword-mode)
@@ -778,7 +778,7 @@ Here are the Flymake commands:
 
 Here is an example configuration:
 
-```scheme
+```elisp
 ;; Activate flymake for every prog-mode buffers.
 (add-hook 'prog-mode-hook 'flymake-mode)
 
@@ -827,7 +827,7 @@ Magit is not available on the default ELPA package registry,
 so you need to set up the MELPA registry.
 Add the following to your `~/.emacs`:
 
-```scheme
+```elisp
 ;; Add MELPA registry for Magit.
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ```
@@ -841,7 +841,7 @@ Then run the following commands:
 
 Finally, add the following to your `~/.emacs` to bind the main command:
 
-```scheme
+```elisp
 ;; Quick access to Magit.
 (global-set-key (kbd "C-x g") 'magit-status)
 ```
@@ -907,7 +907,7 @@ When there is a conflict, press <kbd>e</kbd> to start an ediff session.
 In graphic mode, the control window pops up in a new frame, which is not convenient.
 Set the following setting to display the ediff control within your existing frame:
 
-```scheme
+```elisp
 ;; Show the ediff control window inside the current frame, don't create a new window.
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ```
@@ -973,7 +973,7 @@ In this session, we will learn some advanced features.
 Enable sub commands like `git commit` or `kubectl edit` to open
 a new buffer within your existing session:
 
-```scheme
+```elisp
 ;; Allow this Emacs process to be a server for client processes.
 (server-start)
 
@@ -991,7 +991,7 @@ because the commands and settings won't be available.
 Instead, you need to leverage the `use-package` command to
 manage external packages. The basic syntax looks like this:
 
-```scheme
+```elisp
 (use-package the-package-name
   :ensure t ;; install if needed
   :config
@@ -1002,7 +1002,7 @@ manage external packages. The basic syntax looks like this:
 use-package lets you further declare your config,
 for example like this:
 
-```scheme
+```elisp
 (use-package the-package-name
   :if (display-graphic-p)
   :diminish
@@ -1013,7 +1013,7 @@ for example like this:
 
 … which is equivalent to:
 
-```scheme
+```elisp
 (when (display-graphic-p)
   (require 'the-package-name)
   (diminish 'the-package-name)
@@ -1060,7 +1060,7 @@ Then you can configure extra features like emails or feeds in dedicated packages
 
 Set up the `multiple-cursors` package to enable editing multiple lines at once:
 
-```scheme
+```elisp
 (use-package multiple-cursors
   :bind
   (("C->" . 'mc/mark-next-like-this)
@@ -1080,7 +1080,7 @@ Configure custom abbreviations to help you expand repetitive content.
 While you can use the builtin `dabbrev` package, here is a more
 powerful solution named `tempel`:
 
-```scheme
+```elisp
 (use-package tempel
   :bind ("M-*" . tempel-insert)
   :init
@@ -1098,7 +1098,7 @@ powerful solution named `tempel`:
 
 Setup your templates in `~/.config/emacs/templates`:
 
-```scheme
+```elisp
 ;; ~/.config/emacs/templates
 ;; https://github.com/minad/tempel#template-syntax
 
@@ -1149,7 +1149,7 @@ as presented by Nicolas P. Rougier in his [Emacs GTD][emacs-gtd].
 This configuration has been proven to work, and I recommend using it as a starting point.
 Add the following to your `~/.emacs`:
 
-```scheme
+```elisp
 ;; Adjust org-mode for GTD
 (use-package org
   :config
@@ -1167,7 +1167,7 @@ Install a sleek-looking style with org-modern.
 The following configuration defines a custom color for the `NEXT`
 keyword that is used by GTD:
 
-```scheme
+```elisp
 ;; Modern Org Style
 (use-package org-modern
   :ensure t
@@ -1222,7 +1222,7 @@ Your buffer should look like this:
 To move tasks, use the `org-refile` command (`C-x C-w`).
 Add the following settings to make your `projects.org` the default target.
 
-```scheme
+```elisp
 ;; Allow moving task from anywhere into your projects:
 (setq org-refile-targets '(("~/org/projects.org" :maxlevel . 1)))
 
@@ -1233,7 +1233,7 @@ Add the following settings to make your `projects.org` the default target.
 To add tasks, use the `org-capture` command.
 Add the following settings:
 
-```scheme
+```elisp
 ;; Setup capture template to write new tasks to ~/org/inbox.org
 (setq org-capture-templates
       '(("t" "todo" entry (file "~/org/inbox.org")
@@ -1268,7 +1268,7 @@ In this section, we will set up the agenda view, which is the main user interfac
 will use to get things done.
 Add the following to your Emacs config:
 
-```scheme
+```elisp
 ;; org-agenda provides the GTD dashboard
 (use-package org-agenda
   :config
@@ -1383,7 +1383,7 @@ Finally, add the following to record anniversary events:
 
 You can write a journal with org-capture, add the following template:
 
-```scheme
+```elisp
 ;; Add a new org-capture 'j' for journaling
 (add-to-list 'org-capture-templates
   '("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
@@ -1406,7 +1406,7 @@ archive file that you can use to research the past events.
 
 Here is a useful command to archive all completed tasks:
 
-```scheme
+```elisp
 ;; From: https://stackoverflow.com/a/70131908
 ;; With auto save disabled
 (defun org-archive-done-tasks ()
@@ -1459,7 +1459,7 @@ However, I am not familiar with these features because I only use basic Org for 
 
 ### Tramp
 
-```scheme
+```elisp
 ;; Transparent Remote Access, Multiple Protocol
 (use-package tramp
   :custom

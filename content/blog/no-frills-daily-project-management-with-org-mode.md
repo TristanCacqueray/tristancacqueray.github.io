@@ -40,7 +40,7 @@ Use the `org-capture` command to enter a task. This can happen in one of the fol
 
 To tell `org-capture` where to write down a task, create the following template at `~/org/projects.org`:
 
-```lisp
+```raw
 * Inbox
 
 * Monocle changemetrics.io
@@ -63,7 +63,7 @@ Here is how that looks like in [nano-emacs][nano-emacs]:
 
 Then in `~/.emacs.el` write the following configuration:
 
-```lisp
+```elisp
 ;; Configure where tasks are written
 (setq org-capture-templates
       '(
@@ -115,7 +115,7 @@ Note that this can be used to turn any heading into a task too.
 
 In `~/.emacs.el` add the following setting to attach a CLOSED property when a task is done.
 
-```lisp
+```elisp
 ;; Keep track of when the task was completed
 (setq org-log-done 'time)
 ```
@@ -130,7 +130,7 @@ Running `M-x org-todo` on the example task results in:
 
 To list tasks, configure where to look for tasks:
 
-```lisp
+```elisp
 ;; Tell org-agenda where are the org files
 (setq org-agenda-files '("~/org"))
 ```
@@ -153,7 +153,7 @@ You can also run `M-x org-agenda-filter` to narrow down the listing by category.
 
 Install the library by adding the following to your `~/.emacs.el`:
 
-```lisp
+```elisp
 ;; Install org-ql through melpa
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
@@ -165,7 +165,7 @@ it's also possible to fully customize the output using Emacs native configuratio
 
 For example, a daily standup report needs to look like this:
 
-```lisp
+```raw
 YYYY-MM-DD
 
 $USER:
@@ -174,7 +174,7 @@ $USER:
 
 Here is how to render your tasks for this particular format:
 
-```lisp
+```elisp
 ;; string manipulation library from https://github.com/magnars/s.el
 (require 's)
 (require 'org-ql)

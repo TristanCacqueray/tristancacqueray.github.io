@@ -84,7 +84,7 @@ Emacs is highly extensible through Lisp, a powerful and intriguing programming l
 At a minimum, you only need to understand how to set variables and call functions to customize
 your environment:
 
-```scheme
+```elisp
 (setq recentf-max-saved-items 1024)
 (recentf-mode)
 ```
@@ -95,7 +95,7 @@ From the editor, you can access the documentation and the sources of everything 
 Then you can implement any kind of customization, for example, here is how to start a language
 server inside a nix shell when a flake is available:
 
-```scheme
+```elisp
 (defun start-hls (_mode)
   "Start HLS by trying to wrap in nix develop."
   (if (file-exists-p "flake.nix")
@@ -111,7 +111,7 @@ server inside a nix shell when a flake is available:
 
 Here is how I insert my latest screen capture into a markdown file:
 
-```scheme
+```elisp
 (defun get-newest-file-from-dir  (path)
   "Return the latest file in PATH."
   (car (directory-files path 'full nil #'file-newer-than-file-p)))

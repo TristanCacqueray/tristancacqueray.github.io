@@ -349,7 +349,7 @@ It's quite a neat feature since it works without changing anything on the operat
 Alas, emacs doesn't accept the common sequence by default.
 I needed to add a new binding to get the desired behavior:
 
-```lisp
+```elisp
 ;; enable standard unicode input (but still needs to press bksp-enter to complete the sequence)
 (define-key global-map (kbd "C-S-u") 'insert-char)
 ```
