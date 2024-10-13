@@ -64,7 +64,7 @@
         program = "${run}/bin/run";
       };
       devShells."x86_64-linux".default =
-        pkgs.mkShell { buildInputs = [ ghc pkgs.ghcid emanote ]; };
+        pkgs.mkShell { buildInputs = [ ghc pkgs.cabal-install pkgs.ghcid emanote ]; };
       devShells."x86_64-linux".gstreamer = pkgs.mkShell {
         buildInputs = [ ghc pkgs.ghcid pkgs.gst_all_1.gstreamer ];
         GST_PLUGIN_PATH =

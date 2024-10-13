@@ -1,0 +1,31 @@
+cabal-version: 2.4
+
+name:           midirus-dot-com
+version:        1
+build-type:     Simple
+license-file:   LICENSE
+copyright:      2024 Tristan de Cacqueray
+
+executable midirus-dot-com
+  main-is: Render.hs
+  build-depends:
+      base >=4.7 && <5
+    , rio
+    , yaml
+    , text
+    , bytestring
+    , time
+    , containers
+    , lucid
+    , pandoc
+    , pandoc-types
+    , parsec
+    , typed-process
+    , filepath
+    , process
+    , string-qq
+    , directory
+    , aeson
+    , split
+  default-language: Haskell2010
+  ghc-options: -Wall
