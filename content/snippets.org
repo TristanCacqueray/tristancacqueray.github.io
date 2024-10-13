@@ -56,6 +56,13 @@ git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
 ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortest -c:v libx264 opFreak-album.mp4
 #+end_src
 
+** Encode mp3
+#+begin_src bash
+  metaflac --preserve-modtime --remove-all-tags --set-tag=artist=Midirus --set-tag=album=Prelude --set-tag=year=2013 --set-tag=title=Berlin infile.flac
+  ffmpeg -i infile.flac -map_metadata 0 -id3v2_version 3 outfile.mp3
+  touch -r infile.flac outfile.mp3
+#+end_src
+
 ** Encode video
 - =-movflags +faststart= for fast play in browser
 - =-crf= 0 is lossless (for 8 bit only, for 10 bit use -qp 0), 23 is the default, and 51 is worst quality possible. 17/18 is visually lossless
@@ -294,3 +301,9 @@ openstack security group rule create --protocol icmp --ingress default
 * Gephi
 
 See: https://github.com/TristanCacqueray/cabal-audit/?tab=readme-ov-file#analyze-with-gephi
+
+* files
+Without ext: =${fp%.*}=
+Last modified TS: =stat -c "%Y %n" $fp=
+Touch TS: =touch --date @1349820671 $fp=
+Kepp dates: =touch -r src dst=
