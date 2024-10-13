@@ -127,7 +127,7 @@ renderAudioMetaData :: [AudioFile] -> AudioMetaData
 renderAudioMetaData files = AudioMetaData albums playlists files
   where
     albums = map toPlaylist $ snd $ foldl mkAlbum (0, []) files
-    playlists = [] -- map toPlaylist $ snd $ foldl mkPlaylist (0, []) (map fst xs)
+    playlists = map toPlaylist $ snd $ foldl mkPlaylist (0, []) files
 
 toPlaylist :: (Text, [Word]) -> Playlist
 toPlaylist (name, songs) = Playlist name (reverse songs)
@@ -135,12 +135,10 @@ toPlaylist (name, songs) = Playlist name (reverse songs)
 mkAlbum :: (Word, [(Text, [Word])]) -> AudioFile -> (Word, [(Text, [Word])])
 mkAlbum (pos, acc) af = (pos + 1, insertSong pos acc af.album)
 
-{-
-mkPlaylist :: (Word, [(Text, [Word])]) -> AudioFileInfo -> (Word, [(Text, [Word])])
-mkPlaylist (pos, acc) aif = (pos + 1, newAcc)
+mkPlaylist :: (Word, [(Text, [Word])]) -> AudioFile -> (Word, [(Text, [Word])])
+mkPlaylist (pos, acc) af = (pos + 1, newAcc)
   where
-    newAcc = foldl (insertSong pos) acc (fromMaybe [] aif.playlists)
--}
+    newAcc = foldl (insertSong pos) acc (Text.pack . toCapitalize . Text.unpack <$> fromMaybe [] af.nfo.meta.playlists)
 
 insertSong :: Word -> [(Text, [Word])] -> Text -> [(Text, [Word])]
 insertSong pos [] name = [(name, [pos])]
@@ -178,6 +176,7 @@ data AudioMDMeta = AudioMDMeta
     , freq :: Natural
     , fmt :: Text
     , date :: Text
+    , playlists :: Maybe [Text]
     }
     deriving (Generic, FromJSON, ToJSON, Show)
 
@@ -239,6 +238,7 @@ getAudioMD sfp mdPath date =
                     AudioMDMeta
                         { rating = Nothing
                         , pos = Nothing
+                        , playlists = Nothing
                         , length = meta.length
                         , freq = meta.freq
                         , fmt = meta.format

@@ -30,14 +30,16 @@
 <div id="info" style="width:500px">
   <apply template="components/note-body" />
 </div>
-<script src="/static/audio-player.js"></script>
-                <p style="position:absolute; top:120px; font-size:small; width:200px">
-                  Free sound to use for all<br />
-                  your Creative Common or<br />
-                  GPL projects.<br />
-                  No credit is required,<br />
+<script src="/static/audio-player.js?v=3"></script>
+<div class="flex flex-col place-items-center" style="position:absolute; top:120px; width:210px; max-width:210px">
+  <p class="text-justify text-sm">
+                  Free sounds to use for all
+                  your Creative Common or GPL projects.
+                  No credit is required,
                   but always appreciated.
-                </p>
+  </p>
+  <a id="dl-btn" download target="_blank" class="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm mt-5 px-5 py-2.5 text-center me-2 mb-2 cursor-pointer hidden">Download FLAC</a>
+</div>
                 <div class="place-items-center flex flex-col" style="position:absolute; top:98px;right:23px;">
 <svg height="40px" width="40px" version="1.1" id="headphone" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"  xml:space="preserve">
 <g>
@@ -60,6 +62,14 @@
 </g>
 </svg>
 <div style="font-size:28px">🖢</div>
+<br />
+<br />
+<br />
+<br />
+<div class="flex flex-col rounded-lg bg-white shadow-sm border border-slate-200">
+  <nav id="my-playlist" class="flex max-w-[120px] flex-col gap-1 p-1.5">
+  </nav>
+</div>
                 </div>
               </div>
 

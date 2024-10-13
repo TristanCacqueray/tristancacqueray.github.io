@@ -10,4 +10,4 @@ clean:
 	nix-store --delete $(STORE_PATH)
 
 sync-cdn:
-	rsync --delete -rvpti /srv/cdn.midirus.com/ cdn.midirus.com:sites/cdn.midirus.com/
+	rsync --exclude /inbox/ --delete -rvpti /srv/cdn.midirus.com/ cdn.midirus.com:sites/cdn.midirus.com/
