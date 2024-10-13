@@ -22,6 +22,7 @@ Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/trist
 *** https://www.snoyman.com/rss.xml
 *** https://byorgey.github.io/blog/rss.xml
 *** https://chrisdone.com/rss.xml
+*** https://www.scannedinavian.org/atom.xml
 *** Groups
 **** https://well-typed.com/blog/rss2.xml
 **** https://www.tweag.io/rss.xml
