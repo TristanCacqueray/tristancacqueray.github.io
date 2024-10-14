@@ -379,35 +379,47 @@ To move the customization into your `~/.emacs`, convert the file like this:
 
 ### Key Bindings
 
-To change a key binding, use the `global-set-key` command, here is a safe change:
+While it is not necessary to use any key bindings, because you can always
+run a command by typing its name in the minibuffer,
+it is recommended to configure your own keys for:
+
+- creating shortcuts to easily access the most commonly used commands, and
+- altering the default bindings.
+
+To change a key binding, use the `global-set-key` command:
 
 ```elisp
 ;; Do not ask for permission to kill a buffer (unless it is modified)
 (global-set-key (kbd "C-x k") 'kill-current-buffer)
 ```
+
 > [!tip]
-> Check out the [better-defaults](https://git.sr.ht/~technomancy/better-defaults/) for other safe examples.
+> Check out the [better-defaults](https://git.sr.ht/~technomancy/better-defaults/) for other common examples.
 
-### Uniquify
+To check the existing keys, run the following commands:
 
-When opening two files with the same name, like `package.json`, it can be confusing to tell their buffers apart.
-Use *uniquify* to disambiguate the buffer names, it will rename the buffers with the parent directory when needed:
+| *Command*                     | *Description*                                        |
+|-------------------------------|------------------------------------------------------|
+| describe-bindings             | Display a buffer showing a list of all defined keys. |
+| describe-personal-keybindings | Display all the personal keybindings.                |
 
-```elisp
-;; Ensure buffer names are unique
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-```
+### Packages
 
-### package-install
-
-Run `M-x package-install` to install plugins for languages syntax highlighting.
-The plugins are usually named *language-mode*, for example run:
+Run `M-x package-install` to install packages for language syntax highlighting and extra features.
+The language packages are usually named *language-mode*. For example, run:
 
 - `M-x package-install` <kbd>⏎</kbd> `markdown-mode`
 
-Now, opening a markdown file highlights the syntax.
-Here are a few more plugins to get started: `haskell-mode`, `rust-mode` and `yaml-mode`.
+… to activate markdown file highlighting. Here are some useful commands:
+
+
+| *Command*                | *Description*                                     |
+|--------------------------|---------------------------------------------------|
+| list-packages            | Display the list of available/installed packages. |
+| describe-package         | Display packages' documentation.                  |
+| package-delete           | Delete a package.                                 |
+| package-refresh-contents | Download descriptions of all packages.            |
+
 
 ### Vert&co
 
@@ -800,13 +812,14 @@ that as an additional back-end.
 
 Emacs comes with a language server client called `eglot`, which functions as follows:
 
-| *Command*                        | *Description*              |
-|----------------------------------|----------------------------|
-| eglot                            | Start the language server. |
-| eglot-shutdown                   | Kill the server.           |
-| eglot-code-actions               | Execute server actions.    |
-| xref-find-definitions            | Find definition.           |
-| xref-find-references             | Find call sites.           |
+| *Command*             | *Description*                     |
+|-----------------------|-----------------------------------|
+| eglot                 | Start the language server.        |
+| eglot-shutdown        | Kill the server.                  |
+| eglot-code-actions    | Execute server actions.           |
+| xref-find-definitions | Find definition.                  |
+| xref-find-references  | Find call sites.                  |
+| xref-go-back          | Go back to the previous position. |
 
 The current file mode typically configures the relevant server in the `eglot-server-programs` list.
 If it's not configured, `eglot` will prompt you for the program or network endpoint to use.
@@ -858,6 +871,7 @@ Here are the main keys:
 - <kbd>j</kbd>: Jump to a section.
 - <kbd>?</kbd>: View the command list.
 - <kbd>$</kbd>: View the actual Git commands that Magit is performing.
+- <kbd>+</kbd>/<kbd>-<kbd>: Increase/Decrease the diff context size.
 
 To prepare a commit, on a chunk or a file, press:
 
@@ -1071,7 +1085,30 @@ Press <kbd>ctrl</kbd>+<kbd>></kbd> to create multiple cursors. Then edit as usua
 
 ### ELisp
 
-- TODO: explain how to write custom commands...
+- TODO: write ELisp intro...
+
+Here is a basic example to create a macro using basic commands:
+
+```elisp
+(defun center-by-spliting-3-windows ()
+    "Narrow the current buffer in the middle of the frame, which is useful for widescreens."
+    ;; Calling interactive makes the function available in M-x
+    (interactive)
+    ;; Make current window full screen (C-x 1)
+    (delete-other-windows)
+    ;; Create 2 vertical split (C-x 3)
+    (split-window-right)
+    (split-window-right)
+    ;; Center the middle window (C-x +)
+    (balance-windows)
+    ;; The cursor is still on the left window, replace it with *scratch* (C-x b)
+    (switch-to-buffer (get-buffer-create "*scratch*"))
+    ;; Cycle twice to go to the right window and replace it with *scrach* (C-x o)
+    (other-window 2)
+    (switch-to-buffer (get-buffer-create "*scratch*"))
+    ;; Cycle twice to put the cursor on the middle window (C-x o)
+    (other-window 2))
+```
 
 
 ### Templates
