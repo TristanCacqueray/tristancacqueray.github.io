@@ -58,6 +58,7 @@ ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortes
 
 ** Encode mp3
 #+begin_src bash
+  ffmpeg -i infile.mp3 -sample_fmt s16 out.flac
   metaflac --preserve-modtime --remove-all-tags --set-tag=artist=Midirus --set-tag=album=Prelude --set-tag=year=2013 --set-tag=title=Berlin infile.flac
   ffmpeg -i infile.flac -map_metadata 0 -id3v2_version 3 outfile.mp3
   touch -r infile.flac outfile.mp3
