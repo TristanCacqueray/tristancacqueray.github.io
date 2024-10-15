@@ -24,6 +24,7 @@ allowing you to read news, send emails, play media, and much more!
 > This [file][my-emacs-tut] is licensed under a free/libre copyleft license (GPL or CC BY-SA).
 >
 > **Changelog**
+> - 2024-10-15: added the [*EasyPG*](./tutorial.md#easypg) and [*Mail*](./tutorial.md#send-email) section.
 > - 2024-10-14: added the [*Dired*](./tutorial.md#dired) section.
 > - 2024-10-08: added the [*Org Mode*](./tutorial.md#org-mode) section.
 > - 2024-10-07: explained the [*Compile*](./tutorial.md#compile) workflow.
@@ -997,6 +998,240 @@ rustfmt on save
 
 In this session, we will learn some advanced features.
 
+### EasyPG
+
+EasyPG Assistant (EPA) is an Emacs user interface for GNU Privacy Guard (GnuPG)
+to encrypt and sign your data and communications.
+
+| *Command*         | *Description*                               |
+|-------------------|---------------------------------------------|
+| epa-list-keys     | Browse your keyring.                        |
+| epa-sign-region   | Create a cleartext signature of the region. |
+| epa-verify-region | Verify the current region.                  |
+| epa-encrypt-file  | Encrypt a file.                             |
+
+When opening a `.gpg` file, the encryption/decryption process is automatic.
+
+#### Pinentry
+
+To unlock your key in Emacs, add the following setting to your `~/.gnupg/gpg-agent.conf`:
+
+```raw
+allow-loopback-pinentry
+# remember passphrase for 5 days (in seconds)
+default-cache-ttl 432000
+max-cache-ttl     432000
+```
+
+… and this option in your `init.el`:
+
+```elisp
+;; Use Emacs to provide passphrase when opening .gpg files
+;; Make sure that `~/.gnupg/gpg-agent.conf` has allow-loopback-pinentry.
+(setq epa-pinentry-mode 'loopback)
+```
+
+#### Create a key
+
+Here are the instructions to create a private key, in case you don't already have one in your `epa-list-keys`.
+Unfortunately, EPA doesn't have a command for creating a new key,
+so you'll need to run this command outside of Emacs:
+
+```ShellSession
+$ gpg --gen-key
+Real name: Your Name ⏎
+Email address: name@domain ⏎
+Change (N)ame, (E)mail, or (O)kay/(Q)uit? O ⏎
+```
+
+To export and share your public key, run the `--export` command with the fingerprint.
+Here is the output for mine:
+
+```ShellSession
+$ gpg --armor --export AC3808DC2B1FDBC33603BF0E23456044E58C6036
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEZw6bBhYJKwYBBAHaRw8BAQdAwjGTmtRMhSAldHc3n/l2TfBoM9t0H3OcXp3k
+69AMAda0KlRyaXN0YW4gZGUgQ2FjcXVlcmF5IDx0cmlzdGFuQG1pZGlydXMuY29t
+PoiZBBMWCgBBFiEExpE0HRinN6TyTU9xd0uUtLhEmjcFAmcOmwYCGwMFCQWjmoAF
+CwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQd0uUtLhEmjefXgEAw7ysIQtm
+eIoflWQ478OAJM0viFIL5XE0O68Ls5sCzAoBAPVKIpgfrRRWGqioBB+cvZ8oQ2Dw
+DeOrs0s9MwnNdcECuDgEZw6bBhIKKwYBBAGXVQEFAQEHQBgZeQwajDVgQdPQZkf+
+gNnh3MHI/SNGen4lBj9Pl3JcAwEIB4h+BBgWCgAmFiEExpE0HRinN6TyTU9xd0uU
+tLhEmjcFAmcOmwYCGwwFCQWjmoAACgkQd0uUtLhEmjfczAEA0NNJb4frlUykne9c
+fYqE+qqDkTnGq6+gu1cY8BFJItYA/j7zd3RnKzRP/PshuS2RG6evF14zKYonSNPm
+NADBrw8K
+=gwYk
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+To import a public key, select it in Emacs and run the `M-x epa-import-keys-region` command.
+
+> [!tip]
+> Import my key and try `M-x epa-encrypt-region` on a piece of text.
+> You should be able to pick my email as a recipient by pressing <kbd>m</kbd>.
+
+### Send Email
+
+In this section, we learn how to write and send email from Emacs.
+
+Add your SMTP server authentication to `~/.authinfo.gpg`:
+
+```raw
+machine HOST port 465 login LOGIN password PASS
+```
+
+Install a SMTP client by running `dnf install -y msmtp` and add the following configuration in
+`~/.config/msmtp/config`:
+
+```raw
+defaults
+auth            on
+protocol        smtp
+tls             on
+# logfile         ~/.local/msmtp.log
+protocol        smtp
+tls_starttls    off
+
+account         default
+from            MAIL
+user            LOGIN
+host            HOST
+port            465
+passwordeval    "gpg2 -q --for-your-eyes-only -d ~/.authinfo.gpg | awk '/HOST port 465 login LOGIN/ { print $NF }'"
+```
+
+> You can test `msmtp` by sending an email with this shell command:
+> ```{.ml-5 .monospace .not-italic}
+> printf "Subject: Test\n\n This is a test." | msmtp -a default your@mail
+> ```
+
+Add the following configuration to your Emacs:
+
+```elisp
+;; Setup my identity
+(setq user-full-name "FULL_NAME")
+(setq user-mail-address "MAIL")
+
+;; Use external sendmail program to send mail.
+(setq send-mail-function 'sendmail-send-it)
+
+;; Ensure msmtp is used, just in case it is not symlinked as "sendmail".
+(setq sendmail-program "msmtp")
+
+;; Wait for sendmail completion and display any errors.
+(setq mail-interactive t)
+
+;; Pass the From header to msmtp to enable multiple sender configs.
+(setq message-sendmail-envelope-from 'header)
+```
+
+> [!info]
+> Make sure to replace the HOST, MAIL, LOGIN, PASS and FULL_NAME placeholders in the three config files above.
+
+You can now send email using Emacs by running `M-x compose-mail` (`C-x m`).
+Here are some useful commands:
+
+| *Command*                          | *Description*              |
+|------------------------------------|----------------------------|
+| mml-attach-file                    | Attach a file.             |
+| mml-secure-message-sign-pgpmime    | Sign with gpg.             |
+| mml-secure-message-encrypt-pgpmine | Encrypt and sign with gpg. |
+| message-send-and-exit              | Send message. (`C-c C-c`)  |
+
+You can save a copy of your sent emails using the following configuration:
+
+```elisp
+;; Keep a copy of my correspondance
+(defun save-sent-mail ()
+  "Write the current buffer into an archive file."
+  (let ((buf (current-buffer)))
+    (with-temp-file (format-time-string "~/Mail/sent/%Y-%m-%d_%T.txt")
+      (insert-buffer buf))))
+(add-hook 'message-sent-hook 'save-sent-mail)
+```
+
+> [!tip]
+> Feel free to `M-x compose-mail` me at tristan@midirus.com.
+> Make sure to attach your public key in your first email.
+
+### Read Email
+
+In this section, we will learn how to read email using the built-in newsreader
+named Gnus.
+Later, we will learn about NotMuch, which is a more advanced system.
+
+Add your IMAP server authentication to `~/.authinfo.gpg`:
+
+```raw
+machine HOST port 993 login LOGIN password PASS
+```
+
+
+Add the following configuration to your Emacs:
+
+```elisp
+;; Use Gnus with my IMAP server.
+(setq gnus-select-method '(nnimap "HOST"))
+
+;; Cite reply author with a date.
+(setq message-citation-line-format "On %a, %b %d, %Y at %H:%M %N wrote:")
+(setq message-citation-line-function 'message-insert-formatted-citation-line)
+
+;; Start message above the quote.
+(setq message-cite-reply-position 'above)
+
+;; Keep my reply in the associated thread. This is not necessary for regular newsgroups.
+(setq gnus-parameters '(("nnimap:.*" (gcc-self . t))))
+(setq gnus-gcc-mark-as-read t)
+
+;; Keep Gnus in it's own buffer.
+(setq gnus-use-full-window nil)
+
+;; Use `g` to refresh the summary. The default key is `M-g`, which is not common.
+(keymap-set gnus-summary-mode-map "g" 'gnus-summary-rescan-group)
+```
+
+Then run `M-x gnus` to check your emails. There are two modes:
+
+- **Group** for mail folders, and
+- **Summary** for mailing lists.
+
+Here are the main group keys:
+
+| *Key*          | *Command*                  | *Description*                          |
+|----------------|----------------------------|----------------------------------------|
+| <kbd>L</kbd>   | gnus-group-list-all-groups | List all group.                        |
+| <kbd>l</kbd>   | gnus-group-list-groups     | List group with unread mails.          |
+| <kbd>SPC</kbd> | gnus-group-read-group      | Visit a group and open the first mail. |
+| <kbd>RET</kbd> | gnus-group-select-group    | Visit a group.                         |
+
+Here are the main summary keys:
+
+| *Key*                       | *Command*                        | *Description*             |
+|-----------------------------|----------------------------------|---------------------------|
+| <kbd>R</kbd>                | gnus-summary-reply-with-original | Reply to a mail.          |
+| <kbd>\#</kbd>               | gnus-summary-mark-as-processable | Mark a mail.              |
+|                             | gnus-summary-put-mark-as-unread  | Unread marked article(s). |
+| <kbd>B</kbd> <kbd>DEL</kbd> | gnus-summary-delete-article      | Delete marked article(s). |
+| <kbd>m</kbd>                | gnus-summary-mail-other-window   | Compose a new mail.       |
+| <kbd>/</kbd> <kbd>o</kbd>   | gnus-summary-insert-old-articles | Show read articles.       |
+| `M-g`                       | gnus-summary-rescan-group        | Resync the summary.       |
+
+If Gnus is too slow for your mailbox, try enabling the following options:
+
+```elisp
+;; Improve Gnus performance
+(setq gnus-asynchronous t
+      gnus-use-cache t
+      gnus-use-header-prefetch t)
+```
+
+Gnus works great when you already have server side filtering with IMAP folders.
+Another option is to process your email locally with mbsync, sieve-filter and NotMuch.
+Checkout the dedicated section below.
+
+
 ### local lisp
 
 - TODO: show how to install git-clone.el.
@@ -1558,7 +1793,7 @@ Note that Org Mode also provides many additional features, such as:
 
 However, I am not familiar with these features because I only use basic Org for Getting Things Done.
 
-### notmuch
+### NotMuch
 
 ### elfeed
 
