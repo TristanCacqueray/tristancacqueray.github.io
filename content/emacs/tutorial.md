@@ -47,6 +47,9 @@ development.
 Emacs helps you be productive by offering an integrated environment for a wide range of tasks.
 This tool has been tested and proven to work well.
 
+
+<br />
+
 ## First contact
 
 In this first session, we will learn the most basic usage.
@@ -113,8 +116,6 @@ Here are the main cursor movements:
 |                                       |                        |                                                          |
 | `M-g g`                               | goto-line              | Go to LINE.                                              |
 | `M-g c`                               | goto-char              | Go to POSITION.                                          |
-| `M-g i`                               | imenu                  | Go to a place chosen using a buffer menu.                |
-| `C-x C-@`                             | pop-global-mark        | Go to the last point position.                           |
 
 
 > Note that these keys mostly work by default with readline (e.g. in bash).
@@ -255,6 +256,12 @@ At this point, your terminal may look like this:
 ![emacs-tut-dired](media/emacs-tut-dired.png)
 
 
+---
+<br />
+
+In this first session, we learnt the basic survival skills.
+
+
 ## Customization
 
 In this second session we learn how to customize Emacs behaviors and set up some quality-of-life improvements.
@@ -314,7 +321,7 @@ Here are useful commands to work with Lisp:
 |           | eval-buffer     | Execute the current buffer as Lisp code.           |
 
 
-### dot emacs
+### Dot Emacs
 
 Add the following to your `~/.emacs` file to ensure the settings persist across restarts:
 
@@ -347,7 +354,7 @@ To change a setting, use the `setq` command, here are a couple of better default
 ```elisp
 ;; Keep auto-save and backup files in one flat directory
 ;; (instead of next to the original files)
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups/")))
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory "backups"))))
 
 ;; Store custom variables in ~/.emacs.d/custom.el (instead of ~/.emacs)
 (setq custom-file (locate-user-emacs-file "custom.el"))
@@ -481,6 +488,8 @@ Save interesting locations with bookmarks:
 > *consult-buffer* offers bookmark access by default.
 
 ---
+<br />
+
 You now have a fully functional environment.
 The next section introduces how to learn on your own before we
 dive in more advanced concepts.
@@ -495,13 +504,13 @@ In this session we learn how to learn within Emacs.
 Run the following commands to access the documentation and the source of every Emacs
 feature:
 
-| *Key*   | *Command*         | *Description*                                                |
-|---------|-------------------|--------------------------------------------------------------|
-| `C-h f` | describe-function | Display the full documentation of FUNCTION (a symbol).       |
-| `C-h v` | describe-variable | Display the full documentation of VARIABLE (a symbol).       |
-| `C-h m` | describe-mode     | Display documentation of current major mode and minor modes. |
-| `C-h b` | describe-bindings | Display a buffer showing a list of all defined keys.         |
-| `C-h k` | describe-key      | Display documentation of the function invoked by KEY-LIST.   |
+| *Key*   | *Command*         | *Description*                                              |
+|---------|-------------------|------------------------------------------------------------|
+| `C-h f` | describe-function | Display the full documentation of FUNCTION (a symbol).     |
+| `C-h v` | describe-variable | Display the full documentation of VARIABLE (a symbol).     |
+| `C-h m` | describe-mode     | Display documentation of the current modes and their keys. |
+| `C-h b` | describe-bindings | Display a buffer showing a list of all defined keys.       |
+| `C-h k` | describe-key      | Display documentation of the function invoked by KEY-LIST. |
 
 > [!tip]
 > Use `C-h f` to read a command's documentation.
@@ -544,6 +553,9 @@ Read the Un*x manual by running `M-x man`.
 
 > [!info]
 > The manuals are the ultimate references *(after the source)*. Use them!
+
+---
+<br />
 
 ## System
 
@@ -607,6 +619,8 @@ If needed, see the `vterm` package for a full terminal emulation.
 There is also `eshell`, which is an advanced mode that lets you run lisp command directly.
 Though I don't personally use `eshell`.
 
+---
+<br />
 
 ## Development
 
@@ -945,6 +959,8 @@ When viewing a file, run `M-x magit-blame` then press <kbd>b</kbd>:
 > Check out the documentation to learn more: <https://magit.vc/>
 
 ---
+<br />
+
 You now have a fully functional integrated developer environment (IDE).
 The next section introduces how to write source code in different languages.
 
@@ -973,6 +989,8 @@ rustfmt on save
 - `M-x run-python`
 - `M-x python-shell-send-buffer`
 
+---
+<br />
 
 
 ## Advanced
