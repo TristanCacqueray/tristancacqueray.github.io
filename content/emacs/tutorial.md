@@ -24,8 +24,9 @@ allowing you to read news, send emails, play media, and much more!
 > This [file][my-emacs-tut] is licensed under a free/libre copyleft license (GPL or CC BY-SA).
 >
 > **Changelog**
-> - 2024-10-07: added the *Org Mode* section.
-> - 2024-10-07: explained the *Compile* workflow.
+> - 2024-10-14: added the [*Dired*](./tutorial.md#dired) section.
+> - 2024-10-08: added the [*Org Mode*](./tutorial.md#org-mode) section.
+> - 2024-10-07: explained the [*Compile*](./tutorial.md#compile) workflow.
 > - 2024-10-05: added the *Development* section.
 
 In this tutorial, I will list all the commands, key bindings, and settings to provide
@@ -185,7 +186,7 @@ special buffer named **dired** with the following commands:
 | `g`   | revert-buffer             | Refresh the buffer.                        |
 
 > [!tip]
-> **Dired** is a powerful file manager, we'll learn more about it later.
+> **Dired** is a powerful file manager, we'll learn more about it [later](./tutorial.md#dired).
 
 ### Modes
 
@@ -1070,6 +1071,67 @@ Then you can configure extra features like emails or feeds in dedicated packages
 
 ### Dired
 
+Dired was briefly introduced in the [File](./tutorial.md#file) section.
+In this section we'll cover the basics.
+First, enable the following configuration:
+
+```elisp
+;; Make dired do something intelligent when two directories are shown
+(setq dired-dwim-target t)
+
+;; Do not outright delete files.
+(setq delete-by-moving-to-trash t)
+```
+
+To access Dired mode, use one of the following commands:
+
+| *Key*     | *Command*  | *Description*                                          |
+|-----------|------------|--------------------------------------------------------|
+| `C-x C-j` | dired-jump | Jump to the directory corresponding to current buffer. |
+| `C-x d`   | dired      | Open a directory.                                      |
+|           | find-dired | Run ‘find’ to populate the dired buffer.               |
+
+For example, to see all the Markdown files, type:
+
+- `M-x find-dired` <kbd>⏎</kbd> `./` <kbd>⏎</kbd> `-name "*.md"`
+
+> [!tip]
+> You do not have to clear the path selection prompt to access an absolute location like `~/Documents` or `/var/log`.
+> For example, when running `M-x find-file`, the completion begins with the current
+> directory, and you can directly type an absolute path to go there.
+
+Once in the Dired buffer, here are the main keys:
+
+| *Key*        | *Command*              | *Description*     |
+|--------------|------------------------|-------------------|
+| <kbd>C</kbd> | dired-do-copy          | Copy file.        |
+| <kbd>R</kbd> | dired-do-rename        | Rename/move file. |
+| <kbd>D</kbd> | dired-do-delete        | Delete file.      |
+| <kbd>+</kbd> | dired-create-directory | Create directory. |
+| <kbd>^</kbd> | dired-up-directory     | Go to parent dir. |
+| <kbd>g</kbd> | revert-buffer          | Refresh listing.  |
+
+You can mark the files to apply a command on multiple files.
+When no files are marked, the Dired command applies to the file under the cursor.
+
+| *Key*                     | *Command*               | *Description*    |
+|---------------------------|-------------------------|------------------|
+| <kbd>m</kbd>              | dired-mark              | Mark a file.     |
+| <kbd>u</kbd>              | dired-unmark            | Unmark.          |
+| <kbd>%</kbd> <kbd>m</kbd> | dired-mark-files-regexp | Mark with regex. |
+
+Use the following commands to run shell program:
+
+| *Key*        | *Command*                    | *Description*                             |
+|--------------|------------------------------|-------------------------------------------|
+| <kbd>!</kbd> | dired-do-shell-command       | Run a shell command COMMAND on the files. |
+| <kbd>&</kbd> | dired-do-async-shell-command | Run async shell command COMMAND.          |
+
+> [!tip]
+> Use <kbd>!</kbd> to run commands like `file` or `ffprobe`.
+> Use <kbd>&</kbd> to get the output in a dedicated buffer.
+
+
 ### Multi Cursors
 
 Set up the `multiple-cursors` package to enable editing multiple lines at once:
@@ -1479,8 +1541,6 @@ Note that Org Mode also provides many additional features, such as:
 However, I am not familiar with these features because I only use basic Org for Getting Things Done.
 
 ### notmuch
-
-### dired
 
 ### elfeed
 
