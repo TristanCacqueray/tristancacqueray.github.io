@@ -24,6 +24,7 @@ allowing you to read news, send emails, play media, and much more!
 > This [file][my-emacs-tut] is licensed under a free/libre copyleft license (GPL or CC BY-SA).
 >
 > **Changelog**
+> - 2024-10-16: added the [*Load Path*](./tutorial.md#load-path) section.
 > - 2024-10-15: added the [*EasyPG*](./tutorial.md#easypg) and [*Mail*](./tutorial.md#send-email) section.
 > - 2024-10-14: added the [*Dired*](./tutorial.md#dired) section.
 > - 2024-10-08: added the [*Org Mode*](./tutorial.md#org-mode) section.
@@ -1181,11 +1182,13 @@ Add the following configuration to your Emacs:
 ;; Start message above the quote.
 (setq message-cite-reply-position 'above)
 
-;; Keep my reply in the associated thread. This is not necessary for regular newsgroups.
+;; Keep my reply in the associated thread, as expected with email discussion.
+;; This is not necessary for regular newsgroups because the usernet server does it automatically.
+;; But since I'm using Gnus with IMAP, here is the necessary setting:
 (setq gnus-parameters '(("nnimap:.*" (gcc-self . t))))
 (setq gnus-gcc-mark-as-read t)
 
-;; Keep Gnus in it's own buffer.
+;; Keep Gnus in it's own window.
 (setq gnus-use-full-window nil)
 
 ;; Use `g` to refresh the summary. The default key is `M-g`, which is not common.
@@ -1231,10 +1234,6 @@ Gnus works great when you already have server side filtering with IMAP folders.
 Another option is to process your email locally with mbsync, sieve-filter and NotMuch.
 Checkout the dedicated section below.
 
-
-### local lisp
-
-- TODO: show how to install git-clone.el.
 
 ### server
 
@@ -1319,6 +1318,88 @@ stow -v --no-folding -d ~/src/my-dot-files -t ~ home
 
 Keep the general purpose settings in your home stow package,
 Then you can configure extra features like emails or feeds in dedicated packages.
+
+
+### Load Path
+
+When Emacs loads a Lisp library, it searches for the library in a list
+of directories specified by the variable `load-path`.
+To import a standalone package, or split your configuration into multiple files,
+add the following configuration to your Emacs:
+
+```elisp
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+```
+
+Then you can create a file named `~/.config/emacs/lisp/my-lib.el` with the
+following content:
+
+```elisp
+(defun my-lib-hello ()
+  "A test command."
+  (interactive)
+  (message "This is my lib")
+)
+
+;; Name the feature according to the file name
+(provide 'my-lib)
+```
+
+… so that you can run `(require 'my-lib)` to import local code.
+
+#### Local Init
+
+A common strategy to manage a local configuration is to set up a `init-local` module.
+Write to `~/.config/emacs/lisp/init-local.el`:
+
+```elisp
+;; A local settings
+(blink-cursor-mode -1)
+
+(provide 'init-local)
+```
+
+And add the following to your `init.el`:
+
+```elisp
+;; Load my local init if present:
+(require 'init-local nil t)
+```
+
+#### Optional Config
+
+Combined with `stow`, here is how to setup an optional config:
+
+- Write your email-related configuration to `~/src/my-dot-files/mail/.config/emacs/lisp/my-mail.el`
+- Add `(provide 'my-mail)` at the end of the file.
+- Move the msmtp configuration to `~/src/my-dot-files/mail/.config/msptp/config`
+- Run `stow -v --no-folding -d ~/src/my-dot-files -t ~ mail`
+
+Then in your `init.el`, add the following configuration:
+
+```elisp
+;; Load my mail config if the configuration file exists.
+(require 'my-mail "~/.config/emacs/lisp/my-mail.el" t)
+```
+
+#### Standalone Library
+
+Lastly, you might come across a library that is not published in a registry.
+In that case, you can copy the code to your local lisp directory.
+For example, get my `git-clone` command like that:
+
+```shell
+curl https://raw.githubusercontent.com/TristanCacqueray/emacs-toolbox/refs/heads/main/git-clone.el > ~/.config/emacs/lisp/git-clone.el`
+```
+
+Then add to your `init.el`:
+
+```elisp
+;; Install the "M-x git-clone" helper.
+;; From: https://github.com/TristanCacqueray/emacs-toolbox
+(require 'git-clone)
+```
+
 
 ### Tab Bar
 
@@ -1834,3 +1915,8 @@ Here are further resources to continue your journey:
 - [The Absolute Beginner’s Guide to Emacs - System Crafters](https://systemcrafters.net/emacs-essentials/absolute-beginners-guide-to-emacs/) - if you prefer videos
 
 [my-emacs-tut]: https://github.com/TristanCacqueray/tristancacqueray.github.io/blob/main/content/emacs/tutorial.md
+
+
+<script>
+hljs.highlightAll();
+</script>
