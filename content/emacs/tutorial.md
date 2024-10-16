@@ -888,7 +888,7 @@ Here are the main keys:
 - <kbd>j</kbd>: Jump to a section.
 - <kbd>?</kbd>: View the command list.
 - <kbd>$</kbd>: View the actual Git commands that Magit is performing.
-- <kbd>+</kbd>/<kbd>-<kbd>: Increase/Decrease the diff context size.
+- <kbd>+</kbd>/<kbd>-</kbd>: Increase/Decrease the diff context size.
 
 To prepare a commit, on a chunk or a file, press:
 
@@ -1863,7 +1863,7 @@ Here is a useful command to archive all completed tasks:
 To summarize, here are the main actions to implement GTD with Emacs:
 - Add tasks with `org-capture`.
 - Sort your inbox with `org-refile`.
-- Groom your backlog with `org-todo`
+- Groom your backlog with `org-todo`.
 - Plan your projects with `org-schedule`.
 - Get things done with `org-agenda`.
 

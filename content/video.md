@@ -6,7 +6,7 @@ feed:
 
 # Videos
 
-My videos ([rss feed](video.xml)):
+My videos ([rss feed](video.xml)), mostly made with [[animation-fractal]]:
 
 ```query {.timeline}
 path:video/*
