@@ -13,6 +13,7 @@ Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/trist
 *** https://xenodium.com/rss.xml
 *** [[https://nullprogram.com/feed/][skeeto]]
 *** [[https://bartoszmilewski.com/feed/][Bartosz]]
+*** https://wadler.blogspot.com/feeds/posts/default?alt=rss
 *** https://fasterthanli.me/index.xml
 *** https://matklad.github.io/feed.xml
 *** https://jvns.ca/atom.xml
