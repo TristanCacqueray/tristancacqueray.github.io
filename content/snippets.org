@@ -152,7 +152,11 @@ gpg-agent --daemon --keep-display
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 #+END_SRC
 
-
+* ssh
+** Get public key from private key
+#+begin_src bash
+ssh-keygen -y -f id_rsa
+#+end_src
 * image magic
 *** Compare test
 #+BEGIN_SRC bash
