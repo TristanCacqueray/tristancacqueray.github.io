@@ -972,11 +972,42 @@ In this session we learn how to leverage the programing language modes.
 
 ### Pretty Print
 
-- `json-pretty-print` and `json-pretty-print-buffer`
+Some mode offers a format on save feature by default.
+Here are other useful commands:
+
+| *Command*                | *Description*                     |
+|--------------------------|-----------------------------------|
+| json-pretty-print        | Pretty print the selected region. |
+| json-pretty-print-buffer | Pretty print the buffer.          |
+| indent-region            | Indent the region.                |
+
+For more control, use the Reformatter library to setup your own
+code formatter on save:
+
+```elisp
+;; Use reformatter to setup automatic fmt-on-save, like with fourmolu
+(use-package reformatter :ensure t)
+
+;; The following macro generates two commands: 'deno-format-buffer' and 'deno-format-region'
+;; as well as the 'deno-format-on-save-mode' minor mode:
+(reformatter-define deno-format
+    :program "deno"
+    :args `("fmt" "--ext" ,(if buffer-file-name (file-name-extension buffer-file-name) "js") "-"))
+```
 
 ### Haskell
 
 - GHCi
+
+Auto reformat with fourmolu:
+
+```elisp
+;; auto format with fourmolu by default
+(reformatter-define fourmolu-format
+  :program "fourmolu"
+  :args `("--stdin-input-file" ,buffer-file-name))
+(add-hook 'haskell-mode-hook 'fourmolu-format-on-save-mode)
+```
 
 ### Markdown
 
