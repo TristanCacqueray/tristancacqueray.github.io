@@ -6,7 +6,7 @@ tags:       ["emacs"]
 
 In this post, I will show how I migrated my completion framework from Ivy to Vert&co.
 
-In my last post, [[emacs-30|Why Emacs Is The Best]], I listed completion framework as the top feature of Emacs and I would like to explain this point in more detail.
+In my last post, [[emacs-30|Why Emacs Is The Best]], I listed completion framework as the top feature of #[[emacs]] and I would like to explain this point in more detail.
 
 :::{.flex .items-center .justify-center}
 ![vertico-nano](media/vertico-nano.png)

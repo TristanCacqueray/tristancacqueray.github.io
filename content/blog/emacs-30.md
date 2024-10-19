@@ -4,7 +4,7 @@ date: 2024-09-15
 tags: [emacs]
 ---
 
-In this post I explain why I believe Emacs is the greatest text editor.
+In this post I explain why I believe #[[emacs]] is the greatest text editor.
 
 :::{.flex .items-center .justify-center}
 ![emacs-30](media/emacs-30.png)
