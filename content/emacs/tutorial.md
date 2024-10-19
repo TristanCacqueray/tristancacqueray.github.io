@@ -122,7 +122,7 @@ Here are the main cursor movements:
 
 > Note that these keys mostly work by default with readline (e.g. in bash).
 
-This covers most cursor movements, and with little practice, you will memorize the commands.
+These commands cover most cursor movements, and with little practice, you will memorize the commands.
 Notice how <kbd>ctrl</kbd> is used for short movements while <kbd>alt</kbd> makes longer movements.
 
 > [!tip]
@@ -138,16 +138,18 @@ Checkout the `M-x help-with-tutorial` to get some practice.
 
 This section introduces how to manage the window layout.
 
-| *Key*   | *Command*            | *Description*                                        |
-|---------|----------------------|------------------------------------------------------|
-| `C-x 1` | delete-other-windows | Make WINDOW fill its frame.                          |
-| `C-x 2` | split-window-below   | Split WINDOW into two windows, one above the other.  |
-| `C-x 3` | split-window-right   | Split WINDOW into two side-by-side windows.          |
-| `C-x 0` | delete-window        | Delete WINDOW.                                       |
-| `C-x o` | other-window         | Select another window in cyclic ordering of windows. |
-| `C-x b` | switch-to-buffer     | Display buffer in the selected window.               |
-|         |                      |                                                      |
-| `C-x +` | balance-windows      | Balance the sizes of windows shown.                  |
+| *Key*   | *Command*                   | *Description*                                        |
+|---------|-----------------------------|------------------------------------------------------|
+| `C-x 1` | delete-other-windows        | Make WINDOW fill its frame.                          |
+| `C-x 2` | split-window-below          | Split WINDOW into two windows, one above the other.  |
+| `C-x 3` | split-window-right          | Split WINDOW into two side-by-side windows.          |
+| `C-x 0` | delete-window               | Delete WINDOW.                                       |
+| `C-x o` | other-window                | Select another window in cyclic ordering of windows. |
+| `C-x b` | switch-to-buffer            | Display buffer in the selected window.               |
+|         |                             |                                                      |
+| `C-x ^` | enlarge-window              | Make the selected window taller.                     |
+| `C-x }` | enlarge-window-horizontally | Make the selected window wider.                      |
+| `C-x +` | balance-windows             | Balance the sizes of windows shown.                  |
 
 > [!tip]
 > Use `balance-windows` when you have more than 2 splits.
@@ -181,8 +183,8 @@ special buffer named **dired** with the following commands:
 | *Key* | *Command*                 | *Description*                              |
 |-------|---------------------------|--------------------------------------------|
 | `RET` | dired-find-file           | Open the file or directory at point.       |
-| `R`   | dired-do-rename           | Rename current file.                       |
 | `s`   | dired-sort-toggle-or-edit | Toggle sorting by date.                    |
+| `R`   | dired-do-rename           | Rename current file.                       |
 | `d`   | dired-flag-file-deletion  | Mark a file for deletion.                  |
 | `x`   | dired-do-flagged-delete   | Delete the marked files.                   |
 | `(`   | dired-hide-details-mode   | Toggle visibility of detailed information. |
@@ -196,7 +198,6 @@ special buffer named **dired** with the following commands:
 Every buffer is associated with a mode, which alters certain behaviors, key bindings, and text display in that buffer.
 The idea is to customize the appearance and features available based on the contents of the buffer.
 The current modes are displayed at the bottom of the buffer in the modeline.
-Run the `M-x` command named after the mode to manually toggle its usage.
 
 Emacs has built-in support for many file types, for example, if you open a file named `test.css` and
 write `color: pink`, then the buffer will look like this:
@@ -511,6 +512,7 @@ feature:
 | `C-h f` | describe-function | Display the full documentation of FUNCTION (a symbol).     |
 | `C-h v` | describe-variable | Display the full documentation of VARIABLE (a symbol).     |
 | `C-h m` | describe-mode     | Display documentation of the current modes and their keys. |
+| `C-h P` | describe-package  | Display the full documentation of PACKAGE.                 |
 | `C-h b` | describe-bindings | Display a buffer showing a list of all defined keys.       |
 | `C-h k` | describe-key      | Display documentation of the function invoked by KEY-LIST. |
 
@@ -1187,6 +1189,9 @@ You can save a copy of your sent emails using the following configuration:
 > Feel free to `M-x compose-mail` me at tristan@midirus.com.
 > Make sure to attach your public key in your first email.
 
+From a Git project, you can now use the `M-x vc-prepare-patch` to send
+your contribution by email.
+
 ### Read Email
 
 In this section, we will learn how to read email using the built-in newsreader
@@ -1216,7 +1221,7 @@ Add the following configuration to your Emacs:
 ;; Keep my reply in the associated thread, as expected with email discussion.
 ;; This is not necessary for regular newsgroups because the usernet server does it automatically.
 ;; But since I'm using Gnus with IMAP, here is the necessary setting:
-(setq gnus-parameters '(("nnimap:.*" (gcc-self . t))))
+(setq gnus-parameters '((".*" (gcc-self . t))))
 (setq gnus-gcc-mark-as-read t)
 
 ;; Keep Gnus in it's own window.
@@ -1519,7 +1524,6 @@ Here is a basic example to create a macro using basic commands:
 ```elisp
 (defun center-by-spliting-3-windows ()
     "Narrow the current buffer in the middle of the frame, which is useful for widescreens."
-    ;; Calling interactive makes the function available in M-x
     (interactive)
     ;; Make current window full screen (C-x 1)
     (delete-other-windows)
@@ -1599,7 +1603,17 @@ Emacs contains hundreds of microscopic quality of life features:
 - `fill-paragraph`
 - `toggle-truncate-lines`
 
-### ispell
+### Spell Checker
+
+Emacs provide an interface to spell checkers called `ispell`.
+Run the following shell command `dnf install -y aspell aspell-en`,
+then use `M-x ispell`, or `M-x ispell-region` to spell check your buffer.
+
+Once Emacs finds a spelling error, press:
+
+- <kbd>0-9</kbd> to accept a correction.
+- <kbd>a</kbd> to ignore the error for this session.
+- <kbd>I</kbd> to ignore the error and remember the spelling in your private dictionary.
 
 ### Org Mode
 
@@ -1913,7 +1927,7 @@ However, I am not familiar with these features because I only use basic Org for 
 
 ### erc
 
-### ready-player
+### kubed
 
 ### vterm
 
@@ -1929,9 +1943,16 @@ However, I am not familiar with these features because I only use basic Org for 
   ;; Without this setting, the bookmark will be reduced to =/ssh:root@host/=, which doesn't work
   ;; Q: is this worth reporting/fixing upstream?
   (tramp-show-ad-hoc-proxies t))
-```
 
-TODO: configure consult to disable remote file preview
+;; Disable consult preview of remote buffer
+;; From: https://github.com/minad/consult/discussions/969#discussioncomment-10871508
+(defun buffer-remote-p (buf)
+  "Return t when BUF is remote."
+  (if-let ((fp (buffer-file-name buf)))
+      (file-remote-p fp)
+    nil))
+(setq consult-preview-excluded-buffers 'buffer-remote-p)
+```
 
 ## Next
 

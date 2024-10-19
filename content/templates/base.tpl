@@ -8,6 +8,8 @@
 
 <head>
   <meta charset="UTF-8">
+  <link rel="dns-prefetch" href="//cdn.midirus.com"/>
+  <link rel='preload' href='/_emanote-static/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf' crossorigin='anonymous' as='font' type='font/ttf'/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
     <ema:titleFull />
