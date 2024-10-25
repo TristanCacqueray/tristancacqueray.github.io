@@ -1598,6 +1598,7 @@ In this session we will learn extra things you can do with Emacs.
 
 Emacs contains hundreds of microscopic quality of life features:
 
+- `undo` can be limitted to the active region
 - `count-words`
 - `sort-lines`
 - `fill-paragraph`
