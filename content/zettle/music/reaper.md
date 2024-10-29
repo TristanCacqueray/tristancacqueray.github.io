@@ -1,5 +1,27 @@
 # Reaper
 
+## Shortcuts like op1
+
+```
+KEY 9 32 40073 0		 # Main : Ctrl+Space : OVERRIDE DEFAULT : Transport: Play/pause
+KEY 176 7 40157 0		 # Main : MIDI Chan 1 CC 7 : Markers: Insert marker at current position
+KEY 1 77 40157 0		 # Main : M : OVERRIDE DEFAULT : Markers: Insert marker at current position
+KEY 176 15 40172 0		 # Main : MIDI Chan 1 CC 15 : Markers: Go to previous marker/project start
+KEY 0 91 40172 0		 # Main : [ : OVERRIDE DEFAULT : Markers: Go to previous marker/project start
+KEY 176 16 40173 0		 # Main : MIDI Chan 1 CC 16 : Markers: Go to next marker/project end
+KEY 0 93 40173 0		 # Main : ] : OVERRIDE DEFAULT : Markers: Go to next marker/project end
+KEY 1 81 40625 0		 # Main : Q : Time selection: Set start point
+KEY 1 69 40626 0		 # Main : E : OVERRIDE DEFAULT : Time selection: Set end point
+KEY 9 32807 41042 0		 # Main : Ctrl+Right : OVERRIDE DEFAULT : Move edit cursor forward one measure
+KEY 9 32805 41043 0		 # Main : Ctrl+Left : OVERRIDE DEFAULT : Move edit cursor back one measure
+```
+
+## Solo in front
+
+Click `Options` and then `Solo in front`
+
+
+
 ## Settings
 
 Avoid dangling project and ensure audio stems are saved in the right place:
@@ -14,6 +36,8 @@ Assign midi controller, press <kbd>?</kbd> to see action list
 - `[]` Transport stop
 - `<-` Markers: Go to previous marker/project start
 - `->` Markers: Go to next marker/project end
+- `C-<left>` Move edit cursor back one measure
+- `C-<right>` Move edit cursor forward one measure
 
 > Use `Find shortcut` to find the action of an existing key
 
