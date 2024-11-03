@@ -49,6 +49,13 @@ sudo perf script | ~/src/github.com/brendangregg/FlameGraph/stackcollapse-perf.p
 git branch --merged | egrep -v "(^\*|master|main|dev)" | xargs git branch -d
 #+end_src
 
+* tar
+** Export reaper project stems
+
+#+begin_src bash
+tar --exclude="*.mp3" --exclude="Backups" --exclude="peaks" -cvzf /srv/cdn.midirus.com/stem/2024-11-opCapacity.tar.gz opCapacity/
+#+end_src
+
 * ffmpeg
 ** Encode mp3 with pochette for youtube
 
@@ -72,6 +79,19 @@ ffmpeg -loop 1 -r 1 -i opFreak-album.jpg -i opFreak-album.mp3 -c:a copy -shortes
 #+begin_src bash
 ffmpeg -i input-file -movflags +faststart -c:v libx264 -crf 23 -maxrate 1M -bufsize 2M -c:a copy 2021-12-22-opFreak.mp4
 #+end_src
+
+** Draw spectrogram
+
+#+begin_src bash
+ffmpeg -i file.wav -lavfi showspectrumpic=s=1920x1080:mode=separate spectrogram.png
+#+end_src
+
+** Encode for op1
+
+#+begin_src bash
+ffmpeg -i stem.flac -c:a pcm_s16le -ac 1 track_4.aif
+#+end_src
+
 * gnome
 ** Show wifi passwords
 
