@@ -1501,6 +1501,7 @@ Use the following commands to run shell program:
 > Use <kbd>!</kbd> to run commands like `file` or `ffprobe`.
 > Use <kbd>&</kbd> to get the output in a dedicated buffer.
 
+- [ ] Add batch rename commands dired-toggle-read-only and wdired-finish-edit
 
 ### Multi Cursors
 

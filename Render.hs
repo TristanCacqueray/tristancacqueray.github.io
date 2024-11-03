@@ -86,7 +86,7 @@ getAudioFile fp = do
     let date = Text.pack $ formatTime defaultTimeLocale "%Y-%m-%d" modTime
     audioMD <- getAudioMD fp mdPath date
     unlessM (doesPathExist (basePath <> ".mp3")) do
-      encodeFlac (takeWhile (/= '-') (Text.unpack date)) basePath
+        encodeFlac (takeWhile (/= '-') (Text.unpack date)) basePath
     pure
         AudioFile
             { path
@@ -201,8 +201,8 @@ ffprobe fp = do
     let duration = getValue "Duration:" (Text.words $ Text.decodeUtf8 $ BS.toStrict meta)
     let freq = getValue "flac," duration
     let fmt = case getValue "stereo," freq of
-          [] -> getValue "mono," freq
-          o -> o
+            [] -> getValue "mono," freq
+            o -> o
     pure $
         FFProbeMeta
             { length = ffprobe2MSec (Text.unpack $ head duration)
