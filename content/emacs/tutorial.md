@@ -62,7 +62,7 @@ In this first session, we will learn the most basic usage.
 Emacs is available on every plateform. Get it with your package manager, for example,
 by running `dnf install -y emacs-nox`. This is the lightweight terminal version;
 `nox` means no X, which used to be a display server name.
-Later, we'll use the full version for multimedias.
+Later, we'll use the graphical version for multimedias.
 
 ### Start
 
@@ -85,10 +85,16 @@ After starting Emacs, run the `help-quick` command by pressing `C-h C-q`; your t
 At the bottom, you now have a helpful quick help window that shows you the essential commands.
 Once you are comfortable, close the help window by running the same command again.
 
-Here are the only keys you absolutely need to know:
+> [!info]
+> If you are already familiar with Vim keybindings, then feel free to skip the default keys.
+> After the customization section below, check out the package named Evil to emulate the main
+> features of Vim, transforming Emacs into a modal editor.
 
-- `M-x`: (<kbd>alt</kbd>+<kbd>x</kbd>) to run a command, and
-- `C-g`: (<kbd>ctrl</kbd>+<kbd>g</kbd>) to cancel a command.
+> [!tip]
+> Here are the **only keys** you absolutely need to know:
+>
+> - `M-x`: (<kbd>alt</kbd>+<kbd>x</kbd>) to run a command, and
+> - `C-g`: (<kbd>ctrl</kbd>+<kbd>g</kbd>) to cancel a command.
 
 
 ### Cursor movements
@@ -263,7 +269,7 @@ At this point, your terminal may look like this:
 ---
 <br />
 
-In this first session, we learnt the basic survival skills.
+In this first session, we learned the basic survival skills.
 
 
 ## Customization
@@ -1398,7 +1404,6 @@ If Gnus is too slow for your mailbox, try enabling the following options:
 
 Gnus works great when you already have server side filtering with IMAP folders.
 Another option is to process your email locally with mbsync, sieve-filter and NotMuch.
-Checkout the dedicated section below.
 
 
 ### server
@@ -2123,7 +2128,7 @@ Access a remote host by using the following command:
 - `M-x dired` <kbd>⏎</kbd> `/ssh:host:~/`
 
 From this remote buffer, opening a file or starting a shell works as expected.
-Here are a bit of useful configuration:
+Here is a bit of useful configuration:
 
 ```elisp
 ;; Transparent Remote Access, Multiple Protocol
