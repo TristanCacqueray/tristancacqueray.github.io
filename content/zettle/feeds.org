@@ -16,6 +16,10 @@ Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/trist
 *** https://wadler.blogspot.com/feeds/posts/default?alt=rss
 *** https://blog.chmouel.com/index.xml
 *** https://slab.org/feed/
+*** https://eshelyaron.com/rss.xml
+*** https://loophole-letters.vercel.app/rss.xml
+*** http://tinysubversions.com/feed.xml
+*** https://rwmj.wordpress.com/feed/
 *** https://fasterthanli.me/index.xml
 *** https://matklad.github.io/feed.xml
 *** https://jvns.ca/atom.xml
@@ -26,11 +30,12 @@ Checkout the raw file [[https://raw.githubusercontent.com/TristanCacqueray/trist
 *** https://byorgey.github.io/blog/rss.xml
 *** https://chrisdone.com/rss.xml
 *** https://www.scannedinavian.org/atom.xml
-*** Groups
-**** https://well-typed.com/blog/rss2.xml
-**** https://www.tweag.io/rss.xml
-** Programming                                                           :plt:
+** Emacs
+*** https://sachachua.com/blog/category/emacs-news/feed/index.xml
+** Programming                   :group:
 *** https://planet.haskell.org/rss20.xml
+*** https://well-typed.com/blog/rss2.xml
+*** https://www.tweag.io/rss.xml
 ** Internet
 *** https://pluralistic.net/feed/                                    :ignore:
 *** https://www.schneier.com/blog/atom.xml
