@@ -9,21 +9,22 @@ date: 2024-10-03
 There are many tutorials available but this one is mine where
 I cover sensible defaults to showcase the standard Emacs experience.
 
+
 :::{.hidden}
 ![emacs-tut-corfu](media/emacs-tut-corfu.png)
 :::
 
 My goal is to guide you through setting up an IDE similar to VSCode from the ground up.
 I will also demonstrate how to use Emacs as a complete integrated computing environment,
-allowing you to read news, send emails, play media, and much more!
+allowing you to read news, send emails and much more!
 
 > [!info]
-> This is a work in progress: my plan is to record a screencast that covers the entire content.
 > If you encounter any issues, please let me know; I'm committed to keeping this document updated.
 >
 > This [file][my-emacs-tut] is licensed under a free/libre copyleft license (GPL or CC BY-SA).
 >
 > **Changelog**
+> - 2024-11-03: added the missing sections like [*Clipboard*](./tutorial.md#clipboard), [*Haskell*](./tutorial.md#languages) language, and extra [*elfeed*](./tutorial.md#elfeed).
 > - 2024-10-16: added the [*Load Path*](./tutorial.md#load-path) section.
 > - 2024-10-15: added the [*EasyPG*](./tutorial.md#easypg) and [*Mail*](./tutorial.md#send-email) section.
 > - 2024-10-14: added the [*Dired*](./tutorial.md#dired) section.
@@ -558,6 +559,51 @@ Read the Un*x manual by running `M-x man`.
 > [!info]
 > The manuals are the ultimate references *(after the source)*. Use them!
 
+### use-package
+
+use-package lets you maintain a portable configuration.
+Until now, we have installed package interactively,
+but that's an issue when you copy your config to a fresh environment
+because the commands and settings won't be available.
+
+Instead, you need to leverage the `use-package` command to
+manage external packages. The basic syntax looks like this:
+
+```elisp
+(use-package the-package-name
+  :ensure t ;; install if needed
+  :config
+  (setq the-package-option 'value)
+  (global-set-key (kbd "C-x g") 'the-package-command))
+```
+
+use-package lets you further declare your config,
+for example like this:
+
+```elisp
+(use-package the-package-name
+  :if (display-graphic-p)
+  :diminish
+  :custom
+  (the-package-option 'value)
+  :bind ("C-x g" . the-package-command))
+```
+
+… which is equivalent to:
+
+```elisp
+(when (display-graphic-p)
+  (require 'the-package-name)
+  (diminish 'the-package-name)
+  (setq the-package-option 'value)
+  (global-set-key (kbd "C-x g") 'the-package-command))
+```
+
+> [!tip]
+> Check out `diminish` to clean up your modeline with use-package,
+> and stick to `setq` and `global-set-key` if you prefer.
+
+
 ---
 <br />
 
@@ -611,6 +657,42 @@ might want to add your own program locations like this:
 (add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
 ```
 
+### Clipboard
+
+To copy and paste from the system clipboard,
+use the following config to simplify external clipboard interaction:
+
+```elisp
+;; Isolate the external clipboard
+(use-package simpleclip
+  :if (display-graphic-p)
+  :config
+  ;; C-ins / M-ins to copy/paste from the system clipboard
+  (global-set-key (kbd "C-<insert>") 'simpleclip-copy)
+  (global-set-key (kbd "M-<insert>") 'simpleclip-paste)
+  (simpleclip-mode))
+
+;; Provides access to the external clipboard from an Emacs TTY
+;; Install the tool with `dnf install -y wl-clipboard'
+(defun wl-copy ()
+  "Copy the current region to Wayland clipboard with wl-copy."
+  (interactive)
+  (when (use-region-p)
+    (let ((p (make-process :name "wl-copy"
+                           :command '("wl-copy")
+                           :connection-type 'pipe)))
+      (process-send-string p (buffer-substring (mark) (point)))
+      (process-send-eof p))))
+
+(unless (display-graphic-p)
+  (global-set-key (kbd "C-<insert>") 'wl-copy))
+```
+
+Use `C-<insert>` to copy the selection to the system clipboard.
+Use `M-<insert>` to paste when using a graphical display like Wayland or Xorg,
+otherwise use the regular mouse buttons of your terminal emulator.
+
+
 ### Shell
 
 Start a shell session with `M-x shell` to create a dumb terminal for running bash.
@@ -622,6 +704,7 @@ If needed, see the `vterm` package for a full terminal emulation.
 
 There is also `eshell`, which is an advanced mode that lets you run lisp command directly.
 Though I don't personally use `eshell`.
+You might want to checkout the `eat` and `vterm` packages for a fully-fledged terminal emulation.
 
 ---
 <br />
@@ -738,6 +821,12 @@ To use <kbd>SPC</kbd> for separating multiple orderless patterns
 > [!tip]
 > Some modes might still insert a `TAB` when trying to complete.
 > In that case, use `M-TAB`, that should always work.
+> Run the following shell command when using GNOME desktop:
+>
+> ```bash
+> # Re-assign the GNOME shortcut for `M-TAB`
+> gsettings set org.gnome.desktop.wm.keybindings cycle-windows "['<Super>Tab']"
+> ```
 
 For reference, the example usage screenshot was produced by typing:\
 ➡ `"./` <kbd>TAB</kbd> `png` <kbd>SPC</kbd> `logo`
@@ -987,7 +1076,7 @@ For more control, use the Reformatter library to setup your own
 code formatter on save:
 
 ```elisp
-;; Use reformatter to setup automatic fmt-on-save, like with fourmolu
+;; Use reformatter to setup automatic fmt-on-save helpers.
 (use-package reformatter :ensure t)
 
 ;; The following macro generates two commands: 'deno-format-buffer' and 'deno-format-region'
@@ -999,30 +1088,69 @@ code formatter on save:
 
 ### Haskell
 
-- GHCi
+Install the toolchain by running: `dnf install -y ghc cabal-install`.
 
-Auto reformat with fourmolu:
+Configure the mode and auto format:
 
 ```elisp
-;; auto format with fourmolu by default
-(reformatter-define fourmolu-format
-  :program "fourmolu"
-  :args `("--stdin-input-file" ,buffer-file-name))
-(add-hook 'haskell-mode-hook 'fourmolu-format-on-save-mode)
+(use-package haskell-mode
+  :ensure t
+  :config
+  ;; auto format with fourmolu by default
+  (reformatter-define fourmolu-format
+    :program "fourmolu"
+    :args `("--stdin-input-file" ,buffer-file-name))
+  (add-hook 'haskell-mode-hook 'fourmolu-format-on-save-mode))
 ```
+
+Open a test file name `Emacs.hs` and use the following commands:
+
+| *Key*     | *Command*                 | *Description*                        |
+|-----------|---------------------------|--------------------------------------|
+|           | haskell-session-change    | Start the REPL process.              |
+|           | haskell-session-kill      | Kill the session process and buffer. |
+| `C-c C-l` | haskell-process-load-file | Load the current buffer file.        |
+|           | haskell-mode-show-type-at | Show type of the thing at point.     |
+
+A new buffer named `*haskell*` provides the REPL.
+
 
 ### Markdown
 
 Press `TAB` to create tables.
 
+```elisp
+(use-package markdown-mode
+  :bind (:map markdown-mode-map
+              ;; rebind M-p/M-n to a more logical command.
+              ("M-p" . 'backward-paragraph)
+              ("M-n" . 'forward-paragraph)))
+```
+
 ### Rust
 
-rustfmt on save
+Setup auto format on save:
+
+```elisp
+(use-package rust-mode
+  :config
+  (setq rust-format-on-save t))
+```
+
+| *Key*         | *Command*  | *Description*                |
+|---------------|------------|------------------------------|
+| `C-c C-c C-k` | rust-check | Compile using ‘cargo check‘. |
+
 
 ### Python
 
-- `M-x run-python`
-- `M-x python-shell-send-buffer`
+Manage a Python REPL:
+
+| *Key*     | *Command*                | *Description*                           |
+|-----------|--------------------------|-----------------------------------------|
+| `C-c C-p` | run-python               | Start REPL.                             |
+| `C-c C-c` | python-shell-send-buffer | Send the entire buffer to REPL process. |
+
 
 ---
 <br />
@@ -1196,7 +1324,9 @@ your contribution by email.
 
 In this section, we will learn how to read email using the built-in newsreader
 named Gnus.
-Later, we will learn about NotMuch, which is a more advanced system.
+Note that there is a more advanced package named NotMuch that I recommend,
+but it requires external tools to setup while Gnus is simpler to demonstrate.
+
 
 Add your IMAP server authentication to `~/.authinfo.gpg`:
 
@@ -1284,49 +1414,6 @@ a new buffer within your existing session:
 (setenv "EDITOR" "emacsclient")
 ```
 
-### use-package
-
-use-package lets you maintain a portable configuration.
-Until now, we have installed package interactively,
-but that's an issue when you copy your config to a fresh environment
-because the commands and settings won't be available.
-
-Instead, you need to leverage the `use-package` command to
-manage external packages. The basic syntax looks like this:
-
-```elisp
-(use-package the-package-name
-  :ensure t ;; install if needed
-  :config
-  (setq the-package-option 'value)
-  (global-set-key (kbd "C-x g") 'the-package-command))
-```
-
-use-package lets you further declare your config,
-for example like this:
-
-```elisp
-(use-package the-package-name
-  :if (display-graphic-p)
-  :diminish
-  :custom
-  (the-package-option 'value)
-  :bind ("C-x g" . the-package-command))
-```
-
-… which is equivalent to:
-
-```elisp
-(when (display-graphic-p)
-  (require 'the-package-name)
-  (diminish 'the-package-name)
-  (setq the-package-option 'value)
-  (global-set-key (kbd "C-x g") 'the-package-command))
-```
-
-> [!tip]
-> Check out `diminish` to clean up your modeline with use-package,
-> and stick to `setq` and `global-set-key` if you prefer.
 
 ### stow
 
@@ -1418,9 +1505,10 @@ Then in your `init.el`, add the following configuration:
 (require 'my-mail "~/.config/emacs/lisp/my-mail.el" t)
 ```
 
-#### Standalone Library
+#### Standalone Commands
 
-Lastly, you might come across a library that is not published in a registry.
+Lastly, you might come across a command or a library that is not available
+as a package.
 In that case, you can copy the code to your local lisp directory.
 For example, get my `git-clone` command like that:
 
@@ -1436,8 +1524,6 @@ Then add to your `init.el`:
 (require 'git-clone)
 ```
 
-
-### Tab Bar
 
 ### Dired
 
@@ -1501,7 +1587,13 @@ Use the following commands to run shell program:
 > Use <kbd>!</kbd> to run commands like `file` or `ffprobe`.
 > Use <kbd>&</kbd> to get the output in a dedicated buffer.
 
-- [ ] Add batch rename commands dired-toggle-read-only and wdired-finish-edit
+Dired lets you perform batch rename by editing the buffer directly:
+
+| *Key*     | *Command*              | *Description*                                                    |
+|-----------|------------------------|------------------------------------------------------------------|
+|           | dired-toggle-read-only | Edit Dired buffer.                                               |
+| `C-x C-s` | wdired-finish-edit     | Actually rename files based on your editing in the Dired buffer. |
+
 
 ### Multi Cursors
 
@@ -1514,11 +1606,14 @@ Set up the `multiple-cursors` package to enable editing multiple lines at once:
    ("C-<" . 'mc/mark-previous-like-this)))
 ```
 
-Press <kbd>ctrl</kbd>+<kbd>></kbd> to create multiple cursors. Then edit as usual and complete with <kbd>ctrl</kbd>+<kbd>g</kbd>
+Press <kbd>ctrl</kbd>+<kbd>></kbd> to create multiple cursors. Then edit as usual and complete with <kbd>ctrl</kbd>+<kbd>g</kbd>.
 
 ### ELisp
 
-- TODO: write ELisp intro...
+Emacs Lisp was briefly introduced in the [Lisp Config](./tutorial.md#lisp-config) section.
+Checkout this [Elisp: Lisp Basics][elisp-guide] to learn more.
+
+[elisp-guide]: http://xahlee.info/emacs/emacs/elisp.html
 
 Here is a basic example to create a macro using basic commands:
 
@@ -1542,6 +1637,27 @@ Here is a basic example to create a macro using basic commands:
     (other-window 2))
 ```
 
+Here is a more complex command to insert a screenshot into a markdown file:
+
+```elisp
+(defun get-newest-file-from-dir  (path)
+  "Return the latest file in PATH."
+  (car (directory-files path 'full nil #'file-newer-than-file-p)))
+
+(defun insert-screenshot-markdown (name)
+  "Move the latest screenshot and insert markdown link with NAME."
+  (interactive "Mname: ")
+  (let* ((infile (expand-file-name (get-newest-file-from-dir "~/Pictures/Screenshots")))
+         (outdir (concat (file-name-directory (buffer-file-name)) "/media"))
+         (outfile (expand-file-name (concat name ".png") outdir)))
+    (unless (file-directory-p outdir)
+      (make-directory outdir t))
+    (message "insert-screenshot-markdown %s to %s" infile outfile)
+    (rename-file infile outfile)
+    (insert (concat "![" name "](media/" (file-name-nondirectory outfile) ")"))
+    (newline)
+    (newline)))
+```
 
 ### Templates
 
@@ -1586,9 +1702,6 @@ Here is how to insert templates:
 
 - Type `today` then press `TAB` to insert the current date.
 - Select some text, then press `M-*` to apply a template like kbd.
-
-
-### Embark
 
 
 ## Extra
@@ -1894,7 +2007,7 @@ Here is a useful command to archive all completed tasks:
   (interactive)
   ;; Disable auto save to avoid repeated file write.
   (setq org-archive-subtree-save-file-p nil)
-  ;; unwind-protext is like try/finally
+  ;; unwind-protect is like try/finally
   (unwind-protect
     ;; process the entry in reverse to avoid changes in positioning
     (mapc (lambda(entry)
@@ -1921,21 +2034,96 @@ Note that Org Mode also provides many additional features, such as:
 
 However, I am not familiar with these features because I only use basic Org for Getting Things Done.
 
-### NotMuch
-
 ### elfeed
+
+Setup the elfeed reader:
+
+```elisp
+(use-package elfeed
+  :config
+  ;; Mark all message as read, from https://emacs.stackexchange.com/a/2441
+  (defun elfeed-mark-all-as-read ()
+      (interactive)
+      (mark-whole-buffer)
+      (elfeed-search-untag-all-unread))
+  (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read))
+
+(use-package elfeed-org
+  :config
+  (elfeed-org)
+  (setq rmh-elfeed-org-files (list "~/.config/emacs/elfeeds.org")))
+```
+
+In your `~/.config/emacs/elfeeds.org`, add:
+
+```raw
+* My RSS feeds                                                      :elfeed:
+** Developers                                                       :dev:
+*** https://protesilaos.com/codelog.xml
+*** https://midirus.com/blog.xml
+```
+
+Then run `M-x elfeed` to read RSS feed with Emacs:
+
+| *Key* | *Command*                      | *Description*       |
+|-------|--------------------------------|---------------------|
+| `G`   | elfeed-search-fetch            | Update all feeds.   |
+| `r`   | elfeed-search-untag-all-unread | Mark entry as read. |
+
 
 ### eww
 
+EWW is the built-in web browser for Emacs. Run `M-x eww` to browse a URL within an Emacs buffer.
+
+| *Key* | *Command*         | *Description*                                        |
+|-------|-------------------|------------------------------------------------------|
+| `g`   | eww-reload        | Reload the current page.                             |
+| `q`   | eww-quit          | Quit WINDOW and bury its buffer.                     |
+| `w`   | eww-copy-page-url | Copy the URL of the current page into the kill ring. |
+
+
 ### erc
 
-### kubed
+ERC is the built-in Internet Relay Chat (IRC) client for Emacs.
 
-### vterm
+```elisp
+(use-package erc
+  :config
+  ;; Setup auth-source
+  (setq erc-use-auth-source-for-nickserv-password t)
+  ;; Disable password prompts
+  (setq erc-prompt-for-nickserv-password nil)
+  (setq erc-prompt-for-password nil))
 
-### org-ql
+(defun erc-libera ()
+  (interactive)
+  (erc-tls :server    "irc.libera.chat"
+           :port      6697
+           :nick      "NICK"
+           :full-name "FULL_NAME"))
+```
+
+Then run `M-x erc-libera` to chat.
+
+Create an account with [this guide](https://libera.chat/guides/registration) and add your password to `~/.authinfo.gpg`:
+
+```raw
+machine irc.libera.chat login NICK password ***
+```
+
 
 ### Tramp
+
+TRAMP stands for "Transparent Remote (file) Access, Multiple Protocol".
+It extends editing and the Dired mode to enable an easy and consistent interface
+to remote files as if they were local.
+
+Access a remote host by using the following command:
+
+- `M-x dired` <kbd>⏎</kbd> `/ssh:host:~/`
+
+From this remote buffer, opening a file or starting a shell works as expected.
+Here are a bit of useful configuration:
 
 ```elisp
 ;; Transparent Remote Access, Multiple Protocol
@@ -1955,6 +2143,9 @@ However, I am not familiar with these features because I only use basic Org for 
     nil))
 (setq consult-preview-excluded-buffers 'buffer-remote-p)
 ```
+
+> [!tip]
+> Checkout the `podman` and `kubernetes` transport methods to access containers.
 
 ## Next
 
