@@ -111,6 +111,7 @@ Here are the main cursor movements:
 | `M-f` or <kbd>ctrl</kbd>+<kbd>→</kbd> | forward-word           | Move forward to the next word.                           |
 | `C-b` or <kbd>←</kbd>                 | backward-char          | Move backward to the previous character.                 |
 | `M-b` or <kbd>ctrl</kbd>+<kbd>←</kbd> | backward-word          | Move backward to the previous word.                      |
+| `M-m`                                 | back-to-indentation    | Move to the first non-whitespace character on this line. |
 | `C-p` or <kbd>↑</kbd>                 | previous-line          | Move vertically up                                       |
 | `M-{`                                 | backward-paragraph     | Move backward to start of paragraph.                     |
 | `C-n` or <kbd>↓</kbd>                 | next-line              | Move vertically down                                     |
