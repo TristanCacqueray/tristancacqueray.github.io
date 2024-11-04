@@ -556,7 +556,7 @@ Read the info pages by running `M-x info`. In the info mode:
 
 > [!tip]
 > Run `M-x clone-buffer` to persist the buffers that gets auto-replaced, like
-> *Help* or *Describe*, that way you can accumulate multiple instances.
+> *Help* or *Describe*, that way you can accumulate multiple documentation copies.
 
 To search the info pages, use `M-x consult-info`.
 
@@ -678,8 +678,8 @@ use the following config to simplify external clipboard interaction:
   (global-set-key (kbd "M-<insert>") 'simpleclip-paste)
   (simpleclip-mode))
 
-;; Provides access to the external clipboard from an Emacs TTY
-;; Install the tool with `dnf install -y wl-clipboard'
+;; Provide access to the Wayland clipboard.
+;; Install the tool by running `dnf install -y wl-clipboard'
 (defun wl-copy ()
   "Copy the current region to Wayland clipboard with wl-copy."
   (interactive)
@@ -690,13 +690,14 @@ use the following config to simplify external clipboard interaction:
       (process-send-string p (buffer-substring (mark) (point)))
       (process-send-eof p))))
 
+;; Use C-ins to copy into Wayland clipboard from an Emacs TTY
 (unless (display-graphic-p)
   (global-set-key (kbd "C-<insert>") 'wl-copy))
 ```
 
 Use `C-<insert>` to copy the selection to the system clipboard.
-Use `M-<insert>` to paste when using a graphical display like Wayland or Xorg,
-otherwise use the regular mouse buttons of your terminal emulator.
+Use `M-<insert>` to paste from the system clipboard when using a graphical display,
+otherwise use the regular paste command of your terminal emulator.
 
 
 ### Shell
@@ -914,10 +915,10 @@ Here is an example configuration:
 
 > [!tip]
 > Run flymake on your `~/.emacs` to see the suggestions.
-> We'll address them in the `use-package` section below.
 
 Flymake works standalone using *backend functions* that are usually
-provided by file modes. For example *python-mode* uses `pyflakes` by default.
+provided by file modes. For example *python-mode* uses `pyflakes` by default,
+so make sure you have the tool installed.
 When using the language server client `eglot`, Flymake will use
 that as an additional back-end.
 
@@ -1006,7 +1007,7 @@ Here are the main git commands:
 
 > Magit interface doesn't use modifiers like ctrl or alt.
 
-#### Example git commands
+#### Running git commands
 
 After selecting a command, a new buffer appears to let you toggle options.
 The argument can be set vertabim, for example by pressing <kbd>-</kbd> followed by the flag, like <kbd>v</kbd>.
