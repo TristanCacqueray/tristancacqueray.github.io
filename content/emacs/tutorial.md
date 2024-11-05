@@ -83,7 +83,7 @@ After starting Emacs, run the `help-quick` command by pressing `C-h C-q`; your t
 ![emacs-tut-quick-help](media/emacs-tut-quick-help.png)
 
 At the bottom, you now have a helpful quick help window that shows you the essential commands.
-Once you are comfortable, close the help window by running the same command again.
+Once you are comfortable, close the help window by running the *help-quick* command again.
 
 > [!info]
 > If you are already familiar with Vim keybindings, then feel free to skip the default keys.
@@ -146,18 +146,18 @@ Checkout the `M-x help-with-tutorial` to get some practice.
 
 This section introduces how to manage the window layout.
 
-| *Key*   | *Command*                   | *Description*                                        |
-|---------|-----------------------------|------------------------------------------------------|
-| `C-x 1` | delete-other-windows        | Make WINDOW fill its frame.                          |
-| `C-x 2` | split-window-below          | Split WINDOW into two windows, one above the other.  |
-| `C-x 3` | split-window-right          | Split WINDOW into two side-by-side windows.          |
-| `C-x 0` | delete-window               | Delete WINDOW.                                       |
-| `C-x o` | other-window                | Select another window in cyclic ordering of windows. |
-| `C-x b` | switch-to-buffer            | Display buffer in the selected window.               |
-|         |                             |                                                      |
-| `C-x ^` | enlarge-window              | Make the selected window taller.                     |
-| `C-x }` | enlarge-window-horizontally | Make the selected window wider.                      |
-| `C-x +` | balance-windows             | Balance the sizes of windows shown.                  |
+| *Key*   | *Command*                   | *Description*                                       |
+|---------|-----------------------------|-----------------------------------------------------|
+| `C-x 1` | delete-other-windows        | Make WINDOW fill its frame.                         |
+| `C-x 2` | split-window-below          | Split WINDOW into two windows, one above the other. |
+| `C-x 3` | split-window-right          | Split WINDOW into two side-by-side windows.         |
+| `C-x 0` | delete-window               | Delete WINDOW.                                      |
+| `C-x o` | other-window                | Move the cursor to the next window.                 |
+| `C-x b` | switch-to-buffer            | Change the displayed buffer.                        |
+|         |                             |                                                     |
+| `C-x ^` | enlarge-window              | Make the selected window taller.                    |
+| `C-x }` | enlarge-window-horizontally | Make the selected window wider.                     |
+| `C-x +` | balance-windows             | Balance the sizes of windows shown.                 |
 
 > [!tip]
 > Use `balance-windows` when you have more than 2 splits.
@@ -573,7 +573,7 @@ Until now, we have installed package interactively,
 but that's an issue when you copy your config to a fresh environment
 because the commands and settings won't be available.
 
-Instead, you need to leverage the `use-package` command to
+Instead, you need to leverage the `use-package` macro to
 manage external packages. The basic syntax looks like this:
 
 ```elisp
@@ -634,7 +634,7 @@ Run `M-x proced` to list the system processes:
 
 Run `M-x list-processes` to list child processes and `M-x list-timers` to list internal tasks.
 
-### Commands
+### Shell Commands
 
 Run standalone shell commands:
 
@@ -664,6 +664,19 @@ might want to add your own program locations like this:
 (add-to-list 'exec-path (concat (getenv "HOME") "/.local/bin"))
 ```
 
+### Shell
+
+Start a shell session with `M-x shell` to create a dumb terminal for running bash.
+This works similar to a regular terminal, but you have to press `M-p` to access previous commands.
+If needed, see the `vterm` package for a full terminal emulation.
+
+> [!tip]
+> Use `C-u M-x shell` to start a secondary shell by using a different buffer name.
+
+There is also `eshell`, which is an advanced mode that lets you run lisp command directly.
+Though I don't personally use `eshell`.
+You might want to checkout the `eat` and `vterm` packages for a fully-fledged terminal emulation.
+
 ### Clipboard
 
 To copy and paste from the system clipboard,
@@ -687,8 +700,9 @@ use the following config to simplify external clipboard interaction:
   (when (use-region-p)
     (let ((p (make-process :name "wl-copy"
                            :command '("wl-copy")
-                           :connection-type 'pipe)))
-      (process-send-string p (buffer-substring (mark) (point)))
+                           :connection-type 'pipe))
+          (s (buffer-substring-no-properties (region-beginning) (region-end))))
+      (process-send-string p s)
       (process-send-eof p))))
 
 ;; Use C-ins to copy into Wayland clipboard from an Emacs TTY
@@ -701,18 +715,6 @@ Use `M-<insert>` to paste from the system clipboard when using a graphical displ
 otherwise use the regular paste command of your terminal emulator.
 
 
-### Shell
-
-Start a shell session with `M-x shell` to create a dumb terminal for running bash.
-This works similar to a regular terminal, but you have to press `M-p` to access previous commands.
-If needed, see the `vterm` package for a full terminal emulation.
-
-> [!tip]
-> Use `C-u M-x shell` to start a secondary shell by using a different buffer name.
-
-There is also `eshell`, which is an advanced mode that lets you run lisp command directly.
-Though I don't personally use `eshell`.
-You might want to checkout the `eat` and `vterm` packages for a fully-fledged terminal emulation.
 
 ---
 <br />
