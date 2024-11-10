@@ -393,30 +393,6 @@ mainProjs = do
     projs <- traverse parseProject projFiles
     renderToFile "content/templates/components/projects.tpl" (renderProjects (reverse $ sortOn (projectDate . projectMeta) projs))
 
--- (id, title)
-data DocHeading = DocHeading Text Text
-
-pandocTOCTree :: Pandoc -> Forest DocHeading
-pandocTOCTree (Pandoc _ blocks) = go [] 1 blocks
-  where
-    go acc _lvl [] = reverse acc
-    go acc lvl (x : rest) = case x of
-        Header hlvl (oid, _, _) [Str title]
-            | hlvl == lvl ->
-                -- TODO: support nested heading
-                let oh = DocHeading oid title
-                    childs = []
-                 in go (Node oh childs : acc) lvl rest
-        _ -> go acc lvl rest
-
-renderTOCTree :: Text -> Tree DocHeading -> Html ()
-renderTOCTree base (Node (DocHeading oid title) childs) = li_ do
-    with a_ [href_ (mconcat [base, "#", oid])] do
-        (toHtml title)
-    unless (null childs) do
-        ul_ do
-            traverse_ (renderTOCTree base) childs
-
 doRead :: FilePath -> IO Pandoc
 doRead fp = do
     content <- Text.readFile fp
@@ -427,16 +403,6 @@ doRead fp = do
   where
     readerOpts = def{readerExtensions = extensionsFromList (exts)}
     exts = [Ext_auto_identifiers]
-
-renderTOCTemplate :: FilePath -> Pandoc -> IO ()
-renderTOCTemplate fp doc = do
-    renderToFile fp do
-        ul_ do
-            traverse_ (renderTOCTree "snippets") (pandocTOCTree doc)
-
-mainSnippets :: IO ()
-mainSnippets = do
-    renderTOCTemplate "content/templates/components/toc-snippets.tpl" =<< doRead "content/snippets.org"
 
 main :: IO ()
 main = mainAudio -- mainProjs >> mainSnippets
