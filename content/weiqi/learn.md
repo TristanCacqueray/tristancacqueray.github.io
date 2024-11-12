@@ -8,6 +8,18 @@ tags:
 
 - "Tenuki is always an option" [sensei](https://senseis.xmp.net/?TenukiIsAlwaysAnOption)
 
+## Middle Game tips
+
+1. Defend the weak groups
+2. Attack opponent's weak groups
+3. Look for big moves
+
+A group is safe if it has 2 out of 3 of the following:
+
+- Does it have a base?
+- Does it have eyes?
+- Does it have access to the center?
+
 ## Shape Up!
 
 - "Le point vital de mon adversaire est mon point vital"
