@@ -21,8 +21,9 @@ KEY 9 32805 41043 0		 # Main : Ctrl+Left : OVERRIDE DEFAULT : Move edit cursor b
 Click `Options` and then `Solo in front`
 
 
-
 ## Settings
+
+- Activate `Reset meter peak on play/seek` to keep the max volume fresh. Otherwise you have to click the indicator to reset the peak value.
 
 Avoid dangling project and ensure audio stems are saved in the right place:
 - Project -> Prompt to save on new project [x]
@@ -100,3 +101,19 @@ For ReaVerb, use [Big Gee's Lexicon 480L](https://grantnelson.co/article/1/lexic
 - ReaXComp (e.g. ratio 4/1, check program dependent release, link the thresholdm -10db threshold)
 - ReaLimit
 - JS Loudness Meter (to check LUFS-I for max -8)
+
+## JS 1175 by Kenny Gioia
+
+- Start with attack > 200
+- Lower threshold to get a -6db compression
+
+For snare: a(260).r(240)
+For kick:  longer release
+For hat:   shorter release
+For drum buss: fast release, but 60% mix
+
+## Mono kick drum
+
+Encoder
+Eq (disconnect in1 out1), low shelf -6db at 160Hz
+Decoder
