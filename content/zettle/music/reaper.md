@@ -117,3 +117,9 @@ For drum buss: fast release, but 60% mix
 Encoder
 Eq (disconnect in1 out1), low shelf -6db at 160Hz
 Decoder
+
+## Partial measure
+
+Create new starting point mid measure using: `insert tempo/time signature marker`.
+Copy the position (it will be adjusted to the closest measure), untick `Set tempo` and tick `Set time signature`.
+Then tick `Allow a partial measure before this marker`, paste the position and add the marker.
