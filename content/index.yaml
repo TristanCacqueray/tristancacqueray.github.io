@@ -7,8 +7,10 @@ page:
     <script src="https://cdn.midirus.com/script/highlightjs@11/haskell.min.js" integrity="sha384-EnLqy/LmA2yShypXJIP5cvUz0S3jJ5l3PnZcMRE6JQdpeNOttU97yyQAsdTusDbl" crossorigin="anonymous"></script>
     <script src="https://cdn.midirus.com/script/highlightjs@11/nix.min.js" integrity="sha384-Cu93ZX4MeViuo8zGfs3i/Rbyj81UUFg0DLBKhn63FlLi/qoH39kOO++xzdoUJq/Y" crossorigin="anonymous"></script>
     <script src="https://cdn.midirus.com/script/highlightjs@11/scheme.min.js" integrity="sha384-wDAOgnGx0t7X9tTKddfqp7kcfAYVDaQDRdfDD+47IukNBVuVGFldV80H4qDTHPOR" crossorigin="anonymous"></script>
-    <script>hljs.highlightAll();
-    hljs.registerAliases(["lisp", "elisp"], {languageName: "scheme"})
+    <script>
+    hljs.registerAliases(["lisp", "elisp"],   {languageName: "scheme"})
+    hljs.registerAliases("reascript", {languageName: "javascript"})
+    hljs.highlightAll();
     </script>
 
     <script src="/static/godiag.js"></script>
