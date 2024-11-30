@@ -1,5 +1,6 @@
 ---
 date: 2024-11-23
+tags: [pastagang]
 ---
 # pastagang - farfalle funk
 
