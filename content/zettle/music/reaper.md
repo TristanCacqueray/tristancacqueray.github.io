@@ -174,28 +174,28 @@ This looks like this:
 
 This one is tricky in my fedora/bubblewrap setup: the upstream release needs a custom wine, and the COPR is too complicated. So here is how I setup yabridge with nix:
 
-- Pull yabridge with: `nix shell nixpkgs/nixos-23.05#carla nixpkgs/nixos-23.05#yabridge nixpkgs/nixos-23.05#yabridgectl`.
+- Pull yabridge with: `nix shell nixpkgs/94073c2546d20efc0ae206b41fc0b775f1e06dab#yabridge nixpkgs/94073c2546d20efc0ae206b41fc0b775f1e06dab#yabridgectl nixpkgs/94073c2546d20efc0ae206b41fc0b775f1e06dab#carla`
 - Get the wine path with: `grep wine $(which yabridgectl)`
 - Run VSTs installer with wine.
 - Convert VST's .dll to .so with yabridge using these commands:
 
 ```shellSession
+# Ensure yabridge can find its lib, otherwise it may fail with: can't find the "libyabridge-vst.so"
+$ mkdir -p ~/.local/share/yabridge && cp $(dirname $(which yabridge-host.exe))/* $(dirname $(which yabridge-host.exe))/../lib/* ~/.local/share/yabridge/
 $ yabridgectl add ~/.wine/drive_c/Program\ Files/Steinberg/VSTPlugins/
+$ yabridgectl add ~/.wine/drive_c/Program\ Files/Common\ Files/VST3/
 $ yabridgectl sync
-$ ls .vst/yabridge/
+$ ls .vst3/yabridge/
 Snapback.dll  Snapback.so
 ```
 
-Validate a plugin works with carla. Though that may fail with: `can't find the "libyabridge-vst.so"`
-Somehow, carla expects to find yabridge in `~/.local/share/yabridge`. So you need to copy the files from the nix store there, e.g. `cp $(dirname $(which yabridge-host.exe))/* ~/.local/share/yabridge/`.
-But that's enough because carla will be confused by the PATH. So remove yabridge to start carla like: `PATH=/bin carla`.
-
+Validate a plugin works with carla. Somehow, yabridge can't be in the PATH, so start it like that: `PATH=/bin $(which carla)`
 The UI might freeze with this error in the debug log `[Wine STDERR] 010c:err:wgl:X11DRV_WineGL_InitOpenglInfo  couldn't initialize OpenGL, expect problems`.
 In that case you need nixGL:
 
 ```shellSession
-nix shell --override-input nixpkgs nixpkgs/nixos-23.05 --impure github:nix-community/nixGL
-nixGL carla
+nix shell --override-input nixpkgs nixpkgs/94073c2546d20efc0ae206b41fc0b775f1e06dab --impure github:nix-community/nixGL
+PATH=/bin $(which nixGL) $(which carla)
 ```
 
 That's it, run reaper with nixGL too.
