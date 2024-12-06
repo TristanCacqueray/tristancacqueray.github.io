@@ -49,7 +49,7 @@ Here is what I really like about it:
 
 - It is very constrained: the synths and effects only have four parameters each. There is no undo button.
 - It features a tape recorder emulation with four audio tracks.
-- Its interface is unique, it encourages a workflow that helps the creation process. This is hard to explain, you have to use it to understand what I mean. For example, I learned very recently that you can save a patch by holding it's number, after a few second a saving icon appears and you get a new snapshot named after the current datetime.
+- Its interface is unique, it encourages a workflow that helps the creation process. This is hard to explain, you have to use it to understand what I mean. For example, I learned very recently that you can save a patch by holding its number, after a few seconds a saving icon appears and you get a new snapshot named after the current datetime.
 - The sequencers are quirky and I like the micro-timings they seem to create.
 
 
@@ -162,6 +162,8 @@ For the rest I used the following sequencers:
 Checkout this demo to see the OP-1 in action: [05-28-17 (I Need U)](https://www.youtube.com/watch?v=7z4hoazra_g) by *Red Means Recording*.
 
 ## Effects
+
+Since [[pgMadMontuno]], I'm experimenting with VSTs effects:
 
 - Time shaper to change the bass intro. You can see the by-pass automation in purple on the project screenshot:
 

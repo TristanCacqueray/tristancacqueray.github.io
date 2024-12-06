@@ -43,6 +43,8 @@ Untick to disable `Tiny fade in on playback start`
 
 Bind (e.g. to `z`) `Toggle solo for selected tracks`, to quickly solo the current track, whatever the current view.
 
+Add `$project-` to recorded filenames.
+
 ## Shortcuts like op1
 
 Here is my attempt to control Reaper like an OP-1
@@ -170,6 +172,7 @@ This looks like this:
 
 
 
+
 ## Run VST with yabridge
 
 This one is tricky in my fedora/bubblewrap setup: the upstream release needs a custom wine, and the COPR is too complicated. So here is how I setup yabridge with nix:
@@ -179,7 +182,7 @@ This one is tricky in my fedora/bubblewrap setup: the upstream release needs a c
 - Run VSTs installer with wine.
 - Convert VST's .dll to .so with yabridge using these commands:
 
-```shellSession
+```ShellSession
 # Ensure yabridge can find its lib, otherwise it may fail with: can't find the "libyabridge-vst.so"
 $ mkdir -p ~/.local/share/yabridge && cp $(dirname $(which yabridge-host.exe))/* $(dirname $(which yabridge-host.exe))/../lib/* ~/.local/share/yabridge/
 $ yabridgectl add ~/.wine/drive_c/Program\ Files/Steinberg/VSTPlugins/
@@ -188,6 +191,21 @@ $ yabridgectl sync
 $ ls .vst3/yabridge/
 Snapback.dll  Snapback.so
 ```
+
+<!--
+- Setup dxvk:
+
+```ShellSession
+$ nix shell nixpkgs/94073c2546d20efc0ae206b41fc0b775f1e06dab#dxvk
+$ setup_dxvk.sh install
+$ winecfg
+```
+
+Should looks like this:
+
+![winecfg-dxvk](media/winecfg-dxvk.png)
+
+-->
 
 Validate a plugin works with carla. Somehow, yabridge can't be in the PATH, so start it like that: `PATH=/bin $(which carla)`
 The UI might freeze with this error in the debug log `[Wine STDERR] 010c:err:wgl:X11DRV_WineGL_InitOpenglInfo  couldn't initialize OpenGL, expect problems`.

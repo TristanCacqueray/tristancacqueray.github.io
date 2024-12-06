@@ -10,6 +10,26 @@ Here are my notes from [Dan Worrall](https://www.youtube.com/channel/UCQnz5mUTDk
 
 - Safebet: encode wav at 16 bit with dither, and then encode mp3
 
+## Parallel Bandpass Filters [video](https://www.youtube.com/watch?v=4hGBYs10ZAU)
+
+- With plugin doctor, observe that at -24db/oct there is a dip in the response, -12db/oct is clean
+
+Start with a colorful eq boost:
+- Setup a band pass, for example at 2850 Hz, and send all the drum shell to it.
+- Add gentel saturation and compress
+
+Add another eq to fix thin and weak drum:
+- Find the fundamental, for example at 200 Hz
+- Narrow it (high Q)
+- Boost the EQ volume
+- Find tune with the fader
+
+> Check at 8'12 for the effect
+
+Add as many eq to fix other frequencies, like the tom
+
+For the kick, use eq auto gain to fine tune the Q. Add gate and foldback disto
+
 ## Drum loudness
 
 Levels:
