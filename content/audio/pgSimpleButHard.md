@@ -18,7 +18,7 @@ Your browser does not support the audio element.
 </audio>
 :::
 
-> Checkout the [strudel source](https://strudel.cc/?azOBiV6qi-o9) and the [video](https://youtu.be/kKj8cQvWe6o?t=1913).
+> Checkout the [strudel source](https://strudel.cc/?azOBiV6qi-o9) and the [video](https://youtu.be/kKj8cQvWe6o?t=3266).
 
 Here is how the project looks like:
 

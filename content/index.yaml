@@ -10,6 +10,7 @@ page:
     <script>
     hljs.registerAliases(["lisp", "elisp"],   {languageName: "scheme"})
     hljs.registerAliases("reascript", {languageName: "javascript"})
+    hljs.registerAliases("strudel", {languageName: "javascript"})
     hljs.highlightAll();
     </script>
 
