@@ -5,6 +5,10 @@ AddOutputFilterByType DEFLATE "application/atom+xml" "application/javascript" "a
 RewriteCond "%{REQUEST_FILENAME}" -d
 RewriteRule ^(.+?)/?$ $1.html [L]
 
+# Serve file without the html extension
+RewriteCond "%{REQUEST_FILENAME}.html" -f
+RewriteRule ^(.*)$ $1.html [L]
+
 # SECTION BEGIN GIT PROTECTION
 RedirectMatch 404 /\.git
 # SECTION END GIT PROTECTION
