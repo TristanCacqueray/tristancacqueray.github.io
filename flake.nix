@@ -33,6 +33,19 @@
         p.pandoc-types
         (pkgs.haskellPackages.callCabal2nix "ebml" ebml { })
       ]);
+      render-tool = pkgs.stdenv.mkDerivation rec {
+        pname = "render";
+        version = "1";
+        src = ./Render.hs;
+        unpackPhase = ''
+          ${ghc}/bin/ghc -dynamic --make $src -o render
+          mkdir -p $out/bin
+          mv render $out/bin
+        '';
+        dontStrip = true;
+        dontInstall = true;
+      };
+
       website = pkgs.stdenv.mkDerivation {
         name = "tristancacqueray.io-pages";
         buildInputs = [ emanote ];
@@ -59,12 +72,14 @@
       '';
     in {
       packages.x86_64-linux.default = website;
+      packages.x86_64-linux.render = render-tool;
       apps."x86_64-linux".default = {
         type = "app";
         program = "${run}/bin/run";
       };
-      devShells."x86_64-linux".default =
-        pkgs.mkShell { buildInputs = [ ghc pkgs.cabal-install pkgs.ghcid emanote ]; };
+      devShells."x86_64-linux".default = pkgs.mkShell {
+        buildInputs = [ ghc pkgs.cabal-install pkgs.ghcid emanote ];
+      };
       devShells."x86_64-linux".gstreamer = pkgs.mkShell {
         buildInputs = [ ghc pkgs.ghcid pkgs.gst_all_1.gstreamer ];
         GST_PLUGIN_PATH =
