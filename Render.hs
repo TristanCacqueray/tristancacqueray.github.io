@@ -15,35 +15,32 @@
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE PartialTypeSignatures #-}
-{-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# OPTIONS_GHC -Wno-partial-type-signatures #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
-import Data.Aeson (FromJSON, encodeFile)
+{-# HLINT ignore "Avoid reverse" #-}
+{-# HLINT ignore "Redundant bracket" #-}
+
+import Data.Aeson (encodeFile)
 import Data.ByteString qualified as BS
 import Data.ByteString.Char8 qualified as BS
 import Data.ByteString.Char8 qualified as BS8
-import Data.Char (isDigit, toTitle)
+import Data.Char (toTitle)
 import Data.List (isSuffixOf, sortBy, sortOn)
 import Data.List.Split
-import Data.Map qualified as Map
-import Data.String.QQ (s)
 import Data.Text qualified as Text
 import Data.Text.Encoding qualified as Text
 import Data.Text.IO qualified as Text
-import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
 import Data.Time.Format (defaultTimeLocale, formatTime)
-import Data.Tree
 import Data.Yaml hiding (Parser, encodeFile)
 import Data.Yaml qualified as Yaml
-import GHC.Float (int2Float)
 import Lucid
-import Lucid.Base (makeAttribute, makeElement, makeElementNoEnd)
+import Lucid.Base (makeAttribute, makeElement)
 import RIO
-import RIO.Text qualified
 import System.Directory (doesPathExist, getModificationTime, listDirectory)
+import System.Environment (getArgs)
 import System.FilePath
-import System.Process (callProcess, readProcess)
 import System.Process.Typed qualified as P
 import Text.Pandoc.Class (runIOorExplode)
 import Text.Pandoc.Definition
@@ -54,6 +51,8 @@ import Text.Pandoc.Readers.Org (readOrg)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Text (Parser)
 
+import Toot
+
 mainAudio :: IO ()
 mainAudio = do
     files <- runFind ["/srv/cdn.midirus.com/audio", "-name", "*.flac"]
@@ -61,7 +60,7 @@ mainAudio = do
     audioFiles <- reverse . sortBy orderFiles <$> traverse getAudioFile files
     -- traverse_ print audioFiles
     encodeFile "/srv/cdn.midirus.com/audio.json" $ renderAudioMetaData audioFiles
-    print "Done!"
+    putStrLn "Done!"
 
 orderFiles :: AudioFile -> AudioFile -> Ordering
 orderFiles f1 f2 = case compare (albumDate f1.path) (albumDate f2.path) of
@@ -112,6 +111,7 @@ trackName, albumName :: FilePath -> String
 trackName = toCapitalize . takeBaseName
 albumName = toCapitalize . drop 1 . dropWhile (/= '-') . takeBaseName . takeDirectory
 
+toCapitalize :: [Char] -> String
 toCapitalize = unwords . map capitalizeWord . splitWhen (`elem` ['-', '_'])
 
 capitalizeWord :: String -> String
@@ -119,9 +119,6 @@ capitalizeWord = \case
     "yul" -> "yul"
     t : rest -> toTitle t : rest
     name -> name
-
-getAudioMDs :: IO [AudioMD]
-getAudioMDs = pure []
 
 renderAudioMetaData :: [AudioFile] -> AudioMetaData
 renderAudioMetaData files = AudioMetaData albums playlists files
@@ -216,11 +213,11 @@ ffprobe fp = do
 1230
 -}
 ffprobe2MSec :: String -> Natural
-ffprobe2MSec s = case s of
+ffprobe2MSec s0 = case s0 of
     h2 : h1 : ':' : m2 : m1 : ':' : s2 : s1 : '.' : ms2 : ms1 : [','] ->
         1000 * ((mkDigit h2 h1) * 3600 + (mkDigit m2 m1) * 60 + (mkDigit s2 s1))
             + (mkDigit ms2 ms1) * 10
-    _ -> error $ "bad ts: " <> s
+    _ -> error $ "bad ts: " <> s0
 
 mkDigit :: Char -> Char -> Natural
 mkDigit c2 c1 = fromInteger $ toInteger $ (fromEnum c2 - 48) * 10 + (fromEnum c1 - 48)
@@ -262,29 +259,10 @@ updateAudioMD fp audioMD =
 parseAudioMD :: FilePath -> IO AudioMD
 parseAudioMD fp = do
     -- putStrLn $ "[+] " <> fp
-    ("---" : lines) <- BS.lines <$> BS.readFile fp
-    let (yml, "---" : intro) = break (== "---") lines
+    ("---" : lines') <- BS.lines <$> BS.readFile fp
+    let (yml, "---" : intro) = break (== "---") lines'
     pm <- decodeThrow (BS.unlines yml)
     pure $ AudioMD pm (decodeUtf8With lenientDecode $ BS8.dropWhile (`elem` [' ', '\n']) $ BS.unlines intro)
-
-header :: Text
-header =
-    [s|
----
-title: Projects
-pandoc:
-  rewriteClass:
-    plist: grid md:grid-cols-3 gap-4 mb-5
-    pcard: rounded border-2 border-blue-100 p-1
-    ptitle: text-lg
-    pdate: text-sm relative -top-3 -mb-3
-    picon: relative -top-5 float right-0
----
-
-<!-- note: re-render by running projects.hs -->
-
-Here are some of the projects I have worked on, as an author or contributor.
-|]
 
 data Project = Project
     { fp :: FilePath
@@ -308,8 +286,8 @@ projectDate (ProjectMeta date _ _) = date
 parseProject :: FilePath -> IO Project
 parseProject fp = do
     putStrLn $ "[+] " <> fp
-    ("---" : lines) <- BS.lines <$> BS.readFile fp
-    let (yml, "---" : "" : intro : _) = break (== "---") lines
+    ("---" : lines') <- BS.lines <$> BS.readFile fp
+    let (yml, "---" : "" : intro : _) = break (== "---") lines'
     pm <- decodeThrow (BS.unlines yml)
     pure $ Project fp pm (parseIntro $! decodeUtf8With lenientDecode intro)
 
@@ -329,16 +307,18 @@ getIcon p
     | "code" `elem` p.meta.tags || "keyboard" `elem` p.meta.tags = Just "⌨"
     | otherwise = Nothing
 
+fill_, d_, viewBox_ :: Text -> Attribute
 viewBox_ = makeAttribute "viewBox"
 fill_ = makeAttribute "fill"
 d_ = makeAttribute "d"
+path_ :: HtmlT Identity a -> HtmlT Identity a
 path_ = makeElement "path"
 
+cliSvg, srvSvg :: Html ()
 srvSvg =
     with svg_ [xmlns_ "http://www.w3.org/2000/svg", viewBox_ "0 0 24 24", width_ "24", height_ "24"] do
         with path_ [fill_ "none", d_ "M0 0h24v24H0z"] mempty
         with path_ [d_ "M5 11h14V5H5v6zm16-7v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1zm-2 9H5v6h14v-6zM7 15h3v2H7v-2zm0-8h3v2H7V7z"] mempty
-
 cliSvg = with svg_ [xmlns_ "http://www.w3.org/2000/svg", viewBox_ "0 0 24 24", width_ "24", height_ "24"] do
     with path_ [fill_ "none", d_ "M0 0h24v24H0z"] mempty
     with path_ [d_ "M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm9 12v2h6v-2h-6zm-3.586-3l-2.828 2.828L7 16.243 11.243 12 7 7.757 5.586 9.172 8.414 12z"] mempty
@@ -374,12 +354,12 @@ introParser = Parsec.many1 (wordP <|> linkP <|> dotP)
     wordP = Text.pack <$> Parsec.many1 (Parsec.satisfy (`notElem` ['.', '#', '[', ']']))
     linkP = do
         Parsec.optional (Parsec.char '#')
-        Parsec.many1 (Parsec.char '[')
+        _ <- Parsec.many1 (Parsec.char '[')
         l <- Text.pack <$> Parsec.many1 (Parsec.satisfy (`notElem` [']']))
-        Parsec.many1 (Parsec.char ']')
+        _ <- Parsec.many1 (Parsec.char ']')
         Parsec.optional $ do
-            Parsec.char '('
-            Parsec.many1 (Parsec.satisfy (`notElem` [')']))
+            _ <- Parsec.char '('
+            _ <- Parsec.many1 (Parsec.satisfy (`notElem` [')']))
             Parsec.char ')'
         Parsec.optional (Parsec.char '#')
         pure $ if Text.elem '|' l then Text.takeWhileEnd (/= '|') l else l
@@ -405,4 +385,10 @@ doRead fp = do
     exts = [Ext_auto_identifiers]
 
 main :: IO ()
-main = mainAudio -- mainProjs >> mainSnippets
+main =
+    getArgs >>= \case
+        [] -> mainAudio
+        ["toot"] -> mainToot
+        ["audio"] -> mainAudio
+        ["all"] -> mainAudio >> mainProjs
+        _ -> error "unknown command"

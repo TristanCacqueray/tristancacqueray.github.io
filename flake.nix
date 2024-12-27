@@ -78,7 +78,13 @@
         program = "${run}/bin/run";
       };
       devShells."x86_64-linux".default = pkgs.mkShell {
-        buildInputs = [ ghc pkgs.cabal-install pkgs.ghcid emanote ];
+        buildInputs = [
+          ghc
+          pkgs.cabal-install
+          pkgs.ghcid
+          pkgs.haskell-language-server
+          emanote
+        ];
       };
       devShells."x86_64-linux".gstreamer = pkgs.mkShell {
         buildInputs = [ ghc pkgs.ghcid pkgs.gst_all_1.gstreamer ];

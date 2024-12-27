@@ -8,6 +8,7 @@ copyright:      2024 Tristan de Cacqueray
 
 executable midirus-dot-com
   main-is: Render.hs
+  other-modules: Toot
   build-depends:
       base >=4.7 && <5
     , rio
