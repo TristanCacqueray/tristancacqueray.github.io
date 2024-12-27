@@ -36,13 +36,15 @@
       render-tool = pkgs.stdenv.mkDerivation rec {
         pname = "render";
         version = "1";
-        src = ./Render.hs;
-        unpackPhase = ''
-          ${ghc}/bin/ghc -dynamic --make $src -o render
+        src = ./src;
+        buildPhase = ''
+          cp $src/*.hs .
+          ${ghc}/bin/ghc -dynamic --make Render.hs -o render
           mkdir -p $out/bin
           mv render $out/bin
         '';
         dontStrip = true;
+        dontUnpack = true;
         dontInstall = true;
       };
 
