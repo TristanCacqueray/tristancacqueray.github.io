@@ -51,6 +51,7 @@ import Text.Pandoc.Readers.Org (readOrg)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Text (Parser)
 
+import System.Process.Typed qualified as Process
 import Toot
 
 mainAudio :: IO ()
@@ -372,6 +373,7 @@ mainProjs = do
     projFiles <- map (mappend "content/project/") <$> listDirectory "content/project"
     projs <- traverse parseProject projFiles
     renderToFile "content/templates/components/projects.tpl" (renderProjects (reverse $ sortOn (projectDate . projectMeta) projs))
+    Process.runProcess_ "deno fmt  ./htmls/projects.html"
 
 doRead :: FilePath -> IO Pandoc
 doRead fp = do
@@ -387,8 +389,11 @@ doRead fp = do
 main :: IO ()
 main =
     getArgs >>= \case
-        [] -> mainAudio
+        [] -> mainAll
         ["toot"] -> mainToot
         ["audio"] -> mainAudio
-        ["all"] -> mainAudio >> mainProjs
+        ["all"] -> mainAll
         _ -> error "unknown command"
+  where
+    mainAll = do
+        mainAudio >> mainProjs >> mainToot
