@@ -24,6 +24,7 @@ I actively maintain these projects:
 I made contributions to:
 
 - [200ok-ch/organice](https://github.com/200ok-ch/organice)
+- [acowley/ffmpeg-light](https://github.com/acowley/ffmpeg-light)
 - [aevyrie/bevy_eventlistener](https://github.com/aevyrie/bevy_eventlistener)
 - [aevyrie/bevy_mod_picking](https://github.com/aevyrie/bevy_mod_picking)
 - [aevyrie/bevy_mod_raycast](https://github.com/aevyrie/bevy_mod_raycast)
@@ -62,6 +63,7 @@ I made contributions to:
 - [change-metrics/monocle](https://github.com/change-metrics/monocle)
 - [change-metrics/retry-effectful](https://github.com/change-metrics/retry-effectful)
 - [chipsalliance/f4pga-examples](https://github.com/chipsalliance/f4pga-examples)
+- [chmouel/blog](https://github.com/chmouel/blog)
 - [chmouel/emacs-mpr](https://github.com/chmouel/emacs-mpr)
 - [ChrisPenner/json-to-haskell](https://github.com/ChrisPenner/json-to-haskell)
 - [clash-lang/clash-compiler](https://github.com/clash-lang/clash-compiler)
@@ -74,6 +76,7 @@ I made contributions to:
 - [containers/oci-spec-rs](https://github.com/containers/oci-spec-rs)
 - [containers/podman.io](https://github.com/containers/podman.io)
 - [containers/podman](https://github.com/containers/podman)
+- [containers/ramalama](https://github.com/containers/ramalama)
 - [containers/skopeo](https://github.com/containers/skopeo)
 - [containers/toolbox](https://github.com/containers/toolbox)
 - [containers/udica](https://github.com/containers/udica)
@@ -90,6 +93,7 @@ I made contributions to:
 - [emacs-lsp/lsp-haskell](https://github.com/emacs-lsp/lsp-haskell)
 - [ethercrow/opentelemetry-haskell](https://github.com/ethercrow/opentelemetry-haskell)
 - [expipiplus1/vulkan](https://github.com/expipiplus1/vulkan)
+- [explodingcamera/tinywasm](https://github.com/explodingcamera/tinywasm)
 - [fakedata-haskell/fakedata](https://github.com/fakedata-haskell/fakedata)
 - [fedora-haskell/dhall](https://github.com/fedora-haskell/dhall)
 - [felko/neuron-mode](https://github.com/felko/neuron-mode)
@@ -105,22 +109,29 @@ I made contributions to:
 - [ghc/ghc](https://github.com/ghc/ghc)
 - [gleam-lang/gleam](https://github.com/gleam-lang/gleam)
 - [gleam-lang/stdlib](https://github.com/gleam-lang/stdlib)
+- [gleam-lang/website](https://github.com/gleam-lang/website)
 - [glumpy/glumpy](https://github.com/glumpy/glumpy)
 - [haskell-distributed/distributed-static](https://github.com/haskell-distributed/distributed-static)
 - [haskell-distributed/network-transport](https://github.com/haskell-distributed/network-transport)
 - [haskell-distributed/rank1dynamic](https://github.com/haskell-distributed/rank1dynamic)
 - [haskell-game/dear-imgui.hs](https://github.com/haskell-game/dear-imgui.hs)
 - [haskell-game/tiny-games-hs](https://github.com/haskell-game/tiny-games-hs)
+- [haskell-opengl/GLUT](https://github.com/haskell-opengl/GLUT)
+- [haskell/cabal](https://github.com/haskell/cabal)
 - [haskell/hackage-server](https://github.com/haskell/hackage-server)
 - [haskell/HTTP](https://github.com/haskell/HTTP)
 - [haskell/lsp](https://github.com/haskell/lsp)
 - [haskell/parallel](https://github.com/haskell/parallel)
+- [haskell/process](https://github.com/haskell/process)
 - [haskell/security-advisories](https://github.com/haskell/security-advisories)
+- [haskell/text](https://github.com/haskell/text)
+- [haskellfoundation/haskellfoundation.github.io](https://github.com/haskellfoundation/haskellfoundation.github.io)
 - [hdgarrood/qq-literals](https://github.com/hdgarrood/qq-literals)
 - [HeinrichApfelmus/tomato-rubato](https://github.com/HeinrichApfelmus/tomato-rubato)
 - [HoTT/book](https://github.com/HoTT/book)
 - [hylang/hy-mode](https://github.com/hylang/hy-mode)
 - [hylang/hy](https://github.com/hylang/hy)
+- [idank/holykeebs-docs](https://github.com/idank/holykeebs-docs)
 - [input-output-hk/nothunks](https://github.com/input-output-hk/nothunks)
 - [iovisor/bcc](https://github.com/iovisor/bcc)
 - [ipetkov/crane](https://github.com/ipetkov/crane)
@@ -140,23 +151,29 @@ I made contributions to:
 - [juhp/pkgtreediff](https://github.com/juhp/pkgtreediff)
 - [juhp/stack-all](https://github.com/juhp/stack-all)
 - [justinwoo/easy-dhall-nix](https://github.com/justinwoo/easy-dhall-nix)
+- [kaoskorobase/hsndfile](https://github.com/kaoskorobase/hsndfile)
 - [klangner/text-time](https://github.com/klangner/text-time)
 - [Kleidukos/servant-effectful](https://github.com/Kleidukos/servant-effectful)
 - [kowainik/stan](https://github.com/kowainik/stan)
 - [kowainik/summoner](https://github.com/kowainik/summoner)
 - [lassik/emacs-format-all-the-code](https://github.com/lassik/emacs-format-all-the-code)
 - [lassik/emacs-language-id](https://github.com/lassik/emacs-language-id)
+- [leanprover-community/lean4-mode](https://github.com/leanprover-community/lean4-mode)
 - [lehins/massiv](https://github.com/lehins/massiv)
 - [Leinnan/bevy_wasm_window_resize](https://github.com/Leinnan/bevy_wasm_window_resize)
+- [logjuicer/logjuicer](https://github.com/logjuicer/logjuicer)
 - [luc-tielen/souffle-haskell](https://github.com/luc-tielen/souffle-haskell)
 - [meeshkan/openapi-haskell](https://github.com/meeshkan/openapi-haskell)
 - [Mergifyio/git-pull-request](https://github.com/Mergifyio/git-pull-request)
+- [MichaelXavier/cron](https://github.com/MichaelXavier/cron)
 - [mikesol/purescript-ocarina](https://github.com/mikesol/purescript-ocarina)
 - [mirage/irmin](https://github.com/mirage/irmin)
 - [mkloczko/derive-storable-plugin](https://github.com/mkloczko/derive-storable-plugin)
 - [morpheusgraphql/morpheus-graphql-cli](https://github.com/morpheusgraphql/morpheus-graphql-cli)
 - [morpheusgraphql/morpheus-graphql](https://github.com/morpheusgraphql/morpheus-graphql)
+- [mrange/shader-advent-2024](https://github.com/mrange/shader-advent-2024)
 - [mstksg/typelits-witnesses](https://github.com/mstksg/typelits-witnesses)
+- [ndmitchell/record-dot-preprocessor](https://github.com/ndmitchell/record-dot-preprocessor)
 - [nh2/hatrace](https://github.com/nh2/hatrace)
 - [nh2/static-haskell-nix](https://github.com/nh2/static-haskell-nix)
 - [NicolasT/troupe](https://github.com/NicolasT/troupe)
@@ -167,6 +184,7 @@ I made contributions to:
 - [numtide/treefmt](https://github.com/numtide/treefmt)
 - [ocaml/odoc](https://github.com/ocaml/odoc)
 - [ocharles/blog](https://github.com/ocharles/blog)
+- [ocharles/logging-effect](https://github.com/ocharles/logging-effect)
 - [ocharles/weeder](https://github.com/ocharles/weeder)
 - [opencontainers/runc](https://github.com/opencontainers/runc)
 - [openshift/openshift-ansible](https://github.com/openshift/openshift-ansible)
@@ -179,6 +197,7 @@ I made contributions to:
 - [openstack/nova](https://github.com/openstack/nova)
 - [openstack/openstack-manuals](https://github.com/openstack/openstack-manuals)
 - [openstack/openstack](https://github.com/openstack/openstack)
+- [Operational-Transformation/ot.hs](https://github.com/Operational-Transformation/ot.hs)
 - [operator-framework/operator-sdk](https://github.com/operator-framework/operator-sdk)
 - [ostreedev/ostree](https://github.com/ostreedev/ostree)
 - [packit/packit-service-zuul](https://github.com/packit/packit-service-zuul)
@@ -193,15 +212,20 @@ I made contributions to:
 - [podenv/podenv](https://github.com/podenv/podenv)
 - [podenv/silverkube](https://github.com/podenv/silverkube)
 - [portnov/libssh2-hs](https://github.com/portnov/libssh2-hs)
+- [positron-solutions/transient-showcase](https://github.com/positron-solutions/transient-showcase)
+- [psibi/justl.el](https://github.com/psibi/justl.el)
 - [purescript-gjs/purescript-gjs](https://github.com/purescript-gjs/purescript-gjs)
 - [purescript-gjs/purescript-gnome-shell](https://github.com/purescript-gjs/purescript-gnome-shell)
 - [purescript/documentation](https://github.com/purescript/documentation)
+- [purescript/spago](https://github.com/purescript/spago)
 - [pytest-dev/pytest-testinfra](https://github.com/pytest-dev/pytest-testinfra)
 - [python-zk/kazoo](https://github.com/python-zk/kazoo)
 - [rdo-infra/rdo-jobs](https://github.com/rdo-infra/rdo-jobs)
 - [reanimate/reanimate](https://github.com/reanimate/reanimate)
 - [redhat-nfvpe/cnf-cert-ts-zuul-jobs](https://github.com/redhat-nfvpe/cnf-cert-ts-zuul-jobs)
 - [regadas/github-actions-dhall](https://github.com/regadas/github-actions-dhall)
+- [rescript-lang/rescript-lang.org](https://github.com/rescript-lang/rescript-lang.org)
+- [rescript-lang/rescript](https://github.com/rescript-lang/rescript)
 - [restyled-io/restylers](https://github.com/restyled-io/restylers)
 - [rhos-infra/devnest](https://github.com/rhos-infra/devnest)
 - [rougier/python-opengl](https://github.com/rougier/python-opengl)
@@ -260,8 +284,11 @@ I made contributions to:
 - [softwarefactory-project/zuul-results-gerrit-plugin](https://github.com/softwarefactory-project/zuul-results-gerrit-plugin)
 - [softwarefactory-project/zuul-weeder](https://github.com/softwarefactory-project/zuul-weeder)
 - [sparsemat/sprs](https://github.com/sparsemat/sprs)
+- [srid/commonmark-wikilink](https://github.com/srid/commonmark-wikilink)
 - [srid/emanote](https://github.com/srid/emanote)
+- [srid/heist-extra](https://github.com/srid/heist-extra)
 - [srid/neuron](https://github.com/srid/neuron)
+- [srid/tailwind-haskell](https://github.com/srid/tailwind-haskell)
 - [stackbuilders/dotenv-hs](https://github.com/stackbuilders/dotenv-hs)
 - [supercollider/portaudio](https://github.com/supercollider/portaudio)
 - [supercollider/sc3-plugins](https://github.com/supercollider/sc3-plugins)
@@ -269,6 +296,7 @@ I made contributions to:
 - [swarm-game/swarm](https://github.com/swarm-game/swarm)
 - [thoth-station/zuul-config](https://github.com/thoth-station/zuul-config)
 - [thoughtpolice/hs-ed25519](https://github.com/thoughtpolice/hs-ed25519)
+- [tidalcycles/strudel](https://github.com/tidalcycles/strudel)
 - [timblechmann/nova-simd](https://github.com/timblechmann/nova-simd)
 - [timblechmann/nova-tt](https://github.com/timblechmann/nova-tt)
 - [tonyday567/chart-svg](https://github.com/tonyday567/chart-svg)
@@ -287,6 +315,7 @@ I made contributions to:
 - [TristanCacqueray/ki-effectful](https://github.com/TristanCacqueray/ki-effectful)
 - [TristanCacqueray/learn-blender](https://github.com/TristanCacqueray/learn-blender)
 - [TristanCacqueray/moonracer](https://github.com/TristanCacqueray/moonracer)
+- [TristanCacqueray/pipewire.hs](https://github.com/TristanCacqueray/pipewire.hs)
 - [TristanCacqueray/qmk-config](https://github.com/TristanCacqueray/qmk-config)
 - [TristanCacqueray/simple-dear-imgui](https://github.com/TristanCacqueray/simple-dear-imgui)
 - [TristanCacqueray/simple-dsp](https://github.com/TristanCacqueray/simple-dsp)
@@ -294,33 +323,26 @@ I made contributions to:
 - [TristanCacqueray/tiny-game-haskell-wasm](https://github.com/TristanCacqueray/tiny-game-haskell-wasm)
 - [TristanCacqueray/tiny-game-server](https://github.com/TristanCacqueray/tiny-game-server)
 - [TristanCacqueray/zmk-config](https://github.com/TristanCacqueray/zmk-config)
+- [tsherif/picogl.js](https://github.com/tsherif/picogl.js)
 - [typeddjango/awesome-python-typing](https://github.com/typeddjango/awesome-python-typing)
 - [typeractivexyz/documentation](https://github.com/typeractivexyz/documentation)
 - [weeezes/dhall-grafana](https://github.com/weeezes/dhall-grafana)
 - [well-typed/cborg](https://github.com/well-typed/cborg)
 - [well-typed/generics-sop](https://github.com/well-typed/generics-sop)
+- [well-typed/large-records](https://github.com/well-typed/large-records)
+- [xenodium/ready-player](https://github.com/xenodium/ready-player)
 - [yesodweb/wai](https://github.com/yesodweb/wai)
+- [yewang/besogo](https://github.com/yewang/besogo)
 - [zfoh/zfoh.ch](https://github.com/zfoh/zfoh.ch)
 
 <!---
-To update the above lists, run this query through https://docs.github.com/en/graphql/overview/explorer:
+Update by running:
 
 ```
-{
-  user(login: "TristanCacqueray") {
-    contributionsCollection(from:"2022-12-01T01:01:00", to:"2023-12-01T01:01:00") {
-      commitContributionsByRepository(maxRepositories:100) {
-        repository {
-          url
-        }
-      }
-    }
-  }
-}
+nix run github:change-metrics/monocle -- lentille github-user-changes --url https://api.github.com/graphql --token $GITHUB_TOKEN --user TristanCacqueray --since 2024-01-01 --human > contribs
+cat contribs | awk '{ print $1 }' | sed 's|.pull/[0-9].*||' | sed 's|https://github.com/\(.*\)|- [\1](https://github.com/\1)|' | sort -u > new.md
 ```
 
-Then convert the result to markdown with:
+Append the above list, then run `cat new.md | sort -u`
 
-> grep url | awk '{ print $2 }' | sort -u | sed 's/"//g' | sed 's/\(.*\)/- [\1](\1)/' | sed -s 's/https...github.com.//' | sort -uf
->
 -->
