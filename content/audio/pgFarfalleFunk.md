@@ -25,7 +25,7 @@ I learned how to use the built-in Super8 looper to playback the Strudel's patter
 I hope you enjoy this.
 
 :::{.flex .items-center .justify-center}
-<audio controls class="md:w-[750px] mb-4">
+<audio controls class="lg:w-[750px] mb-4">
   <source src="https://cdn.midirus.com/audio/2024-pastagang/farfalleFunk.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>

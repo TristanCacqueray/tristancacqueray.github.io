@@ -8,7 +8,7 @@ date: 2024-12-01
 :::
 
 :::{.flex .items-center .justify-center}
-<audio controls class="md:w-[750px] mb-4">
+<audio controls class="lg:w-[750px] mb-4">
   <source src="https://cdn.midirus.com/audio/2022-opFreak/opFlux.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
 </audio>
