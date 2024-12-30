@@ -1,4 +1,23 @@
 <div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2024-12-30</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      I wrote some <span class="hashtag">#Haskell</span> to generate a static
+      copy of my posts on mastodon: <a
+        href="https://github.com/TristanCacqueray/tristancacqueray.github.io/blob/main/src/Toot.hs"
+        class="text-blue-600 hover:underline cursor-pointer"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+      >Toot.hs</a> here: <a
+        href="https://midirus.com/toots"
+        class="text-blue-600 hover:underline cursor-pointer"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        translate="no"
+      >https://midirus.com/toots</a>
+    </p>
+  </div>
+</div><div class="flex">
   <div class="mr-2 pt-2 text-sm font-semibold font-mono">2024-12-26</div>
   <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
     <p>
