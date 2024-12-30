@@ -10,7 +10,7 @@
 module Toot where
 
 import Data.Aeson qualified as Aeson
-import Data.Aeson.Types (FromJSON, ToJSON)
+import Data.Aeson.Types (FromJSON)
 import Lucid
 import RIO
 import RIO.Text qualified as Text
