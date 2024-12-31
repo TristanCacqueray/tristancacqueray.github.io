@@ -23,29 +23,17 @@ import Data.ByteString qualified as BS
 import Data.ByteString.Char8 qualified as BS
 import Data.ByteString.Char8 qualified as BS8
 import Data.Char (toTitle)
-import Data.List (isSuffixOf, sortBy, sortOn)
+import Data.List (sortBy)
 import Data.List.Split
 import Data.Text qualified as Text
 import Data.Text.Encoding qualified as Text
-import Data.Text.IO qualified as Text
 import Data.Time.Format (defaultTimeLocale, formatTime)
 import Data.Yaml hiding (Parser, encodeFile)
 import Data.Yaml qualified as Yaml
-import Lucid
-import Lucid.Base (makeAttribute, makeElement)
 import RIO
-import System.Directory (doesPathExist, getModificationTime, listDirectory)
-import System.Environment (getArgs)
+import System.Directory (doesPathExist, getModificationTime)
 import System.FilePath
 import System.Process.Typed qualified as P
-import Text.Pandoc.Class (runIOorExplode)
-import Text.Pandoc.Definition
-import Text.Pandoc.Extensions
-import Text.Pandoc.Options (def, readerExtensions)
-import Text.Pandoc.Readers.Markdown (readMarkdown)
-import Text.Pandoc.Readers.Org (readOrg)
-import Text.Parsec qualified as Parsec
-import Text.Parsec.Text (Parser)
 
 data AudioMetaData = AudioMetaData
     { albums :: [Playlist]
@@ -101,7 +89,11 @@ mainAudio = do
     audioFiles <- reverse . sortBy orderFiles <$> traverse getAudioFile files
     -- traverse_ print audioFiles
     encodeFile "/srv/cdn.midirus.com/audio.json" $ renderAudioMetaData audioFiles
+    encodeFile "/srv/cdn.midirus.com/audio/pastagang.json" $ filter isPasta audioFiles
     putStrLn "Done!"
+
+isPasta :: AudioFile -> Bool
+isPasta af = af.album == "Pastagang"
 
 orderFiles :: AudioFile -> AudioFile -> Ordering
 orderFiles f1 f2 = case compare (albumDate f1.path) (albumDate f2.path) of

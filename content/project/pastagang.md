@@ -3,11 +3,17 @@ title: Pastagang
 date: 2024-11-01
 tags:
   - music
+template:
+  name: /templates/pastagang
 ---
 
-It all started with Lu sharing a link to a web interface called Flok.
+Here are some of the [pastagang](https://www.pastagang.cc/) session I produced:
 
-Here are the session I produced with [[reaper]]
+:::{.flex .items-center .justify-center}
+<peaks-playlist pos=2 url="https://cdn.midirus.com/audio/pastagang.json"></peaks-playlist>
+:::
+
+You can find making-of notes here:
 
 - [[pgFarfalleFunk]]#
 - [[pgSimpleButHard]]#
