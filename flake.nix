@@ -69,6 +69,12 @@
           cp ${inputs.self}/.htaccess $out
         '';
       };
+      build = pkgs.writeScriptBin "build" ''
+        rm -Rf _out/; mkdir -p _out;
+        cp -p .htaccess _out;
+        ${emanote}/bin/emanote -L content/ gen _out
+        ${render-tool}/bin/render ts
+      '';
       run = pkgs.writeScriptBin "run" ''
         ${emanote}/bin/emanote -L content/ run --host 0.0.0.0 --port 8080
       '';
@@ -78,6 +84,10 @@
       apps."x86_64-linux".default = {
         type = "app";
         program = "${run}/bin/run";
+      };
+      apps."x86_64-linux".build = {
+        type = "app";
+        program = "${build}/bin/build";
       };
       devShells."x86_64-linux".default = pkgs.mkShell {
         buildInputs = [
