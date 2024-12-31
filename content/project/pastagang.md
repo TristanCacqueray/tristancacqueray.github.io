@@ -4,7 +4,7 @@ date: 2024-11-01
 tags:
   - music
 template:
-  name: /templates/pastagang
+  name: /templates/audio-player
 ---
 
 Here are some of the [pastagang](https://www.pastagang.cc/) session I produced:
