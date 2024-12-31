@@ -1,5 +1,7 @@
 ---
 date: 2024-11-10
+template:
+  name: /templates/audio-player
 ---
 # opFreak - opCapacity
 
@@ -11,10 +13,7 @@ This was recorded in one-shot, and I kept most of it for a live home studio feel
 :::
 
 :::{.flex .items-center .justify-center}
-<audio controls class="lg:w-[750px] mb-4">
-  <source src="https://cdn.midirus.com/audio/2022-opFreak/opCapacity.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
+<peaks-player url="https://cdn.midirus.com/audio/2022-opFreak/opCapacity-edits"></peaks-player>
 :::
 
 Here are the different tracks:
