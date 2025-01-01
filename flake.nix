@@ -48,6 +48,102 @@
         dontInstall = true;
       };
 
+      run-local-apache = pkgs.writeScriptBin "run" ''
+        exec ${pkgs.apacheHttpd}/bin/httpd -f ${local-apache-conf} -DFOREGROUND
+      '';
+
+      local-ca = pkgs.runCommand "build-local-ca" { } ''
+        echo Generating local ca
+        export PATH=$PATH:${pkgs.openssl}/bin
+        openssl req -x509 -new -nodes -newkey rsa:2048 -keyout localCA.key -sha256 -days 1825 -out localCA.crt -subj /CN='localhost ca'
+        for dns in midirus.com cdn.midirus.com; do
+          openssl req -newkey rsa:2048 -nodes -keyout $dns.key -out $dns.csr -subj /CN=$dns -addext subjectAltName=DNS:$dns
+          openssl x509 -req -in $dns.csr -copy_extensions copy -CA localCA.crt -CAkey localCA.key -CAcreateserial -out $dns.crt -days 365 -sha256
+        done;
+        mkdir $out
+        mv *.key *.crt $out
+      '';
+
+      mk-vhost = name: ''
+        <VirtualHost *:80>
+            ServerName ${name}
+            RewriteEngine On
+
+            <Directory "/srv/${name}">
+                AllowOverride All
+                Require all granted
+            </Directory>
+
+            DocumentRoot /srv/${name}
+        </VirtualHost>
+        <VirtualHost *:443>
+            ServerName ${name}
+            RewriteEngine On
+
+            SSLEngine on
+            SSLCertificateFile ${local-ca}/${name}.crt
+            SSLCertificateKeyFile ${local-ca}/${name}.key
+
+            <Directory "/srv/${name}">
+                AllowOverride All
+                Require all granted
+            </Directory>
+
+            DocumentRoot /srv/${name}
+        </VirtualHost>
+      '';
+
+      local-apache-conf = pkgs.writeTextFile {
+        name = "local-apache.conf";
+        text = ''
+          ServerRoot "${pkgs.apacheHttpd}"
+
+          # Minimum modules needed
+          LoadModule mpm_event_module modules/mod_mpm_event.so
+          LoadModule log_config_module modules/mod_log_config.so
+          LoadModule mime_module modules/mod_mime.so
+          LoadModule filter_module modules/mod_filter.so
+          LoadModule deflate_module modules/mod_deflate.so
+          LoadModule alias_module modules/mod_alias.so
+          LoadModule headers_module modules/mod_headers.so
+          LoadModule dir_module modules/mod_dir.so
+          LoadModule authz_core_module modules/mod_authz_core.so
+          LoadModule unixd_module modules/mod_unixd.so
+          LoadModule rewrite_module modules/mod_rewrite.so
+          LoadModule ssl_module modules/mod_ssl.so
+          TypesConfig conf/mime.types
+
+          PidFile /tmp/httpd.pid
+
+          # Port to Listen on
+          Listen *:80
+          Listen *:443
+          ServerName "local-apache"
+
+          # In a basic setup httpd can only serve files from its document root
+          DocumentRoot "/tmp"
+
+          # Default file to serve
+          DirectoryIndex index.html
+
+          # Errors go to their own log
+          ErrorLog /dev/stderr
+
+          # Access log
+          LogFormat "%h %l %u %t \"%r\" %>s %b" common
+          CustomLog /dev/stdout common
+
+          # Never change this block
+          <Directory />
+            AllowOverride None
+            Require all denied
+          </Directory>
+
+          ${mk-vhost "midirus.com"}
+          ${mk-vhost "cdn.midirus.com"}
+        '';
+      };
+
       website = pkgs.stdenv.mkDerivation {
         name = "tristancacqueray.io-pages";
         buildInputs = [ emanote ];
@@ -81,6 +177,8 @@
     in {
       packages.x86_64-linux.default = website;
       packages.x86_64-linux.render = render-tool;
+      packages.x86_64-linux.local = run-local-apache;
+      packages.x86_64-linux.local-ca = local-ca;
       apps."x86_64-linux".default = {
         type = "app";
         program = "${run}/bin/run";
