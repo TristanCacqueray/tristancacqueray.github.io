@@ -19,10 +19,10 @@ import Toot
 -- Fixup file timestamps
 mainTimestamps :: IO ()
 mainTimestamps = do
-    all <- runFind ["_out/"]
+    all <- runFind ["/srv/midirus.com/"]
     epoch <- getModificationTime ".epoch"
     mapM_ (nullTS epoch) all
-    files <- runFind ["_out/", "-type", "f"]
+    files <- runFind ["content/", "-type", "f"]
     mapM_ setTS files
     putStrLn "Done with timestamps"
   where
@@ -30,9 +30,10 @@ mainTimestamps = do
         setModificationTime fp epoch
     setTS fp = do
         ts <- getModificationTime fp
-        let outFP = "_out/" <> (drop 8 $ fp)
+        let outFP = "/srv/midirus.com/" <> (drop 8 $ fp)
         doesFileExist outFP >>= \case
-            True -> setModificationTime outFP ts
+            True -> do
+                setModificationTime outFP ts
             False -> do
                 let baseFP = dropExtension outFP
                 whenM (doesFileExist $ baseFP <> ".html") do

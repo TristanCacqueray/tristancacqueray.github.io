@@ -166,9 +166,9 @@
         '';
       };
       build = pkgs.writeScriptBin "build" ''
-        rm -Rf _out/; mkdir -p _out;
-        cp -p .htaccess _out;
-        ${emanote}/bin/emanote -L content/ gen _out
+        mkdir -p /srv/midirus.com; rm -Rf /srv/midirus.com/*
+        ${emanote}/bin/emanote -L content/ gen /srv/midirus.com
+        cp -p .htaccess /srv/midirus.com
         ${render-tool}/bin/render ts
       '';
       run = pkgs.writeScriptBin "run" ''
