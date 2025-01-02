@@ -30,6 +30,7 @@
       <link href="${value:iconUrl}" rel="icon" />
     </with>
     <snippet var="page.headHtml" />
+    <snippet var="_dynhead" />
   </ema:metadata>
   <emaNoteFeedUrl />
   <tailwindCssShim />

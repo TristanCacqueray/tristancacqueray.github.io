@@ -31,3 +31,8 @@ executable midirus-dot-com
     , split
   default-language: Haskell2010
   ghc-options: -Wall
+
+executable mitadi
+  main-is: Mitadi.hs
+  hs-source-dirs: ./src
+  build-depends: base < 5, emanote, rio, pandoc-types

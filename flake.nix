@@ -1,14 +1,17 @@
 {
   inputs = {
-    emanote.url =
-      "github:srid/emanote/3a00eeaf8c0d1da8868b5a9418e648fe42c34b38";
+    mitadi.url =
+      "github:TristanCacqueray/mitadi.nix/6796aa09895d37752e9d4d548502a52e7f8a0d9a";
+    # "path:/srv/github.com/TristanCacqueray/mitadi.nix";
     nixpkgs.url =
       "github:NixOS/nixpkgs/3665c429d349fbda46b0651e554cca8434452748";
+    nixpkgs-unstable.url =
+      "github:NixOS/nixpkgs/de1864217bfa9b5845f465e771e0ecb48b30e02d";
   };
 
   outputs = inputs:
     let
-      emanote = inputs.emanote.packages.x86_64-linux.default;
+      emanote = inputs.mitadix.packages.x86_64-linux.default;
       pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
       ebml = pkgs.fetchFromGitHub {
         owner = "TristanCacqueray";
@@ -33,15 +36,22 @@
         p.pandoc-types
         (pkgs.haskellPackages.callCabal2nix "ebml" ebml { })
       ]);
+      pkgs-unstable =
+        import inputs.nixpkgs-unstable { system = "x86_64-linux"; };
+      hspkgs = pkgs-unstable.haskellPackages.extend inputs.mitadi.extend;
+      ghc-unstable =
+        hspkgs.ghcWithPackages (p: [ p.emanote p.string-qq p.rio ]);
+
       render-tool = pkgs.stdenv.mkDerivation rec {
         pname = "render";
         version = "1";
         src = ./src;
         buildPhase = ''
           cp $src/*.hs .
+          ${ghc-unstable}/bin/ghc -threaded -rtsopts -with-rtsopts=-N -main-is Mitadi -XLambdaCase -XQuasiQuotes -XOverloadedStrings --make Mitadi.hs -o mitadi
           ${ghc}/bin/ghc -dynamic --make Render.hs -o render
           mkdir -p $out/bin
-          mv render $out/bin
+          mv mitadi render $out/bin
         '';
         dontStrip = true;
         dontUnpack = true;
@@ -167,7 +177,7 @@
       };
       build = pkgs.writeScriptBin "build" ''
         mkdir -p /srv/midirus.com; rm -Rf /srv/midirus.com/*
-        ${emanote}/bin/emanote -L content/ gen /srv/midirus.com
+        ${render-tool}/bin/mitadi -L content/ gen /srv/midirus.com
         cp -p .htaccess /srv/midirus.com
         ${render-tool}/bin/render ts
       '';
@@ -187,6 +197,7 @@
         type = "app";
         program = "${build}/bin/build";
       };
+      devShells."x86_64-linux".ema = emanote.env;
       devShells."x86_64-linux".default = pkgs.mkShell {
         buildInputs = [
           ghc
