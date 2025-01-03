@@ -11,7 +11,7 @@
 
   outputs = inputs:
     let
-      emanote = inputs.mitadix.packages.x86_64-linux.default;
+      emanote = inputs.mitadi.packages.x86_64-linux.default;
       pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
       ebml = pkgs.fetchFromGitHub {
         owner = "TristanCacqueray";
@@ -19,6 +19,7 @@
         rev = "aff25512b52e48e92d77cd59019a0291a8b43bf4";
         sha256 = "sha256-U2Mo83gr7dLm+rRKOLzS9LZUaZ90ECO6Zjbv6maflyc=";
       };
+      # old ghc used in some article
       ghc = pkgs.haskellPackages.ghcWithPackages (p: [
         p.markdown-unlit
         p.rio
@@ -34,30 +35,32 @@
         p.yaml
         p.pandoc
         p.pandoc-types
+        p.SHA
         (pkgs.haskellPackages.callCabal2nix "ebml" ebml { })
       ]);
+
+      # the new GHC for mitadi
       pkgs-unstable =
         import inputs.nixpkgs-unstable { system = "x86_64-linux"; };
-      hspkgs = pkgs-unstable.haskellPackages.extend inputs.mitadi.extend;
-      ghc-unstable =
-        hspkgs.ghcWithPackages (p: [ p.emanote p.string-qq p.rio ]);
+      hspkgs =
+        (pkgs-unstable.haskellPackages.extend inputs.mitadi.extend).extend
+        (hpPrev: hpFinal: {
+          mitadi = hpPrev.callCabal2nix "mitadi" ./src { };
+        });
+      ghc-unstable = hspkgs.ghcWithPackages
+        (p: [ p.emanote p.string-qq p.rio p.lucid p.SHA ]);
+      mitadi = hspkgs.mitadi;
 
-      render-tool = pkgs.stdenv.mkDerivation rec {
-        pname = "render";
-        version = "1";
-        src = ./src;
-        buildPhase = ''
-          cp $src/*.hs .
-          ${ghc-unstable}/bin/ghc -threaded -rtsopts -with-rtsopts=-N -main-is Mitadi -XLambdaCase -XQuasiQuotes -XOverloadedStrings --make Mitadi.hs -o mitadi
-          ${ghc}/bin/ghc -dynamic --make Render.hs -o render
-          mkdir -p $out/bin
-          mv mitadi render $out/bin
-        '';
-        dontStrip = true;
-        dontUnpack = true;
-        dontInstall = true;
-      };
+      build = pkgs.writeScriptBin "build" ''
+        mkdir -p /srv/midirus.com; rm -Rf /srv/midirus.com/*
+        cp -p .htaccess /srv/midirus.com
+        ${mitadi}/bin/mitadi -L content/ gen /srv/midirus.com
+      '';
+      run = pkgs.writeScriptBin "run" ''
+        ${mitadi}/bin/mitadi -L content/ run --host 0.0.0.0 --port 8080
+      '';
 
+      # local-first tools
       run-local-apache = pkgs.writeScriptBin "run" ''
         exec ${pkgs.apacheHttpd}/bin/httpd -f ${local-apache-conf} -DFOREGROUND
       '';
@@ -153,40 +156,8 @@
           ${mk-vhost "cdn.midirus.com"}
         '';
       };
-
-      website = pkgs.stdenv.mkDerivation {
-        name = "tristancacqueray.io-pages";
-        buildInputs = [ emanote ];
-        src = inputs.self;
-        # https://github.com/jaspervdj/hakyll/issues/614
-        # https://github.com/NixOS/nix/issues/318#issuecomment-52986702
-        # https://github.com/MaxDaten/brutal-recipes/blob/source/default.nix#L24
-        LOCALE_ARCHIVE =
-          pkgs.lib.optionalString (pkgs.buildPlatform.libc == "glibc")
-          "${pkgs.glibcLocales}/lib/locale/locale-archive";
-        LANG = "en_US.UTF-8";
-
-        buildPhase = ''
-          mkdir _out
-          emanote -L content/ gen _out
-        '';
-        installPhase = ''
-          mv _out $out
-          cp ${inputs.self}/.htaccess $out
-        '';
-      };
-      build = pkgs.writeScriptBin "build" ''
-        mkdir -p /srv/midirus.com; rm -Rf /srv/midirus.com/*
-        ${render-tool}/bin/mitadi -L content/ gen /srv/midirus.com
-        cp -p .htaccess /srv/midirus.com
-        ${render-tool}/bin/render ts
-      '';
-      run = pkgs.writeScriptBin "run" ''
-        ${emanote}/bin/emanote -L content/ run --host 0.0.0.0 --port 8080
-      '';
     in {
-      packages.x86_64-linux.default = website;
-      packages.x86_64-linux.render = render-tool;
+      packages.x86_64-linux.default = mitadi;
       packages.x86_64-linux.local = run-local-apache;
       packages.x86_64-linux.local-ca = local-ca;
       apps."x86_64-linux".default = {
@@ -197,14 +168,20 @@
         type = "app";
         program = "${build}/bin/build";
       };
-      devShells."x86_64-linux".ema = emanote.env;
-      devShells."x86_64-linux".default = pkgs.mkShell {
+      devShells."x86_64-linux".mitadi = pkgs.mkShell {
         buildInputs = [
-          ghc
-          pkgs.cabal-install
-          pkgs.ghcid
-          pkgs.haskell-language-server
-          emanote
+          ghc-unstable
+          pkgs-unstable.cabal-install
+          pkgs-unstable.ghcid
+          pkgs-unstable.haskell-language-server
+        ];
+      };
+      devShells."x86_64-linux".default = hspkgs.shellFor {
+        packages = p: [ p.mitadi ];
+        buildInputs = [
+          pkgs-unstable.cabal-install
+          pkgs-unstable.ghcid
+          pkgs-unstable.haskell-language-server
         ];
       };
       devShells."x86_64-linux".gstreamer = pkgs.mkShell {

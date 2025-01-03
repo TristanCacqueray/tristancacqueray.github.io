@@ -1,40 +1,22 @@
-{-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE ImportQualifiedPost #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedRecordDot #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE PartialTypeSignatures #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# OPTIONS_GHC -Wno-partial-type-signatures #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 {-# HLINT ignore "Avoid reverse" #-}
 {-# HLINT ignore "Redundant bracket" #-}
 {-# HLINT ignore "Use forM_" #-}
 
-module Project where
+-- | Render the project.tpl
+module Project (mainProject) where
 
 import Data.ByteString qualified as BS
 import Data.ByteString.Char8 qualified as BS
-import Data.List (isSuffixOf, sortOn)
+import Data.List (sortOn)
 import Data.Text qualified as Text
-import Data.Text.IO qualified as Text
 import Data.Yaml hiding (Parser, encodeFile)
 import Lucid
 import Lucid.Base (makeAttribute, makeElement)
 import RIO
 import System.Directory (listDirectory)
 import System.FilePath
-import Text.Pandoc.Class (runIOorExplode)
-import Text.Pandoc.Definition
-import Text.Pandoc.Extensions
-import Text.Pandoc.Options (def, readerExtensions)
-import Text.Pandoc.Readers.Markdown (readMarkdown)
-import Text.Pandoc.Readers.Org (readOrg)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Text (Parser)
 
@@ -63,9 +45,11 @@ parseProject :: FilePath -> IO Project
 parseProject fp = do
     putStrLn $ "[+] " <> fp
     ("---" : lines') <- BS.lines <$> BS.readFile fp
-    let (yml, "---" : "" : intro : _) = break (== "---") lines'
-    pm <- decodeThrow (BS.unlines yml)
-    pure $ Project fp pm (parseIntro $! decodeUtf8With lenientDecode intro)
+    case break (== "---") lines' of
+        (yml, "---" : "" : intro : _) -> do
+            pm <- decodeThrow (BS.unlines yml)
+            pure $ Project fp pm (parseIntro $! decodeUtf8With lenientDecode intro)
+        _ -> error $ fp <> ": Missing front matter"
 
 getIcon :: Project -> Maybe (Html ())
 getIcon p
@@ -140,23 +124,9 @@ introParser = Parsec.many1 (wordP <|> linkP <|> dotP)
         Parsec.optional (Parsec.char '#')
         pure $ if Text.elem '|' l then Text.takeWhileEnd (/= '|') l else l
 
-formatIntro :: [Text] -> Text
-formatIntro = flip mappend "." . mconcat . takeWhile (/= ".")
-
-mainProjs :: IO ()
-mainProjs = do
+mainProject :: IO ()
+mainProject = do
     projFiles <- map (mappend "content/project/") <$> listDirectory "content/project"
     projs <- traverse parseProject projFiles
     renderToFile "content/templates/components/projects.tpl" (renderProjects (reverse $ sortOn (projectDate . projectMeta) projs))
     Process.runProcess_ "deno fmt  ./htmls/projects.html"
-
-doRead :: FilePath -> IO Pandoc
-doRead fp = do
-    content <- Text.readFile fp
-    runIOorExplode $
-        if ".org" `isSuffixOf` fp
-            then readOrg readerOpts content
-            else readMarkdown readerOpts content
-  where
-    readerOpts = def{readerExtensions = extensionsFromList (exts)}
-    exts = [Ext_auto_identifiers]

@@ -1,12 +1,4 @@
-{-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE ImportQualifiedPost #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE OverloadedRecordDot #-}
-{-# LANGUAGE OverloadedStrings #-}
-
+-- | Render the toot.tpl
 module Toot where
 
 import Data.Aeson qualified as Aeson

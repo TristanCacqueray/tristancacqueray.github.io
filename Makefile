@@ -1,4 +1,4 @@
-PHONY = publish clean sync-cdn
+PHONY = publish sync-cdn
 
 publish:
 	nix run .#build

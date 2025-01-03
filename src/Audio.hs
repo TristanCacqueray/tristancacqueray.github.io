@@ -1,22 +1,10 @@
-{-# LANGUAGE BlockArguments #-}
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE ImportQualifiedPost #-}
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE NamedFieldPuns #-}
-{-# LANGUAGE OverloadedRecordDot #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE PartialTypeSignatures #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# OPTIONS_GHC -Wno-partial-type-signatures #-}
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
 {-# HLINT ignore "Avoid reverse" #-}
 {-# HLINT ignore "Redundant bracket" #-}
 
-module Audio where
+-- | Render the audio.json
+module Audio (mainAudio) where
 
 import Data.Aeson (encodeFile)
 import Data.ByteString qualified as BS
@@ -34,6 +22,8 @@ import RIO
 import System.Directory (doesPathExist, getModificationTime)
 import System.FilePath
 import System.Process.Typed qualified as P
+
+import Utils
 
 data AudioMetaData = AudioMetaData
     { albums :: [Playlist]
@@ -103,11 +93,6 @@ orderFiles f1 f2 = case compare (albumDate f1.path) (albumDate f2.path) of
     o -> o
   where
     albumDate = Text.takeWhile (/= '/')
-
-runFind :: [String] -> IO [FilePath]
-runFind args = toFP <$> P.readProcessStdout_ (P.proc "find" args)
-  where
-    toFP = map Text.unpack . Text.lines . Text.decodeUtf8 . BS.toStrict
 
 getAudioFile :: FilePath -> IO AudioFile
 getAudioFile fp = do
@@ -248,6 +233,8 @@ parseAudioMD :: FilePath -> IO AudioMD
 parseAudioMD fp = do
     -- putStrLn $ "[+] " <> fp
     ("---" : lines') <- BS.lines <$> BS.readFile fp
-    let (yml, "---" : intro) = break (== "---") lines'
-    pm <- decodeThrow (BS.unlines yml)
-    pure $ AudioMD pm (decodeUtf8With lenientDecode $ BS8.dropWhile (`elem` [' ', '\n']) $ BS.unlines intro)
+    case break (== "---") lines' of
+        (yml, "---" : intro) -> do
+            pm <- decodeThrow (BS.unlines yml)
+            pure $ AudioMD pm (decodeUtf8With lenientDecode $ BS8.dropWhile (`elem` [' ', '\n']) $ BS.unlines intro)
+        _ -> error $ fp <> ": missing frontmatter"

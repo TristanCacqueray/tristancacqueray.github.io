@@ -1,0 +1,61 @@
+cabal-version:  3.0
+name:           mitadi
+version:        1
+build-type:     Simple
+license-file:   LICENSE
+copyright:      2024 Tristan de Cacqueray
+
+executable mitadi
+  main-is: Mitadi.hs
+  default-language: GHC2021
+  ghc-options:
+    -Wall
+    -Wunused-packages
+    -fwarn-incomplete-uni-patterns
+    -Wno-partial-type-signatures
+    -Wno-missing-methods
+    -threaded -rtsopts -with-rtsopts=-N
+  default-extensions:
+    BlockArguments
+    DataKinds
+    DeriveAnyClass
+    DeriveGeneric
+    DerivingStrategies
+    DerivingVia
+    DuplicateRecordFields
+    GeneralizedNewtypeDeriving
+    ImportQualifiedPost
+    LambdaCase
+    MultiWayIf
+    NamedFieldPuns
+    OverloadedLabels
+    OverloadedRecordDot
+    OverloadedStrings
+    PartialTypeSignatures
+    QuasiQuotes
+    RecordWildCards
+    TemplateHaskell
+    TypeFamilies
+    ViewPatterns
+
+  other-modules: Audio, Project, Toot, PostFixup, WebComponents, Utils
+  build-depends:
+      base >=4.7 && <5
+    , rio
+    , yaml
+    , text
+    , bytestring
+    , time
+    , lucid
+    , pandoc
+    , pandoc-types
+    , parsec
+    , typed-process
+    , filepath
+    , string-qq
+    , directory
+    , aeson
+    , split
+    , emanote
+    , SHA
+    , with-utf8
