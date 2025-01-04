@@ -11,6 +11,7 @@ import Emanote.Model.SData (mergeAeson)
 import Text.Pandoc.Definition qualified as P
 import Text.Pandoc.Walk
 
+import Data.Monoid (Any (..))
 import Data.String.QQ (s)
 
 webComponents :: [(Text, Text)]
@@ -126,11 +127,16 @@ genDynamicInline = \case
     P.Math _ _ -> [mathHtml]
     _ -> []
 
-addHighlightJS :: Text -> Text
-addHighlightJS txt
-    | "godiag" `Text.isInfixOf` txt || "highlightjs" `Text.isInfixOf` txt =
-        preHighlighHtml <> txt <> postHighlighHtml
-    | otherwise = txt
+hasCode :: P.Block -> Any
+hasCode = \case
+    P.CodeBlock (_, classes, _) _
+        | classes /= [] && classes /= ["raw"] -> Any True
+    _ -> Any False
+
+addHighlightJS :: P.Pandoc -> Text -> Text
+addHighlightJS blk txt = case query hasCode blk of
+    Any True -> preHighlighHtml <> txt <> postHighlighHtml
+    Any False -> txt
 
 addWebComponents :: Note -> Note
 addWebComponents note =
@@ -143,5 +149,5 @@ addWebComponents note =
   where
     doc = _noteDoc note
     dynHead = query genDynamicBlock doc <> query genDynamicInline doc
-    _dynhead = addHighlightJS $ Text.unlines $ nub dynHead
+    _dynhead = addHighlightJS doc $ Text.unlines $ nub dynHead
     newMeta = object ["_dynhead" .= _dynhead]
