@@ -343,6 +343,7 @@ Then, a database can be generated using this schema:
 
 - [ ] TODO: formalize this process, it is currently developed in the `src/Audio.hs` module
 
+- [ ] TODO: mention [faircamp](https://simonrepp.com/faircamp/) as an alternative solution compatible with Mitadi.
 
 ### Media Type
 
