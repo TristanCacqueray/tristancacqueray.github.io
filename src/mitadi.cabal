@@ -38,7 +38,7 @@ executable mitadi
     TypeFamilies
     ViewPatterns
 
-  other-modules: Audio, Project, Toot, PostFixup, WebComponents, Utils
+  other-modules: Audio, Project, Toot, PostFixup, WebComponents, Utils, Medias
   build-depends:
       base >=4.7 && <5
     , rio
@@ -59,3 +59,4 @@ executable mitadi
     , emanote
     , SHA
     , with-utf8
+    , dhall

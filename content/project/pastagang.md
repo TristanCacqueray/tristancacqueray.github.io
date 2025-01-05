@@ -8,7 +8,7 @@ tags:
 Here are some of the [pastagang](https://www.pastagang.cc/) session I produced:
 
 :::{.flex .items-center .justify-center}
-<peaks-playlist pos=2 url="https://cdn.midirus.com/audio/pastagang.json"></peaks-playlist>
+<peaks-playlist pos=3 url="https://cdn.midirus.com/project/pastagang.json"></peaks-playlist>
 :::
 
 You can find making-of notes here:
