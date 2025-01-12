@@ -64,7 +64,7 @@ function isAudio(media) {
 }
 
 function toTitleCase(str) {
-  return str.replace(
+  return str.replaceAll('-', ' ').replace(
     /\w\S*/g,
     (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase(),
   );
@@ -92,7 +92,7 @@ Promise.all([setupPlayer(), getAudio()]).then(([player, data]) => {
       media.url = cdnHost + media.path + ".mp3";
       media.duration = media.len / 1000;
       media.album = release.name;
-      releases.add(release.name);
+      releases.add(toTitleCase(release.name));
       addToPlaylist(release.name, media);
       media.tags.forEach((t) => addToPlaylist(t, media));
       return media;

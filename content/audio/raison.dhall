@@ -34,7 +34,7 @@
     , title = "Cbc"
     , date = 2013-10-08
     , note = None Text
-    , tags = [ "beat" ]
+    , tags = [ "best", "beat" ]
     }
   , { path = "/audio/2014-raison/crazy-jam_raw"
     , cover = None Text
@@ -79,7 +79,7 @@
     , title = "Inline"
     , date = 2013-11-16
     , note = None Text
-    , tags = [ "space-jazz" ]
+    , tags = [ "best", "space-jazz" ]
     }
   , { path = "/audio/2014-raison/mathilda"
     , cover = None Text
@@ -151,7 +151,7 @@
     , title = "Polaria"
     , date = 2013-09-22
     , note = None Text
-    , tags = [ "space-jazz" ]
+    , tags = [ "best", "space-jazz" ]
     }
   , { path = "/audio/2014-raison/jamrahmu_p2"
     , cover = None Text

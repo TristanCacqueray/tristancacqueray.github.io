@@ -25,7 +25,7 @@
     , title = "113acidjazz"
     , date = 2022-01-30
     , note = None Text
-    , tags = [ "beat" ]
+    , tags = [ "best", "beat" ]
     }
   , { path = "/audio/2022-opFreak/96opHop"
     , cover = None Text
@@ -79,7 +79,7 @@
     , title = "MicroX Nokick"
     , date = 2024-03-23
     , note = None Text
-    , tags = [ "trip-hop" ]
+    , tags = [ "best", "trip-hop", "no-kick" ]
     }
   , { path = "/audio/2022-opFreak/op961"
     , cover = None Text
@@ -133,7 +133,7 @@
     , title = "OpCBC Edits"
     , date = 2024-03-29
     , note = None Text
-    , tags = [ "beat" ]
+    , tags = [ "best", "beat" ]
     }
   , { path = "/audio/2022-opFreak/opCOW"
     , cover = None Text
@@ -151,7 +151,7 @@
     , title = "OpHac"
     , date = 2023-06-27
     , note = None Text
-    , tags = [ "trip-hop" ]
+    , tags = [ "pretty-good", "trip-hop" ]
     }
   , { path = "/audio/2022-opFreak/opJuicer"
     , cover = None Text
@@ -160,7 +160,7 @@
     , title = "OpJuicer"
     , date = 2024-02-17
     , note = None Text
-    , tags = [ "beat" ]
+    , tags = [ "best", "beat" ]
     }
   , { path = "/audio/2022-opFreak/opMacs"
     , cover = None Text

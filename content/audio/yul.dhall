@@ -7,7 +7,7 @@
     , title = "Hameau Todolli"
     , date = 2015-02-13
     , note = None Text
-    , tags = [ "trip-hop", "todolli" ]
+    , tags = [ "best", "trip-hop", "todolli" ]
     }
   , { path = "/audio/2015-yul/tounex_edits"
     , cover = None Text
@@ -25,7 +25,7 @@
     , title = "Red Room"
     , date = 2015-06-11
     , note = None Text
-    , tags = [ "trip-hop" ]
+    , tags = [ "pretty-good", "trip-hop" ]
     }
   , { path = "/audio/2015-yul/oldchords3"
     , cover = None Text

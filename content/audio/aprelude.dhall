@@ -79,7 +79,7 @@
     , title = "Midibar"
     , date = 2012-11-04
     , note = None Text
-    , tags = [] : List Text
+    , tags = [ "best" ]
     }
   , { path = "/audio/2012-prelude/vcharm"
     , cover = None Text

@@ -38,7 +38,7 @@ let medias =
           2024-12-08
           "Shaving Clouds"
           (Some "/audio/pgShavingClouds")
-          [ "slow" ]
+          [ "slow", "elevator" ]
       , mk "haunted-jam" 2024-12-28 "Haunted Jam" (None Text) [ "impro" ]
       ]
 

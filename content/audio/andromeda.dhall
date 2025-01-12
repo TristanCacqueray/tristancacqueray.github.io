@@ -52,7 +52,7 @@
     , title = "Minions"
     , date = 2012-11-29
     , note = None Text
-    , tags = [] : List Text
+    , tags = [ "best" ]
     }
   , { path = "/audio/2013-andromeda/satellity"
     , cover = None Text
@@ -115,7 +115,7 @@
     , title = "Summerdawn"
     , date = 2013-06-24
     , note = None Text
-    , tags = [] : List Text
+    , tags = [ "best" ]
     }
   , { path = "/audio/2013-andromeda/summerdawn-nodrums"
     , cover = None Text
@@ -124,7 +124,7 @@
     , title = "Summerdawn Nodrums"
     , date = 2013-06-20
     , note = None Text
-    , tags = [] : List Text
+    , tags = [ "no-kick" ]
     }
   , { path = "/audio/2013-andromeda/weightless_morning"
     , cover = None Text
@@ -133,7 +133,7 @@
     , title = "Weightless Morning"
     , date = 2013-05-06
     , note = None Text
-    , tags = [ "space-jazz" ]
+    , tags = [ "best", "space-jazz" ]
     }
   , { path = "/audio/2013-andromeda/spacehill-industry"
     , cover = None Text
@@ -169,7 +169,7 @@
     , title = "Bruce Des Bois A Candle Chant"
     , date = 2013-03-26
     , note = None Text
-    , tags = [] : List Text
+    , tags = [ "best" ]
     }
   , { path = "/audio/2013-andromeda/butters-and-clyde"
     , cover = None Text

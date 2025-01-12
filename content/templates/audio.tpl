@@ -61,7 +61,7 @@
                     "text-slate-800 flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 whitespace-nowrap";
                   window.playlistSelectedNames = "bg-slate-200";
                 </script>
-                <script src="/static/audio-player.js?v=3"></script>
+                <script src="/static/audio-player.js?v=4"></script>
                 <div
                   class="flex flex-col place-items-center"
                   style="position: absolute; top: 120px; width: 210px; max-width: 210px"
