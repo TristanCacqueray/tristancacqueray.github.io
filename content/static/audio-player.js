@@ -28,15 +28,12 @@ function setupPlayer() {
   });
 }
 
-globalThis.cdnHost = window.location.hostname == "127.0.0.1" ?
-  // For local dev, run `npx http-server --cors`
-  "http://10.0.0.88:8081" :
-  "https://cdn.midirus.com"
+globalThis.cdnHost = "https://cdn.midirus.com";
+
 function getAudio() {
-  const ms = Date.now();
-  return fetch(new Request(cdnHost + "/audio.json?ts=" + ms)).then((response) =>
-    response.json(),
-  );
+  return fetch(new Request(cdnHost + "/medias.json"), {cache: "no-cache"}).then((
+    response,
+  ) => response.json());
 }
 
 function setURLParam(k, v) {
@@ -53,9 +50,8 @@ function audio2track(audioFile, pos) {
     url: audioFile.url,
     duration: audioFile.duration,
     metaData: {
-      artist:
-        (pos < 9 ? "  " : pos < 99 ? " " : "") +
-        audioFile.release.slice(0, 7) +
+      artist: (pos < 9 ? "  " : pos < 99 ? " " : "") +
+        audioFile.date.slice(0, 7) +
         " | " +
         audioFile.album,
       title: audioFile.title,
@@ -63,15 +59,45 @@ function audio2track(audioFile, pos) {
   };
 }
 
+function isAudio(media) {
+  return media.fmt.indexOf("flac") > -1 || media.fmt.indexOf("mp3") > -1;
+}
+
+function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase(),
+  );
+}
+
 Promise.all([setupPlayer(), getAudio()]).then(([player, data]) => {
   const urlParams = new URL(window.location.toString()).searchParams;
 
-  // Enrich the audio.json data with full URLs and duration
-  data.files.forEach((f, pos) => {
-    f.url = cdnHost + "/audio/" + f.path + ".mp3";
-    f.urlFLAC = cdnHost + "/audio/" + f.path + ".flac";
-    f.duration = f.nfo.meta.length / 1000;
-  });
+  // Traverse the data and prepare the playlists
+  const playlists = {};
+  const releases = new Set();
+  const addToPlaylist = (name, media) => {
+    name = name == "best" ? "Best Of" : toTitleCase(name);
+    if (!playlists[name]) {
+      playlists[name] = [media];
+    } else {
+      playlists[name].push(media);
+    }
+  };
+  const audioFiles = data.flatMap((release) =>
+    release.medias.filter(isAudio).map((media) => {
+      if (media.fmt && media.fmt.indexOf("flac") > -1) {
+        media.urlFLAC = cdnHost + media.path + ".flac";
+      }
+      media.url = cdnHost + media.path + ".mp3";
+      media.duration = media.len / 1000;
+      media.album = release.name;
+      releases.add(release.name);
+      addToPlaylist(release.name, media);
+      media.tags.forEach((t) => addToPlaylist(t, media));
+      return media;
+    })
+  ).sort((a, b) => a.date > b.date ? -1 : (a.date == b.date ? 0 : 1));
 
   // Start with shuffle on
   player.store.dispatch({ type: "TOGGLE_SHUFFLE" });
@@ -80,10 +106,10 @@ Promise.all([setupPlayer(), getAudio()]).then(([player, data]) => {
   // Setup track list
   let tracks;
   let tracksFiles;
-  const loadTracks = (audioFiles) => {
-    // console.log("Loading playlist", audioFiles.length);
-    tracksFiles = audioFiles;
-    tracks = audioFiles.map(audio2track);
+  const loadTracks = (files) => {
+    // console.log("Loading playlist", files.length);
+    tracksFiles = files;
+    tracks = tracksFiles.map(audio2track);
     player.setTracksToPlay(tracks);
     player.pause();
   };
@@ -91,21 +117,21 @@ Promise.all([setupPlayer(), getAudio()]).then(([player, data]) => {
     setURLParam("track", null);
     const bests = [];
     tracksFiles.forEach((track, pos) => {
-      if (track.nfo.meta.rating > 1 && track.title != currentTitle) bests.push(pos);
+      if (track.tags.indexOf("best") > -1) bests.push(pos);
     });
     return bests.length == 0
-      ? -1
+      ? 0
       : bests[Math.floor(Math.random() * bests.length)];
   };
 
   // Keep track of the playing track position
   let currentPos = -1;
-  let currentTitle = ""
+  let currentTitle = "";
   player.onTrackDidChange((track) => {
     if (track) {
       currentPos = tracksFiles.findIndex((t) => t.url == track.url);
-      currentTitle = track.metaData.title
-      console.log("Track changed to", currentPos, track)
+      currentTitle = track.metaData.title;
+      console.log("Track changed to", currentPos, track);
     }
   });
 
@@ -124,47 +150,54 @@ Promise.all([setupPlayer(), getAudio()]).then(([player, data]) => {
 
   // Load a playlist
   const loadPlaylist = (name) => {
-    if (name == "Best Of") {
-      loadTracks(data.files.filter(f => f.nfo.meta.rating > 3))
+    const files = playlists[name];
+    if (files) {
+      loadTracks(files);
+      return true;
     } else {
-      const playlist = data.albums.find(p => p.name == name) || data.playlists.find(p => p.name == name)
-      if (playlist)
-        loadTracks(playlist.sounds.map((idx) => data.files[idx]));
-      else
-        return false
+      return false;
     }
-    return true
-  }
+  };
 
   // Setup playlist
-  const playlists = document.getElementById("my-playlist");
-  const addPlaylist = (name) => {
+  const playlistsElt = document.getElementById("my-playlist");
+  const releasesElt = document.getElementById("my-release");
+  const clearBG = (pelt) => {
+    for (let i = 0; i < pelt.children.length; i++) {
+      pelt.children[i].classList.remove(window.playlistSelectedNames);
+    }
+  };
+
+  const addPlaylist = (pelt, name) => {
     const elt = document.createElement("div");
     elt.role = "button";
-    elt.className =
-      "text-slate-800 flex w-full items-center rounded-md p-3 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100 whitespace-nowrap";
-    if (name == urlParams.get("playlist"))
-      elt.classList.add("bg-slate-200")
+    elt.className = window.playlistClassNames;
+    if (name == urlParams.get("playlist")) {
+      elt.classList.add(window.playlistSelectedNames);
+    }
     elt.innerText = name;
     elt.onclick = () => {
       if (name == "Everything") {
-        loadTracks(data.files);
+        loadTracks(audioFiles);
         setURLParam("playlist", null);
       } else {
-        loadPlaylist(name)
+        loadPlaylist(name);
         setURLParam("playlist", name);
       }
-      for (let i = 0; i < playlists.children.length; i++)
-        playlists.children[i].classList.remove("bg-slate-200");
-      elt.classList.add("bg-slate-200");
+      clearBG(playlistsElt);
+      clearBG(releasesElt);
+      elt.classList.add(window.playlistSelectedNames);
       queueTrack(pickBest());
     };
-    playlists.appendChild(elt);
+    pelt.appendChild(elt);
   };
-  addPlaylist("Everything")
-  addPlaylist("Best Of")
-  data.playlists.forEach(n => addPlaylist(n.name));
-  data.albums.forEach(n => addPlaylist(n.name));
+
+  addPlaylist(playlistsElt, "Everything");
+  addPlaylist(playlistsElt, "Best Of");
+  Object.keys(playlists).forEach((n) => {
+    if (!releases.has(n) && n != "Best Of") addPlaylist(playlistsElt, n);
+  });
+  releases.forEach((n) => addPlaylist(releasesElt, n));
 
   // Handle download button
   const dlBtn = document.getElementById("dl-btn");
@@ -175,8 +208,8 @@ Promise.all([setupPlayer(), getAudio()]).then(([player, data]) => {
 
   // Load initial playlist
   if (!loadPlaylist(urlParams.get("playlist"))) {
-    loadTracks(data.files);
-    playlists.children[0].classList.add("bg-slate-200")
+    loadTracks(audioFiles);
+    playlistsElt.children[0].classList.add(window.playlistSelectedNames);
   }
 
   // Load initial track
@@ -188,7 +221,7 @@ Promise.all([setupPlayer(), getAudio()]).then(([player, data]) => {
     // console.log("Found track", name, "at pos", initialPos);
   }
   if (initialPos === -1) {
-    initialPos = pickBest();
+    initialPos = 0;
   }
   queueTrack(initialPos);
 

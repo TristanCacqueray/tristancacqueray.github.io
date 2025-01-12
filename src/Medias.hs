@@ -115,16 +115,8 @@ processMedia r m
     | "flac" `V.elem` m.format || "mp3" `V.elem` m.format = processAudio r m
     | otherwise = error $ show m.format <> ": process not implemented"
 
-test :: IO ()
-test = do
-    -- let tags = ID3Tags "midiRus" "le tounex" "2024-01-02"
-    -- print =<< getAudioMeta tags "/tmp/midir/tounex.flac"
-
-    allReleases <- traverse renderRelease . take 1 =<< getReleases
-    writeJSON "/srv/cdn.midirus.com/audio-ng.json" allReleases
-
 mainMedia :: IO ()
 mainMedia = do
-    allReleases <- traverse renderRelease . take 1 =<< getReleases
-    writeJSON "/srv/cdn.midirus.com/audio-ng.json" allReleases
+    releases <- traverse renderRelease =<< getReleases
+    writeJSON "/srv/cdn.midirus.com/medias.json" releases
     putStrLn "Medias completed!"

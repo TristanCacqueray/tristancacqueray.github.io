@@ -130,7 +130,7 @@ genDynamicInline = \case
 hasCode :: P.Block -> Any
 hasCode = \case
     P.CodeBlock (_, classes, _) _
-        | classes /= [] && classes /= ["raw"] -> Any True
+        | classes /= [] && classes /= ["raw"] && "query" `notElem` classes -> Any True
     _ -> Any False
 
 addHighlightJS :: P.Pandoc -> Text -> Text
