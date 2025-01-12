@@ -29,9 +29,7 @@
       <span class="float-right">🎵</span>
     </div>
     <span class="text-sm relative -top-1">2024-11-01</span>
-    <div>
-      It all started with Lu sharing a link to a web interface called Flok.
-    </div>
+    <div>Music made with the pastagang using strudel.</div>
   </div>
   <div class="rounded border-2 border-blue-100 p-1">
     <div class="text-lg">
@@ -483,7 +481,7 @@
       <span class="float-right">🎵</span>
     </div>
     <span class="text-sm relative -top-1">2022-02-01</span>
-    <div>An album I produced with hardware synthesizer.</div>
+    <div>Music produced with μFreak and OP-1.</div>
   </div>
   <div class="rounded border-2 border-blue-100 p-1">
     <div class="text-lg">

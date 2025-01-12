@@ -1,4 +1,120 @@
 <div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-10</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      This week I learned the range mini-notation and s_polymeter with the
+      <span class="hashtag">#pastagang</span> Just made a nice little jam with
+      <span class="h-card" translate="no"><span class="mention"
+        >@froos</span></span> :) <a
+        href="https://youtu.be/2kGB7lrhy5Q"
+        class="text-blue-600 hover:underline cursor-pointer"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        translate="no"
+      >https://www.youtube.com/watch?v=2kGB7lrhy5Q</a>
+    </p>
+  </div>
+</div><div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-07</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      We can now export a <span class="hashtag">#pastagang</span>
+      nudel!
+    </p>
+    <br />
+    <img
+      title="The new export button to copy the panels."
+      alt="The new export button to copy the panels."
+      src="https://cdn.midirus.com/medias/cbf6170bc5aa4623.png"
+    />
+  </div>
+</div><div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-06</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      I just pushed a long overdue supercollider update to <span class="hashtag"
+      >#fedora</span>
+      <a
+        href="https://koji.fedoraproject.org/koji/taskinfo?taskID=127613099"
+        class="text-blue-600 hover:underline cursor-pointer"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        translate="no"
+      >https://koji.fedoraproject.org/koji/taskinfo?taskID=127613099</a>
+    </p>
+  </div>
+</div><div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-05</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      <a
+        href="https://strudel.cc/?IZcDT-4K-RIS"
+        class="text-blue-600 hover:underline cursor-pointer"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        translate="no"
+      >https://strudel.cc/?IZcDT-4K-RIS</a> // “the restaurant is closing” @by
+      <span class="hashtag">#pastagang</span>
+    </p>
+  </div>
+</div><div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-05</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      About creative licensing of <span class="hashtag">#pastagang</span>
+      stuff, I would prefer if reuse happens under identical terms, using
+      something like CC-BY-SA or GPL. I think that’s ideal because it encourages
+      others to do the same.
+    </p>
+    <p>
+      Though, I think CC0 is also fine, and I like how <span
+        class="h-card"
+        translate="no"
+      ><span class="mention">@mantissa</span></span> uses it: «Free CG resources
+      to use for all your projects, all of which are currently licensed Public
+      Domain. No credit is required, but always appreciated.»
+    </p>
+  </div>
+</div><div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-04</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      it’s live <span class="hashtag">#pastagang</span>
+      <a
+        href="https://youtu.be/o3Zy4Dwqw7U"
+        class="text-blue-600 hover:underline cursor-pointer"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        translate="no"
+      >https://www.youtube.com/watch?v=o3Zy4Dwqw7U</a>
+    </p>
+  </div>
+</div><div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-04</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>
+      I released the first version of the peaks-player web components, and
+      updated the install instructions:) <a
+        href="https://github.com/TristanCacqueray/peaks-player"
+        class="text-blue-600 hover:underline cursor-pointer"
+        target="_blank"
+        rel="nofollow noopener noreferrer"
+        translate="no"
+      >https://github.com/TristanCacqueray/peaks-player</a>
+    </p>
+  </div>
+</div><div class="flex">
+  <div class="mr-2 pt-2 text-sm font-semibold font-mono">2025-01-04</div>
+  <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
+    <p>first shader running in nudel <span class="hashtag">#pastagang</span></p>
+    <br />
+    <img
+      title="a shadertoy in nudel, a nudeltoy?"
+      alt="a shadertoy in nudel, a nudeltoy?"
+      src="https://cdn.midirus.com/medias/663a60a17109a191.png"
+    />
+  </div>
+</div><div class="flex">
   <div class="mr-2 pt-2 text-sm font-semibold font-mono">2024-12-30</div>
   <div class="rounded border-2 border-blue-100 px-2 py-1 my-1 grow">
     <p>

@@ -55,7 +55,6 @@ executable mitadi
     , string-qq
     , directory
     , aeson
-    , split
     , emanote
     , SHA
     , with-utf8

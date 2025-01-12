@@ -126,7 +126,7 @@ introParser = Parsec.many1 (wordP <|> linkP <|> dotP)
 
 mainProject :: IO ()
 mainProject = do
-    projFiles <- map (mappend "content/project/") <$> listDirectory "content/project"
+    projFiles <- map (mappend "content/project/") . filter (\fp -> takeExtension fp == ".md") <$> listDirectory "content/project"
     projs <- traverse parseProject projFiles
     renderToFile "content/templates/components/projects.tpl" (renderProjects (reverse $ sortOn (projectDate . projectMeta) projs))
     Process.runProcess_ "deno fmt  ./htmls/projects.html"
