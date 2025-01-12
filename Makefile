@@ -6,3 +6,6 @@ publish:
 
 sync-cdn:
 	rsync --exclude /inbox/ --delete -rvpti /srv/cdn.midirus.com/ cdn.midirus.com:sites/cdn.midirus.com/
+
+devel:
+	ghcid -c 'cabal repl exe:mitadi' -T Medias.test -W

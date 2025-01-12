@@ -8,7 +8,6 @@ let mk =
         , format = [ "flac" ]
         , cover = None Text
         , note
-        , name
         , title
         , artist = "pastagang"
         , tags

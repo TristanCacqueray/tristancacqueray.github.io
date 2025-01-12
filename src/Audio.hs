@@ -4,7 +4,7 @@
 {-# HLINT ignore "Redundant bracket" #-}
 
 -- | Render the audio.json
-module Audio (mainAudio) where
+module Audio where
 
 import Data.Aeson (encodeFile)
 import Data.ByteString qualified as BS
