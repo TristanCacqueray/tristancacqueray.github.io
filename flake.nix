@@ -182,6 +182,8 @@
           pkgs-unstable.cabal-install
           pkgs-unstable.ghcid
           pkgs-unstable.haskell-language-server
+          pkgs.flac
+          pkgs.id3v2
         ];
       };
       devShells."x86_64-linux".gstreamer = pkgs.mkShell {

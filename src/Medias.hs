@@ -11,7 +11,7 @@ import Dhall qualified
 import RIO
 import RIO.Vector.Boxed qualified as V
 
-import Audio (MediaAudioMeta (..), getAudioMeta)
+import Audio (AudioFormatInfo (..), ID3Tags (..), getAudioMeta)
 import System.Directory (createDirectoryIfMissing, doesFileExist)
 import System.FilePath (dropExtension, takeDirectory)
 import Utils
@@ -65,7 +65,13 @@ cdnPath t = Text.unpack $ "/srv/cdn.midirus.com/" <> t
 -- | Generate the final value to be sent to the browser
 processAudio :: Media -> IO Aeson.Value
 processAudio m = do
-    meta <- getAudioMeta $ cdnPath m.path <> audioFmt
+    let tags =
+            ID3Tags
+                { artist = Text.unpack m.artist
+                , title = Text.unpack m.title
+                , date = show m.date
+                }
+    meta <- getAudioMeta tags $ cdnPath m.path <> audioFmt
     pure $
         object
             [ "path" .= m.path
@@ -97,4 +103,10 @@ test = do
     -- allMedias <- getMedias
     -- mapM_ renderMedias allMedias
 
+    let tags = ID3Tags "midiRus" "le tounex" "2024-01-02"
+    print =<< getAudioMeta tags "/tmp/midir/tounex.flac"
     pure ()
+
+mainMedia :: IO ()
+mainMedia = do
+    putStrLn "Medias completed!"

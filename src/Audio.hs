@@ -8,24 +8,29 @@ module Audio where
 
 import Data.Aeson qualified as Aeson
 import Data.ByteString qualified as BS
-import Data.Char (toTitle)
-import Data.List.Split
 import Data.Text qualified as Text
 import Data.Text.Encoding qualified as Text
-import Data.Time.Format (defaultTimeLocale, formatTime)
 import Data.Yaml hiding (Parser, encodeFile)
 import RIO
-import System.Directory (doesPathExist, getModificationTime)
+import System.Directory (doesFileExist, getModificationTime, setModificationTime)
 import System.FilePath
 import System.Process.Typed qualified as P
 
 import Utils
 
+data ID3Tags = ID3Tags
+    { artist :: String
+    , title :: String
+    , date :: String
+    }
+    deriving (Eq, Show, Generic, ToJSON, FromJSON)
+
 -- | The extracted metadata from the media file
-data MediaAudioMeta = MediaAudioMeta
+data AudioFormatInfo = AudioFormatInfo
     { length :: MilliSec
     , freq :: AudioFreq
     , bitDepth :: AudioBitDepth
+    , id3Tags :: Maybe ID3Tags
     }
     deriving (Show, Generic, ToJSON, FromJSON)
 
@@ -40,113 +45,98 @@ readBitDepth = \case
     "s32" -> S32
     n -> error $ "Unknown bit depth: " <> show n
 
-getAudioMeta :: FilePath -> IO MediaAudioMeta
-getAudioMeta fp = do
+getAudioMeta :: ID3Tags -> FilePath -> IO AudioFormatInfo
+getAudioMeta tags fp = do
     ts <- getModificationTime fp
+
+    -- extract metadata from cache or with ffprobe
+    fmtInfo <-
+        isOutdated ts cache >>= \case
+            False -> readJSON cache
+            True -> do
+                v <- ffprobe tags fp
+                Aeson.encodeFile cache v
+                pure v
+
+    when (fmtInfo.id3Tags /= Just tags) do
+        -- update file tags
+        whenM (doesFileExist flacPath) do
+            putStrLn "Updating flac"
+            writeFLACMetadata tags flacPath
+        whenM (doesFileExist mp3Path) do
+            putStrLn "Updating mp3"
+            writeMP3Metadata tags mp3Path
+        Aeson.encodeFile cache $ fmtInfo{id3Tags = Just tags}
+
+    -- generate waveform data for peaks.js
+    let peaksPath = basePath <> ".dat"
     whenM (isOutdated ts peaksPath) do
         P.runProcess_ $ P.proc "audiowaveform" ["-i", fp, "-o", peaksPath, "-b", "8"]
-    isOutdated ts cache >>= \case
-        False -> readJSON cache
-        True -> do
-            v <- ffprobe fp
-            Aeson.encodeFile cache v
-            pure v
+
+    -- generate mp3 from flac
+    whenM (doesFileExist flacPath) do
+        whenM (isOutdated ts mp3Path) do
+            encodeMp3 fp mp3Path
+
+    pure fmtInfo
   where
     basePath = dropExtension fp
     cache = basePath <> ".json"
-    peaksPath = basePath <> ".dat"
+    mp3Path = basePath <> ".mp3"
+    flacPath = basePath <> ".flac"
 
-data AudioMetaData = AudioMetaData
-    { albums :: [Playlist]
-    , playlists :: [Playlist]
-    , files :: [AudioFile]
-    }
-    deriving (Generic, ToJSON)
+writeMP3Metadata :: ID3Tags -> FilePath -> IO ()
+writeMP3Metadata tags fp = do
+    ts <- getModificationTime fp
+    P.runProcess_ $ P.proc "id3v2" args
+    setModificationTime fp ts
+  where
+    args =
+        [ "-D"
+        , "--artist"
+        , tags.artist
+        , "--song"
+        , tags.title
+        , "--year"
+        , tags.date
+        ]
 
-data Playlist = Playlist
-    { name :: Text
-    , sounds :: [Word]
-    }
-    deriving (Generic, ToJSON)
+writeFLACMetadata :: ID3Tags -> FilePath -> IO ()
+writeFLACMetadata tags fp = P.runProcess_ $ P.proc "metaflac" args
+  where
+    args =
+        [ "--preserve-modtime"
+        , "--remove-all-tags"
+        , "--set-tag=artist=" <> tags.artist
+        , "--set-tag=title=" <> tags.title
+        , "--set-tag=year=" <> tags.date
+        , fp
+        ]
 
-data AudioFile = AudioFile
-    { path :: Text
-    , title :: Text
-    , album :: Text
-    , release :: Text
-    }
-    deriving (Show, Generic, ToJSON)
-
-mainAudio :: IO ()
-mainAudio = do
-    -- traverse_ print files
-    -- traverse_ print audioFiles
-    -- encodeFile "/srv/cdn.midirus.com/audio.json" $ renderAudioMetaData audioFiles
-    putStrLn "Done!"
-
-getAudioFile :: FilePath -> IO AudioFile
-getAudioFile fp = do
-    let basePath = dropExtension fp
-        path = Text.pack $ joinPath $ reverse $ take 2 $ reverse $ splitDirectories basePath
-        mdPath = basePath <> ".md"
-    modTime <- getModificationTime fp
-    let date = Text.pack $ formatTime defaultTimeLocale "%Y-%m-%d" modTime
-    unlessM (doesPathExist (basePath <> ".mp3")) do
-        encodeFlac (takeWhile (/= '-') (Text.unpack date)) basePath
-    pure
-        AudioFile
-            { path
-            , title = Text.pack $ trackName fp
-            , album = Text.pack $ albumName fp
-            , release = date
-            }
-
-encodeFlac :: String -> FilePath -> IO ()
-encodeFlac year basePath = do
-    let args = ["--preserve-modtime", "--remove-all-tags", "--set-tag=artist=Midirus", "--set-tag=album=" <> album, "--set-tag=year=" <> year, "--set-tag=title=" <> title, basePath <> ".flac"]
-        ffmpegArgs = ["-hide_banner", "-i", basePath <> ".flac", "-map_metadata", "0", "-id3v2_version", "3", "-ar", "44100", basePath <> ".mp3"]
-    -- print args >> print ffmpegArgs >> error "stop"
-    P.runProcess_ $ P.proc "metaflac" args
+encodeMp3 :: FilePath -> FilePath -> IO ()
+encodeMp3 ifp ofp = do
     P.runProcess_ $ P.proc "ffmpeg" ffmpegArgs
-    P.runProcess_ $ P.proc "touch" ["-r", basePath <> ".flac", basePath <> ".mp3"]
+    -- preserve timestamps
+    P.runProcess_ $ P.proc "touch" ["-r", ifp, ofp]
   where
-    title = trackName basePath
-    album = albumName basePath
+    ffmpegArgs = ["-hide_banner", "-i", ifp, "-map_metadata", "0", "-id3v2_version", "3", "-ar", "44100", ofp]
 
-trackName, albumName :: FilePath -> String
-trackName = toCapitalize . takeBaseName
-albumName = toCapitalize . drop 1 . dropWhile (/= '-') . takeBaseName . takeDirectory
-
-toCapitalize :: [Char] -> String
-toCapitalize = unwords . map capitalizeWord . splitWhen (`elem` ['-', '_'])
-
-capitalizeWord :: String -> String
-capitalizeWord = \case
-    "yul" -> "yul"
-    t : rest -> toTitle t : rest
-    name -> name
-
-renderAudioMetaData :: [AudioFile] -> AudioMetaData
-renderAudioMetaData files = AudioMetaData albums playlists files
-  where
-    albums = []
-    playlists = []
-
-ffprobe :: FilePath -> IO MediaAudioMeta
+ffprobe :: FilePath -> IO AudioFormatInfo
 ffprobe fp = do
     putStrLn $ fp <> ": running ffprobe"
     (P.ExitSuccess, meta) <- P.readProcessStderr $ P.proc "ffprobe" ["-hide_banner", fp]
-    print meta
+    -- TODO: fix this mess, that's ugly
     let duration = getValue "Duration:" (Text.words $ Text.decodeUtf8 $ BS.toStrict meta)
     let freq = getValue "flac," duration
     let fmt = case getValue "stereo," freq of
             [] -> getValue "mono," freq
             o -> o
     pure $
-        MediaAudioMeta
+        AudioFormatInfo
             { length = MilliSec $ ffprobe2MSec (Text.unpack $ head duration)
             , freq = AudioFreq $ read $ Text.unpack $ head freq
             , bitDepth = readBitDepth $ head fmt
+            , id3Tags = Nothing -- todo, read the tags from the probe
             }
 
 {- | Convert ffprobe timetamp to MS

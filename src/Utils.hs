@@ -35,7 +35,7 @@ readPandoc fp = do
 readJSON :: (Aeson.FromJSON a) => FilePath -> IO a
 readJSON fp = do
     Aeson.eitherDecodeFileStrict fp >>= \case
-        Left e -> error e
+        Left e -> error $ fp <> ": " <> e
         Right x -> pure x
 
 -- | Check if the fp needs to be updated, either because it is missing or too old

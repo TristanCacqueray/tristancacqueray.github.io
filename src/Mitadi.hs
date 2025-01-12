@@ -7,7 +7,7 @@ import Emanote.Source.Dynamic (_emanoteCompileTailwind, _emanoteConfigNoteFn)
 import Main.Utf8 (withUtf8)
 import RIO
 
-import Audio (mainAudio)
+import Medias (mainMedia)
 import PostFixup (mainPostFixup)
 import Project (mainProject)
 import System.Environment (getArgs)
@@ -21,7 +21,7 @@ main =
             [] -> error "usage: mitadi"
             ["post"] -> mainPostFixup
             ["toot"] -> mainToot
-            ["audio"] -> mainAudio
+            ["media"] -> mainMedia
             ["all"] -> mainAll
             xs -> mainEma (last xs == "/srv/midirus.com")
   where
@@ -35,4 +35,4 @@ main =
         Emanote.run config
         when doPost mainPostFixup
     mainAll = do
-        mainAudio >> mainProject >> mainToot
+        mainMedia >> mainProject >> mainToot
