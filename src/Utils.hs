@@ -1,7 +1,9 @@
 module Utils where
 
+import Control.Monad (when)
 import Data.Aeson qualified as Aeson
 import Data.ByteString qualified as BS
+import Data.ByteString.Lazy qualified as BSL
 import Data.List (isSuffixOf)
 import Data.Text qualified as Text
 import Data.Text.Encoding qualified as Text
@@ -37,6 +39,17 @@ readJSON fp = do
     Aeson.eitherDecodeFileStrict fp >>= \case
         Left e -> error $ fp <> ": " <> e
         Right x -> pure x
+
+writeJSON :: (Aeson.ToJSON a) => FilePath -> a -> IO ()
+writeJSON fp obj = do
+    content <-
+        doesFileExist fp >>= \case
+            False -> pure mempty
+            True -> BS.readFile fp
+    let desired = BSL.toStrict $ Aeson.encode obj
+    when (content /= desired) do
+        putStrLn $ "[+] updating: " <> fp
+        BS.writeFile fp desired
 
 -- | Check if the fp needs to be updated, either because it is missing or too old
 isOutdated :: UTCTime -> FilePath -> IO Bool

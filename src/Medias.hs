@@ -12,7 +12,7 @@ import RIO
 import RIO.Vector.Boxed qualified as V
 
 import Audio (AudioFormatInfo (..), ID3Tags (..), getAudioMeta)
-import System.Directory (createDirectoryIfMissing, doesFileExist)
+import System.Directory (createDirectoryIfMissing)
 import System.FilePath (dropExtension, takeDirectory)
 import Utils
 
@@ -32,6 +32,19 @@ data Media = Media
 newtype Tag = Tag Text deriving newtype (Show, FromDhall, ToJSON)
 newtype Format = Format Text deriving newtype (Show, IsString, Eq, FromDhall, ToJSON)
 
+data Release = Release
+    { name :: Text
+    , medias :: Vector Media
+    }
+    deriving (Generic, Show, FromDhall)
+
+data ReleaseExport = ReleaseExport
+    { name :: Text
+    , note :: Text
+    , medias :: Vector Aeson.Value
+    }
+    deriving (Generic, Show, ToJSON)
+
 -- | disambiguous with length
 len :: (Foldable f) => f a -> Int
 len = RIO.length
@@ -39,37 +52,42 @@ len = RIO.length
 notesRoot :: FilePath
 notesRoot = "/srv/code.midirus.com/website/content"
 
-getMedias :: IO [(FilePath, Vector Media)]
-getMedias = do
+getReleases :: IO [(FilePath, Release)]
+getReleases = do
     files <- runFind [notesRoot, "-name", "*.dhall"]
-    medias <- mapM readMedias files
-    pure $ zip (map (drop (Prelude.length notesRoot)) files) medias
+    releases <- mapM readRelease files
+    pure $ zip (map (drop (Prelude.length notesRoot)) files) releases
 
-renderMedias :: (FilePath, Vector Media) -> IO (Text, Aeson.Value)
-renderMedias (fp, medias) = do
-    json <- V.mapM processMedia medias
+renderRelease :: (FilePath, Release) -> IO ReleaseExport
+renderRelease (fp, release) = do
+    json <- V.mapM (processMedia release) release.medias
     let noteUrl = dropExtension fp
     let outFile = "/srv/cdn.midirus.com" <> noteUrl <> ".json"
     let outDir = takeDirectory outFile
     createDirectoryIfMissing True outDir
-    print (outFile, outDir)
-    Aeson.encodeFile outFile json
-    pure (Text.pack noteUrl, Aeson.Array json)
+    writeJSON outFile json
+    pure $
+        ReleaseExport
+            { name = release.name
+            , note = Text.pack noteUrl
+            , medias = json
+            }
 
-readMedias :: FilePath -> IO (Vector Media)
-readMedias = Dhall.input Dhall.auto . Text.pack
+readRelease :: FilePath -> IO Release
+readRelease = Dhall.input Dhall.auto . Text.pack
 
 cdnPath :: Text -> FilePath
 cdnPath t = Text.unpack $ "/srv/cdn.midirus.com/" <> t
 
 -- | Generate the final value to be sent to the browser
-processAudio :: Media -> IO Aeson.Value
-processAudio m = do
+processAudio :: Release -> Media -> IO Aeson.Value
+processAudio r m = do
     let tags =
             ID3Tags
                 { artist = Text.unpack m.artist
                 , title = Text.unpack m.title
                 , date = show m.date
+                , album = Just $ Text.unpack r.name
                 }
     meta <- getAudioMeta tags $ cdnPath m.path <> audioFmt
     pure $
@@ -87,26 +105,26 @@ processAudio m = do
         | "mp3" `V.elem` m.format = ".mp3"
         | otherwise = error $ "unknown audio format! " <> show m.format
 
-writeAudioPlaylist :: FilePath -> Vector Media -> IO ()
-writeAudioPlaylist fp media = do
-    values <- V.mapM processAudio media
+writeAudioPlaylist :: FilePath -> Release -> IO ()
+writeAudioPlaylist fp release = do
+    values <- V.mapM (processAudio release) release.medias
     Aeson.encodeFile fp values
 
-processMedia :: Media -> IO Aeson.Value
-processMedia m
-    | "flac" `V.elem` m.format || "mp3" `V.elem` m.format = processAudio m
+processMedia :: Release -> Media -> IO Aeson.Value
+processMedia r m
+    | "flac" `V.elem` m.format || "mp3" `V.elem` m.format = processAudio r m
     | otherwise = error $ show m.format <> ": process not implemented"
 
 test :: IO ()
 test = do
-    -- writeAudioPlaylist "/srv/cdn.midirus.com/audio/pasta.json" =<< readMedias "/srv/code.midirus.com/website/content/project/pastagang.dhall"
-    -- allMedias <- getMedias
-    -- mapM_ renderMedias allMedias
+    -- let tags = ID3Tags "midiRus" "le tounex" "2024-01-02"
+    -- print =<< getAudioMeta tags "/tmp/midir/tounex.flac"
 
-    let tags = ID3Tags "midiRus" "le tounex" "2024-01-02"
-    print =<< getAudioMeta tags "/tmp/midir/tounex.flac"
-    pure ()
+    allReleases <- traverse renderRelease . take 1 =<< getReleases
+    writeJSON "/srv/cdn.midirus.com/audio-ng.json" allReleases
 
 mainMedia :: IO ()
 mainMedia = do
+    allReleases <- traverse renderRelease . take 1 =<< getReleases
+    writeJSON "/srv/cdn.midirus.com/audio-ng.json" allReleases
     putStrLn "Medias completed!"

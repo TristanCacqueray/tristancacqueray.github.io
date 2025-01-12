@@ -22,6 +22,7 @@ data ID3Tags = ID3Tags
     { artist :: String
     , title :: String
     , date :: String
+    , album :: Maybe String
     }
     deriving (Eq, Show, Generic, ToJSON, FromJSON)
 
@@ -54,18 +55,18 @@ getAudioMeta tags fp = do
         isOutdated ts cache >>= \case
             False -> readJSON cache
             True -> do
-                v <- ffprobe tags fp
+                v <- ffprobe fp
                 Aeson.encodeFile cache v
                 pure v
 
     when (fmtInfo.id3Tags /= Just tags) do
         -- update file tags
-        whenM (doesFileExist flacPath) do
-            putStrLn "Updating flac"
-            writeFLACMetadata tags flacPath
         whenM (doesFileExist mp3Path) do
             putStrLn "Updating mp3"
             writeMP3Metadata tags mp3Path
+        whenM (doesFileExist flacPath) do
+            putStrLn "Updating flac"
+            writeFLACMetadata tags flacPath
         Aeson.encodeFile cache $ fmtInfo{id3Tags = Just tags}
 
     -- generate waveform data for peaks.js
@@ -88,17 +89,21 @@ getAudioMeta tags fp = do
 writeMP3Metadata :: ID3Tags -> FilePath -> IO ()
 writeMP3Metadata tags fp = do
     ts <- getModificationTime fp
+    -- remove previous tags
+    P.runProcess_ $ P.proc "id3v2" ["-D", fp]
     P.runProcess_ $ P.proc "id3v2" args
     setModificationTime fp ts
   where
     args =
-        [ "-D"
-        , "--artist"
+        [ "--artist"
         , tags.artist
         , "--song"
         , tags.title
+        , "--album"
+        , fromMaybe "" tags.album
         , "--year"
         , tags.date
+        , fp
         ]
 
 writeFLACMetadata :: ID3Tags -> FilePath -> IO ()
@@ -109,6 +114,7 @@ writeFLACMetadata tags fp = P.runProcess_ $ P.proc "metaflac" args
         , "--remove-all-tags"
         , "--set-tag=artist=" <> tags.artist
         , "--set-tag=title=" <> tags.title
+        , "--set-tag=album=" <> fromMaybe "" tags.album
         , "--set-tag=year=" <> tags.date
         , fp
         ]
