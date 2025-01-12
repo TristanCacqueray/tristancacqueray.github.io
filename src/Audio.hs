@@ -6,24 +6,55 @@
 -- | Render the audio.json
 module Audio where
 
-import Data.Aeson (encodeFile)
+import Data.Aeson qualified as Aeson
 import Data.ByteString qualified as BS
-import Data.ByteString.Char8 qualified as BS
-import Data.ByteString.Char8 qualified as BS8
 import Data.Char (toTitle)
-import Data.List (sortBy)
 import Data.List.Split
 import Data.Text qualified as Text
 import Data.Text.Encoding qualified as Text
 import Data.Time.Format (defaultTimeLocale, formatTime)
 import Data.Yaml hiding (Parser, encodeFile)
-import Data.Yaml qualified as Yaml
 import RIO
 import System.Directory (doesPathExist, getModificationTime)
 import System.FilePath
 import System.Process.Typed qualified as P
 
 import Utils
+
+-- | The extracted metadata from the media file
+data MediaAudioMeta = MediaAudioMeta
+    { length :: MilliSec
+    , freq :: AudioFreq
+    , bitDepth :: AudioBitDepth
+    }
+    deriving (Show, Generic, ToJSON, FromJSON)
+
+data AudioBitDepth = S16 | S24 | S32 deriving (Show, Generic, ToJSON, FromJSON)
+newtype MilliSec = MilliSec Natural deriving newtype (Show, ToJSON, FromJSON)
+newtype AudioFreq = AudioFreq Natural deriving newtype (Show, ToJSON, FromJSON)
+
+readBitDepth :: Text -> AudioBitDepth
+readBitDepth = \case
+    "s16" -> S16
+    "s24" -> S24
+    "s32" -> S32
+    n -> error $ "Unknown bit depth: " <> show n
+
+getAudioMeta :: FilePath -> IO MediaAudioMeta
+getAudioMeta fp = do
+    ts <- getModificationTime fp
+    whenM (isOutdated ts peaksPath) do
+        P.runProcess_ $ P.proc "audiowaveform" ["-i", fp, "-o", peaksPath, "-b", "8"]
+    isOutdated ts cache >>= \case
+        False -> readJSON cache
+        True -> do
+            v <- ffprobe fp
+            Aeson.encodeFile cache v
+            pure v
+  where
+    basePath = dropExtension fp
+    cache = basePath <> ".json"
+    peaksPath = basePath <> ".dat"
 
 data AudioMetaData = AudioMetaData
     { albums :: [Playlist]
@@ -43,56 +74,15 @@ data AudioFile = AudioFile
     , title :: Text
     , album :: Text
     , release :: Text
-    , nfo :: AudioMD
     }
     deriving (Show, Generic, ToJSON)
-
--- | The audio file note front matter
-data AudioMDMeta = AudioMDMeta
-    { rating :: Maybe Natural
-    , pos :: Maybe Natural
-    , length :: Natural
-    , freq :: Natural
-    , fmt :: Text
-    , date :: Text
-    , playlists :: Maybe [Text]
-    }
-    deriving (Generic, FromJSON, ToJSON, Show)
-
-data AudioMD = AudioMD
-    { meta :: AudioMDMeta
-    , body :: Text
-    }
-    deriving (Show, Generic, ToJSON)
-
-data FFProbeMeta = FFProbeMeta
-    { length :: Natural
-    , freq :: Natural
-    , format :: Text
-    }
-    deriving (Show)
 
 mainAudio :: IO ()
 mainAudio = do
-    files <- runFind ["/srv/cdn.midirus.com/audio", "-name", "*.flac"]
     -- traverse_ print files
-    audioFiles <- reverse . sortBy orderFiles <$> traverse getAudioFile files
     -- traverse_ print audioFiles
-    encodeFile "/srv/cdn.midirus.com/audio.json" $ renderAudioMetaData audioFiles
-    encodeFile "/srv/cdn.midirus.com/audio/pastagang.json" $ filter isPasta audioFiles
+    -- encodeFile "/srv/cdn.midirus.com/audio.json" $ renderAudioMetaData audioFiles
     putStrLn "Done!"
-
-isPasta :: AudioFile -> Bool
-isPasta af = af.album == "Pastagang"
-
-orderFiles :: AudioFile -> AudioFile -> Ordering
-orderFiles f1 f2 = case compare (albumDate f1.path) (albumDate f2.path) of
-    EQ -> case compare (fromMaybe 9999 f1.nfo.meta.pos) (fromMaybe 9999 f2.nfo.meta.pos) of
-        EQ -> compare f1.nfo.meta.date f2.nfo.meta.date
-        o -> o
-    o -> o
-  where
-    albumDate = Text.takeWhile (/= '/')
 
 getAudioFile :: FilePath -> IO AudioFile
 getAudioFile fp = do
@@ -101,17 +91,13 @@ getAudioFile fp = do
         mdPath = basePath <> ".md"
     modTime <- getModificationTime fp
     let date = Text.pack $ formatTime defaultTimeLocale "%Y-%m-%d" modTime
-    audioMD <- getAudioMD fp mdPath date
     unlessM (doesPathExist (basePath <> ".mp3")) do
         encodeFlac (takeWhile (/= '-') (Text.unpack date)) basePath
-    unlessM (doesPathExist (basePath <> ".dat")) do
-        P.runProcess_ $ P.proc "audiowaveform" ["-i", fp, "-o", basePath <> ".dat", "-b", "8"]
     pure
         AudioFile
             { path
             , title = Text.pack $ trackName fp
             , album = Text.pack $ albumName fp
-            , nfo = audioMD
             , release = date
             }
 
@@ -143,27 +129,10 @@ capitalizeWord = \case
 renderAudioMetaData :: [AudioFile] -> AudioMetaData
 renderAudioMetaData files = AudioMetaData albums playlists files
   where
-    albums = map toPlaylist $ snd $ foldl mkAlbum (0, []) files
-    playlists = map toPlaylist $ snd $ foldl mkPlaylist (0, []) files
+    albums = []
+    playlists = []
 
-toPlaylist :: (Text, [Word]) -> Playlist
-toPlaylist (name, songs) = Playlist name (reverse songs)
-
-mkAlbum :: (Word, [(Text, [Word])]) -> AudioFile -> (Word, [(Text, [Word])])
-mkAlbum (pos, acc) af = (pos + 1, insertSong pos acc af.album)
-
-mkPlaylist :: (Word, [(Text, [Word])]) -> AudioFile -> (Word, [(Text, [Word])])
-mkPlaylist (pos, acc) af = (pos + 1, newAcc)
-  where
-    newAcc = foldl (insertSong pos) acc (Text.pack . toCapitalize . Text.unpack <$> fromMaybe [] af.nfo.meta.playlists)
-
-insertSong :: Word -> [(Text, [Word])] -> Text -> [(Text, [Word])]
-insertSong pos [] name = [(name, [pos])]
-insertSong pos ((pname, songs) : rest) name
-    | name == pname = (name, pos : songs) : rest
-    | otherwise = (pname, songs) : insertSong pos rest name
-
-ffprobe :: FilePath -> IO FFProbeMeta
+ffprobe :: FilePath -> IO MediaAudioMeta
 ffprobe fp = do
     putStrLn $ fp <> ": running ffprobe"
     (P.ExitSuccess, meta) <- P.readProcessStderr $ P.proc "ffprobe" ["-hide_banner", fp]
@@ -174,10 +143,10 @@ ffprobe fp = do
             [] -> getValue "mono," freq
             o -> o
     pure $
-        FFProbeMeta
-            { length = ffprobe2MSec (Text.unpack $ head duration)
-            , freq = read $ Text.unpack $ head freq
-            , format = head fmt
+        MediaAudioMeta
+            { length = MilliSec $ ffprobe2MSec (Text.unpack $ head duration)
+            , freq = AudioFreq $ read $ Text.unpack $ head freq
+            , bitDepth = readBitDepth $ head fmt
             }
 
 {- | Convert ffprobe timetamp to MS
@@ -197,44 +166,3 @@ mkDigit c2 c1 = fromInteger $ toInteger $ (fromEnum c2 - 48) * 10 + (fromEnum c1
 
 getValue :: Text -> [Text] -> [Text]
 getValue name = drop 1 . dropWhile (/= name)
-
-getAudioMD :: FilePath -> FilePath -> Text -> IO AudioMD
-getAudioMD sfp mdPath date =
-    doesPathExist mdPath >>= \case
-        True -> parseAudioMD mdPath
-        False -> do
-            meta <- ffprobe sfp
-            let audioMeta =
-                    AudioMDMeta
-                        { rating = Nothing
-                        , pos = Nothing
-                        , playlists = Nothing
-                        , length = meta.length
-                        , freq = meta.freq
-                        , fmt = meta.format
-                        , date
-                        }
-            let audioMD = AudioMD audioMeta ""
-            updateAudioMD mdPath audioMD
-            pure audioMD
-
-updateAudioMD :: FilePath -> AudioMD -> IO ()
-updateAudioMD fp audioMD =
-    BS.writeFile fp $
-        BS.unlines
-            [ "---"
-            , Yaml.encode audioMD.meta
-                <> "---"
-            , ""
-            , encodeUtf8 audioMD.body
-            ]
-
-parseAudioMD :: FilePath -> IO AudioMD
-parseAudioMD fp = do
-    -- putStrLn $ "[+] " <> fp
-    ("---" : lines') <- BS.lines <$> BS.readFile fp
-    case break (== "---") lines' of
-        (yml, "---" : intro) -> do
-            pm <- decodeThrow (BS.unlines yml)
-            pure $ AudioMD pm (decodeUtf8With lenientDecode $ BS8.dropWhile (`elem` [' ', '\n']) $ BS.unlines intro)
-        _ -> error $ fp <> ": missing frontmatter"
