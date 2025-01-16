@@ -53,7 +53,7 @@
 
       build = pkgs.writeScriptBin "build" ''
         mkdir -p /srv/midirus.com; rm -Rf /srv/midirus.com/*
-        cp -p .htaccess /srv/midirus.com
+        cp -p .htaccess robots.txt sitemap.xml /srv/midirus.com
         ${mitadi}/bin/mitadi -L content/ gen /srv/midirus.com
       '';
       run = pkgs.writeScriptBin "run" ''
