@@ -39,3 +39,6 @@ real-time non-blocking time  (microseconds, -R) unlimited
 max locked memory           (kbytes, -l) unlimited
 real-time priority                  (-r) 99
 ```
+
+
+- [ ] try: `sudo grubby --args="preempt=full" --update-kernel=ALL`
