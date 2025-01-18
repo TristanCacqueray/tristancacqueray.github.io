@@ -288,7 +288,7 @@
     , note = None Text
     , tags = [] : List Text
     }
-  , { path = "/audio/2022-opFreak/opCapacity-edits"
+  , { path = "/audio/2024-opFreak/opCapacity-edits"
     , cover = None Text
     , format = [ "flac" ]
     , artist = "midirus"

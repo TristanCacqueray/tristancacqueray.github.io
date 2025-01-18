@@ -13,7 +13,7 @@ This was recorded in one-shot, and I kept most of it for a live home studio feel
 :::
 
 :::{.flex .items-center .justify-center}
-<peaks-player url="https://cdn.midirus.com/audio/2022-opFreak/opCapacity-edits"></peaks-player>
+<peaks-player url="https://cdn.midirus.com/audio/2024-opFreak/opCapacity-edits"></peaks-player>
 :::
 
 Here are the different tracks:
