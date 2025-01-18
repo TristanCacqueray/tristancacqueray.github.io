@@ -40,6 +40,7 @@ let medias =
           (Some "/audio/pgShavingClouds")
           [ "slow", "elevator" ]
       , mk "haunted-jam" 2024-12-28 "Haunted Jam" (None Text) [ "impro" ]
+      , mk "polynudel" 2025-01-18 "polynudel" (None Text) [ "club", "beat" ]
       ]
 
 in  { name = "Pastagang", medias }
