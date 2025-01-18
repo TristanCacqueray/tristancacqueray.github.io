@@ -16,7 +16,7 @@ import Data.String.QQ (s)
 
 webComponents :: [(Text, Text)]
 webComponents =
-    [ ("peaks-player", mkUrl "peaks-players")
+    [ ("peaks-player", mkUrl "peaks-player")
     , ("peaks-playlist", mkUrl "peaks-player")
     , ("weiqi-visualizer", mkUrl "weiqi-visualizer")
     ]

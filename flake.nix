@@ -57,7 +57,7 @@
         ${mitadi}/bin/mitadi -L content/ gen /srv/midirus.com
       '';
       run = pkgs.writeScriptBin "run" ''
-        ${mitadi}/bin/mitadi -L content/ run --host 0.0.0.0 --port 8080
+        ${mitadi}/bin/mitadi -L content/ run --host 0.0.0.0 --port 8042
       '';
 
       # local-first tools
