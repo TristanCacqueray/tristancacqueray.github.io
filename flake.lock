@@ -69,17 +69,16 @@
     "heist-extra": {
       "flake": false,
       "locked": {
-        "lastModified": 1735840790,
-        "narHash": "sha256-tGRboyaS5J95mBM0R3jwAM+iyEN9zK3iILd1mloFzQI=",
+        "lastModified": 1737313814,
+        "narHash": "sha256-WCXhs/xhCR4CKBEadQjqqgUb47bLzDY7P7oL5cSgDHc=",
         "owner": "srid",
         "repo": "heist-extra",
-        "rev": "aa29e8550f98923769f19df51b73f90444a3619c",
+        "rev": "6f73e000a34b7c054b516b9504b5a7ed08ce6a2d",
         "type": "github"
       },
       "original": {
         "owner": "srid",
         "repo": "heist-extra",
-        "rev": "aa29e8550f98923769f19df51b73f90444a3619c",
         "type": "github"
       }
     },
@@ -94,17 +93,17 @@
         "unionmount": "unionmount"
       },
       "locked": {
-        "lastModified": 1735858137,
-        "narHash": "sha256-bdxkeD++cQ40cuUFLIAo3ZjLkQxUQE7rQ/J6Q6wUYUg=",
+        "lastModified": 1737313972,
+        "narHash": "sha256-e9NzF2ffEuIeEKpqmqlYrfEZuWwmlmH9UU+I2gc7TKk=",
         "owner": "TristanCacqueray",
         "repo": "mitadi.nix",
-        "rev": "6796aa09895d37752e9d4d548502a52e7f8a0d9a",
+        "rev": "1cbc107dea56992977784bdb836bcc1c792d3574",
         "type": "github"
       },
       "original": {
         "owner": "TristanCacqueray",
         "repo": "mitadi.nix",
-        "rev": "6796aa09895d37752e9d4d548502a52e7f8a0d9a",
+        "rev": "1cbc107dea56992977784bdb836bcc1c792d3574",
         "type": "github"
       }
     },

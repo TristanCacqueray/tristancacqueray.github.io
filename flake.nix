@@ -1,7 +1,7 @@
 {
   inputs = {
     mitadi.url =
-      "github:TristanCacqueray/mitadi.nix/6796aa09895d37752e9d4d548502a52e7f8a0d9a";
+      "github:TristanCacqueray/mitadi.nix/1cbc107dea56992977784bdb836bcc1c792d3574";
     # "path:/srv/github.com/TristanCacqueray/mitadi.nix";
     nixpkgs.url =
       "github:NixOS/nixpkgs/3665c429d349fbda46b0651e554cca8434452748";
