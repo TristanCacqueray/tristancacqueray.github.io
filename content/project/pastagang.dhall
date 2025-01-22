@@ -52,6 +52,7 @@ let medias =
           "polynudel"
           (Some "/audio/pgPolynudel")
           [ "club", "beat" ]
+      , mk "sand-in" 2025-01-22 "Sand In" (Some "/audio/pgSandIn") [ "beat" ]
       ]
 
 in  { name = "Pastagang", medias }

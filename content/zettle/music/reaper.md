@@ -15,6 +15,8 @@ Better default send:
 - Project -> Track/Send Defaults -> Send gain `-18db`
                                  -> Send midi by default [ ]
 
+Razor edit default action to delete item to simplify the cutting workflow: <kbd>alt</kbd>+`right drag` to razor select, then click to delete.
+
 Assign midi controller, press <kbd>?</kbd> to see action list
 - `:>` Transport play (not play/stop because that requires the button to stay pressed)
 - `[]` Transport stop
