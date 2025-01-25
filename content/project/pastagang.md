@@ -19,3 +19,4 @@ You can find making-of notes here:
 - [[pgShavingClouds]]#
 - [[pgPolynudel]]#
 - [[pgSandIn]]#
+- [[board-of-canudel]]#
