@@ -9,7 +9,7 @@ For this compo I plugged the OP-1 directly into Reaper using a miniFuse audio in
 This was recorded in one-shot, and I kept most of it for a live home studio feel.
 
 :::{.hidden}
-![opCapacity](media/opCapacity.png)
+![opCapacity-final](media/opCapacity-final.png)
 :::
 
 :::{.flex .items-center .justify-center}
@@ -24,9 +24,7 @@ Here are the different tracks:
 - Drum: made with the [J Dilla kit][jdilla], using the drum pattern from Flim (AFX) as transcribed by captain pikant. The snare and hats sometime goes through the COW effect.
 - Bell: made with the dsynth patch named *Haunted*, as usual.
 
-> You can download the project and the raw stems: [opCapacity.RPP][rpp-link]. Open it with a stock [Reaper](https://www.reaper.fm/download.php).
-
-![opCapacity](media/opCapacity.png)
+![opCapacity-final](media/opCapacity-final.png)
 
 [jdilla]: https://op1.fun/users/probablyjm/patches/dilla
 [rpp-link]: https://cdn.midirus.com/stem/2024-11-opCapacity.tar.gz
