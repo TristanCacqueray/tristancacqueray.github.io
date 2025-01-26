@@ -4,6 +4,14 @@ tags: [pastagang]
 ---
 # pastagang - farfalle funk
 
+*farfalle funk* @by pastagang:
+
+:::{.flex .items-center .justify-center}
+<peaks-player url="https://cdn.midirus.com/audio/2024-pastagang/farfalleFunk-edits"></peaks-player>
+:::
+
+> Checkout the [strudel source](https://strudel.cc/?vGTLU-YVDzx-) and the [video](https://youtu.be/AWM4r_6VEmQ?t=1100).
+
 :::{.hidden}
 ![pgFarfalleFunk-final.png](media/pgFarfalleFunk-final.png)
 :::
@@ -24,16 +32,15 @@ I learned how to use the built-in Super8 looper to playback the Strudel's patter
 
 I hope you enjoy this.
 
-:::{.flex .items-center .justify-center}
-<audio controls class="lg:w-[750px] mb-4">
-  <source src="https://cdn.midirus.com/audio/2024-pastagang/farfalleFunk.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
-:::
-
-> Checkout the [strudel source](https://strudel.cc/?vGTLU-YVDzx-) and the [video](https://youtu.be/AWM4r_6VEmQ?t=1100).
-
 Here is how the Reaper project looks like:
+
+![pgFarfalleFunk-edits](media/pgFarfalleFunk-edits.png)
+
+Here was the original version:
+
+:::{.flex .items-center .justify-center}
+<peaks-player url="https://cdn.midirus.com/audio/2024-pastagang/farfalleFunk"></peaks-player>
+:::
 
 ![pgFarfalleFunk-final.png](media/pgFarfalleFunk-final.png)
 

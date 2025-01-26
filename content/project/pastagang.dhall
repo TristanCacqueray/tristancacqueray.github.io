@@ -19,7 +19,7 @@ let mk = mkMedia "2024"
 
 let medias =
         [ mk
-            "farfalleFunk"
+            "farfalleFunk-edits"
             2024-11-23
             "Farfalle Funk"
             (Some "/audio/pgFarfalleFunk")
