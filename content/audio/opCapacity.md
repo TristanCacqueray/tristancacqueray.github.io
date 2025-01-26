@@ -26,5 +26,16 @@ Here are the different tracks:
 
 ![opCapacity-final](media/opCapacity-final.png)
 
+Here was the first version:
+
+![opCapacity-final](media/opCapacity.png)
+
+:::{.flex .items-center .justify-center}
+<audio controls class="md:w-[750px] mb-4">
+  <source src="https://cdn.midirus.com/audio/2022-opFreak/opCapacity.mp3" type="audio/mpeg">
+Your browser does not support the audio element.
+</audio>
+:::
+
 [jdilla]: https://op1.fun/users/probablyjm/patches/dilla
 [rpp-link]: https://cdn.midirus.com/stem/2024-11-opCapacity.tar.gz
