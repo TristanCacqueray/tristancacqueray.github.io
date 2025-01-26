@@ -21,8 +21,7 @@ A Mitadi must be fully hosted on your own server or computer, rather than relyin
 There are three main reasons:
 
 - Protect your visitors' data and don't let it be harvested for profit.
-- Stay available when a third party provider goes down.
-- Distribute the content by copying the files.
+- Distribute your content by copying the files.
 
 > [!info]
 > Serve a local copy of evey asset, including fonts and useful scripts.
@@ -200,7 +199,7 @@ ServerName "local-apache"
 
 
 
-## Pubic Server
+## Public Server
 
 A host is required to serve the content online. This section introduces the available options:
 
@@ -246,9 +245,9 @@ Create notes about everything and make the following links between files:
 ![web-uplink](media/web-uplink.png)
 :::
 
-- **Backlinks** are normal links that points to a given note, displayed at the bottom of the page.
+- **Backlinks** are normal links that points to the current note, displayed at the bottom of the page.
 - **Table of Content** is the list of heading, which must be linkable standalone to refer to a specific part of a note.
-- **Tags** are another way to group note, they are also displayed at the bottom of the page.
+- **Tags** are another way to group notes, they are also displayed at the bottom of the page.
 
 I'm presently using a tool named `emanote` to generate the HTML files, as explained in this [[website|page]].
 
@@ -318,10 +317,10 @@ The following sections explain how to handle transcoding and setup galeries for 
 The workflow goes as follow:
 
 - Move the raw/high quality files to the cdn folder.
-- Run an automated script to generate web preview and setup metadata.
+- Run a script to generate web previews and setup metadata.
 - Add tags.
 
-For example, given a `song.flac` and `demo.mp4`, the script run the following commands:
+For example, given a `song.flac` and `demo.mp4`, the script runs the following commands:
 
 ```bash
 # Set metadata
@@ -332,16 +331,14 @@ ffmpeg -i song.flac -map_metadata 0 -id3v2_version 3 -ar 44100 song.mp3
 ffmpeg -i demo.mp4 -movflags +faststart -c:v libx264 -crf 23 -maxrate 1M -bufsize 2M -c:a copy demo-light.mp4
 ```
 
-An extra file is generated with metadata where tags can be manually added.
-
-Then, a database can be generated using this schema:
+Then, a database can be implemented using this schema:
 
 ```json
 [ {"path": "song", "title": "mon son", "length": "42", "tags": []}
 ]
 ```
 
-- [ ] TODO: formalize this process, it is currently developed in the `src/Audio.hs` module
+- [ ] TODO: formalize this process, it is currently developed in the `src/Medias.hs` module
 
 - [ ] TODO: mention [faircamp](https://simonrepp.com/faircamp/) as an alternative solution compatible with Mitadi.
 
