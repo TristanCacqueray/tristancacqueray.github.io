@@ -13,3 +13,8 @@ Music produced with μFreak and OP-1.
 Here is a compil:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/FEbnpCcX2Mc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+You can find making-of notes here:
+
+- [[opCapacity]]#
+- [[opFlux]]#

@@ -8,10 +8,7 @@ date: 2024-12-01
 :::
 
 :::{.flex .items-center .justify-center}
-<audio controls class="lg:w-[750px] mb-4">
-  <source src="https://cdn.midirus.com/audio/2022-opFreak/opFlux.mp3" type="audio/mpeg">
-Your browser does not support the audio element.
-</audio>
+<peaks-player url="https://cdn.midirus.com/audio/2022-opFreak/opFlux"></peaks-player>
 :::
 
 Here is how the project looks like:
@@ -206,4 +203,4 @@ Also, hardwares feature custom interfaces using physical actuation which are com
 
 Moreover, the resulting signal contains micro rythms, depending on the load of the device or its crystal frequency.
 This can of course be emulated using humanizer or groove algorithms.
-In the end, I think it's the imperfections that matter, and I don't like having to fake them using digital processing.
+In the end, I think it's the imperfections that matter, and by using analog devices there is no need to fake them using digital processing.
