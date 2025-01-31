@@ -168,6 +168,10 @@
         type = "app";
         program = "${build}/bin/build";
       };
+      devShells."x86_64-linux".csv = pkgs.mkShell {
+        buildInputs =
+          [ (hspkgs.ghcWithPackages (p: [ p.cassava ])) pkgs.cabal-install ];
+      };
       devShells."x86_64-linux".mitadi = pkgs.mkShell {
         buildInputs = [
           ghc-unstable
