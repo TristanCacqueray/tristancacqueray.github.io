@@ -20,3 +20,4 @@ You can find making-of notes here:
 - [[pgPolynudel]]#
 - [[pgSandIn]]#
 - [[board-of-canudel]]#
+- [[open-in-strudel]]#

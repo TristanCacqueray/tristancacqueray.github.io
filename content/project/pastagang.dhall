@@ -65,5 +65,13 @@ let medias =
             (Some "/audio/board-of-canudel")
             [ "piano" ]
         ]
+      # [ mkMedia
+            "2025"
+            "open-in-strudel"
+            2025-01-31
+            "Open In Strudel"
+            (Some "/audio/open-in-strudel")
+            [ "beat" ]
+        ]
 
 in  { name = "Pastagang", medias }
