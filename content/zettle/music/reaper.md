@@ -152,8 +152,6 @@ Example settings:
 
 ## Mono kick drum (remove low from side)
 
-TODO: figure out how to make this work
-
 - Encoder
 - Eq (disconnect in1 out1), low shelf -6db at 160Hz
 - Decoder
@@ -278,3 +276,15 @@ spl1=spl1;
 ![reaper-sh-mod](media/reaper-sh-mod.png)
 
 That way, the parameter is getting a new random value according to the S&H script.
+
+## Listening sessions
+
+Here is my workflow:
+
+- Arrange and cuts the items using regular speakers.
+- Apply fine effects like compression and saturation using DT770 headset.
+- Validate the mix with regular headphones and speakers.
+
+I repeat these steps until the track sounds good to me.
+The trick is to wait as long as possible between the sessions to ensure fresh ears.
+I recently overworked on a track, and it was painful to ear how bad it sounded a couple of weeks after I thought I was done with it.
